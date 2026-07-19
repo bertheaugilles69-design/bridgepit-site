@@ -1,0 +1,251 @@
+<!doctype html>
+<!-- BridgePit /setup v2 — editorial manual, real UI plates (demo-data screenshots,
+     no real tokens/accounts). Assets: setup-*.png. LUC: deploy at /setup with the
+     images; update canonical when the domain moves. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BridgePit setup — TradingView to your broker, step by step</title>
+<meta name="description" content="Set up BridgePit in about twenty minutes: install, give TradingView a way to reach your machine, connect your broker, wire the alert, and watch it fill on paper first.">
+<link rel="canonical" href="https://bridgepit.com/setup">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="BridgePit">
+<meta property="og:title" content="BridgePit setup — TradingView to your broker, step by step">
+<meta property="og:description" content="Five steps, done once. Test the whole chain on paper before a dollar is at risk.">
+<meta property="og:image" content="https://bridgepit.com/og.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231B3A6B'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='19' font-weight='600' fill='white' text-anchor='middle'%3EB%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A0D12; --txt:#E6EAF0; --dim:#8C94A1; --dim2:#5C6470;
+    --line:rgba(255,255,255,.08); --plate:#0D1117;
+    --green:#4FB584; --red:#C4574A; --blue:#8FA9D6;
+    --serif:"Newsreader",Georgia,serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Inter",sans-serif;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--txt);font:15.5px/1.65 var(--sans);-webkit-font-smoothing:antialiased}
+  body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:radial-gradient(ellipse 90% 55% at 50% 12%,rgba(44,76,127,.09),transparent 60%)}
+  a{color:inherit;text-decoration:none}
+  :focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+  ::selection{background:rgba(143,169,214,.25)}
+
+  .chrome{display:flex;justify-content:space-between;align-items:baseline;padding:20px 32px;position:relative;z-index:2}
+  .chrome .wm{font:500 20px var(--serif)}
+  .chrome a.back{font:500 12px var(--sans);color:var(--dim2)}
+  .chrome a.back:hover{color:var(--txt)}
+
+  main{position:relative;z-index:1;max-width:680px;margin:0 auto;padding:64px 24px 96px}
+
+  .kicker{font:500 11px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--dim2);margin-bottom:16px}
+  h1{font:500 clamp(32px,5vw,46px)/1.1 var(--serif);letter-spacing:-.014em;color:#fff;margin-bottom:18px;max-width:18ch}
+  .lede{font:400 17px/1.6 var(--sans);color:var(--dim);max-width:54ch}
+  .lede b{color:var(--txt);font-weight:500}
+  .chainline{margin:26px 0 0;font:italic 400 15px var(--serif);color:var(--dim2)}
+  .chainline b{color:var(--dim);font-weight:400}
+
+  .need{margin:64px 0 8px;border-top:1px solid var(--line)}
+  .need h2{font:500 11px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--dim2);padding:14px 0 4px}
+  .need dl{display:grid;grid-template-columns:170px 1fr}
+  .need dt{font-weight:500;color:var(--txt);padding:11px 12px 11px 0;border-bottom:1px solid var(--line)}
+  .need dd{color:var(--dim);padding:11px 0;border-bottom:1px solid var(--line)}
+  .need dd a{color:var(--blue)}
+  .need dd em{font-style:normal;color:var(--txt)}
+
+  /* the rail — sequence spine */
+  .steps{position:relative;margin-top:24px}
+  .steps::before{content:"";position:absolute;left:-44px;top:34px;bottom:20px;width:1px;background:var(--line)}
+  .step{position:relative;padding:56px 0 8px}
+  .step::before{content:"";position:absolute;left:-48px;top:66px;width:9px;height:9px;border-radius:50%;
+    background:var(--bg);border:1.5px solid var(--dim2)}
+  .step.last::before{border-color:var(--green)}
+  .stepno{font:500 11px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--dim2);margin-bottom:8px}
+  .step h2{font:500 clamp(24px,3.4vw,31px)/1.16 var(--serif);letter-spacing:-.012em;color:#fff;margin-bottom:12px;max-width:24ch}
+  .step p{color:var(--dim);margin:0 0 14px;max-width:60ch}
+  .step p b,.step li b{color:var(--txt);font-weight:500}
+  .step .aside{font-size:13.5px;color:var(--dim2);max-width:58ch}
+  .step .caution{color:var(--dim);max-width:58ch}
+  .step .caution b{color:#D8A46A}
+  code{font:.9em var(--mono);background:rgba(255,255,255,.055);border-radius:5px;padding:1px 6px;color:#C9D3DF;white-space:nowrap}
+
+  .plate{margin:20px 0 6px;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--plate)}
+  .plate img{display:block;width:100%;height:auto}
+  .figcap{font:italic 400 13.5px var(--serif);color:var(--dim2);margin:8px 0 4px}
+  .figcap b{font-style:normal;font-weight:400;color:var(--dim)}
+
+  pre{background:var(--plate);border:1px solid var(--line);border-radius:10px;padding:15px 18px;overflow-x:auto;
+    font:12.5px/1.75 var(--mono);color:#C9D3DF;margin:18px 0 6px}
+  pre code{background:none;padding:0;white-space:pre}
+  pre .cm{color:var(--dim2)}
+  pre .hl{color:#A8C7E8}
+
+  .moves{list-style:none;margin:18px 0 6px;counter-reset:mv}
+  .moves li{position:relative;padding:12px 0 12px 44px;border-top:1px solid var(--line);color:var(--dim);counter-increment:mv;max-width:60ch}
+  .moves li::before{content:counter(mv);position:absolute;left:0;top:11px;width:26px;height:26px;border-radius:50%;
+    border:1px solid var(--line);color:var(--txt);font:500 13px/26px var(--sans);text-align:center}
+  .moves li b{color:var(--txt);font-weight:500}
+
+  .term{margin:18px 0 6px;border:1px solid var(--line);border-radius:10px;background:var(--plate);overflow:hidden}
+  .term .bar{display:flex;gap:6px;padding:10px 14px;border-bottom:1px solid var(--line)}
+  .term .bar i{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.12)}
+  .term pre{margin:0;border:none;border-radius:0}
+  .term .you{color:#E6EAF0}
+  .term .out{color:var(--dim2)}
+  .term .url{color:#A8C7E8}
+
+  .fix{margin-top:72px;border-top:1px solid var(--line);padding-top:18px}
+  .fix h2{font:500 clamp(24px,3.4vw,31px)/1.16 var(--serif);color:#fff;margin:6px 0 18px}
+  .fix table{width:100%;border-collapse:collapse;font-size:14px}
+  .fix th{font:500 11px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--dim2);text-align:left;padding:0 12px 8px 0;border-bottom:1px solid var(--line)}
+  .fix td{padding:11px 12px 11px 0;border-bottom:1px solid var(--line);color:var(--dim);vertical-align:top}
+  .fix td:first-child{color:var(--txt);width:200px;font-family:var(--mono);font-size:13px}
+  .fix p{color:var(--dim);margin-top:16px}
+  .fix a{color:var(--blue)}
+
+  .habit{margin-top:72px}
+  .habit p{font:400 19px/1.55 var(--serif);color:var(--dim);max-width:52ch}
+  .habit p b{color:var(--txt);font-weight:500}
+
+  footer{border-top:1px solid var(--line);margin-top:32px;padding:26px 32px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
+    color:var(--dim2);font-size:13px;position:relative;z-index:1}
+  footer a:hover{color:var(--txt)}
+
+  @media (max-width:900px){ .steps::before,.step::before{display:none} .step{padding-top:44px} }
+  @media (max-width:560px){ .need dl{grid-template-columns:1fr} .need dt{border-bottom:none;padding-bottom:0} .need dd{padding-top:2px} .fix td:first-child{width:auto} }
+</style>
+</head>
+<body>
+
+<div class="chrome">
+  <a class="wm" href="./">BridgePit</a>
+  <a class="back" href="./">← Back to BridgePit</a>
+</div>
+
+<main>
+  <div class="kicker">Setup guide · about 20 minutes</div>
+  <h1>Wire it once. Test it on paper. Then trade.</h1>
+  <p class="lede">Five steps, done one time on the machine you trade from. Nothing here risks money: the free tier trades <b>paper only</b>, so you'll see the whole chain fill before a single real order can exist.</p>
+  <p class="chainline">The chain you're building: <b>TradingView&nbsp;→&nbsp;your machine&nbsp;→&nbsp;your broker.</b></p>
+
+  <section class="need">
+    <h2>You'll need</h2>
+    <dl>
+      <dt>Your computer</dt><dd>The Mac app is ready today (M1 or newer); the Windows version is on its way. Use the machine you normally trade from.</dd>
+      <dt>TradingView</dt><dd>Any plan with webhook alerts — Essential and up.</dd>
+      <dt>A Tradovate account</dt><dd>With API access enabled. Tradovate charges a <em>$25/month API add-on</em>, paid to Tradovate directly.</dd>
+      <dt>Tailscale</dt><dd>A free app, used once in step two — <a href="https://tailscale.com/download">tailscale.com/download</a>.</dd>
+      <dt>Your license key</dt><dd>Only for going live later. Paper trading needs no key and no card.</dd>
+    </dl>
+  </section>
+
+  <div class="steps">
+
+    <section class="step">
+      <div class="stepno">Step one</div>
+      <h2>Install BridgePit.</h2>
+      <p>Download the Mac app, open the file, drag <b>BridgePit</b> into Applications, and launch it. Your browser opens the dashboard at <code>127.0.0.1:8787</code> — an address that means <b>this computer</b>. Your settings, credentials, and controls live there and answer to no one else.</p>
+      <p class="aside">If macOS warns about an unidentified developer the first time: right-click the app, choose Open, then Open again. Once.</p>
+    </section>
+
+    <section class="step">
+      <div class="stepno">Step two</div>
+      <h2>Give your machine an address TradingView can find.</h2>
+      <p>Here's the thing this step solves: TradingView lives on the internet, and your computer — on purpose — can't be found from the internet. So we give it one address, for one door, once. A free app called Tailscale does it. Three small moves:</p>
+      <ol class="moves">
+        <li><b>Install Tailscale and sign in.</b> Download it at <a href="https://tailscale.com/download" style="color:var(--blue)">tailscale.com/download</a>, open it, and sign in with Google or Apple — the free personal plan is all you need.</li>
+        <li><b>Open Terminal.</b> Press <code>⌘ space</code>, type <b>Terminal</b>, press return. A plain text window opens — you'll type exactly one line in it, ever.</li>
+        <li><b>Paste this line and press return:</b></li>
+      </ol>
+      <div class="term"><div class="bar"><i></i><i></i><i></i></div><pre><code><span class="you">tailscale funnel --bg 8787</span>
+<span class="out">Available on the internet:</span>
+<span class="url">https://your-mac.tail1234.ts.net</span>
+<span class="out">→ 127.0.0.1:8787</span></code></pre></div>
+      <p class="figcap"><b>Terminal.</b> The middle line — yours will show your own machine's name — is your new address. Done; you can close the window.</p>
+      <p>That's the whole trick, and you never have to type it again. From now on the app shows your finished webhook address — your new address with <code>/webhook</code> on the end — ready to copy, under <b>Settings → Your webhook</b>:</p>
+      <figure class="plate"><img src="setup-webhook.png" alt="The Settings page showing your webhook URL and token, each with a copy button" width="2080" height="540"></figure>
+      <p class="figcap"><b>Settings → Your webhook.</b> Top box: where alerts go. Bottom box: the token that proves an alert is yours. You'll paste both in step four.</p>
+      <p class="aside">Is a public address safe? Yes, by design: through it, the app answers alerts and nothing else — and only alerts carrying your token. Your dashboard, settings, and broker login answer only on this computer. That's enforced inside the app, not just by the tunnel.</p>
+    </section>
+
+    <section class="step">
+      <div class="stepno">Step three</div>
+      <h2>Connect your broker.</h2>
+      <p><b>Connections → + Add connection.</b> Pick your broker, enter the login your broker or prop firm gave you, then <b>Save &amp; Connect</b>. The status pill turns green; your first connection becomes the execution account automatically.</p>
+      <figure class="plate"><img src="setup-connection.png" alt="A saved Tradovate connection card with its controls" width="2072" height="420"></figure>
+      <p class="figcap"><b>Connections.</b> Your login is shown masked; the pill goes green once connected.</p>
+      <p class="aside">Credentials are encrypted on your machine with a key that never leaves it, used only to open your broker session. They never touch our servers — we couldn't read them if we wanted to.</p>
+    </section>
+
+    <section class="step">
+      <div class="stepno">Step four</div>
+      <h2>Name your strategy. Wire the alert.</h2>
+      <p>On <b>Strategies</b>, add your strategy. The name is the handshake — your alert must send exactly the same one — and the size multiplier is a hard cap on how big this strategy may ever get.</p>
+      <figure class="plate"><img src="setup-strategy.png" alt="The Strategies table with one strategy: ORB-5m on MNQ1!, size ×2, enabled" width="2072" height="252"></figure>
+      <p class="figcap"><b>Strategies.</b> One row per strategy; the cap applies before any order leaves.</p>
+      <p>Then, in TradingView, create an alert on your strategy and fill in two fields. <b>Webhook URL</b>: paste the address from step two. <b>Message</b>: paste the block below as-is — you only ever touch the highlighted values (your strategy name, your token in its two spots, your connection name and account), everything else stays exactly like this:</p>
+<pre><code>{
+  "strategy_name": "<span class="hl">ORB-5m</span>",              <span class="cm">← same name as in the app</span>
+  "symbol": "{{ticker}}",
+  "data": "{{strategy.order.action}}",
+  "quantity": "{{strategy.order.contracts}}",
+  "price": "{{close}}",
+  "date": "now",
+  "order_type": "MKT",
+  "token": "<span class="hl">your-token-from-settings</span>",
+  "multiple_accounts": [{
+    "token": "<span class="hl">your-token-from-settings</span>",
+    "connection_name": "<span class="hl">TRADOVATE1</span>",     <span class="cm">← the name from step three</span>
+    "account_id": "<span class="hl">your-account-id</span>",
+    "quantity_multiplier": 1
+  }]
+}</code></pre>
+      <p class="aside">Already sending PickMyTrade-format alerts? They work unchanged — point them at <code>/v2/add-trade-data</code> on your new address. Migrating is editing one URL per alert.</p>
+    </section>
+
+    <section class="step last">
+      <div class="stepno">Step five</div>
+      <h2>Fire one alert. Watch it fill on paper.</h2>
+      <p>Trigger your alert once. Then look at the dashboard:</p>
+      <figure class="plate"><img src="setup-fills.png" alt="The activity feed: a buy order and fill, a rejected duplicate, then the sell order and fill — all marked paper" width="2072" height="630"></figure>
+      <p class="figcap"><b>Recent activity.</b> A full round trip on paper — and one duplicate alert caught and refused on the way.</p>
+      <p>A <b>FILL</b> row wearing your strategy's name means the whole chain works: TradingView reached your machine, your machine simulated the order. Nothing touched a real account — going live requires a green broker connection <b>and</b> an active subscription. Until both are true, everything stays paper by design.</p>
+      <p>When you're ready, paste the license key from your purchase email under <b>Subscription</b>:</p>
+      <figure class="plate"><img src="setup-license.png" alt="The license key field on the Subscription page with its Activate button" width="2072" height="252"></figure>
+      <p class="figcap"><b>Subscription.</b> The key activates on this machine — no account to create.</p>
+      <p class="caution"><b>Before your first live session:</b> open <b>Settings → Risk controls</b> and set the daily loss stop to your firm's daily limit or tighter. The end-of-day flatten (15:55 ET unless you change it), per-strategy caps, duplicate rejection, and the dashboard kill-switch are already on.</p>
+    </section>
+
+  </div>
+
+  <section class="fix">
+    <div class="stepno">If something doesn't work</div>
+    <h2>Every failure says its name.</h2>
+    <table>
+      <tr><th>You see</th><th>It means</th></tr>
+      <tr><td>bad token</td><td>The token in your alert doesn't match Settings. Re-copy it into both places it appears in the message.</td></tr>
+      <tr><td>unknown strategy</td><td>The alert's <code>strategy_name</code> doesn't exactly match a strategy in the app. Case and spaces count.</td></tr>
+      <tr><td>REJECT · burst duplicate</td><td>Working as intended — the same signal arrived twice within seconds and the copy was refused.</td></tr>
+      <tr><td>nothing appears at all</td><td>TradingView can't reach your machine. Run <code>tailscale funnel status</code>, and check the URL ends in <code>/webhook</code>.</td></tr>
+      <tr><td>fills say (paper) after subscribing</td><td>Live needs a green connection <b>and</b> an activated key — check both on the dashboard.</td></tr>
+    </table>
+    <p>Stuck anyway? <a href="mailto:support@bridgepit.com">support@bridgepit.com</a> — paste the row from Recent activity if there is one, and you'll get a specific answer.</p>
+  </section>
+
+  <section class="habit">
+    <p>One habit, from us and every prop firm's rulebook: BridgePit executes, <b>you supervise</b>. Keep the machine on during your hours, glance at the dashboard the way you'd glance at a position, quit only when you're flat. Your alerts, your broker, your IP — and you, still the trader.</p>
+  </section>
+</main>
+
+<footer>
+  <div>© 2026 BridgePit · <a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a> · <a href="mailto:support@bridgepit.com">Contact</a></div>
+  <div><a href="./">bridgepit.com</a></div>
+</footer>
+
+</body>
+</html>

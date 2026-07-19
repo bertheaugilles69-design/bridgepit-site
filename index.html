@@ -1,0 +1,772 @@
+<!doctype html>
+<!-- BridgePit — "One trading day" v3. Per Gilles 2026-07-18 (2nd round):
+     keep chart + entry/exit story, drop the raw app-terminal look.
+     Premium dark presentation: glass stat pills, event toasts instead of
+     a log strip, serif captions, calmer chrome. One render(p); scroll on
+     desktop, 24s auto-loop on touch/small, end-state for reduced-motion.
+     Debug: ?p=0.42. All data simulated and labeled. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BridgePit — One trading day, executed from your own machine</title>
+<meta name="description" content="BridgePit executes your TradingView alerts on your own futures account, from your own computer and IP — no cloud middleman. Built by funded traders for funded traders.">
+<!-- LUC: update canonical/og URLs when the domain moves off bridgepit.com -->
+<link rel="canonical" href="https://bridgepit.com/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="BridgePit">
+<meta property="og:title" content="BridgePit — your TradingView strategies, executed from your own computer">
+<meta property="og:description" content="Local execution for funded futures traders. No cloud middleman — orders leave from your own IP, credentials never leave your machine.">
+<meta property="og:url" content="https://bridgepit.com/">
+<meta property="og:image" content="https://bridgepit.com/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="BridgePit — your TradingView strategies, executed from your own computer">
+<meta name="twitter:description" content="Local execution for funded futures traders. No cloud middleman — your IP, your machine, your broker.">
+<meta name="twitter:image" content="https://bridgepit.com/og.png">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"BridgePit",
+ "applicationCategory":"FinanceApplication","operatingSystem":"macOS, Windows",
+ "description":"Desktop software that executes TradingView strategy alerts on the trader's own futures broker account, locally from the trader's own computer and IP address.",
+ "offers":[{"@type":"Offer","name":"Paper","price":"0","priceCurrency":"USD"},
+           {"@type":"Offer","name":"Pro","price":"49","priceCurrency":"USD"},
+           {"@type":"Offer","name":"Multi","price":"99","priceCurrency":"USD"}]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+ {"@type":"Question","name":"Is BridgePit allowed at my prop firm?","acceptedAnswer":{"@type":"Answer","text":"BridgePit runs on your own computer and places orders from your own IP — no cloud server between your signals and your broker. Rules differ by firm and change, so always check your firm's current policy. You stay in supervision: kill-switch, position caps, daily failsafes."}},
+ {"@type":"Question","name":"What does my prop firm actually see?","acceptedAnswer":{"@type":"Answer","text":"Your broker sees orders arriving through its API from your IP, flagged as automated — an exchange requirement. Most firms' rules target cloud copiers on datacenter IPs and unsupervised bots, not supervised execution from your own machine."}},
+ {"@type":"Question","name":"Is it fully automated?","acceptedAnswer":{"@type":"Answer","text":"Semi-automated by design: it executes your alerts, you supervise. That's also what most prop firms require of automated traders."}},
+ {"@type":"Question","name":"Do you see my broker password?","acceptedAnswer":{"@type":"Answer","text":"No. Credentials are encrypted on your machine with a key that never leaves it and are used only to open your broker session. They never touch our servers."}},
+ {"@type":"Question","name":"Which brokers are supported?","acceptedAnswer":{"@type":"Answer","text":"Tradovate at launch; Rithmic is in certification. Tradovate charges a $25/month API-access add-on, paid to Tradovate directly."}},
+ {"@type":"Question","name":"What happens if my internet drops?","acceptedAnswer":{"@type":"Answer","text":"BridgePit reconnects continuously and alerts you by email and Telegram. The end-of-day flatten retries until your account is confirmed flat."}},
+ {"@type":"Question","name":"Does my computer need to stay on?","acceptedAnswer":{"@type":"Answer","text":"During your trading hours, yes — that's what executing from your own IP means. The machine you already trade on works; so does an always-on mini PC."}}]}
+</script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231B3A6B'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='19' font-weight='600' fill='white' text-anchor='middle'%3EB%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A0D12; --txt:#E6EAF0; --dim:#8C94A1; --dim2:#5C6470;
+    --glass:rgba(22,27,36,.72); --gborder:rgba(255,255,255,.07);
+    --green:#4FB584; --red:#C4574A;
+    --serif:"Newsreader",Georgia,serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Inter",sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--txt);font:15px/1.6 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:radial-gradient(ellipse 90% 60% at 50% 30%,rgba(44,76,127,.10),transparent 65%)}
+  a{color:inherit;text-decoration:none}
+  :focus-visible{outline:2px solid #8FA9D6;outline-offset:2px}
+  .num{font-variant-numeric:tabular-nums}
+
+  .chrome{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;justify-content:space-between;align-items:center;padding:18px 32px}
+  .chrome .wm{font:500 20px var(--serif)}
+  .chrome .right{display:flex;gap:18px;align-items:center;font:500 12px var(--sans);color:var(--dim2)}
+  .chrome .alt{color:var(--dim)}
+  .chrome .alt:hover{color:var(--txt)}
+
+  .track{height:440vh;position:relative}
+  .stage{position:sticky;top:0;height:100vh;overflow:hidden}
+  body.auto .track{height:auto}
+  body.auto .stage{position:relative;height:100svh}
+
+  /* clock + status */
+  .hud{position:absolute;top:70px;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:0 40px;z-index:8}
+  .clock{font:500 20px var(--sans);color:var(--dim);letter-spacing:.02em}
+  .clock b{color:var(--txt);font-weight:500}
+  .status{display:inline-flex;align-items:center;gap:8px;background:var(--glass);border:1px solid var(--gborder);
+          border-radius:99px;padding:7px 14px;font:500 12.5px var(--sans);color:var(--dim);backdrop-filter:blur(10px)}
+  .status .dot{width:7px;height:7px;border-radius:50%;background:var(--dim2);transition:background .3s}
+  .status.on .dot{background:var(--green)}
+
+  /* chart — borderless, edge-faded */
+  .chartzone{position:absolute;inset:120px 0 150px;z-index:1}
+  .chartzone svg{display:block;width:100%;height:100%;
+    -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 4%,#000 96%,transparent 100%);
+    mask-image:linear-gradient(90deg,transparent 0,#000 4%,#000 96%,transparent 100%)}
+  .pricechip{position:absolute;top:14px;right:40px;background:var(--glass);border:1px solid var(--gborder);
+    border-radius:99px;padding:8px 16px;font:500 13px var(--sans);color:var(--dim);backdrop-filter:blur(10px)}
+  .pricechip b{color:var(--txt);font-weight:500;margin-left:8px}
+
+  /* event toast */
+  .toast{position:absolute;top:118px;left:50%;transform:translate(-50%,-6px);z-index:12;
+    display:flex;align-items:center;gap:10px;background:var(--glass);border:1px solid var(--gborder);
+    border-radius:12px;padding:11px 18px;font:500 13.5px var(--sans);color:var(--txt);
+    backdrop-filter:blur(12px);box-shadow:0 10px 34px -12px rgba(0,0,0,.6);
+    opacity:0;transition:opacity .3s,transform .3s;white-space:nowrap;max-width:92vw;overflow:hidden;text-overflow:ellipsis}
+  .toast.on{opacity:1;transform:translate(-50%,0)}
+  .toast .ic{width:8px;height:8px;border-radius:50%;flex:none}
+  .toast.g .ic{background:var(--green)} .toast.r .ic{background:var(--red)} .toast.b .ic{background:#8FA9D6}
+  .toast small{color:var(--dim);font-weight:400;margin-left:6px}
+
+  /* stat pills */
+  .stats{position:absolute;left:50%;bottom:64px;transform:translateX(-50%);z-index:10;
+    display:flex;align-items:stretch;background:var(--glass);border:1px solid var(--gborder);
+    border-radius:16px;backdrop-filter:blur(14px);box-shadow:0 14px 44px -16px rgba(0,0,0,.65)}
+  .stats>div{padding:14px 26px;border-left:1px solid var(--gborder);min-width:150px}
+  .stats>div:first-child{border-left:none}
+  .stats .lbl{font:500 11px var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--dim2);margin-bottom:3px}
+  .stats .val{font:500 17px var(--sans);color:var(--txt);white-space:nowrap}
+  .stats .val.up{color:var(--green)} .stats .val.dn{color:var(--red)} .stats .val.dim{color:var(--dim)}
+  .stats .val small{font-size:12px;color:var(--dim);font-weight:400}
+
+  /* captions */
+  .cap-narr{position:absolute;left:56px;bottom:170px;width:min(500px,74vw);z-index:9;pointer-events:none}
+  .narr{position:absolute;bottom:0;left:0;width:100%;opacity:0;transform:translateY(8px);transition:opacity .4s,transform .4s}
+  .narr.on{opacity:1;transform:none}
+  .narr h2{font:500 clamp(26px,3vw,40px)/1.12 var(--serif);letter-spacing:-.01em;color:#fff;margin-bottom:6px;text-shadow:0 1px 16px rgba(10,13,18,.9)}
+  .narr p{font:400 15px/1.5 var(--sans);color:var(--dim);text-shadow:0 1px 12px rgba(10,13,18,.9)}
+
+  .finale{position:absolute;inset:0;z-index:20;display:grid;place-items:center;text-align:center;
+    background:radial-gradient(ellipse at 50% 42%,rgba(10,13,18,.35),rgba(10,13,18,.96) 70%);
+    opacity:0;pointer-events:none;transition:opacity .5s}
+  .finale.on{opacity:1;pointer-events:auto}
+  .finale h2{font:500 clamp(34px,4.6vw,56px)/1.1 var(--serif);letter-spacing:-.014em;margin-bottom:16px;color:#fff}
+  .finale p{color:var(--dim);font-size:17px;max-width:42ch;margin:0 auto 32px}
+  .btn{display:inline-block;border:1px solid transparent;border-radius:10px;padding:14px 28px;font:600 15px/1 var(--sans);cursor:pointer}
+  .btn-w{background:#fff;color:#0A0D12}
+  .btn-w:hover{background:#E4E2DA}
+  .btn-o{border-color:rgba(255,255,255,.18);color:var(--txt);margin-left:10px}
+  .btn-o:hover{border-color:var(--dim)}
+  .finale .fine{margin-top:20px;font:400 12.5px var(--sans);color:var(--dim2)}
+
+  .rail{position:fixed;right:0;top:0;bottom:0;width:3px;z-index:41}
+  .rail i{display:block;width:100%;height:0;background:#8FA9D6;opacity:.45}
+  body.auto .rail{display:none}
+  .hint{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);z-index:12;
+    font:500 11px var(--sans);letter-spacing:.16em;color:var(--dim2);text-transform:uppercase;
+    animation:hintpulse 2.2s ease-in-out infinite}
+  @keyframes hintpulse{0%,100%{opacity:.4}50%{opacity:1}}
+
+  /* ── the stake ── */
+  .stake{position:relative;z-index:1;background:#090C10;border-top:1px solid var(--gborder);padding:130px 24px;text-align:center}
+  .stake .s1{font:400 15px var(--sans);letter-spacing:.06em;color:var(--dim2);text-transform:uppercase;margin-bottom:22px}
+  .stake h2{font:500 clamp(32px,4.4vw,54px)/1.12 var(--serif);letter-spacing:-.014em;color:#fff;max-width:22ch;margin:0 auto 26px}
+  .stake .s2{font:400 18px/1.7 var(--sans);color:var(--dim);max-width:46ch;margin:0 auto}
+  .stake .s2 b{color:#fff;font-weight:600}
+  .stake .turn{margin-top:34px;font:500 20px var(--serif);font-style:italic;color:#C9D2DE}
+
+  /* ── closing CTA ── */
+  .band{position:relative;z-index:1;text-align:center;padding:110px 24px}
+  .band h2{font:500 clamp(30px,4vw,46px)/1.1 var(--serif);letter-spacing:-.012em;color:#fff;margin-bottom:14px}
+  .band p{color:var(--dim);max-width:46ch;margin:0 auto 30px;font-size:16.5px}
+
+  /* ── content sections below the session ── */
+  .below{position:relative;z-index:1;background:#0C0F15;border-top:1px solid var(--gborder)}
+  .sec{max-width:1060px;margin:0 auto;padding:96px 24px 8px}
+  .sec:last-of-type{padding-bottom:60px}
+  .eyebrow{font:600 12px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--dim2);margin-bottom:12px}
+  .sec h2{font:500 clamp(28px,3.4vw,40px)/1.14 var(--serif);letter-spacing:-.012em;color:#fff;margin-bottom:12px;max-width:26ch}
+  .sec .sub{color:var(--dim);max-width:62ch;margin-bottom:48px;font-size:16px}
+  .gcard{background:var(--glass);border:1px solid var(--gborder);border-radius:16px;backdrop-filter:blur(10px)}
+
+  /* live replica of the real dashboard (styles mirror the app's own CSS) */
+  .appframe{border-radius:12px;border:1px solid var(--gborder);overflow:hidden;
+    box-shadow:0 30px 80px -28px rgba(0,0,0,.85);background:#0a0c10;
+    display:grid;grid-template-columns:200px 1fr;font:13px/1.55 var(--sans)}
+  @media(max-width:820px){.appframe{grid-template-columns:1fr}.aside{display:none}}
+  .aside{background:#0d1117;border-right:1px solid #1e242c;padding:16px 12px}
+  .aside .logo{display:flex;align-items:center;gap:9px;font-weight:700;font-size:15px;color:#e8edf3;padding:4px 8px 18px}
+  .aside .logo i{width:24px;height:24px;border-radius:7px;background:linear-gradient(135deg,#6366f1,#a855f7);
+    display:grid;place-items:center;color:#fff;font-style:normal;font-weight:800;font-size:13px}
+  .aside span{display:block;padding:7px 9px;border-radius:8px;color:#8b95a5;font-weight:500;font-size:12.5px}
+  .aside span.on{background:rgba(99,102,241,.14);color:#818cf8}
+  .amain{min-width:0}
+  .atop{display:flex;justify-content:space-between;align-items:center;padding:12px 18px;border-bottom:1px solid #1e242c}
+  .atop b{font-size:13.5px;color:#e8edf3;font-weight:650}
+  .apill{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600;
+    background:rgba(34,197,94,.13);color:#22c55e}
+  .apill.halt{background:rgba(245,158,11,.13);color:#f5a623}
+  .apill i{width:6px;height:6px;border-radius:50%;background:currentColor;font-style:normal}
+  .acards{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:14px 18px}
+  @media(max-width:640px){.acards{grid-template-columns:1fr 1fr}}
+  .acard{background:#12161d;border:1px solid #1e242c;border-radius:10px;padding:12px 13px}
+  .acard h5{font-size:9.5px;text-transform:uppercase;letter-spacing:.6px;color:#8b95a5;font-weight:600;margin-bottom:8px}
+  .acard .v{font-size:19px;font-weight:750;color:#e8edf3;letter-spacing:-.4px;font-variant-numeric:tabular-nums}
+  .acard .s{color:#8b95a5;font-size:11.5px;margin-top:2px}
+  .akill{border:none;border-radius:7px;padding:7px 12px;font:600 11.5px var(--sans);cursor:pointer;background:#ef4444;color:#fff}
+  .akill.resume{background:#22c55e}
+  .alog{padding:2px 18px 14px}
+  .alog .lt{font-size:12px;font-weight:650;color:#e8edf3;margin:4px 0 8px}
+  .alog table{width:100%;border-collapse:collapse}
+  .alog th{text-align:left;font-size:9.5px;text-transform:uppercase;letter-spacing:.5px;color:#616b7a;
+    padding:6px 8px;border-bottom:1px solid #1e242c;font-weight:600}
+  .alog td{padding:7px 8px;border-bottom:1px solid #171c24;font-size:11.5px;color:#c6ccd6;
+    font-variant-numeric:tabular-nums;white-space:nowrap}
+  .alog td:last-child{max-width:0;width:99%;overflow:hidden;text-overflow:ellipsis}
+  .alog td.tk{color:#616b7a;font-family:var(--mono);font-size:10.5px}
+  .alog td.ev{font-weight:600;font-size:11px}
+  .alog td.st{padding-right:14px}
+  .alog tr.fresh td{animation:approw .35s ease}
+  @keyframes approw{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:none}}
+  @media(prefers-reduced-motion:reduce){.alog tr.fresh td{animation:none}}
+  .ev.FILL{color:#22c55e}.ev.ORDER{color:#818cf8}.ev.REJECT{color:#ef4444}.ev.HALT{color:#ef4444}.ev.RESUME{color:#22c55e}.ev.EODCHECK{color:#f5a623}
+  .shotcap{margin-top:14px;font-size:13px;color:var(--dim)}
+  .shotcap b{color:var(--txt)}
+  .tgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:8px}
+  @media(max-width:880px){.tgrid{grid-template-columns:1fr 1fr}}
+  .tgrid>div{padding:22px;border-radius:16px;background:var(--glass);border:1px solid var(--gborder)}
+  .tgrid b{display:block;color:#fff;font-weight:600;margin-bottom:4px}
+  .tgrid span{color:var(--dim);font-size:14px}
+
+  .arch{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:8px}
+  @media(max-width:760px){.arch{grid-template-columns:1fr}}
+  .arch h3{font:600 16px var(--sans);color:#fff;margin-bottom:8px}
+  .arch p{color:var(--dim);font-size:15px}
+  .diagwrap{padding:36px 24px;margin-bottom:44px;overflow-x:auto}
+  .diagwrap svg{display:block;margin:0 auto;min-width:620px;max-width:760px}
+  @media(max-width:640px){.diagwrap svg{min-width:520px}}
+
+  .reg{border-top:1px solid rgba(255,255,255,.14)}
+  .reg .row{display:grid;grid-template-columns:250px 1fr;gap:32px;padding:24px 0;border-bottom:1px solid var(--gborder)}
+  @media(max-width:700px){.reg .row{grid-template-columns:1fr;gap:6px}}
+  .reg h3{font:600 16px var(--sans);color:#fff}
+  .reg h3 span{display:block;font:600 10.5px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--dim2);margin-top:6px}
+  .reg p{color:var(--dim);font-size:15px;align-self:center}
+
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  @media(max-width:760px){.steps{grid-template-columns:1fr}}
+  .step{padding:24px;border-radius:16px;background:var(--glass);border:1px solid var(--gborder)}
+  .step .n{font:600 12px var(--sans);color:var(--dim2);letter-spacing:.1em}
+  .step h3{font:600 16.5px var(--sans);color:#fff;margin:10px 0 8px}
+  .step p{color:var(--dim);font-size:14.5px}
+
+  .price{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;align-items:stretch}
+  @media(max-width:760px){.price{grid-template-columns:1fr}}
+  .tier{padding:30px 28px;border-radius:16px;background:var(--glass);border:1px solid var(--gborder);display:flex;flex-direction:column}
+  .tier.pro{border-color:rgba(255,255,255,.28);box-shadow:0 18px 50px -22px rgba(0,0,0,.7)}
+  .tier .name{font:600 12px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+  .tier .ftag{font:600 11.5px var(--sans);color:var(--green);margin-top:8px}
+  .tier .amt{font:500 42px var(--serif);letter-spacing:-.02em;color:#fff;margin:14px 0 2px}
+  .tier .amt span{font:400 15px var(--sans);color:var(--dim)}
+  .tier .for{font-size:14px;color:var(--dim);margin-bottom:20px}
+  .tier ul{list-style:none;margin-bottom:26px}
+  .tier li{font-size:14.5px;color:var(--dim);padding:8px 0 8px 22px;position:relative;border-top:1px solid var(--gborder)}
+  .tier li::before{content:"—";position:absolute;left:0;color:var(--txt)}
+  .tier .btn{margin-top:auto;text-align:center;margin-left:0}
+  .founding{margin-top:18px;font-size:14px;color:var(--dim)}
+  .founding b{color:#fff}
+
+  .faq{max-width:760px}
+  .qa{border-bottom:1px solid var(--gborder)}
+  .qa summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;
+              padding:20px 0;font:600 16px var(--sans);color:#fff}
+  .qa summary::-webkit-details-marker{display:none}
+  .qa summary::after{content:"+";font:400 22px var(--sans);color:var(--dim2);transition:transform .2s}
+  .qa[open] summary::after{transform:rotate(45deg)}
+  .qa p{color:var(--dim);font-size:14.5px;padding:0 34px 20px 0}
+
+  .archline{display:flex;gap:10px;align-items:baseline;padding:18px 22px}
+  .archline b{color:#fff;font-weight:600;white-space:nowrap}
+  .archline span{color:var(--dim);font-size:14px}
+  .rgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+  @media(max-width:980px){.rgrid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:560px){.rgrid{grid-template-columns:1fr}}
+  .rcard{background:var(--glass);border:1px solid var(--gborder);border-radius:14px;padding:18px}
+  .rcard i{display:block;width:8px;height:8px;border-radius:50%;margin-bottom:12px}
+  .rcard b{display:block;color:#fff;font-weight:600;font-size:14.5px;margin-bottom:4px}
+  .rcard span{color:var(--dim);font-size:13px;line-height:1.5}
+
+  .sec,.tgrid>div,.rcard,.step,.tier{opacity:0;transform:translateY(14px);transition:opacity .55s ease,transform .55s ease}
+  .sec.vis,.sec.vis .tgrid>div,.sec.vis .rcard,.sec.vis .step,.sec.vis .tier{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.sec,.tgrid>div,.rcard,.step,.tier{opacity:1;transform:none;transition:none}}
+
+  .dlrow{display:flex;gap:14px;flex-wrap:wrap;margin-top:6px}
+  .btn-n{background:#fff;color:#0A0D12}
+  .btn-n:hover{background:#E4E2DA}
+  .btn-gn{border:1px solid rgba(255,255,255,.18);color:var(--txt)}
+  .btn-gn:hover{border-color:var(--dim)}
+
+  .foot{max-width:1060px;margin:40px auto 0;padding:28px 24px 56px;border-top:1px solid var(--gborder);
+        font-size:13px;color:var(--dim2);display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
+  .foot a{color:var(--dim)}
+  .foot .legal{max-width:72ch;line-height:1.7}
+
+  @media(max-width:720px){
+    .hud{top:60px;padding:0 18px}
+    .clock{font-size:16px}
+    .chartzone{inset:104px 0 170px}
+    .pricechip{right:18px}
+    .stats{bottom:56px;flex-wrap:wrap;border-radius:14px;max-width:92vw}
+    .stats>div{padding:11px 16px;min-width:0;flex:1 1 40%}
+    .cap-narr{left:18px;bottom:200px}
+    .chrome{padding:14px 18px}
+    .toast{top:100px}
+  }
+  @media(prefers-reduced-motion:reduce){.hint{animation:none}}
+</style>
+</head>
+<body>
+
+<div class="chrome">
+  <a class="wm" href="#">BridgePit</a>
+  <div class="right">
+    <a class="alt" href="#how">How it works</a>
+    <a class="alt" href="#pricing">Pricing</a>
+    <a class="alt" href="#faq">FAQ</a>
+    <a class="alt" href="#download" style="color:var(--txt)">Download</a>
+  </div>
+</div>
+<div class="rail"><i id="railfill"></i></div>
+
+<div class="track" id="track">
+<div class="stage" id="stage">
+
+  <div class="hud">
+    <div class="clock num"><b id="clock">09:29:31</b> ET</div>
+    <div class="status" id="status"><span class="dot"></span><span id="statusTxt">Pre-market · connected · flat</span></div>
+  </div>
+
+  <div class="toast" id="toast"><span class="ic"></span><span id="toastTxt"></span></div>
+
+  <div class="chartzone">
+    <svg id="chart" viewBox="0 0 1200 420" preserveAspectRatio="none"></svg>
+    <div class="pricechip num">MNQ · simulated<b id="lastpx">23,388.00</b></div>
+  </div>
+
+  <div class="cap-narr">
+    <div class="narr" data-n="0"><h2>09:29 — before the bell.</h2><p>BridgePit sits on your machine. Connected, flat, silent. Scroll.</p></div>
+    <div class="narr" data-n="1"><h2>09:47 — your alert fires.</h2><p>From TradingView to your broker in under a second — from your own IP.</p></div>
+    <div class="narr" data-n="2"><h2>10:14 — the same alert fires three times.</h2><p>The duplicate guard sends one order. Your position doesn't double.</p></div>
+    <div class="narr" data-n="3"><h2>13:30 — the exit hits the tape.</h2><p>Entry to exit, every order accounted for — in a log that lives with you.</p></div>
+  </div>
+
+  <div class="stats">
+    <div><div class="lbl">Position</div><div class="val num" id="sPos">Flat</div></div>
+    <div><div class="lbl">Day P&amp;L</div><div class="val num dim" id="sPnl">$0.00</div></div>
+    <div><div class="lbl">Entry</div><div class="val num dim" id="sEntry">—</div></div>
+    <div><div class="lbl">Kill-switch</div><div class="val dim" style="font-size:14px">Armed <small>· one click</small></div></div>
+  </div>
+
+  <div class="finale" id="finale">
+    <div>
+      <h2>That was one day.</h2>
+      <p>Executed start to finish on one computer — yours. No cloud between your strategy and your broker, and every order in a log you own.</p>
+      <a class="btn btn-w" href="#download">Run yours free on paper</a>
+      <a class="btn btn-o" href="https://buy.stripe.com/00waEXdOP1YF74n8YgcV200">Start 7-day trial</a>
+      <p class="fine">Simulated session, not a performance claim. You supervise, it executes. Futures trading involves substantial risk of loss.</p>
+    </div>
+  </div>
+
+  <div class="hint" id="hint">Scroll to start the session</div>
+
+</div>
+</div>
+
+<div class="stake">
+  <div class="s1">Why this exists</div>
+  <h2>You spent months earning that account.</h2>
+  <p class="s2">The evals. The resets. The discipline. And several prop firms prohibit cloud-based copiers — so the cheapest piece of your stack, the copier, is the one thing that can cost you the most expensive one. <b>The tool you automate with should never be the reason you lose the account.</b></p>
+  <p class="turn">No cloud between you and your broker. Ever.</p>
+</div>
+
+<div class="below">
+
+  <section class="sec" id="product">
+    <div class="eyebrow">The product</div>
+    <h2>This is the actual dashboard.</h2>
+    <p class="sub">The real interface, replaying a paper session live. The kill-switch works — click it.</p>
+    <div class="appframe" aria-label="Live replay of the BridgePit dashboard with simulated data">
+      <div class="aside">
+        <div class="logo"><i>B</i>BridgePit</div>
+        <span class="on">Dashboard</span><span>Connections</span><span>Strategies</span><span>Subscription</span><span>Settings</span>
+      </div>
+      <div class="amain">
+        <div class="atop"><b>Dashboard</b><span class="apill" id="apill"><i></i><span id="apillTxt">Running</span></span></div>
+        <div class="acards">
+          <div class="acard"><h5>Connection</h5><div class="v" style="font-size:13px;padding:4px 0">Tradovate</div><div class="s">local · your IP</div></div>
+          <div class="acard"><h5>Open positions</h5><div class="v" id="aPos">0</div><div class="s" id="aPosD">flat</div></div>
+          <div class="acard"><h5>Loss budget</h5><div class="v" id="aLoss" style="font-size:16px">$0 <span style="font-size:11px;color:#8b95a5;font-weight:500">of $1,000</span></div><div class="s">auto-halt · EOD flatten 15:55 ET</div></div>
+          <div class="acard"><h5>Kill-switch</h5><button class="akill" id="aHalt" type="button">Halt trading</button><div class="s" id="aHaltS">accepting signals</div></div>
+        </div>
+        <div class="alog">
+          <div class="lt">Recent activity</div>
+          <table><thead><tr><th>Time (ET)</th><th>Event</th><th>Strategy</th><th>Detail</th></tr></thead>
+          <tbody id="aRows"></tbody></table>
+        </div>
+      </div>
+    </div>
+    <p class="shotcap"><b>Simulated paper session in the real interface</b> — same layout, same events, same rules as the app you download. Nothing here is a mock-up of features that don't exist.</p>
+  </section>
+
+  <section class="sec" id="trust">
+    <div class="tgrid">
+      <div><b>Credentials stay local</b><span>Encrypted on your machine. They never touch our servers.</span></div>
+      <div><b>No cloud servers</b><span>Orders leave from your own IP. There is nothing to ban.</span></div>
+      <div><b>Traded daily by its builders</b><span>The founders run their own funded accounts on it.</span></div>
+      <div><b>You stay in control</b><span>Kill-switch, position caps, end-of-day failsafes.</span></div>
+    </div>
+  </section>
+
+  <section class="sec" id="arch">
+    <div class="eyebrow">Architecture</div>
+    <h2>The middleman is the risk. So there isn't one.</h2>
+    <p class="sub">Cloud copiers trade from their servers. BridgePit trades from yours.</p>
+    <div class="gcard diagwrap" id="diagcard">
+      <svg viewBox="0 0 720 250" width="100%" height="auto" role="img" aria-label="Diagram: TradingView alert goes directly to your computer, which places the order with your broker. The cloud middleman path is crossed out.">
+        <defs>
+          <marker id="arrD" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="#8FA9D6"/></marker>
+        </defs>
+        <rect x="12" y="46" width="168" height="64" rx="8" fill="none" stroke="rgba(230,234,240,.35)" stroke-width="1.2"/>
+        <text x="96" y="74" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="13" font-weight="600" fill="#E6EAF0">TradingView</text>
+        <text x="96" y="92" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11.5" fill="#8C94A1">your alert fires</text>
+        <rect x="276" y="38" width="168" height="80" rx="8" fill="#20355A"/>
+        <text x="360" y="70" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="13" font-weight="600" fill="#FFFFFF">Your computer</text>
+        <text x="360" y="88" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11.5" fill="#B9C6DE">BridgePit · your IP</text>
+        <rect x="540" y="46" width="168" height="64" rx="8" fill="none" stroke="rgba(230,234,240,.35)" stroke-width="1.2"/>
+        <text x="624" y="74" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="13" font-weight="600" fill="#E6EAF0">Your broker</text>
+        <text x="624" y="92" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11.5" fill="#8C94A1">your own account</text>
+        <line x1="184" y1="78" x2="270" y2="78" stroke="#8FA9D6" stroke-width="1.4" marker-end="url(#arrD)"/>
+        <line x1="448" y1="78" x2="534" y2="78" stroke="#8FA9D6" stroke-width="1.4" marker-end="url(#arrD)"/>
+        <path d="M184 94 C 250 184, 470 184, 536 94" fill="none" stroke="rgba(140,148,161,.5)" stroke-width="1.2" stroke-dasharray="5 5"/>
+        <rect x="292" y="170" width="136" height="46" rx="8" fill="none" stroke="rgba(140,148,161,.5)" stroke-width="1.2" stroke-dasharray="5 5"/>
+        <text x="360" y="190" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="12" fill="#8C94A1">vendor cloud</text>
+        <text x="360" y="206" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="11" fill="#8C94A1">datacenter IP</text>
+        <line x1="296" y1="220" x2="424" y2="166" stroke="#C4574A" stroke-width="1.6"/>
+        <text x="446" y="210" font-family="-apple-system,sans-serif" font-size="11.5" fill="#C4574A">not in this architecture</text>
+        <circle r="3.5" fill="#8FA9D6" opacity="0.9">
+          <animateMotion dur="3s" repeatCount="indefinite" path="M184,78 L534,78"/>
+        </circle>
+      </svg>
+    </div>
+    <div class="arch">
+      <div class="gcard archline"><b>Your order IP</b><span>the one you trade from — several firms prohibit datacenter-IP copiers</span></div>
+      <div class="gcard archline"><b>Your credentials</b><span>encrypted on your disk; we couldn't leak them — we don't have them</span></div>
+    </div>
+  </section>
+
+  <section class="sec" id="controls">
+    <div class="eyebrow">Risk controls</div>
+    <h2>Every safeguard exists because something real happened.</h2>
+    <p class="sub">Built by funded traders, hardened on their own live accounts.</p>
+    <div class="rgrid">
+      <div class="rcard"><i style="background:var(--red)"></i><b>Duplicate guard</b><span>An alert burst can't double your position.</span></div>
+      <div class="rcard"><i style="background:#8FA9D6"></i><b>EOD force-flatten</b><span>Retries until the broker confirms flat.</span></div>
+      <div class="rcard"><i style="background:var(--amber,#D9A03F)"></i><b>Daily-loss stop</b><span>Halts the day at your limit — broker's own numbers.</span></div>
+      <div class="rcard"><i style="background:var(--green)"></i><b>Kill-switch</b><span>One click blocks entries, never exits.</span></div>
+      <div class="rcard"><i style="background:#B18CD6"></i><b>Instant alerts</b><span>Email + Telegram on any rejection or disconnect.</span></div>
+    </div>
+  </section>
+
+  <section class="sec" id="how">
+    <div class="eyebrow">Setup</div>
+    <h2>Connected in three steps.</h2>
+    <p class="sub">Double-click install. No terminal, no Python.</p>
+    <div class="steps">
+      <div class="step"><div class="n">01</div><h3>Connect your broker</h3><p>Credentials stay encrypted on your machine.</p></div>
+      <div class="step"><div class="n">02</div><h3>Point your alerts</h3><p>Paste one private URL into TradingView.</p></div>
+      <div class="step"><div class="n">03</div><h3>Paper-test, go live</h3><p>Simulated fills first. Flip live when it looks right.</p></div>
+    </div>
+  </section>
+
+  <section class="sec" id="pricing">
+    <div class="eyebrow">Pricing</div>
+    <h2>Paper is free. Live is $49.</h2>
+    <p class="sub">Pay only when you route real orders.</p>
+    <div class="price">
+      <div class="tier">
+        <div class="name">Paper</div>
+        <div class="amt">$0</div>
+        <p class="for">Full pipeline, simulated fills</p>
+        <ul><li>Every feature, paper account</li><li>Test alerts end-to-end</li><li>No card required</li></ul>
+        <a class="btn btn-gn" href="#download">Download</a>
+      </div>
+      <div class="tier pro">
+        <div class="name">Pro</div>
+        <div class="ftag">Founding fifty — $49 locked while active</div>
+        <div class="amt">$49<span> /month</span></div>
+        <p class="for">1 live account · 7-day free trial</p>
+        <ul><li>Live execution, 1 broker account</li><li>Unlimited strategies</li><li>All risk controls &amp; alerts</li><li>Priority support</li><li>Plus Tradovate's $25/mo API add-on, paid to Tradovate</li></ul>
+        <a class="btn btn-n" href="https://buy.stripe.com/00waEXdOP1YF74n8YgcV200">Start 7-day trial</a>
+      </div>
+      <div class="tier">
+        <div class="name">Multi</div>
+        <div class="amt">$99<span> /month</span></div>
+        <p class="for">Up to 5 live accounts</p>
+        <ul><li>Everything in Pro</li><li>Up to 5 funded accounts</li><li>Per-account sizing</li><li>Fan-out execution</li></ul>
+        <a class="btn btn-gn" href="https://buy.stripe.com/28EeVd7qr7iZ2O76Q8cV201">Choose Multi</a>
+      </div>
+    </div>
+    <p class="founding"><b>Founding fifty:</b> the first 50 subscribers keep the $49/month price for as long as their subscription stays active, plus a direct line to the founders.</p>
+  </section>
+
+  <section class="sec" id="download">
+    <div class="eyebrow">Download</div>
+    <h2>One small local connector.</h2>
+    <p class="sub">Billing in your browser; execution on your machine. That's the point.</p>
+    <div class="dlrow">
+      <a class="btn btn-n" href="downloads/BridgePit-mac.dmg">Download for macOS · Apple Silicon</a>
+      <a class="btn btn-gn" href="mailto:support@bridgepit.com?subject=Notify%20me%20%E2%80%94%20BridgePit%20for%20Windows">Windows in progress — get notified</a>
+    </div>
+  </section>
+
+  <section class="sec" id="faq">
+    <div class="eyebrow">FAQ</div>
+    <h2>Questions, answered plainly.</h2>
+    <div class="faq">
+      <details class="qa"><summary>Is this allowed at my prop firm?</summary><p>BridgePit runs on your own computer and places orders from your own IP — there is no cloud server between your signals and your broker, which is the architecture most firms' automation rules are written around. Rules differ by firm and change, so always check your firm's current policy. You stay in supervision: kill-switch, position caps, daily failsafes.</p></details>
+      <details class="qa"><summary>What does my prop firm actually see?</summary><p>Your broker sees orders arriving through its API from your IP, flagged as automated — that's an exchange requirement, and BridgePit sets it honestly. There is no hiding and nothing to hide: most firms' rules target cloud copiers on datacenter IPs and unsupervised bots, not supervised execution from your own machine.</p></details>
+      <details class="qa"><summary>Is it fully automated?</summary><p>Semi-automated by design: it executes your alerts, you supervise. That's also what most prop firms require of automated traders.</p></details>
+      <details class="qa"><summary>Do you see my broker password?</summary><p>No. Credentials are encrypted on your machine with a key that never leaves it, and are used only to open your broker session. They never touch our servers.</p></details>
+      <details class="qa"><summary>Which brokers are supported?</summary><p>Tradovate at launch. Rithmic support is in certification and coming soon. Note: Tradovate charges a $25/month API-access add-on, paid to Tradovate directly — that's your own direct access, with no middleman holding your credentials.</p></details>
+      <details class="qa"><summary>What if my internet drops?</summary><p>BridgePit reconnects continuously and alerts you by email and Telegram. The end-of-day flatten retries until your account is confirmed flat.</p></details>
+      <details class="qa"><summary>Does my computer need to stay on?</summary><p>During your trading hours, yes — that's what executing from your own IP means. The machine you already trade on works; so does an always-on mini PC at home.</p></details>
+    </div>
+  </section>
+
+  <div class="band">
+    <h2>Run one day like this — free.</h2>
+    <p>Paper mode is the full product on simulated fills. Watch your own log light up in ten minutes, then decide.</p>
+    <a class="btn btn-n" href="#download">Download free paper mode</a>
+    <a class="btn btn-gn" href="https://buy.stripe.com/00waEXdOP1YF74n8YgcV200" style="margin-left:10px">Start 7-day trial</a>
+  </div>
+
+  <div class="foot">
+    <div>© 2026 BridgePit · <a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a> · <a href="mailto:support@bridgepit.com">Contact</a></div>
+    <div class="legal">Futures trading involves substantial risk of loss and is not suitable for every investor. BridgePit is a software tool, not a broker or investment adviser — you trade your own strategies, on your own account, at your own risk. · Luc François Python, Switzerland.</div>
+  </div>
+
+</div>
+
+<script>
+(function(){
+"use strict";
+const $=id=>document.getElementById(id);
+const lerp=(a,b,t)=>a+(b-a)*t;
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const seg=(p,a,b)=>clamp((p-a)/(b-a),0,1);
+const usd=v=>(v<0?"−$":"+$")+Math.abs(v).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,",");
+
+/* price path: 66 candles, win day. entry ▲ i=17 @23,412.25 · exit ▼ i=58 @23,466.75
+   MNQ $2/pt × 2 → +54.5pts = +$218.00 */
+const ENTRY={i:17,px:23412.25}, EXIT={i:58,px:23466.75};
+const PTVAL=2, QTY=2;
+const CANDLES=(()=>{
+  const c=[];let px=23388;let s=11;
+  const rnd=()=>{s=(s*48271)%2147483647;return s/2147483647-.5};
+  const drift=i=> i<18? 1.45 : i<30? 2.1 : i<37? -1.9 : i<58? 2.05 : .1;
+  for(let i=0;i<66;i++){
+    const o=px;px=Math.round((px+drift(i)+rnd()*6.5)*4)/4;
+    if(i===ENTRY.i)px=ENTRY.px;
+    if(i===EXIT.i)px=EXIT.px;
+    c.push({o,c:px,h:Math.max(o,px)+Math.abs(rnd()*4),l:Math.min(o,px)-Math.abs(rnd()*4)});
+  }
+  return c;
+})();
+const PMIN=23370,PMAX=23490;
+
+/* beats → toasts */
+const BEATS=[
+ {p:.050,t:"09:30:00",c:"b",m:"Market open · MNQ Sep 2026"},
+ {p:.180,t:"09:47:12",c:"b",m:"Alert received — 1m-Breakout · buy ×2",s:"checks passed"},
+ {p:.215,t:"09:47:12",c:"b",m:"Order sent to your broker",s:"from your IP"},
+ {p:.250,t:"09:47:13",c:"g",m:"Filled — 2 MNQ @ 23,412.25",s:"long 2"},
+ {p:.480,t:"10:14:05",c:"b",m:"Same alert again — duplicate #1"},
+ {p:.520,t:"10:14:05",c:"r",m:"Duplicate rejected",s:"position unchanged"},
+ {p:.555,t:"10:14:06",c:"r",m:"Duplicate rejected",s:"position unchanged"},
+ {p:.700,t:"13:29:58",c:"b",m:"Exit alert — sell ×2",s:"order out from your IP"},
+ {p:.730,t:"13:29:59",c:"g",m:"Filled — 2 MNQ @ 23,466.75",s:"flat · +$218.00 sim"},
+ {p:.800,t:"15:55:00",c:"b",m:"End-of-day sweep — already flat ✓"},
+];
+const CLOCKS=[[0,"09:29:31"],[.05,"09:30:00"],[.18,"09:47:12"],[.30,"09:55:00"],[.48,"10:14:05"],
+              [.60,"11:05:00"],[.70,"13:29:58"],[.73,"13:30:02"],[.80,"15:55:00"],[.84,"16:00:00"],[1,"16:00:00"]];
+const toS=t=>{const[a,b,c]=t.split(":").map(Number);return a*3600+b*60+c};
+const toT=x=>{x=Math.round(x);return[x/3600|0,x%3600/60|0,x%60].map(n=>String(n).padStart(2,"0")).join(":")};
+
+/* chart */
+const CH={W:1200,H:420,PAD:14};
+const chart=$("chart");
+const Y=v=>CH.H-CH.PAD-((v-PMIN)/(PMAX-PMIN))*(CH.H-2*CH.PAD);
+const cw=(CH.W-24)/CANDLES.length;
+const X=i=>12+i*cw+cw/2;
+const ns="http://www.w3.org/2000/svg";
+let chartEls=[];
+(function(){
+  CANDLES.forEach((cd,i)=>{
+    const x=X(i);
+    const w=document.createElementNS(ns,"line");
+    w.setAttribute("x1",x);w.setAttribute("x2",x);
+    w.setAttribute("y1",Y(cd.h));w.setAttribute("y2",Y(cd.l));
+    w.setAttribute("stroke",cd.c>=cd.o?"#3F8F6B":"#A34A3F");
+    const b=document.createElementNS(ns,"rect");
+    b.setAttribute("x",x-cw*.3);b.setAttribute("width",cw*.6);
+    b.setAttribute("y",Y(Math.max(cd.o,cd.c)));
+    b.setAttribute("height",Math.max(1.6,Math.abs(Y(cd.o)-Y(cd.c))));
+    b.setAttribute("fill",cd.c>=cd.o?"#4FB584":"#C4574A");
+    b.setAttribute("rx",".8");
+    chart.appendChild(w);chart.appendChild(b);
+    chartEls.push([w,b]);
+  });
+  const g=document.createElementNS(ns,"g");
+  const ex=X(ENTRY.i),ey=Y(ENTRY.px),xx=X(EXIT.i),xy=Y(EXIT.px);
+  g.innerHTML=
+    '<g id="mkE" opacity="0">'+
+      '<path d="M'+ex+' '+(ey+24)+' l-8 13 h16 z" fill="#4FB584"/>'+
+    '</g>'+
+    '<text id="mkEt" opacity="0" x="'+(ex+16)+'" y="'+(ey+34)+'" text-anchor="start" font-family="-apple-system,sans-serif" font-size="12.5" font-weight="600" fill="#4FB584">Buy 2 · 23,412.25</text>'+
+    '<g id="mkX" opacity="0">'+
+      '<line x1="'+ex+'" y1="'+ey+'" x2="'+xx+'" y2="'+xy+'" stroke="#8FA9D6" stroke-width="1.2" stroke-dasharray="4 6" opacity=".7"/>'+
+      '<path d="M'+xx+' '+(xy-24)+' l-8 -13 h16 z" fill="#C4574A"/>'+
+      '<text x="'+(xx-14)+'" y="'+(xy-38)+'" text-anchor="end" font-family="-apple-system,sans-serif" font-size="12.5" font-weight="600" fill="#E6EAF0">Sell 2 · 23,466.75</text>'+
+      '<rect x="'+(xx-252)+'" y="'+(xy-25)+'" width="132" height="26" rx="13" fill="#4FB584"/>'+
+      '<text x="'+(xx-186)+'" y="'+(xy-7)+'" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="13" font-weight="600" fill="#0A0D12">+$218.00 · sim</text>'+
+    '</g>';
+  chart.appendChild(g);
+})();
+
+/* toast: show the latest beat for a while */
+function renderToast(p){
+  const t=$("toast");
+  let cur=null;
+  for(const b of BEATS){
+    const end=Math.min(b.p+.10, 1);
+    if(p>=b.p&&p<end)cur=b;
+  }
+  if(cur){
+    t.className="toast on "+cur.c;
+    $("toastTxt").innerHTML=cur.m+(cur.s?'<small>'+cur.s+"</small>":"");
+  }else t.className="toast";
+}
+
+const NARRW=[[0,.15],[.15,.42],[.42,.64],[.64,.82]];
+function renderNarr(p){
+  document.querySelectorAll(".narr").forEach((n,i)=>{
+    const[a,b]=NARRW[i];n.classList.toggle("on",p>=a&&p<b);
+  });
+  $("finale").classList.toggle("on",p>=.86);
+  $("hint").style.display=p>.02?"none":"";
+}
+
+function render(p){
+  let ci=0;while(ci<CLOCKS.length-2&&CLOCKS[ci+1][0]<p)ci++;
+  const[a,ta]=CLOCKS[ci],[b,tb]=CLOCKS[ci+1];
+  $("clock").textContent=toT(lerp(toS(ta),toS(tb),seg(p,a,b)));
+
+  const n=Math.floor(seg(p,.05,.82)*CANDLES.length);
+  chartEls.forEach((els,i)=>{const on=i<n?1:0;els[0].style.opacity=on;els[1].style.opacity=on;});
+  const last=n?CANDLES[clamp(n-1,0,65)].c:23388;
+  $("lastpx").textContent=last.toLocaleString("en-US",{minimumFractionDigits:2});
+
+  const inTrade=p>=.25&&p<.73, done=p>=.73;
+  $("mkE").setAttribute("opacity",p>=.25?1:0);
+  $("mkEt").setAttribute("opacity",p>=.42?1:0);
+  $("mkX").setAttribute("opacity",done?1:0);
+
+  const st=$("status"),stx=$("statusTxt");
+  st.className="status"+(p>=.05?" on":"");
+  stx.textContent=p<.05?"Pre-market · connected · flat"
+    :p<.84?"Running · Tradovate connected · your IP"
+    :"Session closed · flat · log complete";
+
+  $("sPos").textContent=inTrade?"Long 2 MNQ":"Flat";
+  $("sEntry").textContent=(inTrade||done)?"23,412.25":"—";
+  $("sEntry").className="val num"+((inTrade||done)?"":" dim");
+  let pnl=done?218:(inTrade?Math.round((last-ENTRY.px)*PTVAL*QTY*4)/4:0);
+  if(Math.abs(pnl)<5)pnl=0;
+  const sp=$("sPnl");
+  sp.textContent=(pnl===0?"$0.00":usd(pnl))+(done?" · sim":"");
+  sp.className="val num "+(pnl>0?"up":pnl<0?"dn":"dim");
+
+  renderToast(p);renderNarr(p);
+  $("railfill").style.height=(p*100)+"%";
+}
+
+/* live dashboard replica — simulated paper session, real event vocabulary */
+(function(){
+  const rows=document.getElementById("aRows");
+  if(!rows)return;
+  const red=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let h=9,m=47,s=5,mnq=0,mes=0,loss=0,halted=false,i=0;
+  const $=id=>document.getElementById(id);
+  function tick(d){s+=d;while(s>=60){s-=60;m++}while(m>=60){m-=60;h++}if(h>=16){h=9;m=47;s=5}}
+  const ts=()=>[h,m,s].map(n=>String(n).padStart(2,"0")).join(":");
+  function add(k,st,d){
+    const tr=document.createElement("tr");
+    if(!red)tr.className="fresh";
+    tr.innerHTML='<td class="tk">'+ts()+'</td><td class="ev '+k+'">'+k+'</td><td class="st">'+st+'</td><td>'+d+'</td>';
+    rows.prepend(tr);
+    while(rows.children.length>6)rows.lastChild.remove();
+  }
+  function paint(){
+    const open=Math.abs(mnq)+Math.abs(mes);
+    $("aPos").textContent=open;
+    $("aPosD").textContent=open?[mnq?("MNQ "+(mnq>0?"+":"")+mnq):"",mes?("MES "+(mes>0?"+":"")+mes):""].filter(Boolean).join(" · "):"flat";
+    $("aLoss").firstChild.textContent="$"+loss+" ";
+  }
+  const SES=[
+    {k:"ORDER",s:"1m-Breakout",d:"BUY 2 MNQ1! → account · paper",e:1},
+    {k:"FILL",s:"1m-Breakout",d:"BUY 2 @ 23.412,25 · position 0 → 2",f:()=>{mnq=2}},
+    {k:"REJECT",s:"1m-Breakout",d:"burst duplicate within 10s — not resent"},
+    {k:"ORDER",s:"VWAP-fade",d:"SELL 1 MES1! → account · paper",e:1},
+    {k:"FILL",s:"VWAP-fade",d:"SELL 1 @ 6.402,50 · position 0 → −1",f:()=>{mes=-1;loss=120}},
+    {k:"ORDER",s:"1m-Breakout",d:"SELL 2 MNQ1! (exit) → account"},
+    {k:"FILL",s:"1m-Breakout",d:"SELL 2 @ 23.466,75 · position 2 → 0",f:()=>{mnq=0;loss=45}},
+    {k:"ORDER",s:"VWAP-fade",d:"BUY 1 MES1! (exit) → account"},
+    {k:"FILL",s:"VWAP-fade",d:"BUY 1 @ 6.398,25 · position −1 → 0",f:()=>{mes=0;loss=0}},
+    {k:"EODCHECK",s:"—",d:"15:55 force-flatten armed · already flat"},
+  ];
+  function step(){
+    const e=SES[i%SES.length];i++;
+    tick(2+Math.floor(Math.random()*9));
+    if(e.e&&halted){add("REJECT",e.s,"HALTED — entry blocked (exits still allowed)");return}
+    if(e.f)e.f();
+    add(e.k,e.s,e.d);paint();
+  }
+  $("aHalt").addEventListener("click",function(){
+    halted=!halted;tick(1);
+    if(halted){add("HALT","manual","entries blocked — exits still allowed");
+      this.textContent="Resume";this.classList.add("resume");
+      $("aHaltS").textContent="entries blocked";
+      $("apill").className="apill halt";$("apillTxt").textContent="Halted";
+    }else{add("RESUME","manual","entries re-enabled");
+      this.textContent="Halt trading";this.classList.remove("resume");
+      $("aHaltS").textContent="accepting signals";
+      $("apill").className="apill";$("apillTxt").textContent="Running";}
+  });
+  for(let n=0;n<4;n++)step();
+  if(!red)setInterval(step,2600);
+})();
+
+/* scroll-reveal for the content sections */
+(function(){
+  const secs=document.querySelectorAll(".sec");
+  if(!("IntersectionObserver" in window)){secs.forEach(s=>s.classList.add("vis"));return}
+  const io=new IntersectionObserver(es=>es.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add("vis");
+      e.target.querySelectorAll(".tgrid>div,.rcard,.step,.tier").forEach((el,i)=>{
+        el.style.transitionDelay=(i*70)+"ms";
+      });
+      io.unobserve(e.target);
+    }
+  }),{threshold:.15});
+  secs.forEach(s=>io.observe(s));
+})();
+
+const qp=new URLSearchParams(location.search).get("p");
+const reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;
+const small=matchMedia("(max-width: 720px)").matches;
+if(qp!==null){render(clamp(parseFloat(qp)||0,0,1))}
+else if(reduced){document.body.classList.add("auto");render(1)}
+else if(small){
+  document.body.classList.add("auto");
+  let t0=performance.now();
+  (function loop(now){render(((now-t0)/24000)%1);requestAnimationFrame(loop)})(t0);
+}else{
+  const track=$("track");let ticking=false;
+  function onScroll(){
+    if(ticking)return;ticking=true;
+    requestAnimationFrame(()=>{
+      const r=track.getBoundingClientRect();
+      render(clamp(-r.top/(r.height-innerHeight),0,1));ticking=false;
+    });
+  }
+  addEventListener("scroll",onScroll,{passive:true});
+  onScroll();
+}
+})();
+</script>
+</body>
+</html>
