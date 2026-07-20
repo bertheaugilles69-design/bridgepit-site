@@ -1,0 +1,163 @@
+<!doctype html>
+<!-- SEO page 1: "pickmytrade alternative" query family.
+     Every competitor fact verified 2026-07-20 against pickmytrade.io/pricing
+     (rendered) + their public blog. Compliance: no ban claims, no named firms,
+     honest "when they're better" section. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PickMyTrade alternative that runs on your own machine — BridgePit</title>
+<meta name="description" content="BridgePit is a PickMyTrade alternative with no cloud in the middle: your TradingView alerts execute on your own computer, orders reach your broker from your own IP, and your credentials never leave your machine. $49/mo, 7-day free trial.">
+<link rel="canonical" href="https://bridgepit.com/pickmytrade-alternative">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="BridgePit">
+<meta property="og:title" content="A PickMyTrade alternative that isn't another cloud">
+<meta property="og:description" content="Same TradingView alerts, no cloud middleman: execution from your own machine and IP. Honest comparison, including where PickMyTrade is the better pick.">
+<meta property="og:url" content="https://bridgepit.com/pickmytrade-alternative">
+<meta property="og:image" content="https://bridgepit.com/og.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231B3A6B'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='19' font-weight='600' fill='white' text-anchor='middle'%3EB%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+ {"@type":"Question","name":"Can I keep my existing PickMyTrade alert format?","acceptedAnswer":{"@type":"Answer","text":"Yes. BridgePit accepts the PickMyTrade alert message format unchanged — switching is editing one webhook URL per TradingView alert."}},
+ {"@type":"Question","name":"Why does it matter where execution runs?","acceptedAnswer":{"@type":"Answer","text":"A cloud service places your orders from its datacenter IP and holds your broker access to do it. Software on your own machine places orders from your own IP with credentials that never leave your computer. Several prop firms prohibit cloud-based copiers and VPS execution; always check your firm's current rules."}},
+ {"@type":"Question","name":"Is BridgePit fully automated?","acceptedAnswer":{"@type":"Answer","text":"Semi-automated by design: it executes your TradingView alerts and you supervise, with a kill-switch, position caps, a daily loss stop, and an end-of-day flatten."}},
+ {"@type":"Question","name":"What does BridgePit cost compared to PickMyTrade?","acceptedAnswer":{"@type":"Answer","text":"BridgePit Pro is $49/month with a 7-day free trial (one live account; free paper trading without a card). PickMyTrade lists $50/month, $120/quarter, or $350/year with a 5-day trial (checked July 2026). Tradovate's own $25/month API add-on applies to BridgePit's direct connection."}}]}
+</script>
+<style>
+  :root{
+    --bg:#0A0D12; --txt:#E6EAF0; --dim:#8C94A1; --dim2:#5C6470;
+    --line:rgba(255,255,255,.08); --plate:#0D1117;
+    --green:#4FB584; --red:#C4574A; --blue:#8FA9D6;
+    --serif:"Newsreader",Georgia,serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Inter",sans-serif;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--txt);font:15.5px/1.65 var(--sans);-webkit-font-smoothing:antialiased}
+  body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:radial-gradient(ellipse 90% 55% at 50% 12%,rgba(44,76,127,.09),transparent 60%)}
+  a{color:inherit;text-decoration:none}
+  :focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+  .chrome{display:flex;justify-content:space-between;align-items:baseline;padding:20px 32px;position:relative;z-index:2}
+  .chrome .wm{font:500 20px var(--serif)}
+  .chrome a.back{font:500 12px var(--sans);color:var(--dim2)}
+  .chrome a.back:hover{color:var(--txt)}
+  main{position:relative;z-index:1;max-width:720px;margin:0 auto;padding:56px 24px 96px}
+  .kicker{font:500 11px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--dim2);margin-bottom:16px}
+  h1{font:500 clamp(30px,4.8vw,44px)/1.12 var(--serif);letter-spacing:-.014em;color:#fff;margin-bottom:16px;max-width:22ch}
+  .lede{font:400 17px/1.6 var(--sans);color:var(--dim);max-width:56ch}
+  .lede b{color:var(--txt);font-weight:500}
+  h2{font:500 clamp(23px,3.2vw,30px)/1.18 var(--serif);letter-spacing:-.012em;color:#fff;margin:60px 0 12px}
+  p{color:var(--dim);margin:0 0 14px;max-width:62ch}
+  p b{color:var(--txt);font-weight:500}
+  .paths{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:22px 0 6px}
+  @media(max-width:640px){.paths{grid-template-columns:1fr}}
+  .path{border:1px solid var(--line);border-radius:12px;background:var(--plate);padding:18px 20px}
+  .path h3{font:500 12px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--dim2);margin-bottom:12px}
+  .path .hop{font:14px/1.5 var(--sans);color:var(--dim);padding:7px 0;border-top:1px solid var(--line)}
+  .path .hop:first-of-type{border-top:none}
+  .path .hop b{color:var(--txt);font-weight:500}
+  .path .hop.warn b{color:#D8A46A}
+  .path .hop.good b{color:var(--green)}
+  table{width:100%;border-collapse:collapse;margin:20px 0 6px;font-size:14px}
+  th{font:500 11px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--dim2);text-align:left;padding:0 12px 9px 0;border-bottom:1px solid var(--line)}
+  td{padding:11px 12px 11px 0;border-bottom:1px solid var(--line);color:var(--dim);vertical-align:top}
+  td:first-child{color:var(--txt);width:172px}
+  td b{color:var(--txt);font-weight:500}
+  .fine{font-size:13px;color:var(--dim2);margin-top:8px}
+  ol{margin:6px 0 14px 20px;color:var(--dim);max-width:60ch}
+  ol li{padding:5px 0}
+  ol li b{color:var(--txt);font-weight:500}
+  code{font:.9em var(--mono);background:rgba(255,255,255,.055);border-radius:5px;padding:1px 6px;color:#C9D3DF}
+  .cta{display:flex;gap:12px;flex-wrap:wrap;margin:26px 0 6px}
+  .btn{display:inline-block;border-radius:10px;padding:12px 22px;font:600 14px var(--sans)}
+  .btn.p{background:#E6EAF0;color:#0A0D12}
+  .btn.g{border:1px solid var(--line);color:var(--txt)}
+  .btn:hover{opacity:.92}
+  .faq p{margin-bottom:6px}
+  .faq h3{font:500 17px var(--sans);color:#fff;margin:22px 0 6px}
+  footer{border-top:1px solid var(--line);margin-top:40px;padding:26px 32px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:var(--dim2);font-size:13px;position:relative;z-index:1}
+  footer a:hover{color:var(--txt)}
+</style>
+</head>
+<body>
+
+<div class="chrome">
+  <a class="wm" href="./">BridgePit</a>
+  <a class="back" href="./">← BridgePit home</a>
+</div>
+
+<main>
+  <div class="kicker">Comparison · facts checked July 20, 2026</div>
+  <h1>A PickMyTrade alternative that isn't another cloud.</h1>
+  <p class="lede">PickMyTrade forwards your TradingView alerts to your broker through its servers. BridgePit does the same job with <b>no servers in the middle</b>: a desktop app on your own machine executes the alert, the order leaves from your own IP, and your broker login never leaves your computer. Same alerts — different architecture.</p>
+
+  <h2>The one difference that decides it.</h2>
+  <div class="paths">
+    <div class="path">
+      <h3>Cloud relay — PickMyTrade</h3>
+      <div class="hop">TradingView fires your alert</div>
+      <div class="hop warn">…to <b>their cloud servers</b>, which hold your broker access</div>
+      <div class="hop warn">…which place the order from <b>a datacenter IP</b></div>
+    </div>
+    <div class="path">
+      <h3>Local execution — BridgePit</h3>
+      <div class="hop">TradingView fires your alert</div>
+      <div class="hop good">…to <b>your own computer</b>, credentials encrypted on it</div>
+      <div class="hop good">…which places the order from <b>your own IP</b></div>
+    </div>
+  </div>
+  <p class="fine">Why funded traders care: several prop firms prohibit cloud-based copiers and VPS execution in their agreements. Rules differ by firm and change — always check your firm's current policy yourself.</p>
+
+  <h2>Side by side.</h2>
+  <table>
+    <tr><th></th><th>BridgePit</th><th>PickMyTrade</th></tr>
+    <tr><td>Where execution runs</td><td><b>Your own machine, your own IP</b></td><td>Their cloud, their IP</td></tr>
+    <tr><td>Your broker login</td><td><b>Encrypted on your computer, never sent to us</b></td><td>Held by the service so it can trade for you</td></tr>
+    <tr><td>Price</td><td>$49/mo Pro (1 live account) · $99/mo Multi (5) · 7-day trial · paper free, no card</td><td>$50/mo · $120/quarter · $350/yr · unlimited accounts · 5-day trial</td></tr>
+    <tr><td>Brokers today</td><td>Tradovate (Rithmic in certification)</td><td>Tradovate, Rithmic and others</td></tr>
+    <tr><td>Safety rails</td><td><b>Kill-switch, daily loss stop, position caps, duplicate rejection, EOD auto-flatten</b> — enforced on your machine</td><td>Feature set varies; see their docs</td></tr>
+    <tr><td>Needs your computer on</td><td>Yes, during your trading hours — that's what "your own IP" means</td><td>No</td></tr>
+    <tr><td>Alert format</td><td colspan="2"><b>Compatible.</b> BridgePit accepts PickMyTrade-format alerts unchanged</td></tr>
+  </table>
+  <p class="fine">PickMyTrade pricing and account terms read from pickmytrade.io on July 20, 2026. Tradovate's own $25/month API add-on applies to BridgePit's direct connection — paid to Tradovate, not us.</p>
+
+  <h2>When PickMyTrade is the better pick.</h2>
+  <p>Honest answer, because it's also our sales filter: if you run <b>many accounts</b> on their flat $50, need a <b>broker we don't support yet</b>, or want <b>nothing running at home</b> — machine off, cloud does everything — PickMyTrade fits you better today. BridgePit exists for one trader specifically: the one whose income depends on a funded account and who doesn't want their execution living on someone else's IP.</p>
+
+  <h2>Switching takes one URL change.</h2>
+  <ol>
+    <li><b>Install BridgePit</b> and follow the <a href="setup" style="color:var(--blue)">20-minute setup</a> — it ends with a paper fill on your screen.</li>
+    <li><b>Edit each TradingView alert:</b> replace the PickMyTrade webhook URL with yours ending in <code>/v2/add-trade-data</code>. The message body stays exactly as it is.</li>
+    <li><b>Watch a day of paper fills</b>, then cancel the old subscription when you trust what you see.</li>
+  </ol>
+
+  <div class="cta">
+    <a class="btn p" href="downloads/BridgePit-mac.dmg">Download for macOS · Apple Silicon</a>
+    <a class="btn g" href="./#pricing">Pricing & 7-day trial</a>
+  </div>
+
+  <h2 class="faq">Questions traders ask.</h2>
+  <div class="faq">
+    <h3>Can I keep my existing alert format?</h3>
+    <p>Yes — BridgePit reads the PickMyTrade message format natively. One URL edit per alert, nothing else.</p>
+    <h3>Is BridgePit fully automated?</h3>
+    <p>Semi-automated by design: it executes, you supervise. Kill-switch, caps, daily loss stop, and end-of-day flatten are always on.</p>
+    <h3>Is local execution allowed at my prop firm?</h3>
+    <p>BridgePit runs on your own computer and sends orders from your own IP — no cloud server between your signals and your broker. Rules differ by firm and change, so always check your firm's current policy.</p>
+    <h3>What if my internet drops mid-position?</h3>
+    <p>BridgePit reconnects continuously and alerts you by email and Telegram; the end-of-day flatten retries until your account is confirmed flat.</p>
+  </div>
+</main>
+
+<footer>
+  <div>© 2026 BridgePit · <a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a> · <a href="mailto:support@bridgepit.com">Contact</a></div>
+  <div><a href="setup">Setup guide</a> · <a href="./">bridgepit.com</a></div>
+</footer>
+
+</body>
+</html>
