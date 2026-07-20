@@ -1,0 +1,19 @@
+# BridgePit — bridgepit.com
+
+BridgePit is desktop software (macOS, Windows in progress) that executes
+TradingView strategy alerts on the trader's own futures broker account,
+locally from the trader's own computer and IP address — no cloud middleman.
+Built for funded/prop-firm traders whose firms prohibit cloud-based copiers
+and VPS execution. Semi-automated by design: it executes, the trader
+supervises (kill-switch, position caps, daily loss stop, EOD auto-flatten).
+Credentials are encrypted on the trader's machine and never touch our servers.
+Accepts PickMyTrade-format alerts unchanged (one URL edit to migrate).
+Broker support: Tradovate at launch ($25/mo Tradovate API add-on applies);
+Rithmic in certification. Pricing: Free paper trading; Pro $49/mo (7-day
+trial, 1 live account); Multi $99/mo (5 accounts).
+
+## Pages
+- https://bridgepit.com/ — product overview
+- https://bridgepit.com/setup — 20-minute setup guide (TradingView → broker)
+- https://bridgepit.com/pickmytrade-alternative — factual comparison vs PickMyTrade
+- https://bridgepit.com/terms.html, https://bridgepit.com/privacy.html
