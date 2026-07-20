@@ -1,0 +1,168 @@
+<!doctype html>
+<!-- SEO page 3: "do prop firms allow automated trading" family. Deliberately
+     firm-neutral: NO named-firm characterizations (unverifiable tonight +
+     contract constraints). Teaches readers to find the five deciding clauses
+     in their own firm's agreement. Links go to firms' official pages only. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Do prop firms allow automated trading? The five clauses that decide | BridgePit</title>
+<meta name="description" content="Whether your prop firm allows automated TradingView execution comes down to five clauses in its agreement: automation, supervision, VPS/IP rules, copy-trading scope, and API fees. Here's how to find and read each one — and the one email to send your firm.">
+<link rel="canonical" href="https://bridgepit.com/prop-firm-automation-rules">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="BridgePit">
+<meta property="og:title" content="Do prop firms allow automated trading? The five clauses that decide.">
+<meta property="og:description" content="Don't ask a forum — read your agreement. The five clauses to find, what each means, and the one email that gets a straight answer from your firm.">
+<meta property="og:url" content="https://bridgepit.com/prop-firm-automation-rules">
+<meta property="og:image" content="https://bridgepit.com/og.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231B3A6B'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='19' font-weight='600' fill='white' text-anchor='middle'%3EB%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+ {"@type":"Question","name":"Do prop firms allow automated trading?","acceptedAnswer":{"@type":"Answer","text":"It varies by firm and changes often — some support API automation explicitly, some allow semi-automated execution under supervision, some prohibit unattended systems. The answer for YOUR firm is in five clauses of its agreement: automation, supervision, VPS/VPN/IP rules, copy-trading scope, and API access fees. Read those, then confirm by email with your firm."}},
+ {"@type":"Question","name":"Why do prop firms ban VPS and cloud execution?","acceptedAnswer":{"@type":"Answer","text":"Firms commonly require access from a legitimate, verifiable IP and prohibit VPNs, VPS hosting, and IP-masking, because datacenter execution makes it hard to verify who is actually trading. That's why several firms' rules target cloud copiers while allowing supervised execution from the trader's own machine — but always check your specific firm's current wording."}},
+ {"@type":"Question","name":"What should I ask my prop firm before automating?","acceptedAnswer":{"@type":"Answer","text":"One email: name the tool, say it runs on your own computer from your own IP, say you supervise it live with a kill-switch and daily loss stop, and ask if that complies with their automation policy. Keep the written answer."}},
+ {"@type":"Question","name":"Is semi-automated execution treated differently from full automation?","acceptedAnswer":{"@type":"Answer","text":"Often, yes. Many firms distinguish unattended, always-on systems from supervised execution where the trader is present. Look for words like 'unattended', 'fully automated', 'active management', and 'supervision' in the automation clause of your agreement."}}]}
+</script>
+<style>
+  :root{
+    --bg:#0A0D12; --txt:#E6EAF0; --dim:#8C94A1; --dim2:#5C6470;
+    --line:rgba(255,255,255,.08); --plate:#0D1117;
+    --green:#4FB584; --red:#C4574A; --blue:#8FA9D6;
+    --serif:"Newsreader",Georgia,serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Inter",sans-serif;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--txt);font:15.5px/1.65 var(--sans);-webkit-font-smoothing:antialiased}
+  body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:radial-gradient(ellipse 90% 55% at 50% 12%,rgba(44,76,127,.09),transparent 60%)}
+  a{color:inherit;text-decoration:none}
+  :focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+  .chrome{display:flex;justify-content:space-between;align-items:baseline;padding:20px 32px;position:relative;z-index:2}
+  .chrome .wm{font:500 20px var(--serif)}
+  .chrome a.back{font:500 12px var(--sans);color:var(--dim2)}
+  .chrome a.back:hover{color:var(--txt)}
+  main{position:relative;z-index:1;max-width:720px;margin:0 auto;padding:56px 24px 96px}
+  .kicker{font:500 11px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--dim2);margin-bottom:16px}
+  h1{font:500 clamp(30px,4.8vw,44px)/1.12 var(--serif);letter-spacing:-.014em;color:#fff;margin-bottom:16px;max-width:22ch}
+  .lede{font:400 17px/1.6 var(--sans);color:var(--dim);max-width:56ch}
+  .lede b{color:var(--txt);font-weight:500}
+  h2{font:500 clamp(23px,3.2vw,30px)/1.18 var(--serif);letter-spacing:-.012em;color:#fff;margin:58px 0 12px}
+  p{color:var(--dim);margin:0 0 14px;max-width:62ch}
+  p b{color:var(--txt);font-weight:500}
+  .clause{border-top:1px solid var(--line);padding:26px 0 10px;margin-top:8px}
+  .clause .n{font:500 11px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--dim2);margin-bottom:8px}
+  .clause h3{font:500 21px var(--serif);color:#fff;margin-bottom:10px}
+  .clause .look{font-size:13.5px;color:var(--dim2);margin:10px 0 8px}
+  .clause .look code{margin:0 4px 4px 0;display:inline-block}
+  code{font:.88em var(--mono);background:rgba(255,255,255,.055);border-radius:5px;padding:1px 7px;color:#C9D3DF}
+  pre{background:var(--plate);border:1px solid var(--line);border-radius:10px;padding:16px 18px;overflow-x:auto;
+    font:13px/1.75 var(--sans);color:#C9D3DF;margin:16px 0 6px;white-space:pre-wrap}
+  ul.links{list-style:none;margin:14px 0;max-width:62ch}
+  ul.links li{padding:10px 0;border-bottom:1px solid var(--line);color:var(--dim)}
+  ul.links li a{color:var(--blue)}
+  ul.links li small{display:block;color:var(--dim2);font-size:12.5px;margin-top:2px}
+  .cta{display:flex;gap:12px;flex-wrap:wrap;margin:26px 0 6px}
+  .btn{display:inline-block;border-radius:10px;padding:12px 22px;font:600 14px var(--sans)}
+  .btn.p{background:#E6EAF0;color:#0A0D12}
+  .btn.g{border:1px solid var(--line);color:var(--txt)}
+  .btn:hover{opacity:.92}
+  .fine{font-size:13px;color:var(--dim2);margin-top:10px;max-width:62ch}
+  footer{border-top:1px solid var(--line);margin-top:40px;padding:26px 32px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:var(--dim2);font-size:13px;position:relative;z-index:1}
+  footer a:hover{color:var(--txt)}
+</style>
+</head>
+<body>
+
+<div class="chrome">
+  <a class="wm" href="./">BridgePit</a>
+  <a class="back" href="./">← BridgePit home</a>
+</div>
+
+<main>
+  <div class="kicker">Guide · updated July 2026</div>
+  <h1>Do prop firms allow automated trading? Five clauses decide it.</h1>
+  <p class="lede">The honest answer: <b>it depends on your firm, and it changes.</b> Some support automation through an official API, some allow supervised execution, some prohibit unattended systems outright. Forums will argue forever — your agreement won't. Here are the five clauses that settle it, what each one means, and the one email that gets it in writing.</p>
+
+  <section class="clause">
+    <div class="n">Clause one</div>
+    <h3>The automation clause.</h3>
+    <p class="look">Search your agreement and help center for: <code>automat</code> <code>algorithm</code> <code>EA</code> <code>bot</code> <code>API</code></p>
+    <p>Three postures exist. Some firms <b>explicitly support</b> automation — a few even publish their own API for it. Some allow <b>semi-automated</b> execution: software may place your orders, but a human must be present and managing. Some prohibit <b>unattended or fully automated</b> systems entirely. The words "unattended", "hands-off", "active management", and "supervision" carry the whole meaning — read them literally.</p>
+  </section>
+
+  <section class="clause">
+    <div class="n">Clause two</div>
+    <h3>The supervision requirement.</h3>
+    <p class="look">Search for: <code>supervis</code> <code>attended</code> <code>present</code> <code>actively manag</code></p>
+    <p>Even automation-friendly firms usually require that you supervise what executes in your name. In practice that means: you're reachable, you can stop it, and a kill-switch, position caps, and a daily loss stop are not optional extras — they're what "supervised" looks like when a firm asks you to prove it.</p>
+  </section>
+
+  <section class="clause">
+    <div class="n">Clause three</div>
+    <h3>The VPS / VPN / IP clause — the one that catches people.</h3>
+    <p class="look">Search for: <code>VPS</code> <code>VPN</code> <code>proxy</code> <code>IP address</code> <code>location</code></p>
+    <p>Many firms require access from a <b>legitimate, verifiable IP</b> and prohibit VPNs, virtual private servers, proxies, and IP-masking — because execution from a datacenter makes it hard to verify who's trading. This is the clause cloud copiers and VPS-hosted bots collide with, and it's why supervised execution from <b>your own machine and your own IP</b> is a different conversation entirely. If your tool runs in someone else's cloud, this clause is where you check first.</p>
+  </section>
+
+  <section class="clause">
+    <div class="n">Clause four</div>
+    <h3>The copy-trading scope.</h3>
+    <p class="look">Search for: <code>copy</code> <code>copier</code> <code>mirror</code> <code>duplicate</code></p>
+    <p>Copying trades between your own accounts within one firm is often treated differently from copying across firms or from someone else's signals. If you run one strategy into multiple funded accounts, this clause decides whether that's account management or a violation — the distinction is usually "same company" vs "everything else".</p>
+  </section>
+
+  <section class="clause">
+    <div class="n">Clause five</div>
+    <h3>The API-access fee.</h3>
+    <p class="look">Search for: <code>API</code> <code>data fee</code> <code>third-party platform</code> <code>Exhibit A</code> <code>permitted platforms</code></p>
+    <p>Direct API connectivity often costs extra — brokers and firms commonly charge a monthly API add-on, and some agreements only permit platforms named in an approved list. Also know what you <b>don't</b> owe: large CME data-license fees apply to streaming market data through an API, not to routing orders while your charts stay on TradingView. Don't let a fee quote for the wrong architecture scare you off the right one.</p>
+  </section>
+
+  <h2>The one email that settles it.</h2>
+  <p>Rules change and forum answers age badly. A written answer from your firm doesn't. Send this, keep the reply:</p>
+<pre>Subject: Automation policy check for my account
+
+Hi — before I set anything up, I want to confirm compliance.
+
+I'm considering executing my TradingView strategy alerts with
+software that runs on my own computer, from my own residential IP.
+No VPS, no cloud service, no one else's infrastructure. I supervise
+it live, with a kill-switch, per-strategy position caps, and a
+daily loss stop set inside my account's limits.
+
+Does this comply with your current automation policy on
+[evaluation / funded] accounts? If anything about it doesn't,
+could you point me to the exact rule?
+
+Thanks — [name], account [number]</pre>
+  <p class="fine">If the answer is yes: you have it in writing. If it's no: you found out for free, before your evaluation fee did.</p>
+
+  <h2>Read the source, not the summary.</h2>
+  <p>Start at your firm's own help center and funded-account agreement — the search terms above will land you on the right paragraphs in minutes. Examples of official rule pages (the sources, not our summary of them):</p>
+  <ul class="links">
+    <li><a href="https://help.topstep.com/en/articles/8284097-can-automated-strategies-be-used-in-the-trading-combine-and-funded-account" rel="nofollow">Topstep — "Can automated strategies be used…"</a><small>Their help-center article on automation, plus their prohibited-conduct page for VPS/VPN wording.</small></li>
+    <li><a href="https://apextraderfunding.com/help-center/getting-started/prohibited-activities/" rel="nofollow">Apex Trader Funding — Prohibited Activities</a><small>Their official prohibited-activities page, including the automation section.</small></li>
+    <li>Your firm's funded-account agreement<small>The clickwrap you consented to — usually re-readable from your member dashboard. The five clauses live here.</small></li>
+  </ul>
+  <p class="fine">We deliberately don't summarize any firm's policy on this page: rules change faster than blog posts, and your money deserves the primary source. Check the date on anything you read — including this page.</p>
+
+  <h2>Where BridgePit fits.</h2>
+  <p>BridgePit is execution software built around the strict reading of those five clauses: it runs on <b>your own computer</b>, sends orders from <b>your own IP</b>, and is <b>semi-automated by design</b> — it executes your TradingView alerts, you supervise, with the kill-switch, caps, daily loss stop, and end-of-day flatten always on. No VPS, no cloud middleman, no one holding your credentials. Whether that fits your firm's rules is a question the email above answers in writing.</p>
+  <div class="cta">
+    <a class="btn p" href="./">See how BridgePit works</a>
+    <a class="btn g" href="setup">The 20-minute setup</a>
+  </div>
+</main>
+
+<footer>
+  <div>© 2026 BridgePit · <a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a> · <a href="mailto:support@bridgepit.com">Contact</a></div>
+  <div><a href="setup">Setup guide</a> · <a href="pickmytrade-alternative">vs PickMyTrade</a> · <a href="tradingview-to-tradovate">TradingView → Tradovate</a> · <a href="./">bridgepit.com</a></div>
+</footer>
+
+</body>
+</html>
