@@ -1,0 +1,140 @@
+<!doctype html>
+<!-- SEO page 2: "tradingview to tradovate" / "tradovate automation" family +
+     the CME-fee fear searches. Cost facts verified 2026-07-20: Tradovate API
+     add-on $25/mo (multiple Tradovate community threads); CME sub-vendor fee
+     ($290+/mo) applies only to consuming real-time market data VIA API —
+     BridgePit routes orders only, charts stay on TradingView. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Automate TradingView to Tradovate — from your own machine, no cloud | BridgePit</title>
+<meta name="description" content="How to execute TradingView strategy alerts on Tradovate automatically: real costs (the $25 API add-on, and why the $290 CME fee doesn't apply), a 20-minute setup, and why funded traders run it locally instead of through a cloud service.">
+<link rel="canonical" href="https://bridgepit.com/tradingview-to-tradovate">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="BridgePit">
+<meta property="og:title" content="TradingView → Tradovate, automated from your own machine">
+<meta property="og:description" content="The honest version: what it costs, what the CME fee is and isn't, and a setup that ends with a paper fill on your screen in ~20 minutes.">
+<meta property="og:url" content="https://bridgepit.com/tradingview-to-tradovate">
+<meta property="og:image" content="https://bridgepit.com/og.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231B3A6B'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='19' font-weight='600' fill='white' text-anchor='middle'%3EB%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+ {"@type":"Question","name":"Do I need the $290/month CME license to automate Tradovate?","acceptedAnswer":{"@type":"Answer","text":"Only if you consume real-time market data through Tradovate's API. Alert-driven execution doesn't: your charts and data stay on TradingView, and the software only routes orders. You pay Tradovate's $25/month API add-on — not the CME sub-vendor fee."}},
+ {"@type":"Question","name":"My prop firm warned me about cloud copiers — can I still automate?","acceptedAnswer":{"@type":"Answer","text":"The warnings target cloud services that hold your credentials and trade from datacenter IPs, and VPS setups. Software that runs on your own computer sends orders from your own residential IP while you supervise. Rules differ by firm and change — always check your firm's current policy."}},
+ {"@type":"Question","name":"What does TradingView-to-Tradovate automation cost in total?","acceptedAnswer":{"@type":"Answer","text":"A TradingView plan with webhook alerts (Essential and up), Tradovate's $25/month API add-on, and the execution software — BridgePit Pro is $49/month with a 7-day trial, and paper trading is free without a card."}},
+ {"@type":"Question","name":"Do I need to know how to code?","acceptedAnswer":{"@type":"Answer","text":"No. You paste a webhook URL and a ready-made message template into your TradingView alert. The 20-minute setup guide ends with a simulated fill on your screen."}}]}
+</script>
+<style>
+  :root{
+    --bg:#0A0D12; --txt:#E6EAF0; --dim:#8C94A1; --dim2:#5C6470;
+    --line:rgba(255,255,255,.08); --plate:#0D1117;
+    --green:#4FB584; --red:#C4574A; --blue:#8FA9D6;
+    --serif:"Newsreader",Georgia,serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Inter",sans-serif;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--txt);font:15.5px/1.65 var(--sans);-webkit-font-smoothing:antialiased}
+  body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:radial-gradient(ellipse 90% 55% at 50% 12%,rgba(44,76,127,.09),transparent 60%)}
+  a{color:inherit;text-decoration:none}
+  :focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+  .chrome{display:flex;justify-content:space-between;align-items:baseline;padding:20px 32px;position:relative;z-index:2}
+  .chrome .wm{font:500 20px var(--serif)}
+  .chrome a.back{font:500 12px var(--sans);color:var(--dim2)}
+  .chrome a.back:hover{color:var(--txt)}
+  main{position:relative;z-index:1;max-width:720px;margin:0 auto;padding:56px 24px 96px}
+  .kicker{font:500 11px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--dim2);margin-bottom:16px}
+  h1{font:500 clamp(30px,4.8vw,44px)/1.12 var(--serif);letter-spacing:-.014em;color:#fff;margin-bottom:16px;max-width:20ch}
+  .lede{font:400 17px/1.6 var(--sans);color:var(--dim);max-width:56ch}
+  .lede b{color:var(--txt);font-weight:500}
+  h2{font:500 clamp(23px,3.2vw,30px)/1.18 var(--serif);letter-spacing:-.012em;color:#fff;margin:60px 0 12px}
+  p{color:var(--dim);margin:0 0 14px;max-width:62ch}
+  p b{color:var(--txt);font-weight:500}
+  table{width:100%;border-collapse:collapse;margin:20px 0 6px;font-size:14px}
+  th{font:500 11px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--dim2);text-align:left;padding:0 12px 9px 0;border-bottom:1px solid var(--line)}
+  td{padding:11px 12px 11px 0;border-bottom:1px solid var(--line);color:var(--dim);vertical-align:top}
+  td:first-child{color:var(--txt);width:210px}
+  td b{color:var(--txt);font-weight:500}
+  .fine{font-size:13px;color:var(--dim2);margin-top:8px}
+  ol{margin:6px 0 14px 20px;color:var(--dim);max-width:60ch}
+  ol li{padding:5px 0}
+  ol li b{color:var(--txt);font-weight:500}
+  code{font:.9em var(--mono);background:rgba(255,255,255,.055);border-radius:5px;padding:1px 6px;color:#C9D3DF}
+  .cta{display:flex;gap:12px;flex-wrap:wrap;margin:26px 0 6px}
+  .btn{display:inline-block;border-radius:10px;padding:12px 22px;font:600 14px var(--sans)}
+  .btn.p{background:#E6EAF0;color:#0A0D12}
+  .btn.g{border:1px solid var(--line);color:var(--txt)}
+  .btn:hover{opacity:.92}
+  .faq h3{font:500 17px var(--sans);color:#fff;margin:22px 0 6px}
+  .faq p{margin-bottom:6px}
+  footer{border-top:1px solid var(--line);margin-top:40px;padding:26px 32px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:var(--dim2);font-size:13px;position:relative;z-index:1}
+  footer a:hover{color:var(--txt)}
+</style>
+</head>
+<body>
+
+<div class="chrome">
+  <a class="wm" href="./">BridgePit</a>
+  <a class="back" href="./">← BridgePit home</a>
+</div>
+
+<main>
+  <div class="kicker">Guide · costs checked July 20, 2026</div>
+  <h1>TradingView → Tradovate, automated from your own machine.</h1>
+  <p class="lede">Your strategy already fires alerts. The missing piece is the thing that turns an alert into a filled order — and <b>where that piece runs</b> decides your costs, your risk, and whether your prop firm has a problem with it. Here's the honest version.</p>
+
+  <h2>First, the fee everyone gets wrong.</h2>
+  <p>Search "Tradovate API" and you'll hit scary numbers: a $290–500/month CME license on top of everything. Here's what that actually is: <b>the CME fee applies only if you stream real-time market data through Tradovate's API.</b> Alert-driven execution doesn't do that — your charts and data stay on TradingView, where you already pay for them, and the execution software only routes orders. What you actually pay Tradovate is its <b>$25/month API add-on</b>. That's it.</p>
+
+  <h2>The real cost of the whole setup.</h2>
+  <table>
+    <tr><th>Piece</th><th>Cost</th><th>Paid to</th></tr>
+    <tr><td>TradingView with webhook alerts</td><td>Essential plan and up</td><td>TradingView</td></tr>
+    <tr><td>Tradovate API add-on</td><td>$25/mo</td><td>Tradovate</td></tr>
+    <tr><td>CME data license</td><td><b>$0</b> — not needed for order routing without API market data</td><td>—</td></tr>
+    <tr><td>Execution software</td><td>BridgePit Pro $49/mo, 7-day trial — <b>paper trading free, no card</b></td><td>BridgePit</td></tr>
+  </table>
+
+  <h2>Cloud service or your own machine?</h2>
+  <p>Most tools in this space are cloud relays: your alert goes to their servers, which hold your broker access and place orders from a datacenter IP. That's fine for a personal account. <b>If you trade a funded account, it's a standing risk</b> — several prop firms prohibit cloud-based copiers and VPS execution in their agreements, and the IP your orders come from isn't yours to control.</p>
+  <p>BridgePit takes the other route: a desktop app on the computer you already trade from. Orders leave from your own IP. Credentials stay encrypted on your machine. You stay the supervisor — kill-switch, per-strategy position caps, a daily loss stop, and an end-of-day flatten are always on. Rules differ by firm and change; check your firm's current policy either way.</p>
+
+  <h2>The setup, in three moves.</h2>
+  <ol>
+    <li><b>Install BridgePit</b> on your Mac and open the dashboard — it runs at <code>127.0.0.1:8787</code>, meaning: on this computer, answering to no one else.</li>
+    <li><b>Follow the <a href="setup" style="color:var(--blue)">20-minute setup guide</a>:</b> give TradingView a way to reach your machine, connect your Tradovate login, paste the ready-made alert template. No code.</li>
+    <li><b>Fire one alert and watch it fill on paper.</b> The free tier is simulation-only, so you prove the whole chain — TradingView → your machine → Tradovate — before a dollar can move.</li>
+  </ol>
+
+  <div class="cta">
+    <a class="btn p" href="downloads/BridgePit-mac.dmg">Download for macOS · Apple Silicon</a>
+    <a class="btn g" href="setup">Read the setup guide</a>
+  </div>
+
+  <h2 class="faq">Questions traders actually ask.</h2>
+  <div class="faq">
+    <h3>"My firm warned me about cloud copiers — can I still automate?"</h3>
+    <p>The warnings target cloud services and VPS setups — execution you don't control, from IPs that aren't yours. Software on your own computer, supervised by you, from your own residential IP, is a different architecture. Check your firm's current rules; that stays your job.</p>
+    <h3>"Do I need the $290 CME license?"</h3>
+    <p>Not for this. It applies to streaming market data through the broker API. Your data stays on TradingView; BridgePit only routes orders. You pay Tradovate's $25/month API add-on.</p>
+    <h3>"Do I need to code?"</h3>
+    <p>No. Webhook URL + ready-made message template, both copy-paste. If your strategy already fires alerts, you're twenty minutes away.</p>
+    <h3>"What happens when my internet drops?"</h3>
+    <p>BridgePit reconnects continuously and alerts you by email and Telegram; the end-of-day flatten retries until your account is confirmed flat.</p>
+    <h3>"Coming from PickMyTrade?"</h3>
+    <p>Your alert format works unchanged — see the <a href="pickmytrade-alternative" style="color:var(--blue)">comparison</a>. Migration is one URL edit per alert.</p>
+  </div>
+</main>
+
+<footer>
+  <div>© 2026 BridgePit · <a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a> · <a href="mailto:support@bridgepit.com">Contact</a></div>
+  <div><a href="setup">Setup guide</a> · <a href="pickmytrade-alternative">vs PickMyTrade</a> · <a href="./">bridgepit.com</a></div>
+</footer>
+
+</body>
+</html>
