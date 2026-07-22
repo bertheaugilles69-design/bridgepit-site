@@ -30,11 +30,9 @@ subscription (Pro $49/mo, 7-day trial, 1 live account; Multi $99/mo,
    its way. Use the machine you normally trade from. It must stay on during
    your trading hours (that is what "executes from your own IP" means).
 2. TradingView on a plan with webhook alerts (Essential and up).
-3. A Tradovate account with API access enabled. Tradovate charges a
-   $25/month API add-on, paid to Tradovate directly. (You do NOT need the
-   ~$290/month CME data license — that applies only to streaming market
-   data through the API. BridgePit only routes orders; your charts and data
-   stay on TradingView.)
+3. A futures prop account at a firm that supports Rithmic, with API access
+   enabled. Your firm charges its own API-access fee, paid to the firm
+   directly. (No CME market-data license needed — BridgePit is order-only.)
 4. Tailscale, a free app used once in step 2 — tailscale.com/download.
 5. Your BridgePit license key if you have subscribed (arrives by email
    after checkout). Not needed for paper trading.
