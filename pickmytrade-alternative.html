@@ -25,7 +25,7 @@
  {"@type":"Question","name":"Can I keep my existing PickMyTrade alert format?","acceptedAnswer":{"@type":"Answer","text":"Yes. BridgePit accepts the PickMyTrade alert message format unchanged — switching is editing one webhook URL per TradingView alert."}},
  {"@type":"Question","name":"Why does it matter where execution runs?","acceptedAnswer":{"@type":"Answer","text":"A cloud service places your orders from its datacenter IP and holds your broker access to do it. Software on your own machine places orders from your own IP with credentials that never leave your computer. Several prop firms prohibit cloud-based copiers and VPS execution; always check your firm's current rules."}},
  {"@type":"Question","name":"Is BridgePit fully automated?","acceptedAnswer":{"@type":"Answer","text":"Semi-automated by design: it executes your TradingView alerts and you supervise, with a kill-switch, position caps, a daily loss stop, and an end-of-day flatten."}},
- {"@type":"Question","name":"What does BridgePit cost compared to PickMyTrade?","acceptedAnswer":{"@type":"Answer","text":"BridgePit Pro is $49/month with a 7-day free trial (one live account; free paper trading without a card). PickMyTrade lists $50/month, $120/quarter, or $350/year with a 5-day trial (checked July 2026). Tradovate's own $25/month API add-on applies to BridgePit's direct connection."}}]}
+ {"@type":"Question","name":"What does BridgePit cost compared to PickMyTrade?","acceptedAnswer":{"@type":"Answer","text":"BridgePit Pro is $49/month with a 7-day free trial (one live account; free paper trading without a card). PickMyTrade lists $50/month, $120/quarter, or $350/year with a 5-day trial (checked July 2026). Your prop firm sets its own API-access fee, paid to the firm directly — not to us."}}]}
 </script>
 <style>
   :root{
@@ -124,7 +124,7 @@
     <tr><td>Needs your computer on</td><td>Yes, during your trading hours — that's what "your own IP" means</td><td>No</td></tr>
     <tr><td>Alert format</td><td colspan="2"><b>Compatible.</b> BridgePit accepts PickMyTrade-format alerts unchanged</td></tr>
   </table>
-  <p class="fine">PickMyTrade pricing and account terms read from pickmytrade.io on July 20, 2026. Tradovate's own $25/month API add-on applies to BridgePit's direct connection — paid to Tradovate, not us.</p>
+  <p class="fine">PickMyTrade pricing and account terms read from pickmytrade.io on July 20, 2026. Your prop firm sets its own API-access fee for a direct connection, paid to the firm directly — not to us.</p>
 
   <h2>When PickMyTrade is the better pick.</h2>
   <p>Honest answer, because it's also our sales filter: if you run <b>many accounts</b> on their flat $50, need a <b>broker we don't support yet</b>, or want <b>nothing running at home</b> — machine off, cloud does everything — PickMyTrade fits you better today. BridgePit exists for one trader specifically: the one whose income depends on a funded account and who doesn't want their execution living on someone else's IP.</p>
