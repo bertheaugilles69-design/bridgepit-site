@@ -189,7 +189,10 @@
       <p>On <b>Strategies</b>, add your strategy. The name is the handshake — your alert must send exactly the same one — and the size multiplier is a hard cap on how big this strategy may ever get.</p>
       <figure class="plate"><img src="setup-strategy.png" alt="The Strategies table with one strategy: ORB-5m on MNQ1!, size ×2, enabled" width="2072" height="252"></figure>
       <p class="figcap"><b>Strategies.</b> One row per strategy; the cap applies before any order leaves.</p>
-      <p>Then, in TradingView, create an alert on your strategy and fill in two fields. <b>Webhook URL</b>: paste the address from step two. <b>Message</b>: paste the block below as-is — you only ever touch the highlighted values (your strategy name, your token in its two spots, your connection name and account), everything else stays exactly like this:</p>
+      <p>Then, in TradingView, open the alert window — the <b>⏰ alarm-clock icon</b> on the right toolbar, then <b>Create alert</b>. You touch exactly two rows:</p>
+      <figure class="plate"><img src="setup-tvalert.png" alt="The TradingView Create Alert dialog with the Message and Notifications rows highlighted" width="1888" height="1620"></figure>
+      <p class="figcap"><b>Your TradingView alert window.</b> <b>①&nbsp;Message</b> — click it, clear what's there, paste the block below. <b>②&nbsp;Notifications</b> — click it, switch on <b>Webhook URL</b>, and paste your address from step&nbsp;two.</p>
+      <p>The block for the <b>Message</b> box — you only ever touch the highlighted values (your strategy name, your token in both spots, your connection name and account); everything else stays exactly as written:</p>
 <pre><code>{
   "strategy_name": "<span class="hl">ORB-5m</span>",              <span class="cm">← same name as in the app</span>
   "symbol": "{{ticker}}",
