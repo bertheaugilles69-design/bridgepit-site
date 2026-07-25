@@ -1,0 +1,189 @@
+<!doctype html>
+<!-- SEO page 4: "myfundedfutures automated trading / algo / bot / copier" family.
+     Every characterisation of MFF is a DIRECT QUOTE from their own public help
+     centre, linked to source. No approval, partnership or support is claimed —
+     the status block states plainly that the connection is not confirmed yet.
+     Written 2026-07-25 after Bulenox declined us on copy-trading grounds: the
+     distinction ("we are not a copier") now leads every firm-facing page. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MyFundedFutures and automated trading: what their rules actually say | BridgePit</title>
+<meta name="description" content="MyFundedFutures permits automated strategies and external third-party tools, prohibits high-frequency trading, and prohibits traders copying one another. Here is each rule in their own words, what it means for supervised TradingView execution from your own machine, and where BridgePit honestly stands with them today.">
+<link rel="canonical" href="https://bridgepit.com/myfundedfutures-automation">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="BridgePit">
+<meta property="og:title" content="MyFundedFutures and automated trading: what their rules actually say">
+<meta property="og:description" content="Their rules, quoted and linked: automation permitted, HFT prohibited, traders copying one another prohibited. What that means if you execute your own TradingView alerts from your own machine.">
+<meta property="og:url" content="https://bridgepit.com/myfundedfutures-automation">
+<meta property="og:image" content="https://bridgepit.com/og.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20128%20128%27%3E%3Crect%20width%3D%27128%27%20height%3D%27128%27%20rx%3D%2728%27%20fill%3D%27%230E1218%27%2F%3E%3Cg%20stroke%3D%27%23C7CCD6%27%20stroke-width%3D%273.4%27%20stroke-linecap%3D%27round%27%20opacity%3D%27.8%27%20fill%3D%27none%27%3E%3Cline%20x1%3D%2746%27%20y1%3D%2724%27%20x2%3D%2724%27%20y2%3D%2790%27%2F%3E%3Cline%20x1%3D%2746%27%20y1%3D%2724%27%20x2%3D%2762%27%20y2%3D%2790%27%2F%3E%3Cline%20x1%3D%2782%27%20y1%3D%2724%27%20x2%3D%27104%27%20y2%3D%2790%27%2F%3E%3Cline%20x1%3D%2782%27%20y1%3D%2724%27%20x2%3D%2766%27%20y2%3D%2790%27%2F%3E%3C%2Fg%3E%3Cline%20x1%3D%2716%27%20y1%3D%2790%27%20x2%3D%27112%27%20y2%3D%2790%27%20stroke%3D%27%23C7CCD6%27%20stroke-width%3D%277%27%20stroke-linecap%3D%27round%27%2F%3E%3Cline%20x1%3D%2746%27%20y1%3D%2722%27%20x2%3D%2746%27%20y2%3D%2798%27%20stroke%3D%27%23C7CCD6%27%20stroke-width%3D%275%27%20stroke-linecap%3D%27round%27%2F%3E%3Cline%20x1%3D%2782%27%20y1%3D%2722%27%20x2%3D%2782%27%20y2%3D%2798%27%20stroke%3D%27%23C7CCD6%27%20stroke-width%3D%275%27%20stroke-linecap%3D%27round%27%2F%3E%3Crect%20x%3D%2738%27%20y%3D%2747%27%20width%3D%2716%27%20height%3D%2734%27%20rx%3D%273.5%27%20fill%3D%27%23C7CCD6%27%2F%3E%3Crect%20x%3D%2774%27%20y%3D%2747%27%20width%3D%2716%27%20height%3D%2734%27%20rx%3D%273.5%27%20fill%3D%27%23EAEDF2%27%2F%3E%3C%2Fsvg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+ {"@type":"Question","name":"Does MyFundedFutures allow automated trading?","acceptedAnswer":{"@type":"Answer","text":"Per MyFundedFutures' own help centre, traders may use automated strategies configured to their own settings, provided those tools do not aim to exploit the favourable fills of the simulated environment, and live automated trading must follow CME guidelines. High-frequency trading is not allowed on their plans. Always confirm the current wording with the firm before you automate."}},
+ {"@type":"Question","name":"Is an execution bridge the same as copy trading?","acceptedAnswer":{"@type":"Answer","text":"No. Copy trading replicates one person's trades onto other people's accounts. An execution bridge takes your own strategy's alerts and places those orders on your own account with your own credentials. Nothing is replicated between users and no strategy is transmitted to anyone. MyFundedFutures prohibits traders copy trading one another; it separately states that external copy trading solutions can be used across a trader's own accounts."}},
+ {"@type":"Question","name":"Does BridgePit work with MyFundedFutures today?","acceptedAnswer":{"@type":"Answer","text":"Not yet, and we will not claim otherwise. BridgePit executes over Rithmic, which is the rail MyFundedFutures runs on, but the technical connection has not been confirmed and no firm-level arrangement is in place. Join the notification list and you will hear the day it is confirmed — not before."}},
+ {"@type":"Question","name":"Is alert-driven execution high-frequency trading?","acceptedAnswer":{"@type":"Answer","text":"No. High-frequency trading means very large numbers of orders at machine speed. Alert-driven execution places an order when your own chart strategy fires a signal — typically a handful of trades a day, at the pace you already trade by hand."}}]}
+</script>
+<style>
+  :root{
+    --bg:#0A0D12; --txt:#E6EAF0; --dim:#8C94A1; --dim2:#5C6470;
+    --line:rgba(255,255,255,.08); --plate:#0D1117;
+    --green:#4FB584; --red:#C4574A; --blue:#8FA9D6; --amber:#C9A227;
+    --serif:"Newsreader",Georgia,serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Inter",sans-serif;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--txt);font:15.5px/1.65 var(--sans);-webkit-font-smoothing:antialiased}
+  body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:radial-gradient(ellipse 90% 55% at 50% 12%,rgba(44,76,127,.09),transparent 60%)}
+  a{color:inherit;text-decoration:none}
+  :focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+  .chrome{display:flex;justify-content:space-between;align-items:baseline;padding:20px 32px;position:relative;z-index:2}
+  .chrome .wm{font:500 20px var(--serif)}
+  .chrome a.back{font:500 12px var(--sans);color:var(--dim2)}
+  .chrome a.back:hover{color:var(--txt)}
+  main{position:relative;z-index:1;max-width:720px;margin:0 auto;padding:56px 24px 96px}
+  .kicker{font:500 11px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--dim2);margin-bottom:16px}
+  h1{font:500 clamp(30px,4.8vw,44px)/1.12 var(--serif);letter-spacing:-.014em;color:#fff;margin-bottom:16px;max-width:24ch}
+  .lede{font:400 17px/1.6 var(--sans);color:var(--dim);max-width:56ch}
+  .lede b{color:var(--txt);font-weight:500}
+  h2{font:500 clamp(23px,3.2vw,30px)/1.18 var(--serif);letter-spacing:-.012em;color:#fff;margin:58px 0 12px}
+  p{color:var(--dim);margin:0 0 14px;max-width:62ch}
+  p b{color:var(--txt);font-weight:500}
+  .clause{border-top:1px solid var(--line);padding:26px 0 10px;margin-top:8px}
+  .clause .n{font:500 11px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--dim2);margin-bottom:8px}
+  .clause h3{font:500 21px var(--serif);color:#fff;margin-bottom:10px}
+  blockquote{border-left:2px solid var(--line);padding:2px 0 2px 18px;margin:12px 0 14px;max-width:62ch;
+    font:400 16px/1.62 var(--serif);color:#C4CBD6}
+  blockquote cite{display:block;margin-top:8px;font:400 12.5px var(--sans);color:var(--dim2);font-style:normal}
+  blockquote cite a{color:var(--blue)}
+  .verdict{font-size:14.5px;color:var(--dim);max-width:62ch;margin-top:2px}
+  .verdict b{color:var(--txt);font-weight:500}
+  code{font:.88em var(--mono);background:rgba(255,255,255,.055);border-radius:5px;padding:1px 7px;color:#C9D3DF}
+  .stand{border:1px solid var(--line);border-radius:12px;background:var(--plate);padding:22px 24px;margin:26px 0 6px}
+  .stand .t{font:500 12px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--amber);margin-bottom:10px}
+  .stand p{margin-bottom:10px}
+  .stand p:last-child{margin-bottom:0}
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:18px 0 8px}
+  .split div{background:var(--plate);padding:18px 20px}
+  .split h4{font:500 12px var(--sans);letter-spacing:.14em;text-transform:uppercase;margin-bottom:9px}
+  .split .no h4{color:var(--red)}
+  .split .yes h4{color:var(--green)}
+  .split p{font-size:14px;margin:0;color:var(--dim)}
+  @media(max-width:560px){.split{grid-template-columns:1fr}}
+  .cta{display:flex;gap:12px;flex-wrap:wrap;margin:26px 0 6px}
+  .btn{display:inline-block;border-radius:10px;padding:12px 22px;font:600 14px var(--sans)}
+  .btn.p{background:#E6EAF0;color:#0A0D12}
+  .btn.g{border:1px solid var(--line);color:var(--txt)}
+  .btn:hover{opacity:.92}
+  .fine{font-size:13px;color:var(--dim2);margin-top:10px;max-width:62ch}
+  ul.links{list-style:none;margin:14px 0;max-width:62ch}
+  ul.links li{padding:10px 0;border-bottom:1px solid var(--line);color:var(--dim)}
+  ul.links li a{color:var(--blue)}
+  ul.links li small{display:block;color:var(--dim2);font-size:12.5px;margin-top:2px}
+  footer{border-top:1px solid var(--line);margin-top:40px;padding:26px 32px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:var(--dim2);font-size:13px;position:relative;z-index:1}
+  footer a:hover{color:var(--txt)}
+</style>
+</head>
+<body>
+
+<div class="chrome">
+  <a class="wm" href="./" style="display:inline-flex;align-items:center;gap:9px"><svg width='24' height='24' viewBox='0 0 128 128' fill='none' style='flex:none'><g stroke='#C7CCD6' stroke-width='2' stroke-linecap='round' opacity='.75'><line x1='46' y1='24' x2='24' y2='90'/><line x1='46' y1='24' x2='62' y2='90'/><line x1='82' y1='24' x2='104' y2='90'/><line x1='82' y1='24' x2='66' y2='90'/></g><line x1='16' y1='90' x2='112' y2='90' stroke='#C7CCD6' stroke-width='4' stroke-linecap='round'/><line x1='46' y1='22' x2='46' y2='98' stroke='#C7CCD6' stroke-width='3' stroke-linecap='round'/><line x1='82' y1='22' x2='82' y2='98' stroke='#C7CCD6' stroke-width='3' stroke-linecap='round'/><rect x='40' y='48' width='12' height='32' rx='2.5' fill='#B9BFCB'/><rect x='76' y='48' width='12' height='32' rx='2.5' fill='#EAEDF2'/></svg>BridgePit</a>
+  <a class="back" href="./">← BridgePit home</a>
+</div>
+
+<main>
+  <div class="kicker">Firm rules · read July 2026</div>
+  <h1>MyFundedFutures and automated trading: what their rules actually say.</h1>
+  <p class="lede">Not what a forum says. Below is each relevant rule <b>in MyFundedFutures' own words</b>, linked to their help centre, followed by what it means if you execute your own TradingView alerts from your own machine. Their rules change — check the source links before you act on any of it.</p>
+
+  <h2>First, the thing every prop firm asks about.</h2>
+  <p>The objection that kills most execution tools at a prop firm is copy trading, and firms are right to be strict about it. So, plainly:</p>
+
+  <div class="split">
+    <div class="no">
+      <h4>What BridgePit is not</h4>
+      <p>Not a copier. Not signal replication. Not a managed service. No trade is ever copied from one person onto another person's account, and your strategy is never transmitted to anyone — not to other traders, not to us.</p>
+    </div>
+    <div class="yes">
+      <h4>What it is</h4>
+      <p>An execution bridge. Your own chart strategy fires an alert; software on <b>your</b> computer places that order on <b>your</b> account with <b>your</b> credentials, from your own IP address. You watch it, and you can stop it instantly.</p>
+    </div>
+  </div>
+
+  <section class="clause">
+    <div class="n">Rule one</div>
+    <h3>Traders may not copy each other.</h3>
+    <blockquote>"Traders are not permitted to copy trade one another by entering, exiting or cancelling trade positions."
+      <cite><a href="https://help.myfundedfutures.com/en/articles/8444599-fair-play-and-prohibited-trading-practices" rel="nofollow noopener" target="_blank">MyFundedFutures — Fair Play and Prohibited Trading Practices</a></cite></blockquote>
+    <blockquote>"Collaborating with others to execute identical or opposite strategies across unconnected accounts is prohibited."
+      <cite><a href="https://help.myfundedfutures.com/en/articles/8444599-fair-play-and-prohibited-trading-practices" rel="nofollow noopener" target="_blank">Same article</a></cite></blockquote>
+    <p class="verdict">Both rules describe <b>trades moving between different people</b>. That is the category an execution bridge sits outside of: one trader, one strategy, one account, no replication to anyone else. Note MyFundedFutures separately publishes a copy-trading policy of its own, naming a preferred copier partner and stating that <b>"external copy trading solutions can also be used"</b> — so third-party execution software is not foreign to them. <a href="https://help.myfundedfutures.com/en/articles/10771500-copy-trading-at-myfundedfutures" rel="nofollow noopener" target="_blank" style="color:var(--blue)">Their copy-trading article →</a></p>
+  </section>
+
+  <section class="clause">
+    <div class="n">Rule two</div>
+    <h3>Automated strategies are permitted, with two conditions.</h3>
+    <p class="verdict">Their fair-play article permits traders to use automated strategies configured to their own settings, provided the tool <b>does not aim to exploit the favourable fills of the simulated environment</b>, and states that live automated trading must follow <b>CME guidelines</b>. Read the current wording yourself — this is the clause most likely to be updated. <a href="https://help.myfundedfutures.com/en/articles/8444599-fair-play-and-prohibited-trading-practices" rel="nofollow noopener" target="_blank" style="color:var(--blue)">Source →</a></p>
+    <p class="verdict">What that asks of a tool: it should place the orders <b>your</b> strategy asks for, at the pace you actually trade, with nothing engineered around simulated-fill behaviour.</p>
+  </section>
+
+  <section class="clause">
+    <div class="n">Rule three</div>
+    <h3>High-frequency trading is out.</h3>
+    <blockquote>"High-frequency Trading is not allowed on our plans."
+      <cite><a href="https://help.myfundedfutures.com/en/articles/8444599-fair-play-and-prohibited-trading-practices" rel="nofollow noopener" target="_blank">MyFundedFutures — Fair Play and Prohibited Trading Practices</a></cite></blockquote>
+    <p class="verdict">Alert-driven execution is the opposite end of that spectrum. Your chart fires a signal; one order goes in. That is typically a handful of trades a day — the same rhythm you already trade by hand, minus the typing.</p>
+  </section>
+
+  <section class="clause">
+    <div class="n">Rule four</div>
+    <h3>One trader, one device.</h3>
+    <blockquote>"Each individual trader may not use the same device (tablet, phone or computer) as used by another trader."
+      <cite><a href="https://help.myfundedfutures.com/en/articles/8444599-fair-play-and-prohibited-trading-practices" rel="nofollow noopener" target="_blank">MyFundedFutures — Fair Play and Prohibited Trading Practices</a></cite></blockquote>
+    <p class="verdict">Worth reading next to how cloud execution works. A hosted service runs your orders from <b>its</b> infrastructure alongside everyone else's. Local execution runs on the machine you already trade from, under your own account, from your own IP — which is the arrangement this rule is written around.</p>
+  </section>
+
+  <h2>Where BridgePit honestly stands with MyFundedFutures.</h2>
+
+  <div class="stand">
+    <div class="t">Status — not yet connected</div>
+    <p><b>We are not going to tell you it works there today.</b> BridgePit executes over Rithmic, which is the infrastructure MyFundedFutures runs on, and the rules above are the reason we are pursuing them first. But the technical connection has not been confirmed, and no firm-level arrangement is in place.</p>
+    <p>"Permitted by the rulebook" and "your account will connect" are two different things, and only one of them is proven. When it is confirmed, this page changes and the people on the list hear first.</p>
+  </div>
+
+  <div class="cta">
+    <a class="btn p" href="mailto:support@bridgepit.com?subject=Notify%20me%20%E2%80%94%20BridgePit%20on%20MyFundedFutures">Tell me when MyFundedFutures is confirmed</a>
+    <a class="btn g" href="./">What BridgePit does</a>
+  </div>
+  <p class="fine">No spam, no drip sequence — one email when there is something real to say. In the meantime you can run the whole thing on paper, free, and see exactly what would have executed.</p>
+
+  <h2>What it would cost you.</h2>
+  <p>BridgePit is <b>$49/month</b> (Pro, one live account, 7-day trial) or <b>$99/month</b> for up to five accounts. Paper mode is free and needs no card.</p>
+  <p>Separately, <b>your firm sets its own fees</b> for API or third-party access, paid to the firm, not to us — ask MyFundedFutures what applies on your plan. Charts stay on TradingView, so you are not buying a market-data licence to route orders.</p>
+
+  <h2>Before you automate anything, get it in writing.</h2>
+  <p>Rules change and support answers age. Whatever tool you pick, send your firm one email naming it, saying it runs on your own computer from your own IP, that you supervise it with a kill-switch and a daily loss stop, and asking if that complies. Keep the reply. <a href="prop-firm-automation-rules" style="color:var(--blue)">The five clauses to check in any firm's agreement →</a></p>
+
+  <ul class="links">
+    <li><a href="https://help.myfundedfutures.com/en/articles/8444599-fair-play-and-prohibited-trading-practices" rel="nofollow noopener" target="_blank">MyFundedFutures — Fair Play and Prohibited Trading Practices</a><small>The source for every quote on this page.</small></li>
+    <li><a href="https://help.myfundedfutures.com/en/articles/10771500-copy-trading-at-myfundedfutures" rel="nofollow noopener" target="_blank">MyFundedFutures — Copy Trading policy</a><small>Their own position on external execution software.</small></li>
+    <li><a href="setup">The 20-minute setup, start to finish</a><small>Real screenshots of every step, including the part most guides skip.</small></li>
+  </ul>
+
+  <p class="fine">BridgePit is software, not a broker, and not affiliated with, endorsed by, or partnered with MyFundedFutures. Every quotation above is from MyFundedFutures' public help centre on the date shown and may have changed since — the firm's own current wording governs, not ours. Nothing here is trading advice.</p>
+</main>
+
+<footer>
+  <div>© 2026 BridgePit · <a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a> · <a href="mailto:support@bridgepit.com">Contact</a></div>
+  <div><a href="setup">Setup guide</a> · <a href="pickmytrade-alternative">vs PickMyTrade</a> · <a href="prop-firm-automation-rules">Prop-firm rules</a> · <a href="./">bridgepit.com</a></div>
+</footer>
+
+</body>
+</html>
