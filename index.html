@@ -25,7 +25,7 @@
 <meta name="twitter:image" content="https://bridgepit.com/og.png">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"SoftwareApplication","name":"BridgePit",
- "applicationCategory":"FinanceApplication","operatingSystem":"macOS, Windows",
+ "applicationCategory":"FinanceApplication","operatingSystem":"macOS",
  "description":"Desktop software that executes TradingView strategy alerts on the trader's own futures broker account, locally from the trader's own computer and IP address.",
  "offers":[{"@type":"Offer","name":"Paper","price":"0","priceCurrency":"USD"},
            {"@type":"Offer","name":"Pro","price":"49","priceCurrency":"USD"},
@@ -376,7 +376,7 @@
       <div class="amain">
         <div class="atop"><b>Dashboard</b><span class="apill" id="apill"><i></i><span id="apillTxt">Running</span></span></div>
         <div class="acards">
-          <div class="acard"><h5>Connection</h5><div class="v" style="font-size:13px;padding:4px 0">Tradovate</div><div class="s">local · your IP</div></div>
+          <div class="acard"><h5>Connection</h5><div class="v" style="font-size:13px;padding:4px 0">Rithmic</div><div class="s">local · your IP</div></div>
           <div class="acard"><h5>Open positions</h5><div class="v" id="aPos">0</div><div class="s" id="aPosD">flat</div></div>
           <div class="acard"><h5>Loss budget</h5><div class="v" id="aLoss" style="font-size:16px">$0 <span style="font-size:11px;color:#8b95a5;font-weight:500">of $1,000</span></div><div class="s">auto-halt · EOD flatten 15:55 ET</div></div>
           <div class="acard"><h5>Kill-switch</h5><button class="akill" id="aHalt" type="button">Halt trading</button><div class="s" id="aHaltS">accepting signals</div></div>
@@ -478,7 +478,7 @@
         <div class="ftag">Founding fifty — $49 locked while active</div>
         <div class="amt">$49<span> /month</span></div>
         <p class="for">1 live account · 7-day free trial</p>
-        <ul><li>Live execution, 1 broker account</li><li>Unlimited strategies</li><li>All risk controls &amp; alerts</li><li>Priority support</li><li>Plus Tradovate's $25/mo API add-on, paid to Tradovate</li></ul>
+        <ul><li>Live execution, 1 broker account</li><li>Unlimited strategies</li><li>All risk controls &amp; alerts</li><li>Priority support</li><li>Plus your prop firm's own API-access fee, paid to the firm</li></ul>
         <a class="btn btn-n" href="https://buy.stripe.com/00waEXdOP1YF74n8YgcV200">Start 7-day trial</a>
       </div>
       <div class="tier">
@@ -524,7 +524,7 @@
   </div>
 
   <div class="foot">
-    <div><a href="pickmytrade-alternative">PickMyTrade alternative</a> · <a href="tradingview-to-tradovate">TradingView → Tradovate</a> · <a href="prop-firm-automation-rules">Prop-firm automation rules</a> · <a href="setup">Setup</a></div>
+    <div><a href="pickmytrade-alternative">PickMyTrade alternative</a> · <a href="prop-firm-automation-rules">Prop-firm automation rules</a> · <a href="setup">Setup</a></div>
     <div>© 2026 BridgePit · <a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a> · <a href="mailto:support@bridgepit.com">Contact</a></div>
     <div class="legal">Futures trading involves substantial risk of loss and is not suitable for every investor. BridgePit is a software tool, not a broker or investment adviser — you trade your own strategies, on your own account, at your own risk. · Luc François Python, Switzerland.</div>
   </div>
@@ -658,7 +658,7 @@ function render(p){
   const st=$("status"),stx=$("statusTxt");
   st.className="status"+(p>=.05?" on":"");
   stx.textContent=p<.05?"Pre-market · connected · flat"
-    :p<.84?"Running · Tradovate connected · your IP"
+    :p<.84?"Running · Rithmic connected · your IP"
     :"Session closed · flat · log complete";
 
   $("sPos").textContent=inTrade?"Long 2 MNQ":"Flat";

@@ -8,8 +8,10 @@ and VPS execution. Semi-automated by design: it executes, the trader
 supervises (kill-switch, position caps, daily loss stop, EOD auto-flatten).
 Credentials are encrypted on the trader's machine and never touch our servers.
 Accepts PickMyTrade-format alerts unchanged (one URL edit to migrate).
-Broker support: Tradovate at launch ($25/mo Tradovate API add-on applies);
-Rithmic in certification. Pricing: Free paper trading; Pro $49/mo (7-day
+Broker support: Rithmic — the connection rail most major prop firms offer;
+BridgePit passed Rithmic vendor conformance on 2026-07-13. Supported firms are
+announced at launch, and each firm sets its own API-access fee, paid by the
+trader directly to the firm. Pricing: Free paper trading; Pro $49/mo (7-day
 trial, 1 live account); Multi $99/mo (5 accounts).
 
 ## Pages
