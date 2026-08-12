@@ -411,36 +411,72 @@
 </style>
 
 <style>
-  /* ── the door: the question comes first, before the day ── */
-  .door{position:relative;z-index:30;min-height:100svh;display:flex;flex-direction:column;justify-content:center;
-    padding:104px 32px 44px;background:var(--bg)}
-  .door{overflow:hidden}
-  .doorbg{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.20;
-    mask-image:linear-gradient(90deg,transparent,#000 22%,#000 100%);
-    -webkit-mask-image:linear-gradient(90deg,transparent,#000 22%,#000 100%)}
+  /* ── the door: two real cockpits, both always fully visible ── */
+  .door{position:relative;overflow:hidden;z-index:30;min-height:100svh;display:flex;flex-direction:column;
+    justify-content:center;padding:clamp(96px,13vh,124px) 32px clamp(32px,5vh,52px);background:var(--bg)}
+  .doorbg{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.16;
+    mask-image:linear-gradient(180deg,#000,transparent 78%);
+    -webkit-mask-image:linear-gradient(180deg,#000,transparent 78%)}
   .doorbg svg{position:absolute;inset:0;width:100%;height:100%}
   .door::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
-    background:radial-gradient(ellipse 70% 60% at 30% 50%,rgba(10,13,18,.86),rgba(10,13,18,.5) 70%)}
-  .door .inner{position:relative;z-index:2;width:100%;max-width:1080px;margin:0 auto}
-  .door .promise{font:400 clamp(15px,1.7vw,19px)/1.55 var(--sans);color:#B7BFCB;
-    margin-bottom:clamp(18px,3vh,30px);max-width:46ch}
-  .door h1{font:500 clamp(34px,5.2vw,66px)/1.06 var(--serif);letter-spacing:-.018em;color:#fff;
-    margin-bottom:clamp(26px,4.5vh,50px)}
-  .doors{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-  .dcard{display:block;width:100%;text-align:left;cursor:pointer;font:inherit;
-    background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.012));
-    border:1px solid rgba(255,255,255,.09);border-radius:16px;padding:clamp(22px,3vw,34px);
-    transition:border-color .35s,background .35s,transform .35s}
-  .dcard:hover{border-color:rgba(143,169,214,.5);transform:translateY(-2px);
-    background:linear-gradient(180deg,rgba(143,169,214,.09),rgba(255,255,255,.02))}
-  .dcard .dt{display:block;font:500 clamp(20px,2.3vw,30px)/1.15 var(--serif);letter-spacing:-.01em;color:#fff}
-  .dcard .ds{display:block;margin-top:9px;font:400 14px/1.5 var(--sans);color:var(--dim)}
-  .dcard .dgo{display:block;margin-top:20px;font:600 11.5px var(--sans);letter-spacing:.16em;
-    text-transform:uppercase;color:#8FA9D6}
-  .door .skip{margin-top:clamp(20px,3.5vh,32px);font:400 13px var(--sans);color:var(--dim2)}
+    background:radial-gradient(ellipse 80% 70% at 50% 42%,rgba(10,13,18,.55),rgba(10,13,18,.92) 78%)}
+  .door .inner{position:relative;z-index:2;width:100%;max-width:1180px;margin:0 auto}
+  .dhead{margin-bottom:clamp(22px,4vh,42px)}
+  .door .promise{max-width:54ch;font:400 clamp(14.5px,1.6vw,18px)/1.55 var(--sans);color:#B7BFCB;margin-bottom:14px}
+  .door h1{font:500 clamp(30px,4.4vw,56px)/1.07 var(--serif);letter-spacing:-.018em;color:#fff}
+
+  .doors{display:grid;grid-template-columns:1fr 1fr;gap:clamp(13px,1.5vw,20px);align-items:stretch}
+  .dcard{display:flex;flex-direction:column;text-align:left;cursor:pointer;font:inherit;padding:0;overflow:hidden;
+    background:linear-gradient(180deg,rgba(23,28,37,.9),rgba(15,19,26,.92));
+    border:1px solid rgba(255,255,255,.10);border-radius:16px;
+    transition:border-color .35s,transform .35s,box-shadow .35s}
+  .dcard:hover{border-color:rgba(143,169,214,.55);transform:translateY(-3px);box-shadow:0 18px 50px rgba(0,0,0,.45)}
+  .dcard:hover .dgo{color:#B9CCE8}
+  .dbar{display:flex;align-items:center;gap:7px;padding:11px 15px;border-bottom:1px solid rgba(255,255,255,.07);
+    background:rgba(255,255,255,.022)}
+  .dbar i{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.16);flex:none}
+  .dbar span{margin-left:7px;font:500 11.5px var(--sans);letter-spacing:.03em;color:var(--dim)}
+  .dbody{display:block;padding:clamp(17px,1.9vw,26px)}
+  .dtitle{display:block;font:500 clamp(21px,2.2vw,30px)/1.14 var(--serif);letter-spacing:-.01em;color:#fff}
+  .dsub{display:block;margin-top:7px;font:400 13.5px/1.5 var(--sans);color:var(--dim)}
+  .drows{display:grid;gap:8px;margin-top:clamp(15px,2vh,20px)}
+  .drow{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;
+    padding:10px 12px;border-radius:9px;background:rgba(255,255,255,.028);border:1px solid rgba(255,255,255,.05)}
+  .drow b{font:500 12.5px var(--sans);color:#D5DAE3}
+  .drow em{font-style:normal;font:500 11.5px var(--sans);color:var(--dim2)}
+  .drow.on em{color:#4FB584}
+  .drow.dcol{flex-direction:column;align-items:stretch;gap:0}
+  .drow.dcol b,.drow.dcol em{display:inline}
+  .drow.dcol > b{margin-bottom:2px}
+  .dmeter{display:block;height:5px;border-radius:3px;background:rgba(255,255,255,.08);overflow:hidden;margin-top:9px}
+  .dmeter i{display:block;height:100%;border-radius:3px;background:linear-gradient(90deg,#4FB584,#8FA9D6)}
+  .dgo{display:inline-block;margin-top:clamp(16px,2.2vh,22px);
+    font:600 12px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:#8FA9D6;transition:color .3s}
+  .door .skip{margin-top:clamp(18px,3vh,30px);font:400 13px var(--sans);color:var(--dim2)}
   .door .skip a{border-bottom:1px solid rgba(255,255,255,.14);padding-bottom:2px}
   .door .skip a:hover{color:var(--dim)}
-  @media(max-width:760px){.doors{grid-template-columns:1fr}.door{padding:92px 20px 34px}}
+
+  /* the always-there switch, so the answer is never trapped */
+  .modeSw{display:none;gap:2px;padding:2px;border:1px solid rgba(255,255,255,.10);border-radius:999px;
+    background:rgba(255,255,255,.02);margin-right:6px}
+  .modeSw button{background:none;border:none;cursor:pointer;border-radius:999px;padding:6px 12px;
+    font:500 11.5px var(--sans);color:var(--dim);transition:background .3s,color .3s}
+  .modeSw button:hover{color:var(--txt)}
+  body[data-mode] .modeSw{display:flex}
+  body[data-mode="own"] .modeSw button[data-pick="own"],
+  body[data-mode="funded"] .modeSw button[data-pick="funded"]{background:rgba(255,255,255,.10);color:#fff}
+
+  @media(max-width:900px){
+    .doors{grid-template-columns:1fr;gap:11px}
+    .door{padding:88px 18px 28px;justify-content:flex-start}
+    .dhead{margin-bottom:16px}
+    .dbody{padding:15px 16px}
+    .drows{margin-top:12px;gap:6px}
+    .drow.dcol,.drow:nth-child(2){display:none}
+    .dsub{margin-top:5px;font-size:13px}
+    .dgo{margin-top:13px}
+    .modeSw{display:none}
+  }
 
   /* ── the day now ENDS on the product, not on a question ── */
   .mv{display:none}
@@ -474,6 +510,10 @@
 <div class="chrome">
   <a class="wm" href="#" style="display:inline-flex;align-items:center;gap:9px"><svg width='24' height='24' viewBox='0 0 128 128' fill='none' style='flex:none'><g stroke='#C7CCD6' stroke-width='2' stroke-linecap='round' opacity='.75'><line x1='46' y1='24' x2='24' y2='90'/><line x1='46' y1='24' x2='62' y2='90'/><line x1='82' y1='24' x2='104' y2='90'/><line x1='82' y1='24' x2='66' y2='90'/></g><line x1='16' y1='90' x2='112' y2='90' stroke='#C7CCD6' stroke-width='4' stroke-linecap='round'/><line x1='46' y1='22' x2='46' y2='98' stroke='#C7CCD6' stroke-width='3' stroke-linecap='round'/><line x1='82' y1='22' x2='82' y2='98' stroke='#C7CCD6' stroke-width='3' stroke-linecap='round'/><rect x='40' y='48' width='12' height='32' rx='2.5' fill='#B9BFCB'/><rect x='76' y='48' width='12' height='32' rx='2.5' fill='#EAEDF2'/></svg>BridgePit</a>
   <div class="right">
+    <div class="modeSw" role="group" aria-label="Whose money you trade">
+      <button type="button" data-pick="own">Own money</button>
+      <button type="button" data-pick="funded">Firm account</button>
+    </div>
     <a class="alt" href="#how">How it works</a>
     <a class="alt" href="#pricing">Pricing</a>
     <a class="alt" href="#faq">FAQ</a>
@@ -483,21 +523,44 @@
 <section class="door" id="door">
   <div class="doorbg" aria-hidden="true"><svg id="doorchart" viewBox="0 0 1200 420" preserveAspectRatio="none"></svg></div>
   <div class="inner">
-    <p class="promise">Your TradingView alerts, executed on your own computer — no cloud in between, and nobody else holding your broker login.</p>
-    <h1>Whose money do you trade?</h1>
-    <div class="doors">
-      <button class="dcard" data-pick="own">
-        <span class="dt">My own money</span>
-        <span class="ds">A brokerage account in your name.</span>
-        <span class="dgo">Show me this &rarr;</span>
-      </button>
-      <button class="dcard" data-pick="funded">
-        <span class="dt">A firm&rsquo;s account</span>
-        <span class="ds">Their capital, their rules.</span>
-        <span class="dgo">Show me this &rarr;</span>
-      </button>
+    <div class="dhead">
+      <p class="promise">Your TradingView alerts, executed on your own computer. No cloud in between, nobody else holding your broker login.</p>
+      <h1>Which of these is your account?</h1>
     </div>
-    <p class="skip"><a href="#track" id="skipDoor">Just show me the product</a></p>
+    <div class="doors">
+
+      <button class="dcard" data-pick="own">
+        <span class="dbar"><i></i><i></i><i></i><span>BridgePit &middot; your own account</span></span>
+        <span class="dbody">
+          <span class="dtitle">My own money</span>
+          <span class="dsub">A brokerage account in your name. Your rules, your risk.</span>
+          <span class="drows">
+            <span class="drow"><b>Broker login</b><em>encrypted on this Mac</em></span>
+            <span class="drow on"><b>Stop resting at the broker</b><em>armed</em></span>
+            <span class="drow dcol"><b>Daily loss stop</b><em>you set it &middot; $600</em>
+              <span class="dmeter"><i style="width:34%"></i></span></span>
+          </span>
+          <span class="dgo">This is me &rarr;</span>
+        </span>
+      </button>
+
+      <button class="dcard" data-pick="funded">
+        <span class="dbar"><i></i><i></i><i></i><span>BridgePit &middot; funded account</span></span>
+        <span class="dbody">
+          <span class="dtitle">A firm&rsquo;s account</span>
+          <span class="dsub">Their capital, their rules. Break one and the account is gone.</span>
+          <span class="drows">
+            <span class="drow on"><b>Firm rules</b><em>on</em></span>
+            <span class="drow on"><b>Flatten before the close</b><em>15:55 ET</em></span>
+            <span class="drow dcol"><b>Daily loss budget</b><em>$120 of $1,000</em>
+              <span class="dmeter"><i style="width:12%"></i></span></span>
+          </span>
+          <span class="dgo">This is me &rarr;</span>
+        </span>
+      </button>
+
+    </div>
+    <p class="skip"><a href="#track" id="skipDoor">Not sure yet &mdash; just show me the product</a></p>
   </div>
 </section>
 
@@ -1043,6 +1106,12 @@ else if(small){
   }
   [].slice.call(door.querySelectorAll('.dcard')).forEach(function(b){
     b.addEventListener('click',function(){go(b.getAttribute('data-pick'))});
+  });
+  [].slice.call(document.querySelectorAll('.modeSw button')).forEach(function(b){
+    b.addEventListener('click',function(){
+      var m=b.getAttribute('data-pick');
+      document.body.dataset.mode=m; try{localStorage.setItem('bp-mode',m)}catch(e){}
+    });
   });
   var s=document.getElementById('skipDoor');
   if(s)s.addEventListener('click',function(e){e.preventDefault();go(null)});
