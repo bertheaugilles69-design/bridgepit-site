@@ -102,7 +102,7 @@
   .ev{display:inline-block;font:700 9.5px var(--sans);letter-spacing:.1em;border-radius:5px;padding:3px 7px}
   .ev.ORDER{color:#B9CCE8;background:rgba(143,169,214,.14)}
   .ev.FILL{color:#8FE0BA;background:rgba(79,181,132,.15)}
-  .ev.REFUSED{color:#E8A79E;background:rgba(196,87,74,.15)}
+  .ev.BLOCKED{color:#EBCB8E;background:rgba(217,160,63,.16)}
   .ev.STOP{color:#EBCB8E;background:rgba(217,160,63,.14)}
   .ev.FLAT{color:#C9D3E2;background:rgba(255,255,255,.09)}
   .t-txt{font:500 12.5px/1.45 var(--sans);color:#C3CBD6;word-break:break-word}
@@ -209,8 +209,7 @@
     {w:1100, t:'09:47:03', ev:'FILL',    x:'Filled 2 MNQ @ 23,412.25',          s:'position 0 → 2',
       set:function(){ pos('Long 2 MNQ','entry 23,412.25'); pnl(0) }},
     {w:900,  t:'09:47:03', ev:'STOP',    x:'Protective stop resting at broker', s:'SELL 2 @ 23,380.00 · live without this app'},
-    {w:2300, t:'10:14:38', ev:'REFUSED', x:'Same alert again, 4s apart',        s:'duplicate — position unchanged'},
-    {w:1500, t:'10:14:42', ev:'REFUSED', x:'And a third time',                  s:'duplicate — position unchanged'},
+    {w:2600, t:'10:14:41', ev:'BLOCKED', x:'TradingView re-sent the same alert', s:'no second order · position stayed at 2'},
     {w:2100, t:'11:02:11', ev:'FILL',    x:'Moved with the trade',              s:'stop raised to 23,431.00',
       set:function(){ pnl(96) }},
     {w:2400, t:'13:30:04', ev:'FILL',    x:'Exit filled 2 MNQ @ 23,466.75',     s:'position 2 → 0',
