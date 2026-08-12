@@ -132,6 +132,37 @@
   .btn-o:hover{border-color:var(--dim)}
   .finale .fine{margin-top:20px;font:400 12.5px var(--sans);color:var(--dim2)}
 
+  /* ── finale question choreography ── */
+  .fwrap{max-width:860px;padding:0 24px}
+  #fday{transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+  .finale[data-step="ask"] #fday,.finale[data-step="done"] #fday{opacity:.42;transform:scale(.62) translateY(-8px);margin-bottom:0}
+  .fq{opacity:0;transform:translateY(14px);transition:opacity .7s .15s cubic-bezier(.2,.7,.2,1),transform .7s .15s cubic-bezier(.2,.7,.2,1);pointer-events:none}
+  .finale[data-step="ask"] .fq,.finale[data-step="done"] .fq{opacity:1;transform:none;pointer-events:auto}
+  .fq h3{font:500 clamp(26px,3.4vw,40px)/1.15 var(--serif);letter-spacing:-.012em;color:#fff;margin-bottom:30px}
+  .fchoices{display:flex;align-items:center;justify-content:center;gap:26px;flex-wrap:wrap}
+  .for{font:500 11px var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--dim2)}
+  .fchoice{position:relative;background:none;border:none;cursor:pointer;padding:6px 2px;
+    font:500 clamp(20px,2.3vw,27px)/1.2 var(--serif);letter-spacing:-.01em;color:#AEB7C4;
+    transition:color .35s,opacity .45s,transform .45s}
+  .fchoice::after{content:"";position:absolute;left:0;right:100%;bottom:-3px;height:1.5px;background:#8FA9D6;transition:right .45s cubic-bezier(.2,.7,.2,1)}
+  .fchoice:hover,.fchoice:focus-visible{color:#fff}
+  .fchoice:hover::after,.fchoice:focus-visible::after{right:0}
+  .fchoice:focus-visible{outline:none}
+  .finale[data-step="done"] .fchoice{color:#fff}
+  .finale[data-step="done"] .fchoice:not(.sel){opacity:.28;color:#AEB7C4}
+  .finale[data-step="done"] .fchoice:not(.sel)::after{right:100%}
+  .finale[data-step="done"] .fchoice.sel::after{right:0}
+  .fanswer{max-height:0;opacity:0;overflow:hidden;transform:translateY(10px);
+    transition:max-height .8s cubic-bezier(.2,.7,.2,1),opacity .7s .12s,transform .7s .12s}
+  .finale[data-step="done"] .fanswer{max-height:320px;opacity:1;transform:none}
+  .fline{display:none;font:400 16px/1.6 var(--sans);color:var(--txt);max-width:52ch;margin:26px auto 28px}
+  body[data-mode="own"] .fline[data-m="own"],body[data-mode="funded"] .fline[data-m="funded"]{display:block}
+  .fswap{display:block;margin:14px auto 0;background:none;border:none;cursor:pointer;
+    font:400 12px var(--sans);color:var(--dim2);padding:6px}
+  .fswap:hover{color:var(--dim);text-decoration:underline;text-underline-offset:3px}
+  @media(prefers-reduced-motion:reduce){#fday,.fq,.fanswer,.fchoice,.fchoice::after{transition:none}}
+  @media(max-width:560px){.fchoices{flex-direction:column;gap:14px}.for{display:none}}
+
   .rail{position:fixed;right:0;top:0;bottom:0;width:3px;z-index:41}
   .rail i{display:block;width:100%;height:0;background:#8FA9D6;opacity:.45}
   body.auto .rail{display:none}
@@ -150,33 +181,6 @@
   .stake .stakeV{display:none}
   body:not([data-mode]) .stakeV[data-m="funded"],body[data-mode="funded"] .stakeV[data-m="funded"],body[data-mode="own"] .stakeV[data-m="own"]{display:block}
 
-  /* ── the fork ── */
-  .fork{position:relative;z-index:1;background:#0A0D12;border-top:1px solid var(--gborder);padding:120px 24px 104px;text-align:center}
-  .fork .s1{font:400 15px var(--sans);letter-spacing:.06em;color:var(--dim2);text-transform:uppercase;margin-bottom:22px}
-  .fork h2{font:500 clamp(32px,4.4vw,54px)/1.12 var(--serif);letter-spacing:-.014em;color:#fff;max-width:22ch;margin:0 auto}
-  .forkgrid{display:grid;grid-template-columns:repeat(2,minmax(250px,330px));gap:18px;justify-content:center;margin:54px auto 0}
-  @media(max-width:640px){.forkgrid{grid-template-columns:minmax(0,330px)}}
-  .fpick{text-align:left;background:var(--glass);border:1px solid var(--gborder);border-radius:18px;padding:28px 26px 24px;cursor:pointer;backdrop-filter:blur(10px);font:inherit;
-    transition:transform .35s cubic-bezier(.2,.7,.2,1),border-color .35s,box-shadow .35s,opacity .35s}
-  .fpick:hover{transform:translateY(-4px);border-color:rgba(255,255,255,.24);box-shadow:0 26px 64px -26px rgba(0,0,0,.75)}
-  .fpick:focus-visible{outline:2px solid #8FA9D6;outline-offset:3px}
-  .fpick svg{display:block;margin-bottom:20px}
-  .fpick b{display:block;font:500 22px var(--serif);letter-spacing:-.01em;color:#fff;margin-bottom:7px}
-  .fpick span{font:400 13.5px/1.5 var(--sans);color:var(--dim)}
-  body[data-mode] .fpick{opacity:.4}
-  body[data-mode="own"] .fpick[data-m="own"],body[data-mode="funded"] .fpick[data-m="funded"]{opacity:1;border-color:rgba(143,169,214,.55);box-shadow:0 26px 64px -26px rgba(0,0,0,.75)}
-  .fbeats{max-width:760px;margin:44px auto 0;display:none;grid-template-columns:repeat(3,1fr);gap:14px;text-align:left}
-  @media(max-width:640px){.fbeats{grid-template-columns:1fr}}
-  body[data-mode="own"] .fbeats[data-m="own"],body[data-mode="funded"] .fbeats[data-m="funded"]{display:grid}
-  .fbeat{background:var(--glass);border:1px solid var(--gborder);border-radius:14px;padding:18px 18px 16px;animation:beatin .5s cubic-bezier(.2,.7,.2,1) both}
-  .fbeat:nth-child(2){animation-delay:.08s}.fbeat:nth-child(3){animation-delay:.16s}
-  @keyframes beatin{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-  .fbeat em{display:block;font-style:normal;font:600 11px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:#8FA9D6;margin-bottom:8px}
-  .fbeat p{font:400 14px/1.55 var(--sans);color:var(--txt)}
-  .fswitch{display:none;margin:30px auto 0;font:500 11.5px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--dim2);background:none;border:none;cursor:pointer;padding:8px}
-  body[data-mode] .fswitch{display:block}
-  .fswitch:hover{color:var(--dim)}
-  @media(prefers-reduced-motion:reduce){.fpick,.fbeat{transition:none;animation:none}}
 
   /* ── closing CTA ── */
   .band{position:relative;z-index:1;text-align:center;padding:110px 24px}
@@ -371,47 +375,32 @@
   </div>
 
   <div class="finale" id="finale">
-    <div>
-      <h2>That was one day.</h2>
-      <p>Executed start to finish on one computer — yours. No cloud between your strategy and your broker, and every order in a log you own.</p>
-      <p style="color:#fff;font-size:17px;margin-top:2px">Nothing to think about — it just runs.</p>
-      <a class="btn btn-w" href="#download">Run yours free on paper</a>
-      <a class="btn btn-o" href="https://buy.stripe.com/00waEXdOP1YF74n8YgcV200">Start 7-day trial</a>
-      <p class="fine">Simulated session, not a performance claim. You supervise, it executes. Futures trading involves substantial risk of loss.</p>
+    <div class="fwrap">
+      <h2 id="fday">That was one day.</h2>
+      <div class="fq" id="fq">
+        <h3>Whose money do you trade?</h3>
+        <div class="fchoices" role="group" aria-label="Choose how you trade">
+          <button class="fchoice" data-m="own" aria-pressed="false">I trade my own money</button>
+          <span class="for" aria-hidden="true">or</span>
+          <button class="fchoice" data-m="funded" aria-pressed="false">I trade a firm's account</button>
+        </div>
+      </div>
+      <div class="fanswer" id="fanswer">
+        <p class="fline" data-m="own">Your broker login never leaves this computer — and the safety net travels with you.</p>
+        <p class="fline" data-m="funded">From your own IP, inside your firm's rules — daily stop and end-of-day flatten always on.</p>
+        <div class="fctas">
+          <a class="btn btn-w" href="#download">Run yours free on paper</a>
+          <a class="btn btn-o" href="https://buy.stripe.com/00waEXdOP1YF74n8YgcV200">Start 7-day trial</a>
+        </div>
+        <p class="fine">Simulated session, not a performance claim. You supervise, it executes. Futures trading involves substantial risk of loss.</p>
+        <button class="fswap" id="fswap">Trading the other kind? Switch</button>
+      </div>
     </div>
   </div>
 
   <div class="hint" id="hint">Scroll to start the session</div>
 
 </div>
-</div>
-
-<div class="fork" id="fork">
-  <div class="s1">One question</div>
-  <h2>Whose money do you trade?</h2>
-  <div class="forkgrid">
-    <button class="fpick" data-m="own" aria-pressed="false">
-      <svg width="44" height="44" viewBox="0 0 128 128" fill="none" aria-hidden="true"><line x1="20" y1="104" x2="108" y2="104" stroke="#C7CCD6" stroke-width="6" stroke-linecap="round"/><line x1="64" y1="18" x2="64" y2="98" stroke="#C7CCD6" stroke-width="4" stroke-linecap="round"/><rect x="52" y="42" width="24" height="42" rx="4" fill="#EAEDF2"/></svg>
-      <b>My own money</b>
-      <span>A brokerage account in your name.</span>
-    </button>
-    <button class="fpick" data-m="funded" aria-pressed="false">
-      <svg width="44" height="44" viewBox="0 0 128 128" fill="none" aria-hidden="true"><g stroke="#C7CCD6" stroke-width="3" stroke-linecap="round" opacity=".8"><line x1="46" y1="24" x2="24" y2="90"/><line x1="46" y1="24" x2="62" y2="90"/><line x1="82" y1="24" x2="104" y2="90"/><line x1="82" y1="24" x2="66" y2="90"/></g><line x1="16" y1="90" x2="112" y2="90" stroke="#C7CCD6" stroke-width="6" stroke-linecap="round"/><line x1="46" y1="22" x2="46" y2="98" stroke="#C7CCD6" stroke-width="4" stroke-linecap="round"/><line x1="82" y1="22" x2="82" y2="98" stroke="#C7CCD6" stroke-width="4" stroke-linecap="round"/><rect x="38" y="47" width="16" height="34" rx="3.5" fill="#C7CCD6"/><rect x="74" y="47" width="16" height="34" rx="3.5" fill="#EAEDF2"/></svg>
-      <b>A funded account</b>
-      <span>A prop firm's capital, their rules.</span>
-    </button>
-  </div>
-  <div class="fbeats" data-m="own">
-    <div class="fbeat"><em>Private</em><p>Your broker login never leaves this computer.</p></div>
-    <div class="fbeat"><em>Protected</em><p>A stop rests at the broker itself — it survives your machine.</p></div>
-    <div class="fbeat"><em>Yours</em><p>Overnight positions are your call, not ours.</p></div>
-  </div>
-  <div class="fbeats" data-m="funded">
-    <div class="fbeat"><em>Compliant shape</em><p>Orders leave from your own IP. Nothing cloud to ban.</p></div>
-    <div class="fbeat"><em>Guarded</em><p>Daily stop and the 15:55 flatten, always on.</p></div>
-    <div class="fbeat"><em>Rule-first</em><p>Built around the strict reading of firm rules.</p></div>
-  </div>
-  <button class="fswitch" id="fswitch">Switch view</button>
 </div>
 
 <div class="stake">
@@ -838,18 +827,39 @@ else if(small){
 })();
 </script>
 <script>
-/* Audience fork: sets body[data-mode] = own|funded, remembered per browser. */
+/* Finale question: "Whose money do you trade?"
+   The story ends, the page asks, and the buttons live behind the answer.
+   body[data-mode] = own|funded re-voices the page; remembered per browser. */
 (function(){
   var KEY='bp-mode';
+  var fin=document.getElementById('finale');
+  if(!fin)return;
+  function mode(){return document.body.dataset.mode||''}
   function set(m,save){
     document.body.dataset.mode=m;
-    document.querySelectorAll('.fpick').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.m===m))});
+    document.querySelectorAll('.fchoice').forEach(function(b){
+      var on=b.dataset.m===m;
+      b.classList.toggle('sel',on);
+      b.setAttribute('aria-pressed',String(on));
+    });
     if(save){try{localStorage.setItem(KEY,m)}catch(e){}}
   }
-  document.querySelectorAll('.fpick').forEach(function(b){b.addEventListener('click',function(){set(b.dataset.m,true)})});
-  var sw=document.getElementById('fswitch');
-  if(sw){sw.addEventListener('click',function(){set(document.body.dataset.mode==='own'?'funded':'own',true)})}
-  try{var m=localStorage.getItem(KEY);if(m==='own'||m==='funded'){set(m,false)}}catch(e){}
+  document.querySelectorAll('.fchoice').forEach(function(b){
+    b.addEventListener('click',function(){set(b.dataset.m,true);fin.dataset.step='done'});
+  });
+  var sw=document.getElementById('fswap');
+  if(sw){sw.addEventListener('click',function(){set(mode()==='own'?'funded':'own',true)})}
+  var saved='';
+  try{saved=localStorage.getItem(KEY)||''}catch(e){}
+  if(saved==='own'||saved==='funded'){set(saved,false)}
+  /* choreograph when the finale first appears */
+  var armed=false;
+  new MutationObserver(function(){
+    if(armed||!fin.classList.contains('on'))return;
+    armed=true;
+    if(mode()){fin.dataset.step='done'}
+    else{setTimeout(function(){fin.dataset.step='ask'},900)}
+  }).observe(fin,{attributes:true,attributeFilter:['class']});
 })();
 </script>
 </body>
