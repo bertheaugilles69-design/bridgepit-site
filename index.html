@@ -133,35 +133,38 @@
   .finale .fine{margin-top:20px;font:400 12.5px var(--sans);color:var(--dim2)}
 
   /* ── finale question choreography ── */
+  .finale{background:radial-gradient(ellipse at 50% 42%,rgba(10,13,18,.82),rgba(10,13,18,.985) 62%)}
   .fwrap{max-width:860px;padding:0 24px}
-  #fday{transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
-  .finale[data-step="ask"] #fday,.finale[data-step="done"] #fday{opacity:.42;transform:scale(.62) translateY(-8px);margin-bottom:0}
+  #fday{transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1),max-height .7s cubic-bezier(.2,.7,.2,1);max-height:120px}
+  .finale[data-step="ask"] #fday{opacity:.4;transform:scale(.55) translateY(-4px);margin-bottom:4px}
+  .finale[data-step="done"] #fday{opacity:0;transform:scale(.5) translateY(-10px);max-height:0;margin:0;overflow:hidden}
   .fq{opacity:0;transform:translateY(14px);transition:opacity .7s .15s cubic-bezier(.2,.7,.2,1),transform .7s .15s cubic-bezier(.2,.7,.2,1);pointer-events:none}
   .finale[data-step="ask"] .fq,.finale[data-step="done"] .fq{opacity:1;transform:none;pointer-events:auto}
-  .fq h3{font:500 clamp(26px,3.4vw,40px)/1.15 var(--serif);letter-spacing:-.012em;color:#fff;margin-bottom:30px}
-  .fchoices{display:flex;align-items:center;justify-content:center;gap:26px;flex-wrap:wrap}
-  .for{font:500 11px var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--dim2)}
+  .fq h3{font:500 clamp(28px,3.8vw,46px)/1.12 var(--serif);letter-spacing:-.013em;color:#fff;margin-bottom:34px}
+  .finale[data-step="done"] .fq h3{margin-bottom:24px}
+  .fchoices{display:flex;align-items:baseline;justify-content:center;gap:28px;flex-wrap:wrap}
+  .for{font:500 11px var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--dim2);transition:opacity .4s}
   .fchoice{position:relative;background:none;border:none;cursor:pointer;padding:6px 2px;
-    font:500 clamp(20px,2.3vw,27px)/1.2 var(--serif);letter-spacing:-.01em;color:#AEB7C4;
-    transition:color .35s,opacity .45s,transform .45s}
+    font:500 clamp(21px,2.4vw,28px)/1.2 var(--serif);letter-spacing:-.01em;color:#AEB7C4;
+    transition:color .35s,opacity .45s,transform .5s cubic-bezier(.2,.7,.2,1)}
   .fchoice::after{content:"";position:absolute;left:0;right:100%;bottom:-3px;height:1.5px;background:#8FA9D6;transition:right .45s cubic-bezier(.2,.7,.2,1)}
   .fchoice:hover,.fchoice:focus-visible{color:#fff}
   .fchoice:hover::after,.fchoice:focus-visible::after{right:0}
   .fchoice:focus-visible{outline:none}
-  .finale[data-step="done"] .fchoice{color:#fff}
-  .finale[data-step="done"] .fchoice:not(.sel){opacity:.28;color:#AEB7C4}
-  .finale[data-step="done"] .fchoice:not(.sel)::after{right:100%}
+  .finale[data-step="done"] .for{opacity:0;position:absolute;pointer-events:none}
+  .finale[data-step="done"] .fchoice:not(.sel){opacity:0;position:absolute;pointer-events:none}
+  .finale[data-step="done"] .fchoice.sel{color:#fff;transform:scale(1.08)}
   .finale[data-step="done"] .fchoice.sel::after{right:0}
   .fanswer{max-height:0;opacity:0;overflow:hidden;transform:translateY(10px);
     transition:max-height .8s cubic-bezier(.2,.7,.2,1),opacity .7s .12s,transform .7s .12s}
-  .finale[data-step="done"] .fanswer{max-height:320px;opacity:1;transform:none}
-  .fline{display:none;font:400 16px/1.6 var(--sans);color:var(--txt);max-width:52ch;margin:26px auto 28px}
+  .finale[data-step="done"] .fanswer{max-height:340px;opacity:1;transform:none}
+  .fline{display:none;font:400 16px/1.6 var(--sans);color:var(--dim);max-width:52ch;margin:24px auto 30px}
   body[data-mode="own"] .fline[data-m="own"],body[data-mode="funded"] .fline[data-m="funded"]{display:block}
-  .fswap{display:block;margin:14px auto 0;background:none;border:none;cursor:pointer;
+  .fswap{display:inline-block;margin:16px auto 0;background:none;border:none;cursor:pointer;
     font:400 12px var(--sans);color:var(--dim2);padding:6px}
   .fswap:hover{color:var(--dim);text-decoration:underline;text-underline-offset:3px}
   @media(prefers-reduced-motion:reduce){#fday,.fq,.fanswer,.fchoice,.fchoice::after{transition:none}}
-  @media(max-width:560px){.fchoices{flex-direction:column;gap:14px}.for{display:none}}
+  @media(max-width:560px){.fchoices{flex-direction:column;align-items:center;gap:14px}.for{display:none}}
 
   .rail{position:fixed;right:0;top:0;bottom:0;width:3px;z-index:41}
   .rail i{display:block;width:100%;height:0;background:#8FA9D6;opacity:.45}
