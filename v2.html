@@ -1,0 +1,605 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>BridgePit — the new page</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A0D12; --txt:#E6EAF0; --dim:#8C94A1; --dim2:#7C8593;
+    --blue:#8FA9D6; --green:#4FB584; --red:#C4574A; --amber:#D9A03F;
+    --serif:"Newsreader",Georgia,serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Inter",sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{display:block;background:var(--bg);color:var(--txt);font:15px/1.6 var(--sans);
+    -webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  :focus-visible{outline:2px solid #8FA9D6;outline-offset:3px}
+  .s1,.s2{position:relative;width:100%;min-height:100svh;display:flex;align-items:center;overflow:hidden}
+  .s2{border-top:1px solid rgba(255,255,255,.06)}
+  .wrap.mirror{direction:rtl}
+  .wrap.mirror > *{direction:ltr}
+  @media(max-width:980px){ .wrap.mirror{direction:ltr} }
+  .todo{position:relative;z-index:1;border-top:1px solid rgba(255,255,255,.06);
+    padding:clamp(40px,7vh,72px) 24px;text-align:center}
+  .todo b{display:block;font:500 clamp(19px,2.2vw,26px) var(--serif);color:#fff;margin-bottom:8px}
+  .todo span{font:400 14px var(--sans);color:var(--dim2)}
+</style>
+<style>/* screen one */
+
+  :root{
+    --bg:#0A0D12; --txt:#E6EAF0; --dim:#8C94A1; --dim2:#7C8593;
+    --blue:#8FA9D6; --green:#4FB584; --red:#C4574A; --amber:#D9A03F;
+    --serif:"Newsreader",Georgia,serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Inter",sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  .s1{background:var(--bg);color:var(--txt);font:15px/1.6 var(--sans);-webkit-font-smoothing:antialiased;
+    min-height:100svh;display:flex;align-items:center;overflow-x:hidden}
+  .s1::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:radial-gradient(ellipse 78% 62% at 68% 34%,rgba(44,76,127,.16),transparent 62%)}
+  .s1::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5;
+    background:radial-gradient(ellipse 50% 40% at 12% 78%,rgba(79,181,132,.06),transparent 70%)}
+  a{color:inherit;text-decoration:none}
+  :focus-visible{outline:2px solid #8FA9D6;outline-offset:3px}
+  .num{font-variant-numeric:tabular-nums}
+
+  .chrome{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;justify-content:space-between;
+    align-items:center;padding:20px clamp(20px,3.4vw,44px)}
+  .wm{display:inline-flex;align-items:center;gap:9px;font:500 20px var(--serif)}
+  .nav{display:flex;gap:22px;align-items:center;font:500 12.5px var(--sans);color:var(--dim)}
+  .nav a:hover{color:var(--txt)}
+  .nav .go{color:#fff;border:1px solid rgba(255,255,255,.2);border-radius:999px;padding:8px 15px}
+  .nav .go:hover{background:#fff;color:#0A0D12}
+  @media(max-width:760px){.nav a:not(.go){display:none}.chrome{padding:15px 18px}.wm{font-size:17px}}
+
+  .hero{position:relative;z-index:1;width:100%;max-width:1280px;margin:0 auto;
+    padding:clamp(84px,11vh,108px) clamp(20px,3.4vw,44px) clamp(28px,5vh,52px);
+    display:grid;grid-template-columns:minmax(0,1.04fr) minmax(0,1fr);
+    gap:clamp(26px,3.8vw,60px);align-items:center}
+
+  /* ── the words ── */
+  .s1 .say{max-width:none}
+  .s1 .kicker{display:inline-flex;align-items:center;gap:9px;font:600 11px var(--sans);letter-spacing:.17em;
+    text-transform:uppercase;color:var(--blue);margin-bottom:22px}
+  .s1 .kicker i{width:6px;height:6px;border-radius:50%;background:var(--green);
+    box-shadow:0 0 0 4px rgba(79,181,132,.14);animation:pulse 2.6s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.45}}
+  .s1 h1{font:500 clamp(33px,3.5vw,50px)/1.06 var(--serif);letter-spacing:-.02em;color:#fff;max-width:14ch}
+  .s1 h1 em{font-style:normal;color:var(--blue)}
+  .s1 .lede{margin-top:20px;font:400 clamp(15px,1.15vw,17px)/1.6 var(--sans);color:var(--dim);max-width:44ch}
+  .s1 .lede b{color:#CBD3DE;font-weight:500}
+
+  .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+  .btn{display:inline-block;border:1px solid transparent;border-radius:12px;padding:14px 25px;
+    font:600 15px var(--sans);cursor:pointer;transition:transform .3s,background .3s,border-color .3s,box-shadow .3s}
+  .btn-w{background:#fff;color:#0A0D12;box-shadow:0 10px 30px rgba(255,255,255,.06)}
+  .btn-w:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(255,255,255,.11)}
+  .btn-o{border-color:rgba(255,255,255,.19);color:var(--txt)}
+  .btn-o:hover{border-color:rgba(255,255,255,.42);transform:translateY(-2px)}
+  .micro{margin-top:15px;font:500 12.5px var(--sans);color:var(--dim2)}
+  .micro b{color:var(--dim);font-weight:500}
+
+  /* ── the app ── */
+  .appwrap{position:relative}
+  .appwrap::before{content:"";position:absolute;inset:-8% -6% -14%;border-radius:40px;pointer-events:none;
+    background:radial-gradient(ellipse at 50% 40%,rgba(143,169,214,.13),transparent 68%);filter:blur(18px)}
+  .app{position:relative;border:1px solid rgba(255,255,255,.1);border-radius:16px;overflow:hidden;
+    background:linear-gradient(180deg,rgba(24,30,40,.97),rgba(14,18,25,.99));
+    box-shadow:0 40px 90px rgba(0,0,0,.6),0 2px 0 rgba(255,255,255,.04) inset}
+  .bar{display:flex;align-items:center;gap:7px;padding:12px 15px;border-bottom:1px solid rgba(255,255,255,.07);
+    background:rgba(255,255,255,.022)}
+  .bar i{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.15);flex:none}
+  .bar .nm{margin-left:7px;font:500 12px var(--sans);color:var(--dim)}
+  .bar .tag{margin-left:auto;display:flex;align-items:center;gap:7px;font:600 10px var(--sans);
+    letter-spacing:.13em;color:var(--green)}
+  .bar .tag .d{width:6px;height:6px;border-radius:50%;background:var(--green);
+    box-shadow:0 0 0 3px rgba(79,181,132,.16)}
+  .clock{font:600 11.5px var(--mono);color:var(--dim2);margin-left:14px}
+
+  .tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.055)}
+  .tile{background:#12161E;padding:15px 14px}
+  .tile .k{font:600 9.5px var(--sans);letter-spacing:.15em;text-transform:uppercase;color:var(--dim2)}
+  .tile .v{margin-top:7px;font:600 17px var(--mono);color:#EDF1F6;letter-spacing:-.01em;
+    transition:color .45s}
+  .tile .v.up{color:var(--green)} .tile .v.dn{color:var(--red)} .tile .v.mut{color:var(--dim)}
+  .tile .s{margin-top:3px;font:500 10.5px var(--sans);color:var(--dim2)}
+  @media(max-width:520px){.tiles{grid-template-columns:repeat(2,1fr)}
+    .bar .tag{font-size:9px;letter-spacing:.08em}.clock{margin-left:8px;font-size:10.5px}}
+
+  .logwrap{padding:6px 6px 10px}
+  .loghead{display:flex;justify-content:space-between;align-items:center;padding:11px 12px 9px}
+  .loghead b{font:600 9.5px var(--sans);letter-spacing:.15em;text-transform:uppercase;color:var(--dim2)}
+  .loghead span{font:500 10.5px var(--sans);color:var(--dim2)}
+  table{width:100%;border-collapse:collapse;table-layout:fixed}
+  td{padding:9px 10px;vertical-align:top;border-top:1px solid rgba(255,255,255,.04)}
+  tr:first-child td{border-top:none}
+  .t-time{width:62px;font:500 11px var(--mono);color:var(--dim2)}
+  .t-ev{width:82px}
+  .ev{display:inline-block;font:700 9.5px var(--sans);letter-spacing:.1em;border-radius:5px;padding:3px 7px}
+  .ev.ORDER{color:#B9CCE8;background:rgba(143,169,214,.14)}
+  .ev.FILL{color:#8FE0BA;background:rgba(79,181,132,.15)}
+  .ev.BLOCKED{color:#EBCB8E;background:rgba(217,160,63,.16)}
+  .ev.STOP{color:#EBCB8E;background:rgba(217,160,63,.14)}
+  .ev.FLAT{color:#C9D3E2;background:rgba(255,255,255,.09)}
+  .t-txt{font:500 12.5px/1.45 var(--sans);color:#C3CBD6;word-break:break-word}
+  .t-txt small{display:block;font:500 11px var(--mono);color:var(--dim2);margin-top:2px}
+  tr.fresh{animation:rise .5s cubic-bezier(.2,.7,.2,1)}
+  @keyframes rise{from{opacity:0;transform:translateY(-7px)}to{opacity:1;transform:none}}
+
+  .foot{display:flex;justify-content:space-between;align-items:center;gap:10px;
+    padding:12px 16px;border-top:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.015)}
+  .foot span{font:500 11px var(--sans);color:var(--dim2)}
+  .foot .who{display:flex;align-items:center;gap:7px;font:500 11px var(--sans);color:var(--dim2)}
+  .foot .who b{color:var(--dim);font-weight:600}
+
+  .disc{margin-top:16px;font:400 11.5px/1.55 var(--sans);color:var(--dim2);max-width:56ch}
+
+  @media(max-width:980px){
+    .hero{grid-template-columns:1fr;gap:34px;padding-top:96px}
+    .s1 .say{max-width:none}
+    .appwrap{order:2}
+  }
+  @media(prefers-reduced-motion:reduce){
+    tr.fresh{animation:none}
+    .s1 .kicker i{animation:none}
+    .btn{transition:none}
+  }
+
+</style>
+<style>/* screen two */
+
+  :root{
+    --bg:#0A0D12; --txt:#E6EAF0; --dim:#8C94A1; --dim2:#7C8593;
+    --blue:#8FA9D6; --green:#4FB584; --red:#C4574A; --amber:#D9A03F;
+    --serif:"Newsreader",Georgia,serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Inter",sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  .s2{background:var(--bg);color:var(--txt);font:15px/1.6 var(--sans);-webkit-font-smoothing:antialiased;
+    min-height:100svh;display:flex;align-items:center;overflow-x:hidden}
+  .s2::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:radial-gradient(ellipse 74% 60% at 70% 36%,rgba(44,76,127,.14),transparent 62%)}
+  a{color:inherit;text-decoration:none}
+  :focus-visible{outline:2px solid #8FA9D6;outline-offset:3px}
+
+  .wrap{position:relative;z-index:1;width:100%;max-width:1280px;margin:0 auto;
+    padding:clamp(56px,8vh,86px) clamp(20px,3.4vw,44px);
+    display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,1fr);
+    gap:clamp(26px,3.8vw,58px);align-items:center}
+
+  .s2 .kicker{display:inline-block;font:600 11px var(--sans);letter-spacing:.17em;text-transform:uppercase;
+    color:var(--blue);margin-bottom:20px}
+  .s2 h1{font:500 clamp(31px,3.3vw,47px)/1.07 var(--serif);letter-spacing:-.02em;color:#fff;max-width:15ch}
+  .s2 h1 em{font-style:normal;color:var(--amber)}
+  .s2 .lede{margin-top:19px;font:400 clamp(15px,1.15vw,17px)/1.6 var(--sans);color:var(--dim);max-width:44ch}
+
+  /* the citation */
+  .quote{margin-top:26px;border:1px solid rgba(217,160,63,.28);border-radius:14px;padding:20px 22px;
+    background:linear-gradient(180deg,rgba(217,160,63,.07),rgba(255,255,255,.006))}
+  .quote .who{font:600 10px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--amber);margin-bottom:11px}
+  .quote .q{font:500 clamp(15px,1.35vw,18px)/1.4 var(--serif);color:#fff;margin-bottom:11px}
+  .quote blockquote{font:400 13.5px/1.6 var(--sans);color:var(--dim);
+    border-left:2px solid rgba(217,160,63,.35);padding-left:13px}
+  .quote cite{display:block;margin-top:11px;font:500 11px var(--sans);font-style:normal;color:var(--dim2)}
+  .quote cite a{border-bottom:1px solid rgba(255,255,255,.16)}
+  .quote cite a:hover{color:var(--dim)}
+
+  /* ── the panel ── */
+  .stagewrap{position:relative}
+  .stagewrap::before{content:"";position:absolute;inset:-9% -7% -13%;border-radius:40px;pointer-events:none;
+    background:radial-gradient(ellipse at 50% 40%,rgba(143,169,214,.12),transparent 68%);filter:blur(18px)}
+  .stage{position:relative;border:1px solid rgba(255,255,255,.1);border-radius:16px;overflow:hidden;
+    background:linear-gradient(180deg,rgba(24,30,40,.97),rgba(14,18,25,.99));
+    box-shadow:0 40px 90px rgba(0,0,0,.6)}
+
+  .tabs{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.06)}
+  .tab{background:#12161E;border:none;cursor:pointer;font:600 12px var(--sans);color:var(--dim2);
+    padding:14px 10px;transition:color .3s,background .3s}
+  .tab:hover{color:var(--dim)}
+  .tab.on{color:#fff;background:#171D27}
+  .tab.on.them{box-shadow:inset 0 -2px 0 var(--amber)}
+  .tab.on.us{box-shadow:inset 0 -2px 0 var(--green)}
+
+  ..s2{padding:clamp(18px,2.2vw,26px)}
+  .lbl{font:600 9.5px var(--sans);letter-spacing:.15em;text-transform:uppercase;color:var(--dim2);margin-bottom:7px}
+
+  .field{border:1px solid rgba(255,255,255,.1);border-radius:11px;background:rgba(255,255,255,.02);
+    padding:12px 14px;margin-bottom:9px;display:flex;align-items:center;gap:10px;
+    transition:border-color .5s,background .5s,transform .5s cubic-bezier(.2,.7,.2,1),opacity .5s}
+  .field .fk{font:500 11px var(--sans);color:var(--dim2);width:78px;flex:none}
+  .field .fv{font:600 13.5px var(--mono);color:#EDF1F6;letter-spacing:.02em}
+  .field.pw .fv{letter-spacing:.16em}
+  .caret{display:inline-block;width:1px;height:14px;background:var(--blue);margin-left:2px;
+    vertical-align:-2px;animation:blink 1s step-end infinite}
+  @keyframes blink{50%{opacity:0}}
+  .lockmark{margin-left:auto;display:flex;align-items:center;gap:6px;font:600 10px var(--sans);
+    letter-spacing:.1em;opacity:0;transition:opacity .5s}
+  .lockmark.on{opacity:1}
+  .lockmark.us{color:var(--green)} .lockmark.them{color:var(--amber)}
+
+  .arrow{height:34px;display:flex;align-items:center;justify-content:center;position:relative}
+  .arrow svg{opacity:0;transition:opacity .4s}
+  .arrow.on svg{opacity:1}
+  .trav{position:absolute;left:50%;top:2px;width:9px;height:9px;border-radius:50%;background:#EBCB8E;
+    box-shadow:0 0 14px rgba(235,203,142,.8);transform:translateX(-50%) scale(.4);opacity:0}
+  .trav.go{animation:drop 1.15s cubic-bezier(.4,0,.2,1) forwards}
+  @keyframes drop{0%{opacity:0;top:-16px;transform:translateX(-50%) scale(.4)}
+    25%{opacity:1;transform:translateX(-50%) scale(1)}
+    100%{opacity:0;top:36px;transform:translateX(-50%) scale(.6)}}
+
+  .dest{border:1px solid rgba(255,255,255,.09);border-radius:12px;overflow:hidden;
+    background:rgba(255,255,255,.015);transition:border-color .5s,background .5s}
+  .dest.them{border-color:rgba(217,160,63,.38);background:rgba(217,160,63,.05)}
+  .dest.us{border-color:rgba(79,181,132,.4);background:rgba(79,181,132,.05)}
+  .dhead{display:flex;align-items:center;gap:9px;padding:11px 14px;border-bottom:1px solid rgba(255,255,255,.055)}
+  .dhead b{font:600 12px var(--sans);color:#EDF1F6}
+  .dhead span{margin-left:auto;font:600 9.5px var(--sans);letter-spacing:.13em;color:var(--dim2)}
+  .d.s2{padding:12px 14px 14px}
+
+  .vault{display:grid;gap:5px}
+  .vrow{display:flex;align-items:center;gap:9px;padding:7px 9px;border-radius:7px;
+    background:rgba(255,255,255,.03);font:500 11.5px var(--mono);color:var(--dim2)}
+  .vrow.mine{background:rgba(217,160,63,.14);color:#EBCB8E;opacity:0;transform:translateY(-5px);
+    transition:opacity .5s,transform .5s cubic-bezier(.2,.7,.2,1)}
+  .vrow.mine.on{opacity:1;transform:none}
+  .vrow .tagn{margin-left:auto;font:600 9px var(--sans);letter-spacing:.1em}
+
+  .keptline{display:flex;align-items:center;gap:10px}
+  .keptline .big{font:500 15px var(--sans);color:#fff}
+  .keptline .sub{font:500 11.5px var(--sans);color:var(--dim)}
+
+  .verdict{padding:13px 16px;border-top:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.015);
+    font:500 12.5px var(--sans);color:var(--dim);min-height:44px;display:flex;align-items:center;gap:8px}
+  .verdict b{font-weight:600}
+  .verdict.them b{color:var(--amber)} .verdict.us b{color:var(--green)}
+
+  @media(max-width:980px){
+    .wrap{grid-template-columns:1fr;gap:30px;padding-top:56px}
+    .s2 h1{max-width:none}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .caret,.trav.go{animation:none}
+    .field,.dest,.vrow.mine{transition:none}
+  }
+
+</style>
+</head>
+<body>
+
+<section class="s1">
+
+
+<div class="chrome">
+  <a class="wm" href="#">
+    <svg width="23" height="23" viewBox="0 0 128 128" fill="none" style="flex:none">
+      <g stroke="#C7CCD6" stroke-width="2" stroke-linecap="round" opacity=".75">
+        <line x1="46" y1="24" x2="24" y2="90"/><line x1="46" y1="24" x2="62" y2="90"/>
+        <line x1="82" y1="24" x2="104" y2="90"/><line x1="82" y1="24" x2="66" y2="90"/>
+      </g>
+      <line x1="16" y1="90" x2="112" y2="90" stroke="#C7CCD6" stroke-width="4" stroke-linecap="round"/>
+      <line x1="46" y1="22" x2="46" y2="98" stroke="#C7CCD6" stroke-width="3" stroke-linecap="round"/>
+      <line x1="82" y1="22" x2="82" y2="98" stroke="#C7CCD6" stroke-width="3" stroke-linecap="round"/>
+      <rect x="40" y="48" width="12" height="32" rx="2.5" fill="#B9BFCB"/>
+      <rect x="76" y="48" width="12" height="32" rx="2.5" fill="#EAEDF2"/>
+    </svg>BridgePit</a>
+  <nav class="nav">
+    <a href="#how">How it works</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#faq">FAQ</a>
+    <a class="go" href="#download">Run it free</a>
+  </nav>
+</div>
+
+<main class="hero">
+  <div class="say">
+    <div class="kicker"><i></i>Running on your own machine</div>
+    <h1>Your alert fires. <em>Your own computer</em> places the order.</h1>
+    <p class="lede">BridgePit sits on your Mac, catches your TradingView alerts and places the orders on your futures account — with the protective stop resting <b>at your broker</b>, not on somebody's server.</p>
+    <div class="cta">
+      <a class="btn btn-w" href="#download">Run it free on paper</a>
+      <a class="btn btn-o" href="#pricing">See the price</a>
+    </div>
+    <p class="micro">No card. No broker login. <b>About ten minutes.</b></p>
+    <p class="disc">The session shown here is BridgePit in paper mode — simulated fills, the app's own event log. Not a performance claim.</p>
+  </div>
+
+  <div class="appwrap">
+    <div class="app" id="app">
+      <div class="bar">
+        <i></i><i></i><i></i>
+        <span class="nm">BridgePit</span>
+        <span class="clock num" id="clock">09:47:02</span>
+        <span class="tag"><span class="d"></span><span id="mode">PAPER · CONNECTED</span></span>
+      </div>
+
+      <div class="tiles">
+        <div class="tile"><div class="k">Position</div><div class="v mut" id="tPos">Flat</div><div class="s" id="tPosS">no open contracts</div></div>
+        <div class="tile"><div class="k">Day P&amp;L</div><div class="v mut num" id="tPnl">$0.00</div><div class="s">simulated</div></div>
+        <div class="tile"><div class="k">Loss budget</div><div class="v num" id="tLoss">$600</div><div class="s" id="tLossS">nothing used</div></div>
+        <div class="tile"><div class="k">Kill-switch</div><div class="v" id="tKill" style="font-size:15px">Armed</div><div class="s">one click</div></div>
+      </div>
+
+      <div class="logwrap">
+        <div class="loghead"><b>Event log</b><span>on this machine</span></div>
+        <table><tbody id="log"></tbody></table>
+      </div>
+
+      <div class="foot">
+        <span class="who">Orders leave from <b>your address</b></span>
+        <span id="footR">Credentials encrypted on this disk</span>
+      </div>
+    </div>
+  </div>
+</main>
+
+
+
+</section>
+
+<section class="s2">
+
+
+<div class="wrap mirror">
+  <div class="say">
+    <div class="kicker">Who holds your keys</div>
+    <h1>A cloud tool needs your broker login. <em>We never receive it.</em></h1>
+    <p class="lede">That isn’t our claim about them. It’s the answer they give their own customers, on their own site.</p>
+
+    <div class="quote">
+      <div class="who">Their FAQ, word for word</div>
+      <div class="q">“Why does PickMyTrade need my Tradovate login?”</div>
+      <blockquote>“Tradovate’s API uses username/password plus a device token to issue access tokens, so automation platforms need those credentials to place orders on your behalf. PickMyTrade stores them encrypted and only uses them to maintain the API session.”</blockquote>
+      <cite><a href="https://pickmytrade.trade/broker-faq/tradovate-faq/" rel="nofollow noopener" target="_blank">pickmytrade.trade — Tradovate FAQ →</a></cite>
+    </div>
+  </div>
+
+  <div class="stagewrap">
+    <div class="stage" id="stage">
+      <div class="tabs">
+        <button class="tab them on" type="button" data-t="them">With a cloud tool</button>
+        <button class="tab us" type="button" data-t="us">With BridgePit</button>
+      </div>
+
+      <div class="body">
+        <div class="lbl">Connect your broker</div>
+
+        <div class="field"><span class="fk">Broker</span><span class="fv">Rithmic</span></div>
+        <div class="field"><span class="fk">Username</span><span class="fv" id="user"></span></div>
+        <div class="field pw"><span class="fk">Password</span><span class="fv" id="pass"></span>
+          <span class="lockmark" id="lock"><span id="lockTxt"></span></span>
+        </div>
+
+        <div class="arrow" id="arrow">
+          <svg width="16" height="26" viewBox="0 0 16 26" fill="none">
+            <path d="M8 1 V20 M2 15 L8 21 L14 15" stroke="#6B7382" stroke-width="1.4"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="trav" id="trav"></span>
+        </div>
+
+        <div class="dest them" id="dest">
+          <div class="dhead"><b id="destName">Their server</b><span id="destTag">A DATACENTER</span></div>
+          <div class="dbody" id="destBody"></div>
+        </div>
+      </div>
+
+      <div class="verdict them" id="verdict"></div>
+    </div>
+  </div>
+</div>
+
+
+
+</section>
+
+<div class="todo">
+  <b>Screens 3 and 4 come next.</b>
+  <span>Try it free · then price, blockers and questions.</span>
+</div>
+
+<script>
+
+(function(){
+  var log=document.getElementById('log'), clock=document.getElementById('clock');
+  var tPos=document.getElementById('tPos'), tPosS=document.getElementById('tPosS'),
+      tPnl=document.getElementById('tPnl'), tLoss=document.getElementById('tLoss'),
+      tLossS=document.getElementById('tLossS'), tKill=document.getElementById('tKill');
+  var reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* one honest paper session, told in the app's own words */
+  var SCRIPT=[
+    {w:0,    t:'09:47:02', ev:'ORDER',   x:'Alert received · 1m-Breakout',      s:'BUY 2 MNQ1! → paper account'},
+    {w:1100, t:'09:47:03', ev:'FILL',    x:'Filled 2 MNQ @ 23,412.25',          s:'position 0 → 2',
+      set:function(){ pos('Long 2 MNQ','entry 23,412.25'); pnl(0) }},
+    {w:900,  t:'09:47:03', ev:'STOP',    x:'Protective stop resting at broker', s:'SELL 2 @ 23,380.00 · live without this app'},
+    {w:2600, t:'10:14:41', ev:'BLOCKED', x:'TradingView re-sent the same alert', s:'no second order · position stayed at 2'},
+    {w:2100, t:'11:02:11', ev:'FILL',    x:'Moved with the trade',              s:'stop raised to 23,431.00',
+      set:function(){ pnl(96) }},
+    {w:2400, t:'13:30:04', ev:'FILL',    x:'Exit filled 2 MNQ @ 23,466.75',     s:'position 2 → 0',
+      set:function(){ pos('Flat','closed on your own machine'); pnl(218) }},
+    {w:2600, t:'15:55:00', ev:'FLAT',    x:'End of day — already flat',         s:'confirmed by the broker'},
+    {w:3400, t:'—',        ev:null}
+  ];
+
+  function pos(v,s){ tPos.textContent=v; tPosS.textContent=s;
+    tPos.className='v'+(v==='Flat'?' mut':''); }
+  function pnl(v){
+    tPnl.textContent=(v>=0?'+$':'−$')+Math.abs(v).toFixed(2);
+    if(v===0){tPnl.textContent='$0.00'; tPnl.className='v mut num'; }
+    else tPnl.className='v num '+(v>0?'up':'dn');
+    var used=Math.max(0,-v);
+    tLoss.textContent='$'+(600-used);
+    tLossS.textContent = used? ('$'+used+' used') : 'nothing used';
+  }
+
+  function row(r){
+    var tr=document.createElement('tr');
+    if(!reduced) tr.className='fresh';
+    tr.innerHTML='<td class="t-time">'+r.t+'</td>'
+      +'<td class="t-ev"><span class="ev '+r.ev+'">'+r.ev+'</span></td>'
+      +'<td class="t-txt">'+r.x+'<small>'+r.s+'</small></td>';
+    log.insertBefore(tr,log.firstChild);
+    while(log.children.length>5) log.removeChild(log.lastChild);
+  }
+
+  var i=0, timer=null, running=false;
+  function step(){
+    var r=SCRIPT[i];
+    if(!r.ev){                       /* end of the session: rewind and play again */
+      i=0;
+      timer=setTimeout(function(){
+        log.innerHTML=''; pos('Flat','no open contracts'); pnl(0); clock.textContent='09:47:02';
+        step();
+      }, 900);
+      return;
+    }
+    clock.textContent=r.t;
+    row(r);
+    if(r.set) r.set();
+    i++;
+    timer=setTimeout(step, SCRIPT[i] ? SCRIPT[i].w : 1200);
+  }
+
+  function start(){ if(running)return; running=true; step() }
+  function stop(){ running=false; if(timer)clearTimeout(timer); timer=null }
+
+  if(reduced){
+    /* no motion: show the finished session */
+    SCRIPT.filter(function(r){return r.ev}).forEach(function(r){ row(r); if(r.set)r.set() });
+    clock.textContent='15:55:00';
+  } else if('IntersectionObserver' in window){
+    new IntersectionObserver(function(es){ es.forEach(function(e){ e.isIntersecting?start():stop() }) },{threshold:.2})
+      .observe(document.getElementById('app'));
+  } else start();
+})();
+
+</script>
+<script>
+
+(function(){
+  var stage=document.getElementById('stage'),
+      user=document.getElementById('user'), pass=document.getElementById('pass'),
+      lock=document.getElementById('lock'), lockTxt=document.getElementById('lockTxt'),
+      arrow=document.getElementById('arrow'), trav=document.getElementById('trav'),
+      dest=document.getElementById('dest'), destName=document.getElementById('destName'),
+      destTag=document.getElementById('destTag'), destBody=document.getElementById('destBody'),
+      verdict=document.getElementById('verdict'),
+      tabs=[].slice.call(document.querySelectorAll('.tab'));
+  var reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var USER='mnq_trader_41', PASS='••••••••••••';
+  var timers=[], mode='them', running=false;
+
+  function later(fn,ms){ timers.push(setTimeout(fn,ms)) }
+  function clearAll(){ timers.forEach(clearTimeout); timers=[] }
+
+  function vaultHTML(){
+    var rows='';
+    for(var i=0;i<4;i++) rows+='<div class="vrow">•••••••••• <span class="tagn">ANOTHER CUSTOMER</span></div>';
+    rows+='<div class="vrow mine" id="mineRow">'+USER+' <span class="tagn">YOU</span></div>';
+    return '<div class="vault">'+rows+'</div>';
+  }
+  function keptHTML(){
+    return '<div class="keptline">'
+      + '<svg width="17" height="19" viewBox="0 0 17 19" fill="none" style="flex:none">'
+      + '<rect x="1.6" y="7.4" width="13.8" height="10.2" rx="2.4" stroke="#4FB584" stroke-width="1.5"/>'
+      + '<path d="M4.9 7.4 V4.9 a3.6 3.6 0 0 1 7.2 0 V7.4" stroke="#4FB584" stroke-width="1.5"/></svg>'
+      + '<span><span class="big">It stays in this field.</span><br>'
+      + '<span class="sub">Encrypted on your own disk, used from here.</span></span></div>';
+  }
+
+  function setMode(m,restart){
+    mode=m; clearAll();
+    tabs.forEach(function(t){ t.classList.toggle('on', t.getAttribute('data-t')===m) });
+    dest.className='dest '+m;
+    verdict.className='verdict '+m;
+    arrow.classList.remove('on'); trav.classList.remove('go');
+    lock.className='lockmark '+m;
+    user.textContent=''; pass.textContent='';
+    verdict.innerHTML='';
+    if(m==='them'){
+      destName.textContent='Their server'; destTag.textContent='A DATACENTER';
+      destBody.innerHTML=vaultHTML();
+    } else {
+      destName.textContent='Your own computer'; destTag.textContent='NOTHING LEAVES';
+      destBody.innerHTML=keptHTML();
+    }
+    if(reduced){ finish(); return }
+    if(restart!==false) play();
+  }
+
+  function type(el,text,speed,done){
+    var i=0;
+    el.innerHTML='<span class="caret"></span>';
+    (function tick(){
+      if(i>=text.length){ el.textContent=text; done&&done(); return }
+      el.innerHTML=text.slice(0,++i)+'<span class="caret"></span>';
+      later(tick,speed);
+    })();
+  }
+
+  function finish(){
+    user.textContent=USER; pass.textContent=PASS;
+    arrow.classList.add('on');
+    if(mode==='them'){
+      var r=document.getElementById('mineRow'); if(r) r.classList.add('on');
+      lockTxt.textContent='SENT'; lock.classList.add('on');
+      verdict.innerHTML='Your login now lives <b>on their machine, next to everyone else’s.</b>';
+    } else {
+      lockTxt.textContent='STAYS HERE'; lock.classList.add('on');
+      verdict.innerHTML='We never receive it — so <b>we can’t lose it.</b>';
+    }
+  }
+
+  function play(){
+    type(user,USER,55,function(){
+      later(function(){
+        type(pass,PASS,45,function(){
+          later(function(){
+            arrow.classList.add('on');
+            if(mode==='them'){
+              trav.classList.remove('go'); void trav.offsetWidth; trav.classList.add('go');
+              later(function(){
+                var r=document.getElementById('mineRow'); if(r) r.classList.add('on');
+                lockTxt.textContent='SENT'; lock.classList.add('on');
+                verdict.innerHTML='Your login now lives <b>on their machine, next to everyone else’s.</b>';
+              },820);
+              later(function(){ setMode('us') },4200);
+            } else {
+              lockTxt.textContent='STAYS HERE'; lock.classList.add('on');
+              later(function(){
+                verdict.innerHTML='We never receive it — so <b>we can’t lose it.</b>';
+              },420);
+              later(function(){ setMode('them') },4200);
+            }
+          },420);
+        });
+      },260);
+    });
+  }
+
+  tabs.forEach(function(t){
+    t.addEventListener('click',function(){ setMode(t.getAttribute('data-t')) });
+  });
+
+  function start(){ if(running)return; running=true; setMode('them') }
+  function stop(){ running=false; clearAll() }
+
+  if(reduced){ setMode('them',false) }
+  else if('IntersectionObserver' in window){
+    new IntersectionObserver(function(es){ es.forEach(function(e){ e.isIntersecting?start():stop() }) },{threshold:.2}).observe(stage);
+  } else start();
+})();
+
+</script>
+</body>
+</html>
