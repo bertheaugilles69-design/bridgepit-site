@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>BridgePit — the route</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A0D12; --txt:#E6EAF0; --dim:#8C94A1; --dim2:#7C8593;
+    --blue:#8FA9D6; --green:#4FB584; --red:#C4574A; --amber:#D9A03F;
+    --serif:"Newsreader",Georgia,serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Inter",sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--txt);font:15px/1.6 var(--sans);-webkit-font-smoothing:antialiased;
+    min-height:100svh;display:flex;align-items:center;justify-content:center;padding:clamp(24px,5vh,64px) 20px}
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;
+    background:radial-gradient(ellipse 90% 60% at 50% 26%,rgba(44,76,127,.10),transparent 65%)}
+
+  .sec{position:relative;width:100%;max-width:1120px}
+  .eyebrow{font:600 11.5px var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--blue);margin-bottom:14px}
+  h2{font:500 clamp(28px,3.8vw,48px)/1.1 var(--serif);letter-spacing:-.016em;color:#fff;margin-bottom:clamp(22px,4vh,38px)}
+
+  .card{position:relative;border:1px solid rgba(255,255,255,.075);border-radius:18px;
+    background:linear-gradient(180deg,rgba(22,27,36,.72),rgba(14,18,25,.78));
+    padding:clamp(16px,2.4vw,30px) clamp(12px,2.4vw,30px) clamp(52px,7vh,64px);overflow:hidden}
+  .card svg{display:block;width:100%;height:auto}
+
+  /* nodes */
+  .node rect{fill:rgba(255,255,255,.022);stroke:rgba(230,234,240,.22);stroke-width:1.2;
+    transition:stroke .45s cubic-bezier(.2,.7,.2,1),fill .45s}
+  .node .nt{font:600 13.5px var(--sans);fill:#E6EAF0}
+  .node .ns{font:500 11.5px var(--sans);fill:var(--dim)}
+  .node.mine rect{fill:rgba(32,53,90,.5);stroke:rgba(143,169,214,.42)}
+  .node.lit rect{stroke:rgba(143,169,214,.95);fill:rgba(32,53,90,.62)}
+  .node.lit .nt{fill:#fff}
+  .node.theirs.lit rect{stroke:rgba(217,160,63,.85);fill:rgba(60,48,26,.5)}
+  .node.done rect{stroke:rgba(79,181,132,.9)}
+  .halo{fill:none;stroke:rgba(143,169,214,.55);stroke-width:1.2;opacity:0}
+  .node.theirs .halo{stroke:rgba(217,160,63,.55)}
+
+  /* lanes */
+  .laneBase{fill:none;stroke:rgba(255,255,255,.075);stroke-width:1.4;stroke-linecap:round}
+  .laneLive{fill:none;stroke-width:2;stroke-linecap:round;opacity:.95}
+  .laneLive.top{stroke:url(#gTop)}
+  .laneLive.bot{stroke:url(#gBot)}
+
+  /* packets */
+  .pk circle{filter:url(#glow)}
+  .pk{opacity:0}
+
+  /* labels that print at the end */
+  .lbl{opacity:0;transition:opacity .6s ease}
+  .lbl.on{opacity:1}
+  .lbl text{font:600 12px var(--sans)}
+  .lbl.good text{fill:var(--green)}
+  .lbl.bad text{fill:var(--amber)}
+  .keep{opacity:0;transition:opacity .55s ease}
+  .keep.on{opacity:1}
+  .keep text{font:600 11.5px var(--sans)}
+  .keep.mine text{fill:var(--blue)}
+  .keep.theirs text{fill:var(--amber)}
+
+  .verdict{position:absolute;left:0;right:0;bottom:clamp(16px,2.6vh,24px);text-align:center;
+    font:500 clamp(15px,1.7vw,20px) var(--serif);color:#fff;letter-spacing:-.01em;
+    opacity:0;transform:translateY(6px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+  .verdict.on{opacity:1;transform:none}
+  .verdict b{font-weight:500;color:var(--amber)}
+
+  .replay{position:absolute;right:14px;bottom:12px;background:none;border:1px solid rgba(255,255,255,.12);
+    color:var(--dim);border-radius:999px;padding:6px 14px;font:600 10.5px var(--sans);letter-spacing:.14em;
+    text-transform:uppercase;cursor:pointer;opacity:0;transition:opacity .5s,color .3s,border-color .3s}
+  .replay.on{opacity:1}
+  .replay:hover{color:#fff;border-color:rgba(255,255,255,.3)}
+
+  .facts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+  .fact{border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:15px 17px;
+    background:linear-gradient(180deg,rgba(255,255,255,.028),rgba(255,255,255,.008))}
+  .fact b{display:block;font:600 12.5px var(--sans);color:#fff;margin-bottom:4px}
+  .fact span{font:400 13px/1.5 var(--sans);color:var(--dim)}
+  @media(max-width:760px){
+    .facts{grid-template-columns:1fr}
+    .card{padding-bottom:16px}
+    .verdict{position:static;margin-top:14px;transform:none;font-size:17px}
+    .replay{position:static;display:block;margin:14px auto 2px}
+  }
+
+  @media(prefers-reduced-motion:reduce){
+    .laneLive,.pk,.lbl,.keep,.verdict,.node rect{transition:none!important}
+  }
+</style>
+
+</head>
+<body>
+<section class="sec">
+  <div class="eyebrow">The route</div>
+  <h2>Two routes to the same fill.</h2>
+
+  <div class="card" id="card">
+    <svg id="dg" viewBox="0 0 1000 400" preserveAspectRatio="xMidYMid meet" role="img"
+         aria-label="Your alert can travel two ways. Through BridgePit on your own Mac, where your broker login never leaves. Or through a vendor's cloud, where your login is stored on their server. Both reach your broker.">
+      <defs>
+        <linearGradient id="gTop" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#8FA9D6" stop-opacity=".45"/>
+          <stop offset="55%" stop-color="#8FA9D6" stop-opacity=".95"/>
+          <stop offset="100%" stop-color="#4FB584" stop-opacity=".95"/>
+        </linearGradient>
+        <linearGradient id="gBot" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#8C94A1" stop-opacity=".4"/>
+          <stop offset="52%" stop-color="#D9A03F" stop-opacity=".8"/>
+          <stop offset="100%" stop-color="#8C94A1" stop-opacity=".7"/>
+        </linearGradient>
+        <filter id="glow" x="-180%" y="-180%" width="460%" height="460%">
+          <feGaussianBlur stdDeviation="5" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+
+      <!-- guide paths (invisible, drive the motion) -->
+      <path id="pTop" d="" fill="none" stroke="none"/>
+      <path id="pBot" d="" fill="none" stroke="none"/>
+
+      <path id="bTop" class="laneBase" d=""/>
+      <path id="bBot" class="laneBase" d=""/>
+      <path id="lTop" class="laneLive top" d=""/>
+      <path id="lBot" class="laneLive bot" d=""/>
+
+      <g id="nodes"></g>
+
+      <g class="pk" id="pkTop"><circle r="5.5" fill="#CFE0FF"/></g>
+      <g class="pk" id="pkBot"><circle r="5.5" fill="#E7D3A8"/></g>
+    </svg>
+
+    <p class="verdict" id="verdict">Same fill. Only one of them <b>kept your login</b>.</p>
+    <button class="replay" id="replay" type="button">Replay</button>
+  </div>
+
+  <div class="facts">
+    <div class="fact"><b>Your order IP</b><span>The one you trade from — several firms prohibit copiers running on datacenter IPs.</span></div>
+    <div class="fact"><b>Your credentials</b><span>Encrypted on your own disk. We couldn't leak them — we never have them.</span></div>
+  </div>
+</section>
+
+<script>
+(function(){
+  var SVG=document.getElementById('dg'), NODES=document.getElementById('nodes');
+  var ns='http://www.w3.org/2000/svg';
+  var reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* two layouts: side-by-side on wide screens, stacked on a phone */
+  var WIDE={
+    vb:'0 24 1000 352',
+    src:{x:16,y:158,w:172,h:84},
+    mine:{x:392,y:44,w:216,h:96},
+    theirs:{x:392,y:262,w:216,h:96},
+    dst:{x:812,y:158,w:172,h:84},
+    top:'M188,200 C296,200 300,92 392,92 L608,92 C700,92 704,200 812,200',
+    bot:'M188,200 C296,200 300,310 392,310 L608,310 C700,310 704,200 812,200',
+    lblTop:{x:706,y:120},lblBot:{x:706,y:292},
+    keepMine:{x:500,y:126},keepTheirs:{x:500,y:344}
+  };
+  var TALL={
+    vb:'0 0 420 566',
+    src:{x:120,y:10,w:180,h:78},
+    mine:{x:14,y:196,w:182,h:106},
+    theirs:{x:224,y:196,w:182,h:106},
+    dst:{x:120,y:470,w:180,h:78},
+    top:'M210,88 C210,126 105,126 105,150 L105,390 C105,436 210,436 210,466',
+    bot:'M210,88 C210,126 315,126 315,150 L315,390 C315,436 210,436 210,466',
+    lblTop:{x:105,y:334},lblBot:{x:315,y:334},
+    keepMine:{x:105,y:288},keepTheirs:{x:315,y:288}
+  };
+
+  var L, els={}, timer=null, played=false;
+
+  function el(tag,attrs,parent){
+    var n=document.createElementNS(ns,tag);
+    for(var k in attrs) n.setAttribute(k,attrs[k]);
+    (parent||NODES).appendChild(n); return n;
+  }
+
+  function node(cls,box,title,sub){
+    var g=el('g',{'class':'node '+cls});
+    el('rect',{x:box.x,y:box.y,width:box.w,height:box.h,rx:11},g);
+    el('rect',{'class':'halo',x:box.x-6,y:box.y-6,width:box.w+12,height:box.h+12,rx:15},g);
+    el('text',{'class':'nt',x:box.x+box.w/2,y:box.y+box.h/2-2,'text-anchor':'middle'},g).textContent=title;
+    el('text',{'class':'ns',x:box.x+box.w/2,y:box.y+box.h/2+18,'text-anchor':'middle'},g).textContent=sub;
+    return g;
+  }
+
+  /* a key that rides the packet and is left behind in the cloud */
+  function keyIcon(parent){
+    var g=el('g',{'class':'keyicon'},parent);
+    el('circle',{cx:0,cy:0,r:3.6,fill:'none',stroke:'#E7D3A8','stroke-width':1.6},g);
+    el('path',{d:'M3 0 h9 M9 0 v3.4 M12 0 v3.4',stroke:'#E7D3A8','stroke-width':1.6,fill:'none','stroke-linecap':'round'},g);
+    return g;
+  }
+  function lockIcon(parent){
+    var g=el('g',{'class':'lockicon'},parent);
+    el('rect',{x:-4.5,y:-1,width:9,height:7.5,rx:1.6,fill:'none',stroke:'#8FA9D6','stroke-width':1.5},g);
+    el('path',{d:'M-2.4 -1 v-2.2 a2.4 2.4 0 0 1 4.8 0 V-1',fill:'none',stroke:'#8FA9D6','stroke-width':1.5},g);
+    return g;
+  }
+
+  function build(layout){
+    L=layout;
+    SVG.setAttribute('viewBox',L.vb);
+    NODES.innerHTML='';
+    ['pTop','pBot','bTop','bBot','lTop','lBot'].forEach(function(id,i){
+      document.getElementById(id).setAttribute('d', i%2 ? L.bot : L.top);
+    });
+    els.src=node('',L.src,'Your alert','TradingView');
+    els.mine=node('mine',L.mine,'Your Mac','BridgePit');
+    els.theirs=node('theirs',L.theirs,"A vendor's cloud",'their datacenter');
+    els.dst=node('',L.dst,'Your broker','your account');
+
+    els.lblTop=el('g',{'class':'lbl good'});
+    el('text',{x:L.lblTop.x,y:L.lblTop.y,'text-anchor':'middle'},els.lblTop).textContent='sent from your IP';
+    els.lblBot=el('g',{'class':'lbl bad'});
+    el('text',{x:L.lblBot.x,y:L.lblBot.y,'text-anchor':'middle'},els.lblBot).textContent='sent from their IP';
+
+    els.keepMine=el('g',{'class':'keep mine'});
+    var km=el('g',{transform:'translate('+(L.keepMine.x-64)+','+(L.keepMine.y-4)+')'},els.keepMine); lockIcon(km);
+    el('text',{x:L.keepMine.x-46,y:L.keepMine.y},els.keepMine).textContent='your login never left';
+
+    els.keepTheirs=el('g',{'class':'keep theirs'});
+    var kt=el('g',{transform:'translate('+(L.keepTheirs.x-72)+','+(L.keepTheirs.y-4)+')'},els.keepTheirs); keyIcon(kt);
+    el('text',{x:L.keepTheirs.x-50,y:L.keepTheirs.y},els.keepTheirs).textContent='your login stays here';
+
+    reset();
+  }
+
+  function gates(path,box){
+    var len=path.getTotalLength(), inT=null, outT=null;
+    for(var i=0;i<=400;i++){
+      var f=i/400, p=path.getPointAtLength(f*len);
+      var inside = p.x>=box.x && p.x<=box.x+box.w && p.y>=box.y && p.y<=box.y+box.h;
+      if(inside){ if(inT===null) inT=f; outT=f; }
+    }
+    if(inT===null){ inT=.44; outT=.56 }
+    return [inT,outT];
+  }
+
+  var pTop=document.getElementById('pTop'), pBot=document.getElementById('pBot');
+  var lTop=document.getElementById('lTop'), lBot=document.getElementById('lBot');
+  var pkTop=document.getElementById('pkTop'), pkBot=document.getElementById('pkBot');
+  var verdict=document.getElementById('verdict'), replay=document.getElementById('replay');
+
+  function reset(){
+    [els.mine,els.theirs,els.dst].forEach(function(n){n.setAttribute('class',n.getAttribute('class').replace(/ (lit|done)/g,''))});
+    [els.lblTop,els.lblBot].forEach(function(n){n.setAttribute('class',n.getAttribute('class').replace(' on',''))});
+    [els.keepMine,els.keepTheirs].forEach(function(n){n.setAttribute('class',n.getAttribute('class').replace(' on',''))});
+    verdict.className='verdict'; replay.className='replay';
+    pkTop.style.opacity=0; pkBot.style.opacity=0;
+    [lTop,lBot].forEach(function(p){var L=p.getTotalLength();p.style.strokeDasharray=L;p.style.strokeDashoffset=L});
+  }
+
+  function on(node,cls){ if(node.getAttribute('class').indexOf(cls)<0) node.setAttribute('class',node.getAttribute('class')+' '+cls); }
+
+  var ease=function(t){return t<.5 ? 4*t*t*t : 1-Math.pow(-2*t+2,3)/2};
+  var easeOut=function(t){return 1-Math.pow(1-t,3)};
+
+  /* one lane: travel -> dwell in the middle -> travel -> arrive */
+  var LEG1=950, DWELL=760, LEG2=1000;
+
+  function run(){
+    reset();
+    if(reduced){ finish(); return }
+    var t0=performance.now();
+    var lenT=pTop.getTotalLength(), lenB=pBot.getTotalLength();
+    var dashT=lTop.getTotalLength(), dashB=lBot.getTotalLength();
+    var gT=gates(pTop,L.mine), gB=gates(pBot,L.theirs);
+    var total=LEG1+DWELL+LEG2;
+    pkTop.style.opacity=1; pkBot.style.opacity=1;
+    var litMid=false, arrived=false;
+
+    (function frame(now){
+      var t=Math.min(now-t0,total), fT, fB, inside=false;
+      if(t<LEG1){ var e=easeOut(t/LEG1); fT=e*gT[0]; fB=e*gB[0]; }
+      else if(t<LEG1+DWELL){
+        /* the packet is inside the machine: hide it, but keep the line growing through */
+        var d=(t-LEG1)/DWELL; inside=true;
+        fT=gT[0]+d*(gT[1]-gT[0]); fB=gB[0]+d*(gB[1]-gB[0]);
+      } else {
+        var e2=ease(Math.min(1,(t-LEG1-DWELL)/LEG2));
+        fT=gT[1]+e2*(1-gT[1]); fB=gB[1]+e2*(1-gB[1]);
+      }
+
+      var a=pTop.getPointAtLength(fT*lenT), b=pBot.getPointAtLength(fB*lenB);
+      pkTop.setAttribute('transform','translate('+a.x+','+a.y+')');
+      pkBot.setAttribute('transform','translate('+b.x+','+b.y+')');
+      pkTop.style.opacity=inside?0:1; pkBot.style.opacity=inside?0:1;
+      lTop.style.strokeDashoffset=dashT*(1-fT);
+      lBot.style.strokeDashoffset=dashB*(1-fB);
+
+      if(!litMid && t>=LEG1-120){
+        litMid=true; on(els.mine,'lit'); on(els.theirs,'lit');
+        setTimeout(function(){ on(els.keepMine,'on'); on(els.keepTheirs,'on') },300);
+      }
+      if(!arrived && t>=total-120){
+        arrived=true; on(els.dst,'lit'); on(els.dst,'done');
+        setTimeout(function(){ on(els.lblTop,'on'); on(els.lblBot,'on') },180);
+        setTimeout(function(){ on(verdict,'on'); on(replay,'on') },640);
+      }
+      if(t<total) timer=requestAnimationFrame(frame);
+      else { pkTop.style.opacity=0; pkBot.style.opacity=0 }
+    })(t0);
+  }
+
+  function finish(){
+    on(els.mine,'lit'); on(els.theirs,'lit'); on(els.dst,'lit'); on(els.dst,'done');
+    on(els.keepMine,'on'); on(els.keepTheirs,'on');
+    on(els.lblTop,'on'); on(els.lblBot,'on'); on(verdict,'on'); on(replay,'on');
+    [lTop,lBot].forEach(function(p){p.style.strokeDashoffset=0});
+  }
+
+  function pick(){ return matchMedia('(max-width: 760px)').matches ? TALL : WIDE }
+  var current=null;
+  function layout(){
+    var want=pick();
+    if(want===current) return;
+    current=want; build(want);
+    if(played) finish();
+  }
+  layout();
+  addEventListener('resize',layout);
+
+  var card=document.getElementById('card');
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(es,o){
+      es.forEach(function(e){ if(e.isIntersecting){ played=true; run(); o.disconnect() } });
+    },{threshold:.4}).observe(card);
+  } else { played=true; run() }
+  replay.addEventListener('click',function(){ if(timer)cancelAnimationFrame(timer); run() });
+})();
+</script>
+</body>
+</html>
