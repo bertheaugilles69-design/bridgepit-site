@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>BridgePit — when it goes wrong</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A0D12; --txt:#E6EAF0; --dim:#8C94A1; --dim2:#7C8593;
+    --blue:#8FA9D6; --green:#4FB584; --red:#C4574A; --amber:#D9A03F;
+    --serif:"Newsreader",Georgia,serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Inter",sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--txt);font:15px/1.6 var(--sans);-webkit-font-smoothing:antialiased;
+    min-height:100svh;display:flex;align-items:center;justify-content:center;padding:clamp(18px,4vh,54px) 18px}
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;
+    background:radial-gradient(ellipse 90% 60% at 50% 24%,rgba(44,76,127,.10),transparent 65%)}
+  .num{font-variant-numeric:tabular-nums}
+
+  .sec{position:relative;width:100%;max-width:1080px}
+  .eyebrow{font:600 11.5px var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--blue);margin-bottom:13px}
+  h2{font:500 clamp(27px,3.6vw,46px)/1.08 var(--serif);letter-spacing:-.016em;color:#fff;margin-bottom:clamp(18px,3.2vh,30px)}
+
+  /* the stage */
+  .stage{position:relative;display:grid;grid-template-columns:1fr minmax(0,420px);gap:clamp(18px,3vw,44px);
+    align-items:center;border:1px solid rgba(255,255,255,.075);border-radius:18px;
+    background:linear-gradient(180deg,rgba(22,27,36,.7),rgba(13,17,24,.8));
+    padding:clamp(20px,3.4vw,40px);min-height:clamp(360px,52vh,470px);overflow:hidden}
+
+  /* left: the story */
+  .story{position:relative;min-height:190px;display:flex;flex-direction:column;justify-content:center}
+  .step{position:absolute;left:0;right:0;opacity:0;transform:translateY(10px);
+    transition:opacity .5s ease,transform .6s cubic-bezier(.2,.7,.2,1);pointer-events:none}
+  .step.on{opacity:1;transform:none}
+  .step .k{display:inline-block;font:600 10.5px var(--sans);letter-spacing:.16em;text-transform:uppercase;
+    color:var(--red);border:1px solid rgba(196,87,74,.4);background:rgba(196,87,74,.1);
+    border-radius:999px;padding:5px 11px;margin-bottom:14px}
+  .step h3{font:500 clamp(23px,2.9vw,36px)/1.14 var(--serif);letter-spacing:-.014em;color:#fff;margin-bottom:12px}
+  .step p{font:400 clamp(14px,1.5vw,16.5px)/1.55 var(--sans);color:var(--dim);max-width:34ch}
+  .step p b{color:var(--green);font-weight:500}
+
+  /* right: the cockpit */
+  .cockpit{position:relative;border:1px solid rgba(255,255,255,.09);border-radius:14px;overflow:hidden;
+    background:linear-gradient(180deg,rgba(26,32,42,.95),rgba(16,20,27,.97));
+    box-shadow:0 22px 60px rgba(0,0,0,.4);transition:opacity .6s,filter .6s}
+  .cbar{display:flex;align-items:center;gap:8px;padding:11px 14px;border-bottom:1px solid rgba(255,255,255,.07);
+    background:rgba(255,255,255,.022)}
+  .cbar i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.16);flex:none}
+  .cbar .nm{margin-left:6px;font:500 11.5px var(--sans);color:var(--dim)}
+  .link{margin-left:auto;display:flex;align-items:center;gap:6px;font:600 10.5px var(--sans);
+    letter-spacing:.08em;color:var(--green);transition:color .4s}
+  .link .dot{width:6px;height:6px;border-radius:50%;background:var(--green);transition:background .4s}
+  .stage[data-net="down"] .link{color:var(--red)}
+  .stage[data-net="down"] .link .dot{background:var(--red)}
+
+  .rows{padding:6px}
+  .row{display:flex;align-items:center;gap:12px;padding:13px 12px;border-radius:10px;
+    transition:background .45s,box-shadow .45s,opacity .45s}
+  .row + .row{border-top:1px solid rgba(255,255,255,.045)}
+  .row .lbl{font:500 11px var(--sans);letter-spacing:.13em;text-transform:uppercase;color:var(--dim2);flex:none;width:104px}
+  .row .val{font:600 14.5px var(--sans);color:#EDF1F6}
+  .row .val small{display:block;font:500 11.5px var(--sans);color:var(--dim);margin-top:2px;letter-spacing:0}
+  .row.hit{background:rgba(79,181,132,.09);box-shadow:inset 0 0 0 1px rgba(79,181,132,.4)}
+  .row.hit .lbl{color:var(--green)}
+  .row.warn{background:rgba(196,87,74,.09);box-shadow:inset 0 0 0 1px rgba(196,87,74,.35)}
+  .row.warn .lbl{color:#E08376}
+
+  .meter{margin-top:7px;height:5px;border-radius:3px;background:rgba(255,255,255,.09);overflow:hidden;width:132px}
+  .meter i{display:block;height:100%;border-radius:3px;background:linear-gradient(90deg,#4FB584,#D9A03F);
+    width:30%;transition:width .8s cubic-bezier(.2,.7,.2,1)}
+
+  /* laptop dies: everything greys out except the one thing that saves you */
+  .cdim{transition:filter .6s,opacity .6s}
+  .stage[data-dead="1"] .cdim{filter:grayscale(1) brightness(.75);opacity:.34}
+  .keepwrap{position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .5s}
+  .stage[data-dead="1"] .keepwrap{opacity:1}
+  .keepcard{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(.96);width:min(92%,340px);
+    border:1px solid rgba(79,181,132,.75);border-radius:13px;background:rgba(13,34,27,.98);
+    padding:18px 20px;box-shadow:0 22px 60px rgba(0,0,0,.7),0 0 0 6px rgba(79,181,132,.07);
+    transition:transform .55s cubic-bezier(.2,.7,.2,1)}
+  .stage[data-dead="1"] .keepcard{transform:translate(-50%,-50%) scale(1)}
+  .keepcard .t{font:600 10.5px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--green);margin-bottom:8px}
+  .keepcard .v{font:600 15px var(--sans);color:#fff}
+  .keepcard .s{font:500 12px var(--sans);color:#9FB6AC;margin-top:5px}
+
+  /* duplicate alerts flying in */
+  .pills{position:absolute;left:0;right:0;top:0;bottom:0;pointer-events:none}
+  .pill{position:absolute;left:-10%;display:flex;align-items:center;gap:7px;
+    border:1px solid rgba(255,255,255,.14);background:rgba(20,25,33,.96);border-radius:999px;
+    padding:7px 13px;font:600 11.5px var(--sans);color:#D7DDE6;opacity:0;white-space:nowrap}
+  .pill .tag{font:700 9.5px var(--sans);letter-spacing:.1em}
+  .pill.ok .tag{color:var(--green)} .pill.no .tag{color:#E08376}
+  .stage[data-inc="3"] .pill{animation:fly 1.5s cubic-bezier(.2,.7,.2,1) forwards}
+  .stage[data-inc="3"] .pill:nth-child(2){animation-delay:.35s}
+  .stage[data-inc="3"] .pill:nth-child(3){animation-delay:.7s}
+  @keyframes fly{
+    0%{opacity:0;left:-12%} 22%{opacity:1} 62%{opacity:1;left:34%} 100%{opacity:0;left:44%}
+  }
+
+  /* the clock for the forgotten close */
+  .clockchip{position:absolute;right:14px;top:52px;font:600 12px var(--sans);color:var(--amber);
+    background:rgba(217,160,63,.1);border:1px solid rgba(217,160,63,.32);border-radius:999px;padding:5px 11px;
+    opacity:0;transition:opacity .45s}
+  .stage[data-inc="4"] .clockchip{opacity:1}
+
+  /* the picker */
+  .picks{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:12px}
+  .pick{text-align:left;cursor:pointer;font:inherit;border:1px solid rgba(255,255,255,.08);border-radius:12px;
+    background:linear-gradient(180deg,rgba(255,255,255,.028),rgba(255,255,255,.008));padding:13px 14px;
+    transition:border-color .35s,background .35s,transform .35s}
+  .pick:hover{border-color:rgba(143,169,214,.45);transform:translateY(-2px)}
+  .pick b{display:block;font:600 12.5px var(--sans);color:#E6EAF0;margin-bottom:3px}
+  .pick span{font:400 11.5px/1.4 var(--sans);color:var(--dim2)}
+  .pick.active{border-color:rgba(143,169,214,.7);background:linear-gradient(180deg,rgba(143,169,214,.13),rgba(255,255,255,.01))}
+  .pick.active b{color:#fff}
+  .pick i{display:block;height:2px;margin-top:10px;border-radius:2px;background:rgba(255,255,255,.1);overflow:hidden}
+  .pick i::after{content:"";display:block;height:100%;width:0;background:var(--blue)}
+  .pick.active i::after{animation:tick var(--dur,5200ms) linear forwards}
+  @keyframes tick{from{width:0}to{width:100%}}
+
+  .voice{display:flex;gap:2px;padding:2px;border:1px solid rgba(255,255,255,.1);border-radius:999px;
+    background:rgba(255,255,255,.02);width:max-content;margin-bottom:18px}
+  .voice button{background:none;border:none;cursor:pointer;border-radius:999px;padding:6px 13px;
+    font:500 11.5px var(--sans);color:var(--dim);transition:background .3s,color .3s}
+  body[data-mode="own"] .voice button[data-m="own"],
+  body[data-mode="funded"] .voice button[data-m="funded"]{background:rgba(255,255,255,.1);color:#fff}
+  .mv{display:none}
+  body[data-mode="own"] .mv[data-m="own"],body[data-mode="funded"] .mv[data-m="funded"]{display:inline}
+
+  @media(max-width:860px){
+    .stage{grid-template-columns:1fr;min-height:0;gap:22px}
+    .story{min-height:150px}
+    .picks{grid-template-columns:1fr 1fr}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .step,.row,.cockpit,.keepwrap{transition:none!important}
+    .pill,.pick i::after{animation:none!important}
+  }
+</style>
+</head>
+<body data-mode="own">
+
+<section class="sec">
+  <div class="voice" role="group" aria-label="Whose money you trade">
+    <button type="button" data-m="own">Own money</button>
+    <button type="button" data-m="funded">Firm account</button>
+  </div>
+
+  <div class="eyebrow">When it goes wrong</div>
+  <h2>Four ways this goes wrong. Four things already in place.</h2>
+
+  <div class="stage" id="stage" data-inc="1">
+    <div class="story">
+      <div class="step" data-s="1">
+        <span class="k">Your internet drops</span>
+        <h3>You’re long two, and the Wi-Fi dies.</h3>
+        <p>Your stop is not a plan on some server. It is <b>a live order resting at your broker</b> — it works with your laptop unplugged.</p>
+      </div>
+      <div class="step" data-s="2">
+        <span class="k">Your laptop dies</span>
+        <h3>The machine shuts off mid-trade.</h3>
+        <p>Everything on screen goes with it. The one thing that matters doesn’t: <b>the stop is already at the broker</b>, and it needs neither us nor you.</p>
+      </div>
+      <div class="step" data-s="3">
+        <span class="k">Your alert misfires</span>
+        <h3>The same alert fires three times.</h3>
+        <p><b>One order goes.</b> The next two are refused inside the same second, so a bad alert can’t quietly leave you long six.</p>
+      </div>
+      <div class="step" data-s="4">
+        <span class="k">You forget the close</span>
+        <h3>It’s 15:55 and you walked away.</h3>
+        <p><b>It flattens for you</b><span class="mv" data-m="funded"> before the firm’s cutoff</span> — and keeps asking until the broker confirms you are flat.</p>
+      </div>
+    </div>
+
+    <div class="cockpit" id="cockpit">
+      <div class="cdim">
+      <div class="cbar">
+        <i></i><i></i><i></i><span class="nm">BridgePit</span>
+        <span class="link"><span class="dot"></span><span id="linkTxt">CONNECTED</span></span>
+      </div>
+      <div class="rows">
+        <div class="row" data-r="pos">
+          <span class="lbl">Position</span>
+          <span class="val num" id="vPos">Long 2 MNQ<small id="sPos">entry 23,412.25</small></span>
+        </div>
+        <div class="row keep" data-r="stop">
+          <span class="lbl">Stop</span>
+          <span class="val num">23,380.00<small>resting at the broker</small></span>
+        </div>
+        <div class="row" data-r="loss">
+          <span class="lbl"><span class="mv" data-m="own">Day loss</span><span class="mv" data-m="funded">Firm limit</span></span>
+          <span class="val num">−$180<small><span class="mv" data-m="own">of your $600 stop</span><span class="mv" data-m="funded">of the firm’s $1,000</span></small>
+            <span class="meter"><i id="meterFill"></i></span>
+          </span>
+        </div>
+        <div class="row" data-r="close">
+          <span class="lbl">Close</span>
+          <span class="val num" id="vClose">Flatten 15:55<small><span class="mv" data-m="own">retries until confirmed flat</span><span class="mv" data-m="funded">before the firm’s cutoff</span></small></span>
+        </div>
+      </div>
+
+      </div>
+      <div class="clockchip num" id="clock">15:52:40</div>
+
+      <div class="pills">
+        <div class="pill ok"  style="top:22%"><span class="tag">SENT</span> BUY 2 MNQ</div>
+        <div class="pill no"  style="top:44%"><span class="tag">REFUSED</span> duplicate</div>
+        <div class="pill no"  style="top:66%"><span class="tag">REFUSED</span> duplicate</div>
+      </div>
+
+      <div class="keepwrap">
+        <div class="keepcard">
+          <div class="t">Still live at the broker</div>
+          <div class="v num">SELL 2 MNQ · stop 23,380.00</div>
+          <div class="s">Placed the moment you entered. Nothing on your side has to be awake.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="picks" id="picks">
+    <button class="pick" type="button" data-p="1"><b>Wi-Fi drops</b><span>Mid-trade, no connection</span><i></i></button>
+    <button class="pick" type="button" data-p="2"><b>Laptop dies</b><span>Screen goes black</span><i></i></button>
+    <button class="pick" type="button" data-p="3"><b>Alert fires 3×</b><span>A burst from TradingView</span><i></i></button>
+    <button class="pick" type="button" data-p="4"><b>You walk away</b><span>The close is coming</span><i></i></button>
+  </div>
+</section>
+
+<script>
+(function(){
+  var stage=document.getElementById('stage'),
+      picks=[].slice.call(document.querySelectorAll('.pick')),
+      steps=[].slice.call(document.querySelectorAll('.step')),
+      rows={}, clock=document.getElementById('clock'),
+      vPos=document.getElementById('vPos'), sPos=document.getElementById('sPos'),
+      linkTxt=document.getElementById('linkTxt'), meter=document.getElementById('meterFill');
+  document.querySelectorAll('.row').forEach(function(r){ rows[r.getAttribute('data-r')]=r });
+  var reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var DUR=5200, timer=null, clockT=null, cur=0, running=false;
+
+  function clear(){
+    stage.removeAttribute('data-net'); stage.removeAttribute('data-dead');
+    Object.keys(rows).forEach(function(k){ rows[k].className='row'+(k==='stop'?' keep':'') });
+    linkTxt.textContent='CONNECTED';
+    vPos.firstChild.nodeValue='Long 2 MNQ'; sPos.textContent='entry 23,412.25';
+    clock.textContent='15:52:40'; meter.style.width='30%';
+    if(clockT){clearInterval(clockT); clockT=null}
+  }
+
+  function show(n,restartTick){
+    cur=n; clear();
+    stage.setAttribute('data-inc',n);
+    steps.forEach(function(s){ s.classList.toggle('on', +s.getAttribute('data-s')===n) });
+    picks.forEach(function(p){
+      var a=+p.getAttribute('data-p')===n;
+      if(a && restartTick!==false){ p.classList.remove('active'); void p.offsetWidth }
+      p.classList.toggle('active',a);
+      p.style.setProperty('--dur',DUR+'ms');
+    });
+
+    if(n===1){
+      setTimeout(function(){ if(cur!==1)return; stage.setAttribute('data-net','down'); linkTxt.textContent='NO CONNECTION';
+        rows.stop.className='row keep hit' },700);
+    }
+    if(n===2){
+      setTimeout(function(){ if(cur!==2)return; stage.setAttribute('data-net','down'); linkTxt.textContent='OFFLINE';
+        stage.setAttribute('data-dead','1') },700);
+    }
+    if(n===3){
+      setTimeout(function(){ if(cur!==3)return; rows.pos.className='row hit' },1500);
+    }
+    if(n===4){
+      var t=[15,52,40];
+      clockT=setInterval(function(){
+        if(cur!==4){clearInterval(clockT);return}
+        t[2]+=12; while(t[2]>=60){t[2]-=60;t[1]++}
+        if(t[1]>=55 && t[0]===15){
+          t=[15,55,0]; clock.textContent='15:55:00';
+          clearInterval(clockT); clockT=null;
+          rows.close.className='row hit';
+          setTimeout(function(){ if(cur!==4)return;
+            vPos.firstChild.nodeValue='Flat '; sPos.textContent='closed 23,404.75 · confirmed by broker';
+            rows.pos.className='row hit' },700);
+          return;
+        }
+        clock.textContent=[t[0],t[1],t[2]].map(function(v){return String(v).padStart(2,'0')}).join(':');
+      },90);
+    }
+  }
+
+  function next(){ show(cur%4+1) }
+  function play(){ if(running||reduced)return; running=true; show(cur||1); timer=setInterval(next,DUR) }
+  function pause(){ running=false; if(timer)clearInterval(timer); timer=null; if(clockT){clearInterval(clockT);clockT=null} }
+
+  picks.forEach(function(p){
+    p.addEventListener('click',function(){
+      pause(); show(+p.getAttribute('data-p'));
+      running=true; timer=setInterval(next,DUR);
+    });
+  });
+
+  document.querySelectorAll('.voice button').forEach(function(b){
+    b.addEventListener('click',function(){ document.body.dataset.mode=b.getAttribute('data-m') });
+  });
+
+  if(reduced){ show(2,false); }
+  else if('IntersectionObserver' in window){
+    new IntersectionObserver(function(es){ es.forEach(function(e){ e.isIntersecting?play():pause() }) },{threshold:.25}).observe(stage);
+  } else play();
+})();
+</script>
+</body>
+</html>
