@@ -392,7 +392,7 @@
         <div class="fchoices" role="group" aria-label="Choose how you trade">
           <button class="fchoice" data-m="own" aria-pressed="false">I trade my own money</button>
           <span class="for" aria-hidden="true">or</span>
-          <button class="fchoice" data-m="funded" aria-pressed="false">I trade a firm's account</button>
+          <button class="fchoice" data-m="funded" aria-pressed="false">I trade a firm’s account</button>
         </div>
       </div>
       <div class="fanswer" id="fanswer">
@@ -863,8 +863,9 @@ else if(small){
       set(b.dataset.m,true);fin.dataset.step='done';
       var last=b.getBoundingClientRect();
       var dx=(first.left+first.width/2)-(last.left+last.width/2);
-      if(dx){
-        b.style.transition='none';b.style.transform='translateX('+dx+'px) scale(.926)';
+      var dy=(first.top+first.height/2)-(last.top+last.height/2);
+      if(dx||dy){
+        b.style.transition='none';b.style.transform='translate('+dx+'px,'+dy+'px) scale(.926)';
         requestAnimationFrame(function(){requestAnimationFrame(function(){
           b.style.transition='';b.style.transform='';})});
       }
