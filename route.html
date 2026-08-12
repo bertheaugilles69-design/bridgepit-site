@@ -59,6 +59,7 @@
   .badge.on{opacity:1}
   .badge text{font:600 11px var(--sans)}
   .badge.mine text{fill:var(--blue)}
+  .badge text.sub2{font:500 10.5px var(--sans);fill:#7F8EA8}
   .badge.theirs text{fill:var(--amber)}
   .kslot{opacity:.5}
   .mineKey{opacity:0;transition:opacity .45s}
@@ -67,6 +68,7 @@
   .lbl{opacity:0;transition:opacity .5s ease}
   .lbl.on{opacity:1}
   .lbl text{font:600 12px var(--sans)}
+  .lbl.sub text{font:500 10.5px var(--sans);opacity:.85}
   .lbl.good text{fill:var(--green)}
   .lbl.warn text{fill:var(--amber)}
   .lbl.bad text{fill:#E08376}
@@ -85,14 +87,7 @@
   .vd.one b{color:var(--amber)}
   .vd.two b{color:var(--green)}
 
-  .facts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
-  .fact{border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:15px 17px;
-    background:linear-gradient(180deg,rgba(255,255,255,.028),rgba(255,255,255,.008))}
-  .fact b{display:block;font:600 12.5px var(--sans);color:#fff;margin-bottom:4px}
-  .fact span{font:400 13px/1.5 var(--sans);color:var(--dim)}
-
   @media(max-width:760px){
-    .facts{grid-template-columns:1fr}
     .card{padding-bottom:clamp(58px,11vh,74px)}
     .vd{font-size:16px}
   }
@@ -148,9 +143,6 @@
     </div>
   </div>
 
-  <div class="facts">
-    <div class="fact"><b>Your order IP</b><span>The one you trade from — several firms prohibit copiers running on datacenter IPs.</span></div>
-    <div class="fact"><b>Your credentials</b><span>Encrypted on your own disk. We couldn't leak them — we never have them.</span></div>
   </div>
 </section>
 
@@ -249,6 +241,8 @@
     els.bMine=E('g',{'class':'badge mine'},NODES);
     lock(els.bMine, els.mine._cx-70, els.mine._cy+18);
     E('text',{x:els.mine._cx-58,y:els.mine._cy+22},els.bMine).textContent='your login never leaves it';
+    E('text',{x:els.mine._cx,y:els.mine._cy+40,'text-anchor':'middle','class':'sub2'},els.bMine)
+      .textContent='encrypted on your own disk';
 
     els.bTheirs=E('g',{'class':'badge theirs'},NODES);
     var kx=els.theirs._cx-6*18/2+4, ky=els.theirs._cy+15;
@@ -263,6 +257,9 @@
     els.lblBot=E('g',{'class':'lbl warn'},MARKS);
     els.lblBotT=E('text',{x:L.lblBot.x,y:L.lblBot.y,'text-anchor':'middle'},els.lblBot);
     els.lblBotT.textContent='sent from their datacenter';
+    els.lblBotSub=E('g',{'class':'lbl sub warn'},MARKS);
+    E('text',{x:L.lblBot.x,y:L.lblBot.y+17,'text-anchor':'middle'},els.lblBotSub)
+      .textContent='several firms prohibit this route';
 
     var ocx=L.chipAbove?(L.theirs.x+L.theirs.w/2):(L.theirs.x+L.theirs.w-50),
         ocy=L.chipAbove?(L.theirs.y-13):(L.theirs.y+19);
@@ -299,7 +296,7 @@
   function reset(){
     [els.src,els.mine,els.theirs,els.dst].forEach(function(n){ ['lit','done','dead'].forEach(function(c){off(n,c)}) });
     off(els.bMine,'on'); off(els.bTheirs,'on'); off(els.myKey,'on');
-    off(els.lblTop,'on'); off(els.lblBot,'on'); off(els.offtag,'on');
+    off(els.lblTop,'on'); off(els.lblBot,'on'); off(els.lblBotSub,'on'); off(els.offtag,'on');
     off(lBot,'faded'); off(lTop,'faded'); off(vd1,'on'); off(vd2,'on');
     els.lblBot.setAttribute('class','lbl warn');
     els.lblBotT.textContent='sent from their datacenter';
@@ -339,13 +336,13 @@
       if(t>=A1[1]-120){ on(els.mine,'lit'); on(els.theirs,'lit') }
       if(t>=A1[1]+200){ on(els.bMine,'on'); on(els.bTheirs,'on'); on(els.myKey,'on') }
       if(t>=A1[3]-100){ on(els.dst,'lit'); on(els.dst,'done') }
-      if(t>=A1[3]+140){ on(els.lblTop,'on'); on(els.lblBot,'on') }
+      if(t>=A1[3]+140){ on(els.lblTop,'on'); on(els.lblBot,'on'); on(els.lblBotSub,'on') }
       if(t>=V1) on(vd1,'on');
     }
     else if(t<FADE){
       if(!act2){
         act2=true;
-        off(vd1,'on'); off(els.lblTop,'on'); off(els.lblBot,'on'); off(els.dst,'done'); off(els.dst,'lit');
+        off(vd1,'on'); off(els.lblTop,'on'); off(els.lblBot,'on'); off(els.lblBotSub,'on'); off(els.dst,'done'); off(els.dst,'lit');
         lTop.style.strokeDashoffset=els.dT; lBot.style.strokeDashoffset=els.dB;
       }
       var c=laneF(t,A2,els.gT), d=laneF(t,A2,els.gB);
