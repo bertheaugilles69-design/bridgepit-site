@@ -23,7 +23,7 @@
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
  {"@type":"Question","name":"Can I keep my existing PickMyTrade alert format?","acceptedAnswer":{"@type":"Answer","text":"Yes. BridgePit accepts the PickMyTrade alert message format unchanged — switching is editing one webhook URL per TradingView alert."}},
- {"@type":"Question","name":"Why does it matter where execution runs?","acceptedAnswer":{"@type":"Answer","text":"A cloud service places your orders from its datacenter IP and holds your broker access to do it. Software on your own machine places orders from your own IP with credentials that never leave your computer. Several prop firms prohibit cloud-based copiers and VPS execution; always check your firm's current rules."}},
+ {"@type":"Question","name":"Why does it matter where execution runs?","acceptedAnswer":{"@type":"Answer","text":"A cloud service places your orders from its datacenter IP and holds your broker access to do it. Software on your own machine places orders from your own IP with credentials that never leave your computer. Rules differ by firm and change; always check your firm's current rules."}},
  {"@type":"Question","name":"Is BridgePit fully automated?","acceptedAnswer":{"@type":"Answer","text":"Semi-automated by design: it executes your TradingView alerts and you supervise, with a kill-switch, position caps, a daily loss stop, and an end-of-day flatten."}},
  {"@type":"Question","name":"What does BridgePit cost compared to PickMyTrade?","acceptedAnswer":{"@type":"Answer","text":"BridgePit Pro is $49/month with a 7-day free trial (one live account; free paper trading without a card). PickMyTrade lists $50/month, $120/quarter, or $350/year with a 5-day trial (checked July 2026). Your prop firm sets its own API-access fee, paid to the firm directly — not to us."}}]}
 </script>
@@ -111,7 +111,7 @@
       <div class="hop good">…which places the order from <b>your own IP</b></div>
     </div>
   </div>
-  <p class="fine">Why funded traders care: several prop firms prohibit cloud-based copiers and VPS execution in their agreements. Rules differ by firm and change — always check your firm's current policy yourself.</p>
+  <p class="fine">Why funded traders care: firm rules on automation and third-party tools differ and change — some firms prohibit automation entirely. Always check your firm's current policy yourself.</p>
 
   <h2>Side by side.</h2>
   <table>

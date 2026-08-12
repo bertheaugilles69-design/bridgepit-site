@@ -35,7 +35,7 @@
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
  {"@type":"Question","name":"Is BridgePit allowed at my prop firm?","acceptedAnswer":{"@type":"Answer","text":"BridgePit runs on your own computer and places orders from your own IP — no cloud server between your signals and your broker. Rules differ by firm and change, so always check your firm's current policy. You stay in supervision: kill-switch, position caps, daily failsafes."}},
- {"@type":"Question","name":"What does my prop firm actually see?","acceptedAnswer":{"@type":"Answer","text":"Your broker sees orders arriving through its API from your IP, flagged as automated — an exchange requirement. Most firms' rules target cloud copiers on datacenter IPs and unsupervised bots, not supervised execution from your own machine."}},
+ {"@type":"Question","name":"What does my prop firm actually see?","acceptedAnswer":{"@type":"Answer","text":"Your broker sees orders arriving through its API from your IP, flagged as automated — an exchange requirement. Rules differ by firm and change, so always check your own firm's current policy."}},
  {"@type":"Question","name":"Is it fully automated?","acceptedAnswer":{"@type":"Answer","text":"Semi-automated by design: it executes your alerts, you supervise. That's also what most prop firms require of automated traders."}},
  {"@type":"Question","name":"Do you see my broker password?","acceptedAnswer":{"@type":"Answer","text":"No. Credentials are encrypted on your machine with a key that never leaves it and are used only to open your broker session. They never touch our servers."}},
  {"@type":"Question","name":"Which brokers are supported?","acceptedAnswer":{"@type":"Answer","text":"BridgePit executes on futures prop accounts that support Rithmic, which most major firms offer. Which specific firms are supported, and each firm's own API fee, we confirm at launch — those fees are set by the firm, not by us."}},
@@ -622,7 +622,7 @@
   <div class="stakeV" data-m="funded">
     <div class="s1">Why this exists</div>
     <h2>You spent months earning that account.</h2>
-    <p class="s2">The evals. The resets. The discipline. And several prop firms prohibit cloud-based copiers — so the cheapest piece of your stack, the copier, is the one thing that can cost you the most expensive one. <b>The tool you automate with should never be the reason you lose the account.</b></p>
+    <p class="s2">The evals. The resets. The discipline. And the cheapest piece of your stack, the tool that fires your orders, is the one thing that can cost you the most expensive one. <b>The tool you automate with should never be the reason you lose the account.</b></p>
     <p class="turn">No cloud between you and your broker. Ever.</p>
   </div>
   <div class="stakeV" data-m="own">
@@ -665,8 +665,8 @@
   <section class="sec" id="trust">
     <div class="tgrid">
       <div><b>Credentials stay local</b><span>Encrypted on your machine. They never touch our servers.</span></div>
-      <div><b>No cloud servers</b><span>Orders leave from your own IP. There is nothing to ban.</span></div>
-      <div><b>Traded daily by its builders</b><span>The founders run their own funded accounts on it.</span></div>
+      <div><b>No cloud servers</b><span>Orders leave from the IP you log in from, not a datacenter.</span></div>
+      <div><b>Signed and notarized by Apple</b><span>Built, signed and checked by Apple before it reaches you.</span></div>
       <div><b>You stay in control</b><span>Kill-switch, position caps, end-of-day failsafes.</span></div>
     </div>
   </section>
@@ -703,7 +703,7 @@
       </svg>
     </div>
     <div class="arch">
-      <div class="gcard archline"><b>Your order IP</b><span>the one you trade from — several firms prohibit datacenter-IP copiers</span></div>
+      <div class="gcard archline"><b>Your order IP</b><span>the one you log in from — your orders carry it, not a shared datacenter's</span></div>
       <div class="gcard archline"><b>Your credentials</b><span>encrypted on your disk; we couldn't leak them — we don't have them</span></div>
     </div>
   </section>
@@ -779,7 +779,7 @@
     <h2>Questions, answered plainly.</h2>
     <div class="faq">
       <details class="qa"><summary>Is this allowed at my prop firm?</summary><p>BridgePit runs on your own computer and places orders from your own IP — there is no cloud server between your signals and your broker, which is the architecture most firms' automation rules are written around. Rules differ by firm and change, so always check your firm's current policy. You stay in supervision: kill-switch, position caps, daily failsafes.</p></details>
-      <details class="qa"><summary>What does my prop firm actually see?</summary><p>Your broker sees orders arriving through its API from your IP, flagged as automated — that's an exchange requirement, and BridgePit sets it honestly. There is no hiding and nothing to hide: most firms' rules target cloud copiers on datacenter IPs and unsupervised bots, not supervised execution from your own machine.</p></details>
+      <details class="qa"><summary>What does my prop firm actually see?</summary><p>Your broker sees orders arriving through its API from your IP, flagged as automated — that's an exchange requirement, and BridgePit sets it honestly. There is no hiding and nothing to hide. Rules differ by firm and change, so always check your own firm's current policy — some firms prohibit automation entirely.</p></details>
       <details class="qa"><summary>Is it fully automated?</summary><p>Semi-automated by design: it executes your alerts, you supervise. That's also what most prop firms require of automated traders.</p></details>
       <details class="qa"><summary>Do you see my broker password?</summary><p>No. Credentials are encrypted on your machine with a key that never leaves it, and are used only to open your broker session. They never touch our servers.</p></details>
       <details class="qa"><summary>Which brokers are supported?</summary><p>BridgePit executes on futures prop accounts that support Rithmic — the rail most major firms run on. Supported firms are announced at launch. Each firm sets its own API-access fee, paid to the firm directly; your credentials always stay on your machine.</p></details>
