@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>BridgePit — the rhythm of the page</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A0D12; --txt:#E6EAF0; --dim:#8C94A1; --dim2:#7C8593;
+    --blue:#8FA9D6; --green:#4FB584; --amber:#D9A03F;
+    --serif:"Newsreader",Georgia,serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Inter",sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--txt);font:15px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+  body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:radial-gradient(ellipse 90% 55% at 50% 8%,rgba(44,76,127,.10),transparent 62%)}
+  a{color:inherit;text-decoration:none}
+
+  .page{position:relative;z-index:1;max-width:1060px;margin:0 auto;padding:clamp(46px,7vh,80px) 22px clamp(60px,9vh,100px)}
+  .kicker{font:600 11px var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--blue);margin-bottom:14px}
+  h1{font:500 clamp(30px,4vw,50px)/1.06 var(--serif);letter-spacing:-.02em;color:#fff}
+  .lede{margin-top:16px;font:400 16px/1.6 var(--sans);color:var(--dim);max-width:56ch}
+
+  .strip{margin-top:clamp(34px,5vh,54px);display:grid;gap:16px}
+
+  .card{border:1px solid rgba(255,255,255,.08);border-radius:16px;overflow:hidden;
+    background:linear-gradient(180deg,rgba(255,255,255,.026),rgba(255,255,255,.007))}
+  .chead{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;padding:17px 20px 0}
+  .chead .n{font:600 10.5px var(--sans);letter-spacing:.16em;color:var(--dim2)}
+  .chead b{font:500 clamp(17px,2vw,22px) var(--serif);color:#fff;letter-spacing:-.01em}
+  .chead .job{font:400 13.5px var(--sans);color:var(--dim)}
+  .shape{margin-left:auto;font:600 10px var(--sans);letter-spacing:.14em;text-transform:uppercase;
+    border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:5px 11px;color:var(--dim2)}
+
+  .mock{margin:16px 20px 20px;border:1px solid rgba(255,255,255,.07);border-radius:12px;
+    background:rgba(9,12,17,.7);padding:16px;min-height:172px;display:grid;gap:14px;align-items:center}
+  .mock.split{grid-template-columns:1fr 1fr}
+  .mock.splitR{grid-template-columns:1fr 1fr}
+  .mock.full{grid-template-columns:1fr}
+  .mock.trio{grid-template-columns:1fr 1fr 1fr;align-items:stretch}
+  .mock.duo{grid-template-columns:1fr 1fr;align-items:stretch}
+
+  .tx{display:grid;gap:7px;align-content:center}
+  .tx i{display:block;height:9px;border-radius:4px;background:rgba(255,255,255,.16)}
+  .tx i.big{height:15px;background:rgba(255,255,255,.3);width:88%}
+  .tx i.big2{height:15px;background:rgba(143,169,214,.42);width:66%}
+  .tx i.s{width:74%;background:rgba(255,255,255,.1)}
+  .tx i.s2{width:58%;background:rgba(255,255,255,.1)}
+  .tx .pill{margin-top:5px;display:flex;gap:7px}
+  .tx .pill span{height:22px;border-radius:7px;background:rgba(255,255,255,.8);width:74px}
+  .tx .pill span+span{background:transparent;border:1px solid rgba(255,255,255,.22);width:60px}
+
+  .vis{border:1px solid rgba(143,169,214,.28);border-radius:9px;background:rgba(143,169,214,.07);
+    min-height:120px;display:flex;align-items:center;justify-content:center;
+    font:600 9.5px var(--sans);letter-spacing:.15em;text-transform:uppercase;color:rgba(184,203,232,.75);text-align:center;padding:8px}
+  .vis.amber{border-color:rgba(217,160,63,.3);background:rgba(217,160,63,.07);color:rgba(233,199,140,.8)}
+  .vis.green{border-color:rgba(79,181,132,.3);background:rgba(79,181,132,.07);color:rgba(150,214,183,.85)}
+  .vis.tall{min-height:150px}
+  .stepbox{border:1px dashed rgba(255,255,255,.16);border-radius:9px;min-height:104px;
+    display:flex;align-items:center;justify-content:center;font:600 9.5px var(--sans);
+    letter-spacing:.14em;text-transform:uppercase;color:var(--dim2);text-align:center;padding:8px}
+  .center{text-align:center;justify-items:center}
+  .center .tx i{margin:0 auto}
+  .center .tx i.big{width:62%}
+  .center .tx i.big2{width:40%}
+  .center .pill{justify-content:center}
+
+  .note{padding:0 20px 18px;font:400 13px/1.55 var(--sans);color:var(--dim2)}
+  .note b{color:var(--dim);font-weight:500}
+
+  .legend{margin-top:34px;display:flex;flex-wrap:wrap;gap:18px;font:500 12px var(--sans);color:var(--dim2)}
+  .legend span{display:flex;align-items:center;gap:8px}
+  .legend i{width:14px;height:14px;border-radius:4px;display:block}
+  .legend i.a{background:rgba(255,255,255,.2)}
+  .legend i.b{background:rgba(143,169,214,.3);border:1px solid rgba(143,169,214,.5)}
+
+  @media(max-width:760px){
+    .mock.split,.mock.splitR,.mock.duo{grid-template-columns:1fr}
+    .mock.trio{grid-template-columns:1fr}
+    .shape{margin-left:0}
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <div class="kicker">The rhythm</div>
+  <h1>Four screens, four different shapes.</h1>
+  <p class="lede">Same page, but no two screens are laid out the same way. This is the skeleton only — grey blocks are words, blue blocks are the moving parts.</p>
+
+  <div class="strip">
+
+    <!-- 1 -->
+    <div class="card">
+      <div class="chead"><span class="n">01</span><b>See it work</b><span class="job">the app running a session</span><span class="shape">Words left · app right</span></div>
+      <div class="mock split">
+        <div class="tx">
+          <i class="big"></i><i class="big2"></i><i></i><i class="s"></i>
+          <div class="pill"><span></span><span></span></div>
+        </div>
+        <div class="vis tall">Live event log</div>
+      </div>
+      <div class="note"><b>Built.</b> The one screen where words come first, because nobody knows what this is yet.</div>
+    </div>
+
+    <!-- 2 -->
+    <div class="card">
+      <div class="chead"><span class="n">02</span><b>Who holds your keys</b><span class="job">the login, and where it goes</span><span class="shape">Mirrored · panel left</span></div>
+      <div class="mock splitR">
+        <div class="vis amber tall">Login → their server</div>
+        <div class="tx">
+          <i class="big"></i><i class="big2"></i><i></i><i class="s2"></i>
+        </div>
+      </div>
+      <div class="note"><b>Built, needs mirroring.</b> Flipping it is what stops screens 1 and 2 reading as a template.</div>
+    </div>
+
+    <!-- 3 -->
+    <div class="card">
+      <div class="chead"><span class="n">03</span><b>Try it free</b><span class="job">three steps to your own fill</span><span class="shape">Full width · three across</span></div>
+      <div class="mock full center">
+        <div class="tx"><i class="big"></i><i class="s"></i></div>
+      </div>
+      <div class="mock trio" style="margin-top:-4px">
+        <div class="stepbox">01 · Download</div>
+        <div class="stepbox">02 · Paste one line</div>
+        <div class="stepbox">03 · Watch it fill</div>
+      </div>
+      <div class="note"><b>Next to build.</b> No side-by-side at all — the screen goes wide and the eye moves across instead of down.</div>
+    </div>
+
+    <!-- 4 -->
+    <div class="card">
+      <div class="chead"><span class="n">04</span><b>Buy it</b><span class="job">price, blockers, questions</span><span class="shape">Centred · two cards</span></div>
+      <div class="mock full center" style="padding-bottom:4px">
+        <div class="tx"><i class="big"></i></div>
+      </div>
+      <div class="mock duo" style="margin-top:-4px">
+        <div class="vis green">Free on paper</div>
+        <div class="vis">$49 live</div>
+      </div>
+      <div class="note"><b>To build.</b> Ends centred and symmetrical, which is the calmest shape — the page stops moving when it asks for money.</div>
+    </div>
+
+  </div>
+
+  <div class="legend">
+    <span><i class="a"></i> words</span>
+    <span><i class="b"></i> the moving part</span>
+  </div>
+</div>
+
+</body>
+</html>
