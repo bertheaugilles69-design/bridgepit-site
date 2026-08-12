@@ -147,6 +147,36 @@
   .stake .s2{font:400 18px/1.7 var(--sans);color:var(--dim);max-width:46ch;margin:0 auto}
   .stake .s2 b{color:#fff;font-weight:600}
   .stake .turn{margin-top:34px;font:500 20px var(--serif);font-style:italic;color:#C9D2DE}
+  .stake .stakeV{display:none}
+  body:not([data-mode]) .stakeV[data-m="funded"],body[data-mode="funded"] .stakeV[data-m="funded"],body[data-mode="own"] .stakeV[data-m="own"]{display:block}
+
+  /* ── the fork ── */
+  .fork{position:relative;z-index:1;background:#0A0D12;border-top:1px solid var(--gborder);padding:120px 24px 104px;text-align:center}
+  .fork .s1{font:400 15px var(--sans);letter-spacing:.06em;color:var(--dim2);text-transform:uppercase;margin-bottom:22px}
+  .fork h2{font:500 clamp(32px,4.4vw,54px)/1.12 var(--serif);letter-spacing:-.014em;color:#fff;max-width:22ch;margin:0 auto}
+  .forkgrid{display:grid;grid-template-columns:repeat(2,minmax(250px,330px));gap:18px;justify-content:center;margin:54px auto 0}
+  @media(max-width:640px){.forkgrid{grid-template-columns:minmax(0,330px)}}
+  .fpick{text-align:left;background:var(--glass);border:1px solid var(--gborder);border-radius:18px;padding:28px 26px 24px;cursor:pointer;backdrop-filter:blur(10px);font:inherit;
+    transition:transform .35s cubic-bezier(.2,.7,.2,1),border-color .35s,box-shadow .35s,opacity .35s}
+  .fpick:hover{transform:translateY(-4px);border-color:rgba(255,255,255,.24);box-shadow:0 26px 64px -26px rgba(0,0,0,.75)}
+  .fpick:focus-visible{outline:2px solid #8FA9D6;outline-offset:3px}
+  .fpick svg{display:block;margin-bottom:20px}
+  .fpick b{display:block;font:500 22px var(--serif);letter-spacing:-.01em;color:#fff;margin-bottom:7px}
+  .fpick span{font:400 13.5px/1.5 var(--sans);color:var(--dim)}
+  body[data-mode] .fpick{opacity:.4}
+  body[data-mode="own"] .fpick[data-m="own"],body[data-mode="funded"] .fpick[data-m="funded"]{opacity:1;border-color:rgba(143,169,214,.55);box-shadow:0 26px 64px -26px rgba(0,0,0,.75)}
+  .fbeats{max-width:760px;margin:44px auto 0;display:none;grid-template-columns:repeat(3,1fr);gap:14px;text-align:left}
+  @media(max-width:640px){.fbeats{grid-template-columns:1fr}}
+  body[data-mode="own"] .fbeats[data-m="own"],body[data-mode="funded"] .fbeats[data-m="funded"]{display:grid}
+  .fbeat{background:var(--glass);border:1px solid var(--gborder);border-radius:14px;padding:18px 18px 16px;animation:beatin .5s cubic-bezier(.2,.7,.2,1) both}
+  .fbeat:nth-child(2){animation-delay:.08s}.fbeat:nth-child(3){animation-delay:.16s}
+  @keyframes beatin{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  .fbeat em{display:block;font-style:normal;font:600 11px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:#8FA9D6;margin-bottom:8px}
+  .fbeat p{font:400 14px/1.55 var(--sans);color:var(--txt)}
+  .fswitch{display:none;margin:30px auto 0;font:500 11.5px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--dim2);background:none;border:none;cursor:pointer;padding:8px}
+  body[data-mode] .fswitch{display:block}
+  .fswitch:hover{color:var(--dim)}
+  @media(prefers-reduced-motion:reduce){.fpick,.fbeat{transition:none;animation:none}}
 
   /* ── closing CTA ── */
   .band{position:relative;z-index:1;text-align:center;padding:110px 24px}
@@ -356,11 +386,47 @@
 </div>
 </div>
 
+<div class="fork" id="fork">
+  <div class="s1">One question</div>
+  <h2>Whose money do you trade?</h2>
+  <div class="forkgrid">
+    <button class="fpick" data-m="own" aria-pressed="false">
+      <svg width="44" height="44" viewBox="0 0 128 128" fill="none" aria-hidden="true"><line x1="20" y1="104" x2="108" y2="104" stroke="#C7CCD6" stroke-width="6" stroke-linecap="round"/><line x1="64" y1="18" x2="64" y2="98" stroke="#C7CCD6" stroke-width="4" stroke-linecap="round"/><rect x="52" y="42" width="24" height="42" rx="4" fill="#EAEDF2"/></svg>
+      <b>My own money</b>
+      <span>A brokerage account in your name.</span>
+    </button>
+    <button class="fpick" data-m="funded" aria-pressed="false">
+      <svg width="44" height="44" viewBox="0 0 128 128" fill="none" aria-hidden="true"><g stroke="#C7CCD6" stroke-width="3" stroke-linecap="round" opacity=".8"><line x1="46" y1="24" x2="24" y2="90"/><line x1="46" y1="24" x2="62" y2="90"/><line x1="82" y1="24" x2="104" y2="90"/><line x1="82" y1="24" x2="66" y2="90"/></g><line x1="16" y1="90" x2="112" y2="90" stroke="#C7CCD6" stroke-width="6" stroke-linecap="round"/><line x1="46" y1="22" x2="46" y2="98" stroke="#C7CCD6" stroke-width="4" stroke-linecap="round"/><line x1="82" y1="22" x2="82" y2="98" stroke="#C7CCD6" stroke-width="4" stroke-linecap="round"/><rect x="38" y="47" width="16" height="34" rx="3.5" fill="#C7CCD6"/><rect x="74" y="47" width="16" height="34" rx="3.5" fill="#EAEDF2"/></svg>
+      <b>A funded account</b>
+      <span>A prop firm's capital, their rules.</span>
+    </button>
+  </div>
+  <div class="fbeats" data-m="own">
+    <div class="fbeat"><em>Private</em><p>Your broker login never leaves this computer.</p></div>
+    <div class="fbeat"><em>Protected</em><p>A stop rests at the broker itself — it survives your machine.</p></div>
+    <div class="fbeat"><em>Yours</em><p>Overnight positions are your call, not ours.</p></div>
+  </div>
+  <div class="fbeats" data-m="funded">
+    <div class="fbeat"><em>Compliant shape</em><p>Orders leave from your own IP. Nothing cloud to ban.</p></div>
+    <div class="fbeat"><em>Guarded</em><p>Daily stop and the 15:55 flatten, always on.</p></div>
+    <div class="fbeat"><em>Rule-first</em><p>Built around the strict reading of firm rules.</p></div>
+  </div>
+  <button class="fswitch" id="fswitch">Switch view</button>
+</div>
+
 <div class="stake">
-  <div class="s1">Why this exists</div>
-  <h2>You spent months earning that account.</h2>
-  <p class="s2">The evals. The resets. The discipline. And several prop firms prohibit cloud-based copiers — so the cheapest piece of your stack, the copier, is the one thing that can cost you the most expensive one. <b>The tool you automate with should never be the reason you lose the account.</b></p>
-  <p class="turn">No cloud between you and your broker. Ever.</p>
+  <div class="stakeV" data-m="funded">
+    <div class="s1">Why this exists</div>
+    <h2>You spent months earning that account.</h2>
+    <p class="s2">The evals. The resets. The discipline. And several prop firms prohibit cloud-based copiers — so the cheapest piece of your stack, the copier, is the one thing that can cost you the most expensive one. <b>The tool you automate with should never be the reason you lose the account.</b></p>
+    <p class="turn">No cloud between you and your broker. Ever.</p>
+  </div>
+  <div class="stakeV" data-m="own">
+    <div class="s1">Why this exists</div>
+    <h2>It's your capital on the line.</h2>
+    <p class="s2">Cloud copiers hold your broker login on their servers and fire your orders from someone else's machine. When they go down, you wait. When they're breached, it's your account. <b>The tool you automate with should never be your biggest risk.</b></p>
+    <p class="turn">No cloud between you and your broker. Ever.</p>
+  </div>
 </div>
 
 <div class="below">
@@ -390,15 +456,6 @@
       </div>
     </div>
     <p class="shotcap"><b>Simulated paper session in the real interface</b> — same layout, same events, same rules as the app you download. Nothing here is a mock-up of features that don't exist.</p>
-  </section>
-
-  <section class="sec" id="who">
-    <div class="eyebrow">Who it's for</div>
-    <h2>Funded account, or your own — same cockpit.</h2>
-    <div class="tgrid" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr))">
-      <div><b>I trade a funded account</b><span>Prop-firm rules are a minefield: supervision, IP requirements, no cloud copiers. BridgePit executes from your own machine and IP, with the daily stop and end-of-day flatten always on. <a href="prop-firm-automation-rules" style="color:var(--blue)">How to read your firm's rules →</a></span></div>
-      <div><b>I trade my own money</b><span>Your broker login never leaves your computer, and the safety net travels with you: daily loss stop, stops resting at the broker, alerts that must provably reach your phone before anything arms. Overnight holding is your choice, not ours.</span></div>
-    </div>
   </section>
 
   <section class="sec" id="trust">
@@ -778,6 +835,21 @@ else if(small){
   addEventListener("scroll",onScroll,{passive:true});
   onScroll();
 }
+})();
+</script>
+<script>
+/* Audience fork: sets body[data-mode] = own|funded, remembered per browser. */
+(function(){
+  var KEY='bp-mode';
+  function set(m,save){
+    document.body.dataset.mode=m;
+    document.querySelectorAll('.fpick').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.m===m))});
+    if(save){try{localStorage.setItem(KEY,m)}catch(e){}}
+  }
+  document.querySelectorAll('.fpick').forEach(function(b){b.addEventListener('click',function(){set(b.dataset.m,true)})});
+  var sw=document.getElementById('fswitch');
+  if(sw){sw.addEventListener('click',function(){set(document.body.dataset.mode==='own'?'funded':'own',true)})}
+  try{var m=localStorage.getItem(KEY);if(m==='own'||m==='funded'){set(m,false)}}catch(e){}
 })();
 </script>
 </body>
