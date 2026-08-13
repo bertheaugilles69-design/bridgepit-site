@@ -166,31 +166,34 @@
     --red:#C4574A; --redbg:rgba(196,87,74,.12);
     --amb:#D9A03F; --ambbg:rgba(217,160,63,.12);
     --serif:Newsreader,Georgia,"Times New Roman",serif;
-    display:grid;grid-template-columns:190px minmax(0,1fr);
+    display:grid;grid-template-columns:190px minmax(0,1fr);grid-template-rows:minmax(0,1fr);
     border:1px solid var(--al2);border-radius:16px;overflow:hidden;background:var(--abg);
-    box-shadow:0 40px 90px rgba(0,0,0,.6);color:var(--atx);font-size:14px}
+    box-shadow:0 40px 90px rgba(0,0,0,.6);color:var(--atx);font-size:14px;
+    height:clamp(360px,46vh,440px)}
 
-  .side{border-right:1px solid var(--al);display:flex;flex-direction:column;background:var(--aside)}
-  .sidelogo{display:flex;align-items:center;gap:9px;padding:18px 16px 16px;font:600 15px var(--sans);letter-spacing:-.01em}
+  .side{border-right:1px solid var(--al);display:flex;flex-direction:column;background:var(--aside);min-height:0}
+  .sidelogo{display:flex;align-items:center;gap:9px;padding:14px 15px 10px;font:600 15px var(--sans);letter-spacing:-.01em}
   .sidelogo .mk{width:24px;height:24px;border-radius:7px;background:#141A24;display:grid;place-items:center;flex:none}
   .snav{display:flex;flex-direction:column;gap:2px;padding:6px 10px}
   .snav button{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:none;border:none;
-    cursor:pointer;border-radius:9px;padding:9px 11px;font:500 13.5px var(--sans);color:var(--adim);
+    cursor:pointer;border-radius:9px;padding:7px 11px;font:500 13.5px var(--sans);color:var(--adim);
     transition:background .15s,color .15s;position:relative}
   .snav button svg{width:16px;height:16px;flex:none;opacity:.9}
   .snav button:hover{background:rgba(255,255,255,.04);color:var(--atx)}
   .snav button.on{background:var(--accbg);color:#DCE5F4}
   .snav button.on::before{content:"";position:absolute;left:-10px;top:8px;bottom:8px;width:2px;
     border-radius:2px;background:var(--acc)}
-  .slabel{padding:18px 11px 6px;font:600 10px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--adim2)}
-  .plan{margin-top:auto;padding:14px}
-  .plan .in{border:1px solid var(--al);border-radius:12px;padding:13px 14px;background:var(--card)}
+  .slabel{padding:12px 11px 5px;font:600 10px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--adim2)}
+  .plan{margin-top:auto;padding:11px}
+  .plan .in{border:1px solid var(--al);border-radius:12px;padding:11px 13px;background:var(--card)}
   .plan .pt{font:400 11.5px var(--sans);color:var(--adim2)}
   .plan .pv{margin-top:3px;font:600 14px var(--sans);color:var(--atx)}
-  .plan .mg{margin-top:11px;display:block;width:100%;text-align:center;border:none;border-radius:9px;
+  .plan .mg{margin-top:9px;display:block;width:100%;text-align:center;border:none;border-radius:9px;
     padding:9px;background:#A9BEE2;color:#0A0D12;font:600 13px var(--sans);cursor:default}
 
-  .mainpane{display:flex;flex-direction:column;min-width:0}
+  .mainpane{display:flex;flex-direction:column;min-width:0;min-height:0;position:relative}
+  .mainpane::after{content:"";position:absolute;left:0;right:0;bottom:0;height:52px;pointer-events:none;
+    background:linear-gradient(to top,#0A0D12 8%,rgba(10,13,18,0))}
   .top{display:flex;align-items:center;gap:14px;padding:16px 22px;border-bottom:1px solid var(--al)}
   .top .h{font:500 20px var(--serif);letter-spacing:-.01em;color:var(--atx)}
   .clock{margin-left:auto;font:500 12px var(--mono);color:var(--adim2)}
@@ -200,6 +203,11 @@
   .pill.stopped{border-color:rgba(196,87,74,.4);background:var(--redbg);color:var(--red)}
   .pill.stopped i{background:var(--red)}
 
+  .mainpane>.view{overflow-y:auto;overscroll-behavior:auto}
+  .mainpane>.view::-webkit-scrollbar{width:9px}
+  .mainpane>.view::-webkit-scrollbar-thumb{background:rgba(255,255,255,.13);border-radius:9px;
+    border:3px solid transparent;background-clip:content-box}
+  .mainpane>.view::-webkit-scrollbar-track{background:transparent}
   .view{display:none;padding:20px 22px 24px}
   .view.on{display:block}
 
@@ -349,6 +357,7 @@
     .sub{max-width:none}
     .wire{flex-basis:52px}
   }
+  @media(max-width:760px){ .app{height:auto} .mainpane>.view{overflow-y:visible} .mainpane::after{display:none} }
   @media(max-width:700px){
     .chain{flex-direction:column;align-items:stretch}
     .wire{flex:0 0 22px;width:1px;height:22px;align-self:center;background:var(--line)}
@@ -707,7 +716,7 @@
     </div>
 
     <div class="under">
-      <span><i></i>Click through it — it works</span>
+      <span><i></i>Scroll inside it — the whole dashboard is in there</span>
       <span><i></i>Press Halt and watch it stop</span>
       <span class="rep">A working replica of the BridgePit dashboard. Sample numbers, not a real account.</span>
     </div>
