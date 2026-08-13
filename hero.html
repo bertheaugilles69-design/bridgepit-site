@@ -738,12 +738,37 @@
   .c3 h3{font:600 17px var(--sans);letter-spacing:-.015em;color:#fff}
   .c3 p{margin-top:10px;font:400 14.5px/1.55 var(--sans);color:var(--dim)}
 
-  .rails{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;
-    background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
-  .rail{background:var(--bg);padding:24px 22px 26px;min-height:158px}
-  .rail .n{font:600 11px var(--mono);color:var(--dim2);letter-spacing:.06em}
-  .rail h3{margin-top:16px;font:600 15.5px var(--sans);letter-spacing:-.01em;color:#fff}
-  .rail p{margin-top:9px;font:400 13.5px/1.5 var(--sans);color:var(--dim2)}
+  /* screen 3 — one day, and the rail that catches each thing that goes wrong */
+  .tl{display:grid;gap:0;position:relative}
+  .tlrow{display:grid;grid-template-columns:78px 26px minmax(0,1fr);align-items:stretch;
+    padding:20px 0 22px;opacity:1}
+  .tlrow+.tlrow{border-top:1px solid var(--line)}
+  .tlt{font:500 13px var(--mono);color:var(--dim2);padding-top:2px;letter-spacing:-.01em}
+  .tlm{position:relative;height:100%;display:flex;justify-content:center}
+  .tlm::before{content:"";position:absolute;top:-22px;bottom:-22px;width:1px;background:var(--line)}
+  .tlrow:first-child .tlm::before{top:25px}
+  .tlrow:last-child .tlm::before{bottom:auto;height:47px}
+  .tlm i{position:relative;margin-top:5px;width:9px;height:9px;border-radius:999px;
+    background:var(--bg);border:1px solid var(--line2);transition:background .5s,border-color .5s,box-shadow .5s}
+  .tlc{padding-left:4px}
+  .tlw{font:600 19px/1.35 var(--sans);letter-spacing:-.018em;color:#fff;text-wrap:balance}
+  .tlg{margin-top:11px;font:400 15px/1.6 var(--sans);color:var(--dim);max-width:72ch}
+  .gchip{display:inline-block;margin-right:10px;border:1px solid var(--line2);border-radius:999px;
+    padding:3px 11px;font:600 11px var(--sans);letter-spacing:.04em;color:var(--txt);
+    vertical-align:1px;white-space:nowrap}
+  .tlend{margin-top:34px;padding-top:26px;border-top:1px solid var(--line);
+    font:400 15px/1.6 var(--sans);color:var(--dim);max-width:66ch}
+  .tlend b{color:var(--txt);font-weight:500}
+
+  /* the sequence lights up as you come down the page */
+  .anim .tlrow{opacity:.22;transform:translateY(10px);
+    transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+  .anim .tlrow.lit{opacity:1;transform:none}
+  .anim .tlrow.lit .tlm i{background:var(--green);border-color:var(--green);
+    box-shadow:0 0 0 4px rgba(74,222,128,.12)}
+  @media(prefers-reduced-motion: reduce){
+    .anim .tlrow{opacity:1;transform:none;transition:none}
+  }
 
   .steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
   .step{border:1px solid var(--line);border-radius:12px;padding:26px 24px 28px;background:rgba(255,255,255,.014)}
@@ -826,31 +851,59 @@
   </div>
 </section>
 
-<!-- ════ THE RAILS ════ -->
+<!-- ════ SCREEN 3 — the rails, as one day ════ -->
 <section class="band" id="safety">
   <div class="bhead">
     <div class="eyebrow">The rails</div>
-    <h2>Every rail is here because a real day goes wrong.</h2>
-    <p class="csub">None of them are settings you have to discover. They are on, and you can change or switch off any of them.</p>
+    <h2>A day only has to go wrong once.</h2>
+    <p class="csub">Here is an ordinary session, and the rail that catches each thing that goes wrong in it. Every one of them is on by default, and every one of them is yours to change.</p>
   </div>
-  <div class="rails">
-    <div class="rail"><div class="n">01</div><h3>Duplicate guard</h3>
-      <p>TradingView re-sends the same alert. BridgePit sends one order and writes down that it blocked the rest.</p></div>
-    <div class="rail"><div class="n">02</div><h3>Stop resting at the broker</h3>
-      <p>Your emergency stop sits with the broker, not in the app — so it still works if your Mac closes.</p></div>
-    <div class="rail"><div class="n">03</div><h3>Stop for today</h3>
-      <p>Lose your chosen amount and new entries stop. It resets the next morning.</p></div>
-    <div class="rail"><div class="n">04</div><h3>Stop for good</h3>
-      <p>Fall a set distance below your best balance and it stops for good, not just for the day.</p></div>
-    <div class="rail"><div class="n">05</div><h3>End of day flatten</h3>
-      <p>At the time you set, anything still open is closed and confirmed by the broker.</p></div>
-    <div class="rail"><div class="n">06</div><h3>Halt and flatten</h3>
-      <p>One button blocks new entries while exits still work. The next one closes everything, now.</p></div>
-    <div class="rail"><div class="n">07</div><h3>Late alert gate</h3>
-      <p>An alert that arrives late, after a reconnect, does not open a position at yesterday's price.</p></div>
-    <div class="rail"><div class="n">08</div><h3>Awake and watched</h3>
-      <p>Your Mac is kept awake while armed, and the app tells you the moment you are on battery.</p></div>
+
+  <div class="tl" id="tl">
+    <div class="tlrow"><div class="tlt">09:47</div><div class="tlm"><i></i></div>
+      <div class="tlc">
+        <div class="tlw">TradingView fires the same alert three times.</div>
+        <div class="tlg"><span class="gchip">Duplicate guard</span>One order leaves. The other two are refused and written into the log, so you can see it happened instead of finding a doubled position.</div>
+      </div></div>
+
+    <div class="tlrow"><div class="tlt">09:47</div><div class="tlm"><i></i></div>
+      <div class="tlc">
+        <div class="tlw">The entry fills.</div>
+        <div class="tlg"><span class="gchip">Stop at the broker</span>Your emergency stop is placed with the broker in the same breath — not held inside the app, so it survives the app closing, the Mac dying, or the internet dropping.</div>
+      </div></div>
+
+    <div class="tlrow"><div class="tlt">11:26</div><div class="tlm"><i></i></div>
+      <div class="tlc">
+        <div class="tlw">Your Mac tries to go to sleep.</div>
+        <div class="tlg"><span class="gchip">Awake while armed</span>It's held awake for as long as you're armed, and the moment you're running on battery the app says so on the dashboard.</div>
+      </div></div>
+
+    <div class="tlrow"><div class="tlt">12:41</div><div class="tlm"><i></i></div>
+      <div class="tlc">
+        <div class="tlw">The connection drops, then comes back.</div>
+        <div class="tlg"><span class="gchip">Late alert gate</span>An alert redelivered after the gap does not open a position at a price that has already moved on.</div>
+      </div></div>
+
+    <div class="tlrow"><div class="tlt">13:58</div><div class="tlm"><i></i></div>
+      <div class="tlc">
+        <div class="tlw">The day turns against you.</div>
+        <div class="tlg"><span class="gchip">Stop for today</span>At the number you set, new entries stop. Exits and stops keep working. It resets by itself the next morning.</div>
+      </div></div>
+
+    <div class="tlrow"><div class="tlt">14:20</div><div class="tlm"><i></i></div>
+      <div class="tlc">
+        <div class="tlw">You want out. Now.</div>
+        <div class="tlg"><span class="gchip">Halt · Flatten all</span>One button blocks new entries while your exits still work. The one beside it closes everything and waits for the broker to confirm it.</div>
+      </div></div>
+
+    <div class="tlrow"><div class="tlt">15:55</div><div class="tlm"><i></i></div>
+      <div class="tlc">
+        <div class="tlw">The session ends and something is still open.</div>
+        <div class="tlg"><span class="gchip">End of day flatten</span>At the time you chose, anything still open is closed, and the app keeps asking the broker until it can confirm you are flat.</div>
+      </div></div>
   </div>
+
+  <p class="tlend"><b>And across days:</b> fall a set distance below your best balance and BridgePit stops for good, not just for the day — the one rail that does not reset in the morning.</p>
 </section>
 
 <!-- ════ HOW IT WORKS ════ -->
@@ -1055,6 +1108,24 @@
       new IntersectionObserver(function(es){ es.forEach(function(e){ e.isIntersecting?start():stop() }) },{threshold:.05}).observe(app);
     } else start();
   }
+})();
+
+/* screen 3 — the day lights up one row at a time as you come down it */
+(function(){
+  var tl=document.getElementById('tl'); if(!tl) return;
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if(!('IntersectionObserver' in window)) return;
+  tl.classList.add('anim');
+  var rows=[].slice.call(tl.querySelectorAll('.tlrow'));
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(!e.isIntersecting) return;
+      var i=rows.indexOf(e.target);
+      setTimeout(function(){ e.target.classList.add('lit') }, Math.min(i,3)*90);
+      io.unobserve(e.target);
+    });
+  },{threshold:.35,rootMargin:'0px 0px -8% 0px'});
+  rows.forEach(function(r){ io.observe(r) });
 })();
 </script>
 </body>
