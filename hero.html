@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>BridgePit — the cockpit for TradingView alerts</title>
+<style>
+  /* ──────────────────────────────────────────────────────────────
+     Neutral black. No navy, no blue-grey, no glow, no gradient.
+     One family: the system sans (SF Pro on a Mac) — no serif.
+     type    13 · 15 · 17 · 20 · 64      weights 400 · 500 · 700
+     radius  8 (buttons and panels) · 999 (the one pill)
+     line    rgba(255,255,255,.09) hairline · .18 emphasis
+     colour  one green dot for "live". Everything else is neutral.
+     ────────────────────────────────────────────────────────────── */
+  :root{
+    --bg:#09090B;
+    --panel:#0E0E11;
+    --txt:#FAFAFA;
+    --dim:#A1A1AA;
+    --dim2:#71717A;
+    --line:rgba(255,255,255,.09);
+    --line2:rgba(255,255,255,.18);
+    --green:#4ADE80;
+    --sans:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Inter,system-ui,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace;
+    --gut:clamp(20px,4vw,56px);
+    --max:1320px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{background:var(--bg);color:var(--txt);font:15px/1.55 var(--sans);
+    -webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  :focus-visible{outline:2px solid var(--txt);outline-offset:3px}
+
+  /* ── nav ── */
+  .nav{border-bottom:1px solid var(--line)}
+  .navin{max-width:var(--max);margin:0 auto;padding:0 var(--gut);height:64px;
+    display:flex;align-items:center;justify-content:space-between;gap:20px}
+  .wm{display:inline-flex;align-items:center;gap:9px;font:700 17px/1 var(--sans);letter-spacing:-.02em}
+  .links{display:flex;align-items:center;gap:28px;font:500 15px var(--sans);color:var(--dim)}
+  .links a:hover{color:var(--txt)}
+  .navcta{background:var(--txt);color:var(--bg);border-radius:8px;padding:9px 16px;
+    font:600 15px var(--sans);transition:opacity .2s}
+  .navcta:hover{opacity:.86}
+  @media(max-width:860px){ .links a:not(.navcta){display:none} }
+
+  /* ── hero ── */
+  .hero{max-width:var(--max);margin:0 auto;padding:clamp(44px,7vh,88px) var(--gut) clamp(52px,8vh,96px);
+    display:grid;grid-template-columns:minmax(0,545px) minmax(0,1fr);
+    gap:clamp(32px,4.5vw,72px);align-items:center}
+
+  .badge{display:inline-flex;align-items:center;gap:9px;margin-bottom:26px}
+  .badge .ic{width:30px;height:30px;border-radius:8px;border:1px solid var(--line);
+    background:var(--panel);display:grid;place-items:center;flex:none}
+  .badge .nm{font:600 15px var(--sans);letter-spacing:-.01em}
+  .badge .tag{display:inline-flex;align-items:center;gap:6px;font:600 12px var(--sans);
+    letter-spacing:.08em;color:var(--dim2);text-transform:uppercase}
+  .badge .tag i{width:6px;height:6px;border-radius:2px;background:var(--green);display:block}
+
+  h1{font:700 clamp(38px,4.4vw,62px)/1.02 var(--sans);letter-spacing:-.035em;color:#fff;text-wrap:balance}
+
+  .sub{margin-top:22px;font:400 17px/1.5 var(--sans);color:var(--dim);max-width:40ch}
+  .sub b{color:var(--txt);font-weight:500}
+
+  .buttons{margin-top:32px;display:grid;gap:12px;max-width:390px}
+  .b{display:flex;align-items:center;gap:12px;border-radius:8px;padding:17px 22px;
+    font:600 17px var(--sans);cursor:pointer;transition:opacity .2s,border-color .2s,background .2s}
+  .b .sz{margin-left:auto;font:400 15px var(--sans);opacity:.55}
+  .b-primary{background:#fff;color:#000}
+  .b-primary:hover{opacity:.9}
+  .b-ghost{border:1px solid var(--line2);color:var(--txt);background:transparent}
+  .b-ghost:hover{background:rgba(255,255,255,.05)}
+  .b-ghost .arrow{margin-left:auto;transition:transform .25s}
+  .b-ghost:hover .arrow{transform:translateX(3px)}
+
+  .facts{margin-top:26px;font:600 12px/1.9 var(--sans);letter-spacing:.1em;
+    text-transform:uppercase;color:var(--dim2)}
+
+  /* ── the slot the app goes into ── */
+  .slot{min-width:0}
+  .frame{position:relative;border:1px solid var(--line);border-radius:8px;background:var(--panel);
+    aspect-ratio:16/10.6;display:grid;place-items:center;text-align:center;padding:24px}
+  .frame .t{font:600 15px var(--sans);color:var(--dim)}
+  .frame .s{margin-top:7px;font:400 13px/1.5 var(--sans);color:var(--dim2);max-width:34ch}
+  .frame .corner{position:absolute;width:11px;height:11px;border:1px solid var(--line2)}
+  .frame .c1{top:-1px;left:-1px;border-right:none;border-bottom:none}
+  .frame .c2{top:-1px;right:-1px;border-left:none;border-bottom:none}
+  .frame .c3{bottom:-1px;left:-1px;border-right:none;border-top:none}
+  .frame .c4{bottom:-1px;right:-1px;border-left:none;border-top:none}
+  .under{margin-top:14px;display:flex;flex-wrap:wrap;gap:8px 22px;
+    font:500 13px var(--sans);color:var(--dim2)}
+  .under span{display:inline-flex;align-items:center;gap:8px}
+  .under i{width:13px;height:13px;border:1px solid var(--line2);border-radius:3px;display:block;flex:none}
+
+  @media(max-width:960px){
+    .hero{grid-template-columns:1fr;gap:34px;padding-top:36px}
+    .buttons{max-width:none}
+    .sub{max-width:none}
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="navin">
+    <a class="wm" href="#">
+      <svg width="20" height="20" viewBox="0 0 128 128" fill="none" style="flex:none">
+        <g stroke="#FAFAFA" stroke-width="2" stroke-linecap="round" opacity=".7">
+          <line x1="46" y1="24" x2="24" y2="90"/><line x1="46" y1="24" x2="62" y2="90"/>
+          <line x1="82" y1="24" x2="104" y2="90"/><line x1="82" y1="24" x2="66" y2="90"/>
+        </g>
+        <line x1="16" y1="90" x2="112" y2="90" stroke="#FAFAFA" stroke-width="4" stroke-linecap="round"/>
+        <line x1="46" y1="22" x2="46" y2="98" stroke="#FAFAFA" stroke-width="3" stroke-linecap="round"/>
+        <line x1="82" y1="22" x2="82" y2="98" stroke="#FAFAFA" stroke-width="3" stroke-linecap="round"/>
+        <rect x="40" y="48" width="12" height="32" rx="2.5" fill="#A1A1AA"/>
+        <rect x="76" y="48" width="12" height="32" rx="2.5" fill="#FAFAFA"/>
+      </svg>BridgePit</a>
+    <div class="links">
+      <a href="#how">How it works</a>
+      <a href="#safety">Safety</a>
+      <a href="#pricing">Pricing</a>
+      <a class="navcta" href="#download">Download</a>
+    </div>
+  </div>
+</nav>
+
+<main class="hero">
+  <div class="say">
+    <div class="badge">
+      <span class="ic">
+        <svg width="15" height="15" viewBox="0 0 128 128" fill="none">
+          <line x1="16" y1="90" x2="112" y2="90" stroke="#FAFAFA" stroke-width="7" stroke-linecap="round"/>
+          <rect x="40" y="46" width="13" height="34" rx="3" fill="#A1A1AA"/>
+          <rect x="76" y="38" width="13" height="42" rx="3" fill="#FAFAFA"/>
+        </svg>
+      </span>
+      <span class="nm">BridgePit</span>
+      <span class="tag"><i></i>For macOS</span>
+    </div>
+
+    <h1>The cockpit for TradingView alerts.</h1>
+
+    <p class="sub">Your strategies, a daily loss stop, a kill-switch and a protective stop that rests at your broker — <b>one desktop app, on your own machine</b>.</p>
+
+    <div class="buttons">
+      <a class="b b-primary" href="#download">
+        <svg width="17" height="20" viewBox="0 0 814 1000" fill="currentColor" style="flex:none">
+          <path d="M788 340c-5 4-96 55-96 169 0 132 116 179 120 180-1 3-19 63-60 124-37 54-75 108-133 108s-73-35-140-35c-65 0-88 36-141 36s-90-50-133-111C155 736 116 610 116 490c0-192 125-294 248-294 62 0 114 41 153 41 37 0 95-43 166-43 27 0 118 2 178 87zM496 111c29-35 50-83 50-131 0-7-1-13-2-18-48 2-105 32-139 72-27 30-52 78-52 127 0 7 1 15 2 17 3 1 8 1 12 1 43 0 97-29 129-68z"/>
+        </svg>
+        Download for macOS <span class="sz">.dmg</span>
+      </a>
+      <a class="b b-ghost" href="#run">
+        Run it free on paper <span class="arrow">→</span>
+      </a>
+    </div>
+
+    <p class="facts">macOS · Rithmic · paper mode free · no cloud in between</p>
+  </div>
+
+  <div class="slot">
+    <div class="frame">
+      <span class="corner c1"></span><span class="corner c2"></span>
+      <span class="corner c3"></span><span class="corner c4"></span>
+      <div>
+        <div class="t">The app goes here</div>
+        <div class="s">The cockpit in one frame — strategies, position, loss budget, kill-switch and the live log. Agreed separately, then dropped in.</div>
+      </div>
+    </div>
+    <div class="under">
+      <span><i></i>Point one alert at it</span>
+      <span><i></i>Watch a paper fill land</span>
+      <span><i></i>Then connect your broker</span>
+    </div>
+  </div>
+</main>
+
+</body>
+</html>
