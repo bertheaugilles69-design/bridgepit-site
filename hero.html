@@ -720,16 +720,27 @@
   .audsw button.on{background:var(--txt);color:var(--bg)}
   .audsw button:not(.on):hover{color:var(--txt)}
   .cmp .hide{display:none}
+  /* the switch: shared rows hold still, only the swapped ones move */
+  .cmp .a,.cmp .q{transition:opacity .22s ease,transform .22s ease,background-color .5s ease}
+  .cmp .fading{opacity:0;transform:translateY(-5px)}
+  .cmp .arriving{animation:arrive .55s ease-out}
+  .a.arriving{background-color:rgba(143,169,214,.14)}
+  .q.arriving{color:var(--txt)}
+  @keyframes arrive{
+    0%{opacity:0;transform:translateY(6px)} 55%{opacity:1;transform:none} 100%{opacity:1;transform:none}}
+  @media(prefers-reduced-motion: reduce){
+    .cmp .a,.cmp .q{transition:none} .cmp .arriving{animation:none}}
   .ch{padding:0 22px 16px;font:600 11px var(--sans);letter-spacing:.14em;text-transform:uppercase}
   .ch.old{color:var(--dim2)}
   .ch.ours{color:var(--txt)}
   .ch.ours span{display:inline-flex;align-items:center;gap:8px}
   .ch.ours i{width:6px;height:6px;border-radius:999px;background:var(--green);display:block}
 
-  .q{padding:22px 26px 22px 0;font:500 13.5px/1.5 var(--sans);color:var(--dim2);
-    border-top:1px solid var(--line)}
+  .q{display:flex;align-items:center;min-height:94px;padding:18px 26px 18px 0;
+    font:500 13.5px/1.5 var(--sans);color:var(--dim2);border-top:1px solid var(--line)}
   .cmp .q:first-of-type{border-top:none}
-  .a{padding:22px;font:400 15px/1.55 var(--sans);border-top:1px solid var(--line)}
+  .a{display:flex;align-items:center;min-height:94px;padding:18px 22px;
+    font:400 15px/1.55 var(--sans);border-top:1px solid var(--line)}
   .a.old{background:transparent;color:var(--dim2)}
   .a.ours{background:rgba(255,255,255,.032);color:var(--txt);border-left:1px solid var(--line2)}
   .a.old.top{border-top:1px solid var(--line);border-radius:12px 0 0 0}
@@ -1348,28 +1359,44 @@
   var sw=document.getElementById('audsw');
   if(sw&&cmp){
     var btns=[].slice.call(sw.querySelectorAll('button'));
-    function apply(aud){
-      var cells=[].slice.call(cmp.querySelectorAll('[data-r]'));
-      cells.forEach(function(c){
-        var r=c.getAttribute('data-r');
-        c.classList.toggle('hide', !(r==='both'||r===aud));
-        c.classList.remove('top','bot');
-        c.classList.add('lit');
-      });
-      /* re-cap the visible block so the rounded corners stay on the ends */
+    function cap(cells){
+      cells.forEach(function(c){ c.classList.remove('top','bot') });
       var vis=cells.filter(function(c){ return !c.classList.contains('hide') && c.classList.contains('a') });
       if(vis.length){
         vis[0].classList.add('top'); vis[1].classList.add('top');
         vis[vis.length-2].classList.add('bot'); vis[vis.length-1].classList.add('bot');
       }
     }
+    function apply(aud, animate){
+      var cells=[].slice.call(cmp.querySelectorAll('[data-r]'));
+      cells.forEach(function(c){ c.classList.add('lit') });
+      var going=cells.filter(function(c){ var r=c.getAttribute('data-r');
+        return r!=='both' && r!==aud && !c.classList.contains('hide') });
+      var coming=cells.filter(function(c){ var r=c.getAttribute('data-r');
+        return r===aud && c.classList.contains('hide') });
+
+      function settle(){
+        going.forEach(function(c){ c.classList.add('hide'); c.classList.remove('fading') });
+        coming.forEach(function(c){ c.classList.remove('hide'); });
+        cap(cells);
+        if(animate){
+          coming.forEach(function(c){ c.classList.remove('arriving'); void c.offsetWidth;
+            c.classList.add('arriving');
+            setTimeout(function(){ c.classList.remove('arriving') }, 600); });
+        }
+      }
+      if(animate && going.length){
+        going.forEach(function(c){ c.classList.add('fading') });
+        setTimeout(settle, 200);
+      } else settle();
+    }
     btns.forEach(function(b){
       b.addEventListener('click',function(){
         btns.forEach(function(x){ x.classList.toggle('on',x===b) });
-        apply(b.getAttribute('data-aud'));
+        apply(b.getAttribute('data-aud'), true);
       });
     });
-    apply('funded');
+    apply('funded', false);
   }
 })();
 </script>
