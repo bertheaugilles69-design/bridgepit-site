@@ -55,8 +55,8 @@
 
   /* ── hero ── */
   .hero{max-width:var(--max);margin:0 auto;padding:clamp(44px,7vh,88px) var(--gut) clamp(52px,8vh,96px);
-    display:grid;grid-template-columns:minmax(0,545px) minmax(0,1fr);
-    gap:clamp(32px,4.5vw,72px);align-items:center}
+    display:grid;grid-template-columns:minmax(0,505px) minmax(0,1fr);
+    gap:clamp(28px,3.4vw,52px);align-items:center}
 
   .badge{display:inline-flex;align-items:center;gap:9px;margin-bottom:26px}
   .badge .ic{width:30px;height:30px;border-radius:8px;border:1px solid var(--line);
@@ -85,21 +85,119 @@
   .facts{margin-top:26px;font:600 12px/1.9 var(--sans);letter-spacing:.1em;
     text-transform:uppercase;color:var(--dim2)}
 
-  /* ── the slot the app goes into ── */
+  /* ── the app: a working replica, not a picture ── */
   .slot{min-width:0}
-  .frame{position:relative;border:1px solid var(--line);border-radius:8px;background:var(--panel);
-    aspect-ratio:16/10.6;display:grid;place-items:center;text-align:center;padding:24px}
-  .frame .t{font:600 15px var(--sans);color:var(--dim)}
-  .frame .s{margin-top:7px;font:400 13px/1.5 var(--sans);color:var(--dim2);max-width:34ch}
-  .frame .corner{position:absolute;width:11px;height:11px;border:1px solid var(--line2)}
-  .frame .c1{top:-1px;left:-1px;border-right:none;border-bottom:none}
-  .frame .c2{top:-1px;right:-1px;border-left:none;border-bottom:none}
-  .frame .c3{bottom:-1px;left:-1px;border-right:none;border-top:none}
-  .frame .c4{bottom:-1px;right:-1px;border-left:none;border-top:none}
+  .app{display:grid;grid-template-columns:142px minmax(0,1fr);
+    border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--panel);
+    box-shadow:0 30px 70px rgba(0,0,0,.55);height:clamp(430px,52vh,486px)}
+
+  .side{border-right:1px solid var(--line);display:flex;flex-direction:column;background:#0B0B0E}
+  .sidelogo{display:flex;align-items:center;gap:8px;padding:14px 14px 12px;font:600 13px var(--sans)}
+  .sidelogo .mk{width:22px;height:22px;border-radius:6px;background:#141419;display:grid;place-items:center;flex:none}
+  .snav{display:flex;flex-direction:column;gap:1px;padding:4px 8px}
+  .snav button{display:flex;align-items:center;gap:9px;width:100%;text-align:left;background:none;border:none;
+    cursor:pointer;border-radius:6px;padding:8px 9px;font:500 13px var(--sans);color:var(--dim);transition:background .15s,color .15s}
+  .snav button svg{width:15px;height:15px;flex:none;opacity:.85}
+  .snav button:hover{background:rgba(255,255,255,.045);color:var(--txt)}
+  .snav button.on{background:rgba(255,255,255,.075);color:#fff}
+  .snav button.off{opacity:.42;cursor:default}
+  .snav button.off:hover{background:none;color:var(--dim)}
+  .slabel{padding:14px 9px 5px;font:600 10px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:#5B5B63}
+  .plan{margin-top:auto;border-top:1px solid var(--line);padding:12px 14px}
+  .plan .pt{font:400 11px var(--sans);color:#5B5B63}
+  .plan .pv{margin-top:2px;font:600 13px var(--sans);color:var(--txt)}
+
+  .mainpane{display:flex;flex-direction:column;min-width:0}
+  .top{display:flex;align-items:center;gap:12px;padding:13px 16px;border-bottom:1px solid var(--line)}
+  .top h2{font:600 15px var(--sans);color:#fff;letter-spacing:-.01em}
+  .clock{margin-left:auto;font:500 12px var(--mono);color:var(--dim2)}
+  .pill{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(74,222,128,.3);
+    background:rgba(74,222,128,.1);border-radius:999px;padding:4px 10px;font:600 11px var(--sans);color:#4ADE80}
+  .pill i{width:5px;height:5px;border-radius:999px;background:#4ADE80;display:block}
+  .pill.stopped{border-color:rgba(248,113,113,.35);background:rgba(248,113,113,.12);color:#F87171}
+  .pill.stopped i{background:#F87171}
+
+  .view{display:none;padding:14px 16px 16px;overflow:hidden;flex:1;min-height:0}
+  .view.on{display:block}
+
+  .bar{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+  .seg{display:flex;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+  .seg button{background:none;border:none;padding:6px 11px;font:500 12px var(--sans);color:var(--dim2);cursor:default}
+  .seg button.on{background:rgba(255,255,255,.08);color:var(--txt)}
+  .halt{margin-left:auto;background:none;border:1px solid var(--line2);border-radius:6px;padding:6px 13px;
+    font:600 12px var(--sans);color:var(--txt);cursor:pointer;transition:background .18s,border-color .18s,color .18s}
+  .halt:hover{background:rgba(255,255,255,.06)}
+  .halt.active{border-color:rgba(248,113,113,.5);background:rgba(248,113,113,.14);color:#F87171}
+  .addbtn{margin-left:auto;background:none;border:1px solid var(--line);border-radius:6px;padding:6px 11px;
+    font:500 12px var(--sans);color:var(--dim);cursor:default}
+
+  .tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+  .tile{border:1px solid var(--line);border-radius:6px;padding:10px 11px;background:#0B0B0E;min-height:88px}
+  .tile h3{font:500 9.5px var(--sans);letter-spacing:.02em;color:#5B5B63;text-transform:uppercase;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .tile .v{margin-top:7px;font:600 19px var(--mono);color:var(--txt);font-variant-numeric:tabular-nums}
+  .tile .v.g{color:#4ADE80} .tile .v.r{color:#F87171}
+  .tile .s{margin-top:4px;font:400 10.5px/1.35 var(--sans);color:#5B5B63}
+  .meter{height:3px;border-radius:2px;background:rgba(255,255,255,.09);margin-top:6px;overflow:hidden}
+  .meter i{display:block;height:100%;background:#A1A1AA;transition:width .5s}
+
+  .sect{margin-top:14px;margin-bottom:8px;font:600 10.5px var(--sans);letter-spacing:.11em;
+    text-transform:uppercase;color:#5B5B63}
+  .sect.nomt{margin-top:0;margin-bottom:0}
+
+  .tbl{border:1px solid var(--line);border-radius:6px;overflow:hidden}
+  .tbl .th,.tbl .tr{display:grid;grid-template-columns:60px 70px 74px minmax(0,1fr);gap:9px;
+    padding:7px 11px;align-items:center}
+  .tbl .th{background:rgba(255,255,255,.03);font:600 10px var(--sans);letter-spacing:.08em;
+    text-transform:uppercase;color:#5B5B63}
+  .tbl .tr{border-top:1px solid rgba(255,255,255,.055);font:400 11.5px var(--sans);color:var(--dim)}
+  .tbl .tr.fresh{animation:up .4s cubic-bezier(.2,.7,.2,1)}
+  @keyframes up{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:none}}
+  .tbl .tm{font-family:var(--mono);font-size:11px;color:#5B5B63}
+  .tbl .sg{color:var(--dim2)}
+  .tbl .dt{color:var(--txt);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .ev{font:700 9.5px var(--sans);letter-spacing:.07em;border-radius:3px;padding:2px 5px;display:inline-block}
+  .ev.FILL{color:#4ADE80;background:rgba(74,222,128,.13)}
+  .ev.ORDER{color:#A1A1AA;background:rgba(255,255,255,.07)}
+  .ev.BLOCKED{color:#E3B341;background:rgba(227,179,65,.13)}
+  .ev.STOP{color:#E3B341;background:rgba(227,179,65,.13)}
+  .ev.FLAT{color:#A1A1AA;background:rgba(255,255,255,.07)}
+  .ev.HALT{color:#F87171;background:rgba(248,113,113,.14)}
+
+  .tbl.strat .th,.tbl.strat .tr{grid-template-columns:minmax(0,1.3fr) 58px 44px minmax(0,1.1fr) 58px 46px}
+  .tbl.strat .tr span{color:var(--dim)}
+  .tbl.strat .tr span:first-child{color:var(--txt)}
+  .on2{color:#4ADE80;font-weight:600} .off2{color:#5B5B63;font-weight:600}
+
+  .conn{display:flex;align-items:center;gap:12px;border:1px solid var(--line);border-radius:6px;
+    padding:11px 13px;margin-bottom:8px;background:#0B0B0E}
+  .conn.muted2{opacity:.45}
+  .conn .cn{font:600 13px var(--sans);color:var(--txt);display:flex;align-items:center;gap:8px}
+  .conn .cs{margin-top:3px;font:400 11.5px var(--sans);color:#5B5B63}
+  .conn .cr{margin-left:auto}
+  .chip{font:600 9.5px var(--sans);letter-spacing:.06em;border-radius:3px;padding:2px 6px}
+  .chip.ok{color:#4ADE80;background:rgba(74,222,128,.13)}
+  .mini{background:none;border:1px solid var(--line);border-radius:5px;padding:5px 10px;
+    font:500 11.5px var(--sans);color:var(--dim);cursor:default}
+  .shield{display:flex;gap:9px;margin-top:12px;border:1px solid var(--line);border-radius:6px;
+    padding:11px 13px;background:rgba(255,255,255,.018)}
+  .shield svg{width:15px;height:15px;flex:none;margin-top:1px}
+  .shield span{font:400 11.5px/1.5 var(--sans);color:var(--dim2)}
+
   .under{margin-top:14px;display:flex;flex-wrap:wrap;gap:8px 22px;
     font:500 13px var(--sans);color:var(--dim2)}
   .under span{display:inline-flex;align-items:center;gap:8px}
   .under i{width:13px;height:13px;border:1px solid var(--line2);border-radius:3px;display:block;flex:none}
+  .under .rep{margin-left:auto;color:#5B5B63;font-weight:400}
+
+  @media(max-width:1180px){ .app{grid-template-columns:1fr} .side{flex-direction:row;align-items:center;
+      border-right:none;border-bottom:1px solid var(--line);overflow-x:auto}
+    .snav{flex-direction:row;padding:6px 8px} .slabel,.plan,.sidelogo{display:none}
+    .snav button.off{display:none} }
+  @media(max-width:620px){ .tiles{grid-template-columns:1fr 1fr}
+    .tbl .th,.tbl .tr{grid-template-columns:52px 66px minmax(0,1fr);gap:8px}
+    .tbl .sg{display:none} .app{height:auto;min-height:430px}
+    .under .rep{margin-left:0;width:100%} }
 
   @media(max-width:960px){
     .hero{grid-template-columns:1fr;gap:34px;padding-top:36px}
@@ -167,21 +265,199 @@
   </div>
 
   <div class="slot">
-    <div class="frame">
-      <span class="corner c1"></span><span class="corner c2"></span>
-      <span class="corner c3"></span><span class="corner c4"></span>
-      <div>
-        <div class="t">The app goes here</div>
-        <div class="s">The cockpit in one frame — strategies, position, loss budget, kill-switch and the live log. Agreed separately, then dropped in.</div>
+    <div class="app" id="app">
+      <!-- sidebar -->
+      <aside class="side">
+        <div class="sidelogo">
+          <span class="mk">
+            <svg width="13" height="13" viewBox="0 0 128 128" fill="none">
+              <line x1="16" y1="90" x2="112" y2="90" stroke="#FAFAFA" stroke-width="8" stroke-linecap="round"/>
+              <rect x="40" y="46" width="14" height="34" rx="3" fill="#A1A1AA"/>
+              <rect x="76" y="38" width="14" height="42" rx="3" fill="#FAFAFA"/>
+            </svg>
+          </span>BridgePit
+        </div>
+        <nav class="snav" id="snav">
+          <button class="on" data-v="dash" aria-selected="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 10.5 12 3l9 7.5"/><path d="M5.5 9.5V20h13V9.5"/></svg>Dashboard</button>
+          <button data-v="conn" aria-selected="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M10 13a5 5 0 0 0 7 0l2-2a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-2 2a5 5 0 0 0 7 7l1-1"/></svg>Connections</button>
+          <button data-v="strat" aria-selected="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 20V10"/><path d="M10 20V4"/><path d="M16 20v-7"/><path d="M22 20H2"/></svg>Strategies</button>
+          <div class="slabel">Account</div>
+          <button class="off" disabled>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="2.5" y="5.5" width="19" height="13" rx="2.5"/><path d="M2.5 10h19"/></svg>Subscription</button>
+          <button class="off" disabled>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M21.5 12h-3M5.5 12h-3M18.7 5.3l-2.1 2.1M7.4 16.6l-2.1 2.1M18.7 18.7l-2.1-2.1M7.4 7.4 5.3 5.3"/></svg>Settings</button>
+        </nav>
+        <div class="plan">
+          <div class="pt">Current plan</div>
+          <div class="pv">Free · paper</div>
+        </div>
+      </aside>
+
+      <!-- main -->
+      <div class="mainpane">
+        <div class="top">
+          <h2 id="ptitle">Dashboard</h2>
+          <span class="clock" id="etclock">10:14:41</span>
+          <span class="pill" id="statuspill"><i></i><span id="statustxt">Running</span></span>
+        </div>
+
+        <!-- dashboard -->
+        <div class="view on" data-v="dash">
+          <div class="bar">
+            <div class="seg"><button class="on" type="button">All accounts</button><button type="button" class="ghosted">Rithmic · paper</button></div>
+            <button class="halt" id="halt" type="button">Halt trading</button>
+          </div>
+
+          <div class="tiles">
+            <div class="tile"><h3>Positions</h3><div class="v" id="tPos">0</div><div class="s" id="tPosS">flat</div></div>
+            <div class="tile"><h3>Day P&amp;L</h3><div class="v" id="tPnl">+$80.00</div><div class="s">simulated</div></div>
+            <div class="tile"><h3>Loss budget</h3><div class="v" id="tBud">$420</div>
+              <div class="meter"><i id="tBar" style="width:30%"></i></div>
+              <div class="s">auto-halt at −$600</div></div>
+            <div class="tile"><h3>EOD flatten</h3><div class="v">15:55</div><div class="s">ET · force-flat</div></div>
+          </div>
+
+          <div class="sect">Recent activity</div>
+          <div class="tbl">
+            <div class="th"><span>Time (ET)</span><span>Event</span><span>Strategy</span><span>Detail</span></div>
+            <div id="rows"></div>
+          </div>
+        </div>
+
+        <!-- connections -->
+        <div class="view" data-v="conn">
+          <div class="bar"><div class="sect nomt">Broker connections</div><button class="addbtn" type="button">+ Add connection</button></div>
+          <div class="conn">
+            <div class="cl">
+              <div class="cn">Rithmic <span class="chip ok">Connected</span></div>
+              <div class="cs">Chicago gateway · paper account · your own IP</div>
+            </div>
+            <div class="cr"><button class="mini" type="button">Disconnect</button></div>
+          </div>
+          <div class="conn muted2">
+            <div class="cl">
+              <div class="cn">Add another broker</div>
+              <div class="cs">Rithmic today. Tradovate when it is proven.</div>
+            </div>
+          </div>
+          <div class="shield">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#A1A1AA" stroke-width="1.6"><path d="M12 2.8 4.6 6v6.2c0 4.4 3.1 7.6 7.4 9 4.3-1.4 7.4-4.6 7.4-9V6z"/></svg>
+            <span>Your credentials are encrypted on this machine. Orders leave from your own address — there is no server of ours in the path.</span>
+          </div>
+        </div>
+
+        <!-- strategies -->
+        <div class="view" data-v="strat">
+          <div class="bar"><div class="sect nomt">Configuration</div><button class="addbtn" type="button">+ Add strategy</button></div>
+          <div class="tbl strat">
+            <div class="th"><span>Strategy</span><span>Symbol</span><span>Size</span><span>Routes to</span><span>Stop</span><span>Status</span></div>
+            <div class="tr"><span>Breakout-1m</span><span>MNQ</span><span>2</span><span>Rithmic · paper</span><span>32 pts</span><span><b class="on2">On</b></span></div>
+            <div class="tr"><span>VWAP-fade</span><span>MES</span><span>1</span><span>Rithmic · paper</span><span>18 pts</span><span><b class="on2">On</b></span></div>
+            <div class="tr"><span>Overnight-gap</span><span>MNQ</span><span>1</span><span>—</span><span>40 pts</span><span><b class="off2">Off</b></span></div>
+          </div>
+          <div class="shield">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#A1A1AA" stroke-width="1.6"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>
+            <span>Your strategies, your sizes, your stop distances. Nothing here is set by us.</span>
+          </div>
+        </div>
       </div>
     </div>
+
     <div class="under">
-      <span><i></i>Point one alert at it</span>
-      <span><i></i>Watch a paper fill land</span>
-      <span><i></i>Then connect your broker</span>
+      <span><i></i>Click through it — it works</span>
+      <span><i></i>Press Halt and watch it stop</span>
+      <span class="rep">A replica of the app, in paper mode</span>
     </div>
   </div>
 </main>
 
+<script>
+(function(){
+  var app=document.getElementById('app'); if(!app) return;
+  var reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var views=[].slice.call(app.querySelectorAll('.view')),
+      tabs=[].slice.call(app.querySelectorAll('#snav button[data-v]')),
+      title=document.getElementById('ptitle'),
+      rows=document.getElementById('rows'),
+      clock=document.getElementById('etclock'),
+      halt=document.getElementById('halt'),
+      pill=document.getElementById('statuspill'), stxt=document.getElementById('statustxt'),
+      tPos=document.getElementById('tPos'), tPosS=document.getElementById('tPosS'),
+      tPnl=document.getElementById('tPnl'), tBud=document.getElementById('tBud'), tBar=document.getElementById('tBar');
+  var TITLES={dash:'Dashboard',conn:'Connections',strat:'Strategies'};
+  var halted=false;
+
+  tabs.forEach(function(b){
+    b.addEventListener('click',function(){
+      var v=b.getAttribute('data-v');
+      tabs.forEach(function(x){ x.classList.toggle('on',x===b); x.setAttribute('aria-selected',String(x===b)) });
+      views.forEach(function(x){ x.classList.toggle('on', x.getAttribute('data-v')===v) });
+      title.textContent=TITLES[v];
+    });
+  });
+
+  /* the honest paper day, in the app's own words */
+  var DAY=[
+    {t:'09:47:02',k:'ORDER',  s:'Breakout-1m', d:'BUY 2 MNQ1! → Rithmic · paper'},
+    {t:'09:47:03',k:'FILL',   s:'Breakout-1m', d:'Filled 2 @ 23,412.25 · position 0 → 2',
+      f:function(){ tPos.textContent='2'; tPosS.textContent='MNQ +2' }},
+    {t:'09:47:03',k:'STOP',   s:'Breakout-1m', d:'Protective stop resting at broker · 23,380.00'},
+    {t:'10:14:41',k:'BLOCKED',s:'Breakout-1m', d:'TradingView re-sent the same alert · no second order'},
+    {t:'11:26:08',k:'FILL',   s:'Breakout-1m', d:'Stop hit. Out at 23,380.00 · −$180',
+      f:function(){ tPos.textContent='0'; tPosS.textContent='flat'; tPnl.textContent='−$180.00'; tPnl.className='v r';
+                    tBud.textContent='$420'; tBar.style.width='30%' }},
+    {t:'12:03:20',k:'FILL',   s:'Breakout-1m', d:'Filled 2 @ 23,401.50 · position 0 → 2',
+      f:function(){ tPos.textContent='2'; tPosS.textContent='MNQ +2' }},
+    {t:'13:30:04',k:'FILL',   s:'Breakout-1m', d:'Exit 2 @ 23,466.75 · +$260',
+      f:function(){ tPos.textContent='0'; tPosS.textContent='flat'; tPnl.textContent='+$80.00'; tPnl.className='v g' }},
+    {t:'15:55:00',k:'FLAT',   s:'—',           d:'End of day — already flat · confirmed by broker'}
+  ];
+
+  function line(r,animate){
+    var el=document.createElement('div');
+    el.className='tr'+(animate&&!reduced?' fresh':'');
+    el.innerHTML='<span class="tm">'+r.t+'</span><span><b class="ev '+r.k+'">'+r.k+'</b></span>'
+      +'<span class="sg">'+r.s+'</span><span class="dt">'+r.d+'</span>';
+    rows.insertBefore(el,rows.firstChild);
+    while(rows.children.length>5) rows.removeChild(rows.lastChild);
+  }
+
+  var i=0,timer=null,running=false;
+  function tick(){
+    if(halted){ timer=setTimeout(tick,1200); return }
+    var r=DAY[i]; clock.textContent=r.t; line(r,true); if(r.f) r.f();
+    i=(i+1)%DAY.length;
+    if(i===0){ timer=setTimeout(function(){ rows.innerHTML=''; tPnl.textContent='$0.00'; tPnl.className='v';
+      tBud.textContent='$600'; tBar.style.width='0%'; tPos.textContent='0'; tPosS.textContent='flat'; tick() },3600); return }
+    timer=setTimeout(tick, 2300);
+  }
+
+  halt.addEventListener('click',function(){
+    halted=!halted;
+    halt.textContent = halted ? 'Resume' : 'Halt trading';
+    halt.classList.toggle('active',halted);
+    pill.classList.toggle('stopped',halted);
+    stxt.textContent = halted ? 'Halted' : 'Running';
+    if(halted) line({t:clock.textContent,k:'HALT',s:'—',d:'You pressed halt. New entries blocked; exits still allowed.'},true);
+    else       line({t:clock.textContent,k:'ORDER',s:'—',d:'Resumed. Entries accepted again.'},true);
+  });
+
+  function start(){
+    if(running)return; running=true;
+    /* seed a few lines so the panel never looks half-empty on arrival */
+    for(var s=0;s<4;s++){ var r=DAY[i]; clock.textContent=r.t; line(r,false); if(r.f)r.f(); i=(i+1)%DAY.length }
+    timer=setTimeout(tick,1800);
+  }
+  function stop(){ running=false; if(timer)clearTimeout(timer); timer=null }
+
+  if(reduced){ DAY.forEach(function(r){ line(r,false); if(r.f)r.f() }) }
+  else if('IntersectionObserver' in window){
+    new IntersectionObserver(function(es){ es.forEach(function(e){ e.isIntersecting?start():stop() }) },{threshold:.2}).observe(app);
+  } else start();
+})();
+</script>
 </body>
 </html>
