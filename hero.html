@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>BridgePit — the cockpit for TradingView alerts</title>
+<title>BridgePit — TradingView alerts, executed on your own machine</title>
 <style>
   /* ──────────────────────────────────────────────────────────────
      Neutral black. No navy, no blue-grey, no glow, no gradient.
@@ -13,6 +13,9 @@
      radius  8 (buttons and panels) · 999 (the one pill)
      line    rgba(255,255,255,.09) hairline · .18 emphasis
      colour  one green dot for "live". Everything else is neutral.
+
+     Screen 1 = the edge: it runs on your machine.
+     Screen 2 = the second edge: it gives you a cockpit.
      ────────────────────────────────────────────────────────────── */
   :root{
     --bg:#09090B;
@@ -29,7 +32,7 @@
     --max:1320px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  html{-webkit-text-size-adjust:100%}
+  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
   body{background:var(--bg);color:var(--txt);font:15px/1.55 var(--sans);
     -webkit-font-smoothing:antialiased;overflow-x:hidden;position:relative}
   /* two very faint lights — silver, not colour. Barely there on purpose. */
@@ -37,7 +40,7 @@
     background:
       radial-gradient(42vw 36vw at 76% 26%, rgba(232,236,244,.10), transparent 60%),
       radial-gradient(30vw 26vw at 8% 92%, rgba(150,158,172,.055), transparent 64%)}
-  .nav,.hero{position:relative;z-index:1}
+  .nav,.hero,.cockpit{position:relative;z-index:1}
   a{color:inherit;text-decoration:none}
   :focus-visible{outline:2px solid var(--txt);outline-offset:3px}
 
@@ -53,7 +56,7 @@
   .navcta:hover{opacity:.86}
   @media(max-width:860px){ .links a:not(.navcta){display:none} }
 
-  /* ── hero ── */
+  /* ── screen 1: the hero ── */
   .hero{max-width:var(--max);margin:0 auto;padding:clamp(44px,7vh,88px) var(--gut) clamp(52px,8vh,96px);
     display:grid;grid-template-columns:minmax(0,505px) minmax(0,1fr);
     gap:clamp(28px,3.4vw,52px);align-items:center}
@@ -68,7 +71,7 @@
 
   h1{font:700 clamp(38px,4.4vw,62px)/1.02 var(--sans);letter-spacing:-.035em;color:#fff;text-wrap:balance}
 
-  .sub{margin-top:22px;font:400 17px/1.5 var(--sans);color:var(--dim);max-width:40ch}
+  .sub{margin-top:22px;font:400 17px/1.5 var(--sans);color:var(--dim);max-width:42ch}
   .sub b{color:var(--txt);font-weight:500}
 
   .buttons{margin-top:32px;display:grid;gap:12px;max-width:390px}
@@ -80,36 +83,100 @@
   .b-ghost{border:1px solid var(--line2);color:var(--txt);background:transparent}
   .b-ghost:hover{background:rgba(255,255,255,.05)}
   .b-ghost .arrow{margin-left:auto;transition:transform .25s}
-  .b-ghost:hover .arrow{transform:translateX(3px)}
+  .b-ghost:hover .arrow{transform:translateY(3px)}
 
   .facts{margin-top:26px;font:600 12px/1.9 var(--sans);letter-spacing:.1em;
     text-transform:uppercase;color:var(--dim2)}
 
+  /* ── the two paths: the whole argument, in one picture ──
+     Same three boxes both times. The only difference is which box
+     holds your broker login — and that is the entire product. */
+  .paths{display:grid;gap:16px;min-width:0}
+  .pathrow{border:1px solid var(--line);border-radius:10px;padding:17px 19px 19px;
+    background:#0A0A0C}
+  .pathrow.old{opacity:.7}
+  .pathrow.ours{border-color:var(--line2);background:var(--panel);
+    box-shadow:0 24px 60px rgba(0,0,0,.5)}
+  .plabel{display:flex;align-items:center;gap:9px;margin-bottom:18px;
+    font:600 10.5px var(--sans);letter-spacing:.13em;text-transform:uppercase;color:#5B5B63}
+  .pathrow.ours .plabel{color:var(--txt)}
+  .plabel .lv{display:inline-flex;align-items:center;gap:6px;margin-left:auto;
+    letter-spacing:.06em;color:var(--green);font-weight:600}
+  .plabel .lv i{width:5px;height:5px;border-radius:999px;background:var(--green);display:block;
+    animation:beat 2.6s ease-in-out infinite}
+  @keyframes beat{0%,100%{opacity:1}50%{opacity:.35}}
+
+  .chain{display:flex;align-items:stretch;gap:0}
+  .node{flex:1 1 0;min-width:0;display:flex;flex-direction:column;justify-content:center;
+    border:1px solid var(--line);border-radius:8px;padding:12px 13px;background:#0B0B0E}
+  .node.mid{flex:1.6 1 0}
+  .node .nt{display:flex;align-items:center;gap:7px;font:600 13px var(--sans);color:var(--txt);
+    letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .node .ns{display:block;margin-top:6px;font:400 11px/1.45 var(--sans);color:#5B5B63}
+  .node .lk{width:15px;height:15px;flex:none;display:block}
+  .pathrow.old .node.mid{border-style:dashed;border-color:rgba(227,179,65,.4)}
+  .pathrow.old .node.mid .lk{stroke:#E3B341}
+  .pathrow.ours .node.mid{border-color:var(--line2);background:#101015}
+  .pathrow.ours .node.mid .nt{color:#fff}
+  .pathrow.ours .node.mid .lk{stroke:#FAFAFA}
+
+  .wire{flex:0 0 78px;align-self:center;position:relative;height:1px;background:var(--line)}
+  .wire .wl{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;
+    padding:0 7px;background:#0A0A0C;
+    font:600 9px var(--sans);letter-spacing:.13em;text-transform:uppercase;color:#5B5B63;white-space:nowrap}
+  .pathrow.ours .wire{background:var(--line2)}
+  .pathrow.ours .wire .wl{background:var(--panel);color:var(--dim2)}
+  .pathrow.ours .wire::after{content:"";position:absolute;top:-2.5px;left:0;z-index:1;width:6px;height:6px;
+    border-radius:999px;background:var(--green);box-shadow:0 0 10px rgba(74,222,128,.7);
+    animation:travel 3.2s cubic-bezier(.45,0,.55,1) infinite}
+  .pathrow.ours .wire.w2::after{animation-delay:.6s}
+  @keyframes travel{
+    0%{left:0;opacity:0} 8%{opacity:1} 34%{left:calc(100% - 6px);opacity:1}
+    42%{left:calc(100% - 6px);opacity:0} 100%{left:calc(100% - 6px);opacity:0}}
+
+  .pnote{margin-top:15px;font:400 12.5px/1.5 var(--sans);color:var(--dim2)}
+  .pathrow.ours .pnote{color:var(--dim)}
+
+  @media(prefers-reduced-motion: reduce){
+    .pathrow.ours .wire::after{animation:none;left:calc(100% - 5px);opacity:1}
+    .plabel .lv i{animation:none}
+  }
+
+  /* ── screen 2: the cockpit ── */
+  .cockpit{max-width:var(--max);margin:0 auto;padding:clamp(40px,6vh,72px) var(--gut) clamp(56px,9vh,104px);
+    border-top:1px solid var(--line)}
+  .chead{max-width:640px;margin-bottom:clamp(26px,3.4vh,40px)}
+  .eyebrow{font:600 11px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:#5B5B63;
+    margin-bottom:16px}
+  h2{font:700 clamp(30px,3.4vw,46px)/1.05 var(--sans);letter-spacing:-.032em;color:#fff;text-wrap:balance}
+  .csub{margin-top:18px;font:400 17px/1.5 var(--sans);color:var(--dim);max-width:52ch}
+  .csub b{color:var(--txt);font-weight:500}
+
   /* ── the app: a working replica, not a picture ── */
   .slot{min-width:0}
-  .app{display:grid;grid-template-columns:142px minmax(0,1fr);
-    border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--panel);
-    box-shadow:0 30px 70px rgba(0,0,0,.55);height:clamp(430px,52vh,486px)}
+  .app{display:grid;grid-template-columns:168px minmax(0,1fr);
+    border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--panel);
+    box-shadow:0 30px 70px rgba(0,0,0,.55);height:clamp(520px,64vh,584px)}
 
   .side{border-right:1px solid var(--line);display:flex;flex-direction:column;background:#0B0B0E}
-  .sidelogo{display:flex;align-items:center;gap:8px;padding:14px 14px 12px;font:600 13px var(--sans)}
+  .sidelogo{display:flex;align-items:center;gap:8px;padding:15px 15px 13px;font:600 13.5px var(--sans)}
   .sidelogo .mk{width:22px;height:22px;border-radius:6px;background:#141419;display:grid;place-items:center;flex:none}
-  .snav{display:flex;flex-direction:column;gap:1px;padding:4px 8px}
+  .snav{display:flex;flex-direction:column;gap:1px;padding:4px 9px}
   .snav button{display:flex;align-items:center;gap:9px;width:100%;text-align:left;background:none;border:none;
-    cursor:pointer;border-radius:6px;padding:8px 9px;font:500 13px var(--sans);color:var(--dim);transition:background .15s,color .15s}
+    cursor:pointer;border-radius:6px;padding:9px 10px;font:500 13px var(--sans);color:var(--dim);transition:background .15s,color .15s}
   .snav button svg{width:15px;height:15px;flex:none;opacity:.85}
   .snav button:hover{background:rgba(255,255,255,.045);color:var(--txt)}
   .snav button.on{background:rgba(255,255,255,.075);color:#fff}
   .snav button.off{opacity:.42;cursor:default}
   .snav button.off:hover{background:none;color:var(--dim)}
-  .slabel{padding:14px 9px 5px;font:600 10px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:#5B5B63}
-  .plan{margin-top:auto;border-top:1px solid var(--line);padding:12px 14px}
+  .slabel{padding:15px 10px 5px;font:600 10px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:#5B5B63}
+  .plan{margin-top:auto;border-top:1px solid var(--line);padding:13px 15px}
   .plan .pt{font:400 11px var(--sans);color:#5B5B63}
   .plan .pv{margin-top:2px;font:600 13px var(--sans);color:var(--txt)}
 
   .mainpane{display:flex;flex-direction:column;min-width:0}
-  .top{display:flex;align-items:center;gap:12px;padding:13px 16px;border-bottom:1px solid var(--line)}
-  .top h2{font:600 15px var(--sans);color:#fff;letter-spacing:-.01em}
+  .top{display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid var(--line)}
+  .top h3.pt2{font:600 15px var(--sans);color:#fff;letter-spacing:-.01em}
   .clock{margin-left:auto;font:500 12px var(--mono);color:var(--dim2)}
   .pill{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(74,222,128,.3);
     background:rgba(74,222,128,.1);border-radius:999px;padding:4px 10px;font:600 11px var(--sans);color:#4ADE80}
@@ -117,46 +184,57 @@
   .pill.stopped{border-color:rgba(248,113,113,.35);background:rgba(248,113,113,.12);color:#F87171}
   .pill.stopped i{background:#F87171}
 
-  .view{display:none;padding:14px 16px 16px;overflow:hidden;flex:1;min-height:0}
+  .view{display:none;padding:15px 18px 18px;overflow:hidden;flex:1;min-height:0}
   .view.on{display:block}
+
+  /* pre-flight strip — the app's own go/no-go checklist */
+  .preflight{display:flex;flex-wrap:wrap;align-items:center;gap:7px 20px;
+    border:1px solid var(--line);border-radius:999px;padding:10px 18px;margin-bottom:13px;
+    background:rgba(255,255,255,.022)}
+  .pf{display:inline-flex;align-items:center;gap:7px;font:500 11.5px var(--sans);
+    color:var(--dim);white-space:nowrap}
+  .pf i{width:6px;height:6px;border-radius:999px;background:var(--green);display:block;flex:none}
+  .pf .d2{color:#5B5B63;font-weight:400}
+  .pf.info{color:var(--dim2)} .pf.info i{background:#52525B}
+  .pf.bad{color:#F87171;font-weight:600} .pf.bad i{background:#F87171}
 
   .bar{display:flex;align-items:center;gap:10px;margin-bottom:12px}
   .seg{display:flex;border:1px solid var(--line);border-radius:6px;overflow:hidden}
-  .seg button{background:none;border:none;padding:6px 11px;font:500 12px var(--sans);color:var(--dim2);cursor:default}
+  .seg button{background:none;border:none;padding:6px 12px;font:500 12px var(--sans);color:var(--dim2);cursor:default}
   .seg button.on{background:rgba(255,255,255,.08);color:var(--txt)}
-  .halt{margin-left:auto;background:none;border:1px solid var(--line2);border-radius:6px;padding:6px 13px;
+  .halt{margin-left:auto;background:none;border:1px solid var(--line2);border-radius:6px;padding:7px 14px;
     font:600 12px var(--sans);color:var(--txt);cursor:pointer;transition:background .18s,border-color .18s,color .18s}
   .halt:hover{background:rgba(255,255,255,.06)}
   .halt.active{border-color:rgba(248,113,113,.5);background:rgba(248,113,113,.14);color:#F87171}
-  .addbtn{margin-left:auto;background:none;border:1px solid var(--line);border-radius:6px;padding:6px 11px;
+  .addbtn{margin-left:auto;background:none;border:1px solid var(--line);border-radius:6px;padding:6px 12px;
     font:500 12px var(--sans);color:var(--dim);cursor:default}
 
-  .tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
-  .tile{border:1px solid var(--line);border-radius:6px;padding:10px 11px;background:#0B0B0E;min-height:88px}
-  .tile h3{font:500 9.5px var(--sans);letter-spacing:.02em;color:#5B5B63;text-transform:uppercase;
+  .tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
+  .tile{border:1px solid var(--line);border-radius:7px;padding:12px 13px;background:#0B0B0E;min-height:94px}
+  .tile h4{font:500 10px var(--sans);letter-spacing:.02em;color:#5B5B63;text-transform:uppercase;
     white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .tile .v{margin-top:7px;font:600 19px var(--mono);color:var(--txt);font-variant-numeric:tabular-nums}
+  .tile .v{margin-top:8px;font:600 21px var(--mono);color:var(--txt);font-variant-numeric:tabular-nums}
   .tile .v.g{color:#4ADE80} .tile .v.r{color:#F87171}
-  .tile .s{margin-top:4px;font:400 10.5px/1.35 var(--sans);color:#5B5B63}
-  .meter{height:3px;border-radius:2px;background:rgba(255,255,255,.09);margin-top:6px;overflow:hidden}
+  .tile .s{margin-top:5px;font:400 11px/1.35 var(--sans);color:#5B5B63}
+  .meter{height:3px;border-radius:2px;background:rgba(255,255,255,.09);margin-top:7px;overflow:hidden}
   .meter i{display:block;height:100%;background:#A1A1AA;transition:width .5s}
 
-  .sect{margin-top:14px;margin-bottom:8px;font:600 10.5px var(--sans);letter-spacing:.11em;
+  .sect{margin-top:15px;margin-bottom:9px;font:600 10.5px var(--sans);letter-spacing:.11em;
     text-transform:uppercase;color:#5B5B63}
   .sect.nomt{margin-top:0;margin-bottom:0}
 
-  .tbl{border:1px solid var(--line);border-radius:6px;overflow:hidden}
-  .tbl .th,.tbl .tr{display:grid;grid-template-columns:60px 70px 74px minmax(0,1fr);gap:9px;
-    padding:7px 11px;align-items:center}
+  .tbl{border:1px solid var(--line);border-radius:7px;overflow:hidden}
+  .tbl .th,.tbl .tr{display:grid;grid-template-columns:74px 84px 104px minmax(0,1fr);gap:12px;
+    padding:8px 14px;align-items:center}
   .tbl .th{background:rgba(255,255,255,.03);font:600 10px var(--sans);letter-spacing:.08em;
     text-transform:uppercase;color:#5B5B63}
-  .tbl .tr{border-top:1px solid rgba(255,255,255,.055);font:400 11.5px var(--sans);color:var(--dim)}
+  .tbl .tr{border-top:1px solid rgba(255,255,255,.055);font:400 12px var(--sans);color:var(--dim)}
   .tbl .tr.fresh{animation:up .4s cubic-bezier(.2,.7,.2,1)}
   @keyframes up{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:none}}
-  .tbl .tm{font-family:var(--mono);font-size:11px;color:#5B5B63}
+  .tbl .tm{font-family:var(--mono);font-size:11.5px;color:#5B5B63}
   .tbl .sg{color:var(--dim2)}
   .tbl .dt{color:var(--txt);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .ev{font:700 9.5px var(--sans);letter-spacing:.07em;border-radius:3px;padding:2px 5px;display:inline-block}
+  .ev{font:700 9.5px var(--sans);letter-spacing:.07em;border-radius:3px;padding:3px 6px;display:inline-block}
   .ev.FILL{color:#4ADE80;background:rgba(74,222,128,.13)}
   .ev.ORDER{color:#A1A1AA;background:rgba(255,255,255,.07)}
   .ev.BLOCKED{color:#E3B341;background:rgba(227,179,65,.13)}
@@ -164,46 +242,63 @@
   .ev.FLAT{color:#A1A1AA;background:rgba(255,255,255,.07)}
   .ev.HALT{color:#F87171;background:rgba(248,113,113,.14)}
 
-  .tbl.strat .th,.tbl.strat .tr{grid-template-columns:minmax(0,1.3fr) 58px 44px minmax(0,1.1fr) 58px 46px}
+  .tbl.strat .th,.tbl.strat .tr{grid-template-columns:minmax(0,1.3fr) 70px 54px minmax(0,1.1fr) 70px 54px}
   .tbl.strat .tr span{color:var(--dim)}
   .tbl.strat .tr span:first-child{color:var(--txt)}
   .on2{color:#4ADE80;font-weight:600} .off2{color:#5B5B63;font-weight:600}
 
-  .conn{display:flex;align-items:center;gap:12px;border:1px solid var(--line);border-radius:6px;
-    padding:11px 13px;margin-bottom:8px;background:#0B0B0E}
+  .conn{display:flex;align-items:center;gap:12px;border:1px solid var(--line);border-radius:7px;
+    padding:13px 15px;margin-bottom:9px;background:#0B0B0E}
   .conn.muted2{opacity:.45}
-  .conn .cn{font:600 13px var(--sans);color:var(--txt);display:flex;align-items:center;gap:8px}
-  .conn .cs{margin-top:3px;font:400 11.5px var(--sans);color:#5B5B63}
+  .conn .cn{font:600 13.5px var(--sans);color:var(--txt);display:flex;align-items:center;gap:8px}
+  .conn .cs{margin-top:4px;font:400 12px var(--sans);color:#5B5B63}
   .conn .cr{margin-left:auto}
   .chip{font:600 9.5px var(--sans);letter-spacing:.06em;border-radius:3px;padding:2px 6px}
   .chip.ok{color:#4ADE80;background:rgba(74,222,128,.13)}
-  .mini{background:none;border:1px solid var(--line);border-radius:5px;padding:5px 10px;
-    font:500 11.5px var(--sans);color:var(--dim);cursor:default}
-  .shield{display:flex;gap:9px;margin-top:12px;border:1px solid var(--line);border-radius:6px;
-    padding:11px 13px;background:rgba(255,255,255,.018)}
+  .mini{background:none;border:1px solid var(--line);border-radius:5px;padding:6px 11px;
+    font:500 12px var(--sans);color:var(--dim);cursor:default}
+  .shield{display:flex;gap:10px;margin-top:13px;border:1px solid var(--line);border-radius:7px;
+    padding:13px 15px;background:rgba(255,255,255,.018)}
   .shield svg{width:15px;height:15px;flex:none;margin-top:1px}
-  .shield span{font:400 11.5px/1.5 var(--sans);color:var(--dim2)}
+  .shield span{font:400 12px/1.5 var(--sans);color:var(--dim2)}
 
-  .under{margin-top:14px;display:flex;flex-wrap:wrap;gap:8px 22px;
+  .under{margin-top:16px;display:flex;flex-wrap:wrap;gap:8px 24px;
     font:500 13px var(--sans);color:var(--dim2)}
   .under span{display:inline-flex;align-items:center;gap:8px}
   .under i{width:13px;height:13px;border:1px solid var(--line2);border-radius:3px;display:block;flex:none}
   .under .rep{margin-left:auto;color:#5B5B63;font-weight:400}
 
+  /* ── responsive ── */
   @media(max-width:1180px){ .app{grid-template-columns:1fr} .side{flex-direction:row;align-items:center;
       border-right:none;border-bottom:1px solid var(--line);overflow-x:auto}
-    .snav{flex-direction:row;padding:6px 8px} .slabel,.plan,.sidelogo{display:none}
+    .snav{flex-direction:row;padding:7px 9px} .slabel,.plan,.sidelogo{display:none}
     .snav button.off{display:none} }
-  @media(max-width:620px){ .tiles{grid-template-columns:1fr 1fr}
-    .tbl .th,.tbl .tr{grid-template-columns:52px 66px minmax(0,1fr);gap:8px}
-    .tbl .sg{display:none} .app{height:auto;min-height:430px}
-    .under .rep{margin-left:0;width:100%} }
 
   @media(max-width:960px){
     .hero{grid-template-columns:1fr;gap:34px;padding-top:36px}
     .buttons{max-width:none}
     .sub{max-width:none}
+    .wire{flex-basis:52px}
   }
+
+  @media(max-width:700px){
+    .chain{flex-direction:column;align-items:stretch}
+    .wire{flex:0 0 22px;width:1px;height:22px;align-self:center;background:var(--line)}
+    .wire .wl{top:50%;left:auto;right:-9px;transform:translate(100%,-50%);padding:2px 0;background:none}
+    .pathrow.ours .wire{background:var(--line2)}
+    .pathrow.ours .wire .wl{background:none}
+    .pathrow.ours .wire::after{left:-2.5px;top:0;
+      animation:travelv 3.2s cubic-bezier(.45,0,.55,1) infinite}
+  }
+  @keyframes travelv{
+    0%{top:0;opacity:0} 8%{opacity:1} 34%{top:calc(100% - 6px);opacity:1}
+    42%{top:calc(100% - 6px);opacity:0} 100%{top:calc(100% - 6px);opacity:0}}
+
+  @media(max-width:620px){ .tiles{grid-template-columns:1fr 1fr}
+    .tbl .th,.tbl .tr{grid-template-columns:62px 76px minmax(0,1fr);gap:9px}
+    .tbl .sg{display:none} .app{height:auto;min-height:470px}
+    .preflight{border-radius:10px;gap:6px 14px;padding:11px 14px}
+    .under .rep{margin-left:0;width:100%} }
 </style>
 </head>
 <body>
@@ -223,7 +318,7 @@
         <rect x="76" y="48" width="12" height="32" rx="2.5" fill="#FAFAFA"/>
       </svg>BridgePit</a>
     <div class="links">
-      <a href="#how">How it works</a>
+      <a href="#cockpit">The app</a>
       <a href="#safety">Safety</a>
       <a href="#pricing">Pricing</a>
       <a class="navcta" href="#download">Download</a>
@@ -231,6 +326,7 @@
   </div>
 </nav>
 
+<!-- ════ SCREEN 1 — the edge: it runs on your machine ════ -->
 <main class="hero">
   <div class="say">
     <div class="badge">
@@ -245,9 +341,9 @@
       <span class="tag"><i></i>For macOS</span>
     </div>
 
-    <h1>The cockpit for TradingView alerts.</h1>
+    <h1>Your TradingView alerts, executed on your own machine.</h1>
 
-    <p class="sub">Your strategies, a daily loss stop, a kill-switch and a protective stop that rests at your broker — <b>one desktop app, on your own machine</b>.</p>
+    <p class="sub">The cloud tools keep your broker login on their server and send your orders from their address. BridgePit runs on your Mac — <b>your login stays here, encrypted, and every order leaves from your own IP</b>.</p>
 
     <div class="buttons">
       <a class="b b-primary" href="#download">
@@ -256,12 +352,61 @@
         </svg>
         Download for macOS <span class="sz">.dmg</span>
       </a>
-      <a class="b b-ghost" href="#run">
-        Run it free on paper <span class="arrow">→</span>
+      <a class="b b-ghost" href="#cockpit">
+        See the cockpit <span class="arrow">↓</span>
       </a>
     </div>
 
-    <p class="facts">macOS · Rithmic · paper mode free · no cloud in between</p>
+    <p class="facts">macOS · Rithmic · paper mode free · no server of ours in the path</p>
+  </div>
+
+  <div class="paths">
+    <div class="pathrow old">
+      <div class="plabel">The cloud way</div>
+      <div class="chain">
+        <div class="node"><span class="nt">TradingView</span></div>
+        <div class="wire"><span class="wl">alert</span></div>
+        <div class="node mid">
+          <span class="nt">
+            <svg class="lk" viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round">
+              <rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V7.8a4 4 0 0 1 8 0v2.7"/>
+            </svg>Their server
+          </span>
+          <span class="ns">your broker login is stored here · orders leave from their address</span>
+        </div>
+        <div class="wire"><span class="wl">order</span></div>
+        <div class="node"><span class="nt">Your broker</span></div>
+      </div>
+      <p class="pnote">If their server is down, slow, or blocked, your account is the one that finds out.</p>
+    </div>
+
+    <div class="pathrow ours">
+      <div class="plabel">BridgePit<span class="lv"><i></i>live on your machine</span></div>
+      <div class="chain">
+        <div class="node"><span class="nt">TradingView</span></div>
+        <div class="wire w1"><span class="wl">alert</span></div>
+        <div class="node mid">
+          <span class="nt">
+            <svg class="lk" viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round">
+              <rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V7.8a4 4 0 0 1 8 0v2.7"/>
+            </svg>Your Mac
+          </span>
+          <span class="ns">your login is encrypted here and never sent · the order leaves from your address</span>
+        </div>
+        <div class="wire w2"><span class="wl">order</span></div>
+        <div class="node"><span class="nt">Your broker</span></div>
+      </div>
+      <p class="pnote">There is no middle server to trust, to queue behind, or to go down.</p>
+    </div>
+  </div>
+</main>
+
+<!-- ════ SCREEN 2 — the second edge: the cockpit ════ -->
+<section class="cockpit" id="cockpit">
+  <div class="chead">
+    <div class="eyebrow">And once it's running</div>
+    <h2>They route signals. This is a cockpit.</h2>
+    <p class="csub">Your whole session on one screen: what's connected, what's open, how much of your daily loss budget is left, and <b>every order the app placed — or blocked</b>. It's checking itself the entire time.</p>
   </div>
 
   <div class="slot">
@@ -299,25 +444,35 @@
       <!-- main -->
       <div class="mainpane">
         <div class="top">
-          <h2 id="ptitle">Dashboard</h2>
+          <h3 class="pt2" id="ptitle">Dashboard</h3>
           <span class="clock" id="etclock">10:14:41</span>
           <span class="pill" id="statuspill"><i></i><span id="statustxt">Running</span></span>
         </div>
 
         <!-- dashboard -->
         <div class="view on" data-v="dash">
+          <div class="preflight">
+            <span class="pf"><i></i>Broker session</span>
+            <span class="pf" id="pfEntries"><i></i>Entries armed</span>
+            <span class="pf"><i></i>P&amp;L feed</span>
+            <span class="pf"><i></i>Public webhook</span>
+            <span class="pf"><i></i>Power <span class="d2">· on AC</span></span>
+            <span class="pf info" id="pfBook"><i></i>Book <span class="d2">· flat</span></span>
+            <span class="pf info" id="pfTv"><i></i>Last signal <span class="d2">· 10:14:41 ET</span></span>
+          </div>
+
           <div class="bar">
             <div class="seg"><button class="on" type="button">All accounts</button><button type="button" class="ghosted">Rithmic · paper</button></div>
             <button class="halt" id="halt" type="button">Halt trading</button>
           </div>
 
           <div class="tiles">
-            <div class="tile"><h3>Positions</h3><div class="v" id="tPos">0</div><div class="s" id="tPosS">flat</div></div>
-            <div class="tile"><h3>Day P&amp;L</h3><div class="v" id="tPnl">+$80.00</div><div class="s">simulated</div></div>
-            <div class="tile"><h3>Loss budget</h3><div class="v" id="tBud">$420</div>
+            <div class="tile"><h4>Positions</h4><div class="v" id="tPos">0</div><div class="s" id="tPosS">flat</div></div>
+            <div class="tile"><h4>Day P&amp;L</h4><div class="v" id="tPnl">+$80.00</div><div class="s">simulated</div></div>
+            <div class="tile"><h4>Loss budget</h4><div class="v" id="tBud">$420</div>
               <div class="meter"><i id="tBar" style="width:30%"></i></div>
-              <div class="s">auto-halt at −$600</div></div>
-            <div class="tile"><h3>EOD flatten</h3><div class="v">15:55</div><div class="s">ET · force-flat</div></div>
+              <div class="s">auto-halt at −$600 · profits uncapped</div></div>
+            <div class="tile"><h4>EOD flatten</h4><div class="v">15:55</div><div class="s">ET · force-flat</div></div>
           </div>
 
           <div class="sect">Recent activity</div>
@@ -372,7 +527,7 @@
       <span class="rep">A replica of the app, in paper mode</span>
     </div>
   </div>
-</main>
+</section>
 
 <script>
 (function(){
@@ -386,9 +541,17 @@
       halt=document.getElementById('halt'),
       pill=document.getElementById('statuspill'), stxt=document.getElementById('statustxt'),
       tPos=document.getElementById('tPos'), tPosS=document.getElementById('tPosS'),
-      tPnl=document.getElementById('tPnl'), tBud=document.getElementById('tBud'), tBar=document.getElementById('tBar');
+      tPnl=document.getElementById('tPnl'), tBud=document.getElementById('tBud'), tBar=document.getElementById('tBar'),
+      pfEntries=document.getElementById('pfEntries'), pfBook=document.getElementById('pfBook'),
+      pfTv=document.getElementById('pfTv');
   var TITLES={dash:'Dashboard',conn:'Connections',strat:'Strategies'};
   var halted=false;
+
+  function setPf(el,cls,label,detail){
+    el.className='pf'+(cls?' '+cls:'');
+    el.innerHTML='<i></i>'+label+(detail?' <span class="d2">· '+detail+'</span>':'');
+  }
+  function book(){ setPf(pfBook,'info','Book', tPos.textContent==='0' ? 'flat' : tPosS.textContent) }
 
   tabs.forEach(function(b){
     b.addEventListener('click',function(){
@@ -422,16 +585,17 @@
     el.innerHTML='<span class="tm">'+r.t+'</span><span><b class="ev '+r.k+'">'+r.k+'</b></span>'
       +'<span class="sg">'+r.s+'</span><span class="dt">'+r.d+'</span>';
     rows.insertBefore(el,rows.firstChild);
-    while(rows.children.length>5) rows.removeChild(rows.lastChild);
+    while(rows.children.length>6) rows.removeChild(rows.lastChild);
   }
 
   var i=0,timer=null,running=false;
   function tick(){
     if(halted){ timer=setTimeout(tick,1200); return }
     var r=DAY[i]; clock.textContent=r.t; line(r,true); if(r.f) r.f();
+    setPf(pfTv,'info','Last signal',r.t+' ET'); book();
     i=(i+1)%DAY.length;
     if(i===0){ timer=setTimeout(function(){ rows.innerHTML=''; tPnl.textContent='$0.00'; tPnl.className='v';
-      tBud.textContent='$600'; tBar.style.width='0%'; tPos.textContent='0'; tPosS.textContent='flat'; tick() },3600); return }
+      tBud.textContent='$600'; tBar.style.width='0%'; tPos.textContent='0'; tPosS.textContent='flat'; book(); tick() },3600); return }
     timer=setTimeout(tick, 2300);
   }
 
@@ -441,22 +605,24 @@
     halt.classList.toggle('active',halted);
     pill.classList.toggle('stopped',halted);
     stxt.textContent = halted ? 'Halted' : 'Running';
+    setPf(pfEntries, halted?'bad':'', halted?'Entries HALTED':'Entries armed');
     if(halted) line({t:clock.textContent,k:'HALT',s:'—',d:'You pressed halt. New entries blocked; exits still allowed.'},true);
     else       line({t:clock.textContent,k:'ORDER',s:'—',d:'Resumed. Entries accepted again.'},true);
   });
 
-  function start(){
-    if(running)return; running=true;
-    /* seed a few lines so the panel never looks half-empty on arrival */
-    for(var s=0;s<4;s++){ var r=DAY[i]; clock.textContent=r.t; line(r,false); if(r.f)r.f(); i=(i+1)%DAY.length }
-    timer=setTimeout(tick,1800);
-  }
+  /* seed straight away — the panel must never be caught half-empty */
+  for(var s=0;s<6;s++){ var r0=DAY[i]; clock.textContent=r0.t; line(r0,false); if(r0.f)r0.f();
+    setPf(pfTv,'info','Last signal',r0.t+' ET'); i=(i+1)%DAY.length }
+  book();
+
+  function start(){ if(running)return; running=true; timer=setTimeout(tick,1800) }
   function stop(){ running=false; if(timer)clearTimeout(timer); timer=null }
 
-  if(reduced){ DAY.forEach(function(r){ line(r,false); if(r.f)r.f() }) }
-  else if('IntersectionObserver' in window){
-    new IntersectionObserver(function(es){ es.forEach(function(e){ e.isIntersecting?start():stop() }) },{threshold:.2}).observe(app);
-  } else start();
+  if(!reduced){
+    if('IntersectionObserver' in window){
+      new IntersectionObserver(function(es){ es.forEach(function(e){ e.isIntersecting?start():stop() }) },{threshold:.15}).observe(app);
+    } else start();
+  }
 })();
 </script>
 </body>
