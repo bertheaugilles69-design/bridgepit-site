@@ -101,7 +101,7 @@ In TradingView, create an alert on your strategy and set two fields:
 
 ```
 {
-  "strategy_name": "ORB-5m",
+  "strategy_name": "Breakout-1m",
   "symbol": "{{ticker}}",
   "data": "{{strategy.order.action}}",
   "quantity": "{{strategy.order.contracts}}",
