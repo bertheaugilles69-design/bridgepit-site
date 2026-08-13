@@ -5,6 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <title>BridgePit — TradingView alerts, executed on your own machine</title>
+<meta name="description" content="BridgePit runs your TradingView alerts on your own Mac and your own connection. Your broker login is encrypted locally and never sent anywhere. You set your daily loss limit, emergency stop and end-of-day flatten, and they run on the same machine that places the orders. Free on paper.">
+<link rel="canonical" href="https://bridgepit.com/">
+<link rel="icon" href="mark.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="BridgePit">
+<meta property="og:title" content="Your alerts run on your machine. Your limits stop them, not your firm.">
+<meta property="og:description" content="They route signals. This is a cockpit. Local execution for funded and retail futures traders — nothing of ours between your Mac and your broker. Free on paper.">
+<meta property="og:url" content="https://bridgepit.com/">
+<meta property="og:image" content="https://bridgepit.com/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Your alerts run on your machine. Your limits stop them, not your firm.">
+<meta name="twitter:description" content="They route signals. This is a cockpit. Local execution for futures traders — nothing of ours between your Mac and your broker.">
+<meta name="twitter:image" content="https://bridgepit.com/og.png">
 <style>
   /* ──────────────────────────────────────────────────────────────
      Neutral black. No navy, no blue-grey, no glow, no gradient.
@@ -237,6 +250,8 @@
 
   /* per-account cards */
   .accts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .accts.one{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .accts.one .acct{grid-column:1}
   .acct{border:1px solid var(--al);border-radius:16px;padding:16px 17px;background:var(--card)}
   .acct.exec{border-color:rgba(143,169,214,.3)}
   .acct .head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
@@ -387,7 +402,7 @@
 
 <nav class="nav">
   <div class="navin">
-    <a class="wm" href="#">
+    <a class="wm" href="/">
       <svg width="20" height="20" viewBox="0 0 128 128" fill="none" style="flex:none">
         <g stroke="#FAFAFA" stroke-width="2" stroke-linecap="round" opacity=".7">
           <line x1="46" y1="24" x2="24" y2="90"/><line x1="46" y1="24" x2="62" y2="90"/>
@@ -440,7 +455,7 @@
       </a>
     </div>
 
-    <p class="facts">macOS · Rithmic · free on paper · no middle server</p>
+    <p class="facts">macOS · Rithmic · free on paper · your Mac talks to your broker</p>
   </div>
 
   <div class="paths">
@@ -479,7 +494,7 @@
         <div class="wire w2"><span class="wl">order</span></div>
         <div class="node"><span class="nt">Your broker</span></div>
       </div>
-      <p class="pnote">There is no middle server to trust, to queue behind, or to go down.</p>
+      <p class="pnote">Nothing of ours sits between your Mac and your broker.</p>
     </div>
   </div>
 </main>
@@ -489,7 +504,7 @@
   <div class="chead">
     <div class="eyebrow">And once it's running</div>
     <h2>They route signals. This is a cockpit.</h2>
-    <p class="csub">Every account, every strategy, every order and every block — on one screen, on your machine. <b>It checks itself the whole session</b> and tells you the moment something isn't right.</p>
+    <p class="csub">Every strategy, every order and every block — on one screen, on your machine. <b>It checks itself the whole session</b> and tells you the moment something isn't right.</p>
   </div>
 
   <div class="slot">
@@ -521,7 +536,7 @@
         <div class="plan">
           <div class="in">
             <div class="pt">Current plan</div>
-            <div class="pv">Multi · live</div>
+            <div class="pv">Pro · live</div>
             <span class="mg">Manage plan</span>
           </div>
         </div>
@@ -539,9 +554,8 @@
         <div class="view on" data-v="dash">
           <div class="bar">
             <div class="seg">
-              <button class="on" type="button">All accounts</button>
-              <button type="button">Main</button>
-              <button type="button">Second</button>
+              <button class="on" type="button">Main account</button>
+              <button type="button">+ Add account</button>
             </div>
             <button class="halt" id="halt" type="button">Halt trading</button>
             <button class="flat" type="button">Flatten all</button>
@@ -554,11 +568,11 @@
             <span class="pf"><i></i>P&amp;L feed <span class="d2">· reading 3s ago</span></span>
             <span class="pf"><i></i>Public webhook <span class="d2">· reachable</span></span>
             <span class="pf"><i></i>Power <span class="d2">· on AC</span></span>
-            <span class="pf info" id="pfBook"><i></i>Book <span class="d2">· MNQ +3</span></span>
+            <span class="pf info" id="pfBook"><i></i>Book <span class="d2">· MNQ +2</span></span>
             <span class="pf info" id="pfTv"><i></i>Last TV signal <span class="d2">· 13:55:12 ET</span></span>
           </div>
 
-          <div class="accts">
+          <div class="accts one">
             <div class="acct exec">
               <div class="head">
                 <div><div class="nm">Main account</div><div class="aid">RITH-104281</div></div>
@@ -589,49 +603,18 @@
                 <div>Strategies <b>2</b></div>
               </div>
             </div>
-
-            <div class="acct">
-              <div class="head">
-                <div><div class="nm">Second account</div><div class="aid">RITH-104282</div></div>
-                <span class="abadge">routed ×1</span>
-              </div>
-              <div class="pnl down">−$90.00</div>
-              <div class="pnls">today, realised</div>
-              <div class="bal">balance $25,940.00</div>
-              <div class="spark">
-                <svg viewBox="0 0 240 40" preserveAspectRatio="none">
-                  <polyline points="0,12 24,15 48,13 72,18 96,16 120,21 144,19 168,24 192,22 216,27 236,26"
-                    fill="none" stroke="#C4574A" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" opacity=".85"/>
-                  <circle cx="236" cy="26" r="2.8" fill="#C4574A"/>
-                </svg>
-              </div>
-              <div class="range"><i style="left:38%"></i></div>
-              <div class="rlabels"><span>floor <b>$24,000</b></span><span>target <b>$28,000</b></span></div>
-              <div class="abar"><i style="width:15%"></i></div>
-              <div class="s">day loss budget <b class="num">$90</b> of $600 used · auto-halt at −$600</div>
-              <div class="mrow">
-                <div>Room to floor <b>$1,940</b></div>
-                <div>To target <b>$2,060</b></div>
-                <div>Peak balance <b>$26,380</b></div>
-                <div>Worst day <b>−$305</b></div>
-              </div>
-              <div class="ameta">
-                <div>Positions <b><span class="poschip">MNQ +1</span></b></div>
-                <div>Strategies <b>1</b></div>
-              </div>
-            </div>
           </div>
 
           <div class="tiles">
             <div class="tile"><h4>System</h4>
               <div class="v" style="margin-top:9px"><span class="pill" id="tPill"><i></i><span id="tPillTxt">Running</span></span></div>
               <div class="s">local · live · Rithmic</div></div>
-            <div class="tile"><h4>Open positions</h4><div class="v" id="tPos">3</div>
-              <div class="s" id="tPosS">MNQ +3 · across two accounts</div></div>
+            <div class="tile"><h4>Open positions</h4><div class="v" id="tPos">2</div>
+              <div class="s" id="tPosS">MNQ +2 · Breakout-1m</div></div>
             <div class="tile"><h4>Loss budget <small>(losses only)</small></h4>
-              <div class="v" id="tBud">$90 <small>of $1,200</small></div>
-              <div class="meter"><i id="tBar" style="width:7.5%"></i></div>
-              <div class="s">auto-halt per account · profits uncapped</div></div>
+              <div class="v" id="tBud">$0 <small>of $600</small></div>
+              <div class="meter"><i id="tBar" style="width:0%"></i></div>
+              <div class="s">auto-halt at −$600 · profits uncapped</div></div>
             <div class="tile"><h4>EOD flatten</h4><div class="v">15:55</div>
               <div class="s">ET · failsafe force-flat</div></div>
           </div>
@@ -675,15 +658,8 @@
           <div class="bar"><div class="sect" style="margin:0">Broker connections</div><button class="addbtn" type="button">+ Add connection</button></div>
           <div class="conn">
             <div class="cl">
-              <div class="cn">Rithmic — Main account <span class="chip ok">Connected</span></div>
+              <div class="cn">Rithmic <span class="chip ok">Connected</span></div>
               <div class="cs">Chicago gateway · execution · orders leave from your own IP</div>
-            </div>
-            <div class="cr"><button class="mini" type="button">Disconnect</button></div>
-          </div>
-          <div class="conn">
-            <div class="cl">
-              <div class="cn">Rithmic — Second account <span class="chip ok">Connected</span></div>
-              <div class="cs">Chicago gateway · routed ×1 · orders leave from your own IP</div>
             </div>
             <div class="cr"><button class="mini" type="button">Disconnect</button></div>
           </div>
@@ -704,9 +680,8 @@
           <div class="bar"><div class="sect" style="margin:0">Strategies</div><button class="addbtn" type="button">+ Add strategy</button></div>
           <div class="tbl strat">
             <div class="th"><span>Strategy</span><span>Instrument</span><span>Contracts</span><span>Routes to</span><span>Emergency stop</span><span>Status</span></div>
-            <div class="tr"><span><b class="w">Breakout-1m</b></span><span>MNQ1!</span><span>2</span><span>Main account</span><span>32 pts</span><span class="up">On</span></div>
-            <div class="tr"><span><b class="w">VWAP-fade</b></span><span>MES1!</span><span>1</span><span>Main account</span><span>18 pts</span><span class="up">On</span></div>
-            <div class="tr"><span><b class="w">Breakout-1m</b></span><span>MNQ1!</span><span>1</span><span>Second account</span><span>32 pts</span><span class="up">On</span></div>
+            <div class="tr"><span><b class="w">Breakout-1m</b></span><span>MNQ1!</span><span>2</span><span>Rithmic</span><span>32 pts</span><span class="up">On</span></div>
+            <div class="tr"><span><b class="w">VWAP-fade</b></span><span>MES1!</span><span>1</span><span>Rithmic</span><span>18 pts</span><span class="up">On</span></div>
             <div class="tr"><span><b class="w">Overnight-gap</b></span><span>MNQ1!</span><span>1</span><span>—</span><span>40 pts</span><span style="color:#5C6470">Off</span></div>
           </div>
           <div class="shield">
@@ -738,6 +713,13 @@
   .cmp::before{content:"";position:absolute;right:-4%;top:-8%;width:56%;height:116%;pointer-events:none;
     background:radial-gradient(50% 40% at 60% 50%,rgba(232,236,244,.055),transparent 70%)}
   .cmp>*{position:relative;z-index:1}
+  .audsw{display:inline-flex;border:1px solid var(--line2);border-radius:999px;overflow:hidden;
+    margin-bottom:26px}
+  .audsw button{background:none;border:none;cursor:pointer;padding:10px 20px;
+    font:600 13.5px var(--sans);color:var(--dim);transition:background .2s,color .2s}
+  .audsw button.on{background:var(--txt);color:var(--bg)}
+  .audsw button:not(.on):hover{color:var(--txt)}
+  .cmp .hide{display:none}
   .ch{padding:0 22px 16px;font:600 11px var(--sans);letter-spacing:.14em;text-transform:uppercase}
   .ch.old{color:var(--dim2)}
   .ch.ours{color:var(--txt)}
@@ -945,7 +927,7 @@
   <div class="bhead">
     <div class="eyebrow">The rails</div>
     <h2>A day only has to go wrong once.</h2>
-    <p class="csub">Here is an ordinary session, and the rail that catches each thing that goes wrong in it. Every one of them is on by default, and every one of them is yours to change.</p>
+    <p class="csub">Here is an ordinary session, and the rail that catches each thing that goes wrong in it. You set the numbers — the app enforces them on the same machine that places the orders.</p>
   </div>
 
   <div class="tl" id="tl">
@@ -965,12 +947,6 @@
       <div class="tlc">
         <div class="tlw">Your Mac tries to go to sleep.</div>
         <div class="tlg"><span class="gchip">Awake while armed</span>It's held awake for as long as you're armed, and the moment you're running on battery the app says so on the dashboard.</div>
-      </div></div>
-
-    <div class="tlrow"><div class="tlt">12:41</div><div class="tlm"><i></i></div>
-      <div class="tlc">
-        <div class="tlw">The connection drops, then comes back.</div>
-        <div class="tlg"><span class="gchip">Late alert gate</span>An alert redelivered after the gap does not open a position at a price that has already moved on.</div>
       </div></div>
 
     <div class="tlrow"><div class="tlt">13:58</div><div class="tlm"><i></i></div>
@@ -1003,31 +979,52 @@
     <p class="csub">On the surface both do the same job: an alert arrives, an order goes out. Underneath, only one of them asks you to hand the account over first.</p>
   </div>
 
+  <div class="audsw" id="audsw" role="tablist">
+    <button class="on" data-aud="funded" type="button">Funded account</button>
+    <button data-aud="own" type="button">My own money</button>
+  </div>
+
   <div class="cmp" id="cmp">
     <div></div>
     <div class="ch old">A cloud relay</div>
     <div class="ch ours"><span><i></i>BridgePit</span></div>
-    <div class="q cmpr">Where your broker login lives</div>
-    <div class="a old cmpr top" data-l="Cloud relay">On their server, alongside everyone else's.</div>
-    <div class="a ours cmpr top" data-l="BridgePit">On your Mac, encrypted. It is never sent anywhere.</div>
-    <div class="q cmpr">Whose address the order leaves from</div>
-    <div class="a old cmpr" data-l="Cloud relay">Theirs — one address shared by every customer.</div>
-    <div class="a ours cmpr" data-l="BridgePit">Yours. The same connection you log in from by hand.</div>
-    <div class="q cmpr">When their service is down or queued</div>
-    <div class="a old cmpr" data-l="Cloud relay">Your alert waits behind everyone else's, or never lands.</div>
-    <div class="a ours cmpr" data-l="BridgePit">There is nothing in the middle that can be down.</div>
-    <div class="q cmpr">If the company is sold or shuts down</div>
-    <div class="a old cmpr" data-l="Cloud relay">Your credentials go wherever the company goes.</div>
-    <div class="a ours cmpr" data-l="BridgePit">Nothing of yours was ever there to go anywhere.</div>
-    <div class="q cmpr flip">While your Mac is off</div>
-    <div class="a old cmpr flip" data-l="Cloud relay">It keeps running without you.</div>
-    <div class="a ours cmpr flip" data-l="BridgePit">Nothing runs. Your machine is the engine.</div>
-    <div class="q cmpr">Who can see your positions</div>
-    <div class="a old cmpr bot" data-l="Cloud relay">They can. It is their database.</div>
-    <div class="a ours cmpr bot" data-l="BridgePit">You and your broker.</div>
+    <div class="q cmpr" data-r="both">Where your broker login lives</div>
+    <div class="a old cmpr" data-r="both" data-l="Cloud relay">On their server, alongside everyone else's.</div>
+    <div class="a ours cmpr" data-r="both" data-l="BridgePit">On your Mac, encrypted. It is never sent to us.</div>
+    <div class="q cmpr" data-r="funded">Who can reach your funded account</div>
+    <div class="a old cmpr" data-r="funded" data-l="Cloud relay">A third party holds working credentials to it.</div>
+    <div class="a ours cmpr" data-r="funded" data-l="BridgePit">Only you. Nothing of ours can reach the account.</div>
+    <div class="q cmpr" data-r="own">Worst case if they are breached</div>
+    <div class="a old cmpr" data-r="own" data-l="Cloud relay">A live brokerage account with your money in it.</div>
+    <div class="a ours cmpr" data-r="own" data-l="BridgePit">Nothing of ours to breach. The keys never left your Mac.</div>
+    <div class="q cmpr" data-r="both">Whose connection the order leaves from</div>
+    <div class="a old cmpr" data-r="both" data-l="Cloud relay">Theirs — one address shared by every customer.</div>
+    <div class="a ours cmpr" data-r="both" data-l="BridgePit">Yours. The same connection you place orders from by hand.</div>
+    <div class="q cmpr" data-r="both">What sits between you and your broker</div>
+    <div class="a old cmpr" data-r="both" data-l="Cloud relay">Their servers, their queue, their rate limits.</div>
+    <div class="a ours cmpr" data-r="both" data-l="BridgePit">Nothing of ours. Your Mac talks to your broker directly.</div>
+    <div class="q cmpr" data-r="funded">Where your firm's numbers are enforced</div>
+    <div class="a old cmpr" data-r="funded" data-l="Cloud relay">On their server, if it is reachable at the time.</div>
+    <div class="a ours cmpr" data-r="funded" data-l="BridgePit">On your Mac, by the same program placing the orders.</div>
+    <div class="q cmpr" data-r="own">Trying it before you trust it</div>
+    <div class="a old cmpr" data-r="own" data-l="Cloud relay">Broker credentials go in before the trial starts.</div>
+    <div class="a ours cmpr" data-r="own" data-l="BridgePit">Paper is free. No card, no credentials, real fills to watch.</div>
+    <div class="q cmpr flip" data-r="both">While your Mac is off</div>
+    <div class="a old cmpr flip" data-r="both" data-l="Cloud relay">It keeps running without you.</div>
+    <div class="a ours cmpr flip" data-r="both" data-l="BridgePit">Nothing runs. Your machine is the engine.</div>
+    <div class="q cmpr" data-r="funded">An account closed for sitting idle</div>
+    <div class="a old cmpr" data-r="funded" data-l="Cloud relay">Not their problem. You watch the calendar yourself.</div>
+    <div class="a ours cmpr" data-r="funded" data-l="BridgePit">It can place one small trade on the last day, if you switch that on.</div>
+    <div class="q cmpr" data-r="own">Your fill record at tax time</div>
+    <div class="a old cmpr" data-r="own" data-l="Cloud relay">In their dashboard. Access ends with the subscription.</div>
+    <div class="a ours cmpr" data-r="own" data-l="BridgePit">A dated log on your own disk. Yours permanently.</div>
+    <div class="q cmpr" data-r="both">Who can see your positions</div>
+    <div class="a old cmpr" data-r="both" data-l="Cloud relay">They can. It is their database.</div>
+    <div class="a ours cmpr" data-r="both" data-l="BridgePit">You and your broker.</div>
   </div>
 
-  <p class="cmpnote"><b>That fifth row is the trade.</b> A cloud tool runs while your machine is closed; BridgePit does not, because the whole point is that nothing of yours lives anywhere else. If you need a machine that never sleeps, run it on a Mac you leave on — not on someone else's.</p>
+  <p class="cmpnote"><b>The row where they win is real.</b> A cloud tool runs while your machine is closed and BridgePit does not, because nothing of ours lives anywhere else to run it. If you need fills while your Mac is off, buy the cloud tool. If you want to be at the desk with nothing in between, this is the one.</p>
+  <p class="cmpnote" style="margin-top:12px">macOS and Rithmic today. Other brokers are added only once each one is proven end to end with real orders.</p>
 </section>
 
 <!-- ════ SCREEN 5 — setting it up ════ -->
@@ -1165,7 +1162,7 @@
       <div class="amt">$25<span> /month</span></div>
       <div class="plist">
         <div><i></i>Orders reach your real broker</div>
-        <div><i></i>Multiple accounts from one alert</div>
+        <div><i></i>Every guard running on your own numbers</div>
         <div><i></i>Your price stays $25 while your subscription runs</div>
         <div><i></i>A direct line to the two people who build it</div>
       </div>
@@ -1202,7 +1199,7 @@
   <h2>Run one session on paper, free.</h2>
   <p class="csub">Nothing to sign into, no card, no cloud account. It is a Mac app, and it stops when you close it.</p>
   <div class="buttons dlbtn">
-    <a class="b b-primary" href="#">
+    <a class="b b-primary" href="downloads/BridgePit-mac.dmg">
       <svg width="17" height="20" viewBox="0 0 814 1000" fill="currentColor" style="flex:none">
         <path d="M788 340c-5 4-96 55-96 169 0 132 116 179 120 180-1 3-19 63-60 124-37 54-75 108-133 108s-73-35-140-35c-65 0-88 36-141 36s-90-50-133-111C155 736 116 610 116 490c0-192 125-294 248-294 62 0 114 41 153 41 37 0 95-43 166-43 27 0 118 2 178 87zM496 111c29-35 50-83 50-131 0-7-1-13-2-18-48 2-105 32-139 72-27 30-52 78-52 127 0 7 1 15 2 17 3 1 8 1 12 1 43 0 97-29 129-68z"/>
       </svg>
@@ -1264,8 +1261,8 @@
     {t:'12:48:30',k:'FILL',  s:'VWAP-fade',   d:'BUY 1 @ 5,866.00 · position −1 → 0'},
     {t:'13:46:11',k:'ORDER', s:'Breakout-1m', d:'BUY 2 MNQ1! → Main account'},
     {t:'13:55:12',k:'FILL',  s:'Breakout-1m', d:'SELL 2 @ 23,455.00 · position 2 → 0 · +$267.00'},
-    {t:'14:31:50',k:'ORDER', s:'Breakout-1m', d:'BUY 2 MNQ1! → Main account · mirrored ×1 to Second'},
-    {t:'14:31:51',k:'FILL',  s:'Breakout-1m', d:'BUY 3 @ 23,441.00 · book 0 → MNQ +3'},
+    {t:'14:31:50',k:'ORDER', s:'Breakout-1m', d:'BUY 2 MNQ1! → Main account'},
+    {t:'14:31:51',k:'FILL',  s:'Breakout-1m', d:'BUY 2 @ 23,441.00 · position 0 → 2'},
     {t:'14:31:52',k:'STOP',  s:'Breakout-1m', d:'Protective stop resting at broker · 23,409.00'}
   ];
 
@@ -1345,6 +1342,34 @@
       });
     },{threshold:.3});
     crows.forEach(function(r){ io2.observe(r) });
+  }
+
+  /* the audience switch — same control the app uses on its risk screen */
+  var sw=document.getElementById('audsw');
+  if(sw&&cmp){
+    var btns=[].slice.call(sw.querySelectorAll('button'));
+    function apply(aud){
+      var cells=[].slice.call(cmp.querySelectorAll('[data-r]'));
+      cells.forEach(function(c){
+        var r=c.getAttribute('data-r');
+        c.classList.toggle('hide', !(r==='both'||r===aud));
+        c.classList.remove('top','bot');
+        c.classList.add('lit');
+      });
+      /* re-cap the visible block so the rounded corners stay on the ends */
+      var vis=cells.filter(function(c){ return !c.classList.contains('hide') && c.classList.contains('a') });
+      if(vis.length){
+        vis[0].classList.add('top'); vis[1].classList.add('top');
+        vis[vis.length-2].classList.add('bot'); vis[vis.length-1].classList.add('bot');
+      }
+    }
+    btns.forEach(function(b){
+      b.addEventListener('click',function(){
+        btns.forEach(function(x){ x.classList.toggle('on',x===b) });
+        apply(b.getAttribute('data-aud'));
+      });
+    });
+    apply('funded');
   }
 })();
 </script>
