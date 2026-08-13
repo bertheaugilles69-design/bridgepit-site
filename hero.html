@@ -720,6 +720,8 @@
   .audsw button.on{background:var(--txt);color:var(--bg)}
   .audsw button:not(.on):hover{color:var(--txt)}
   .cmp .hide{display:none}
+  .cmpsep{grid-column:1/-1;margin-top:26px;padding:0 0 12px;
+    font:600 10.5px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:#5B5B63}
   /* the switch: shared rows hold still, only the swapped ones move */
   .cmp .a,.cmp .q{transition:opacity .22s ease,transform .22s ease,background-color .5s ease}
   .cmp .fading{opacity:0;transform:translateY(-5px)}
@@ -1002,36 +1004,38 @@
     <div class="q cmpr" data-r="both">Where your broker login lives</div>
     <div class="a old cmpr" data-r="both" data-l="Cloud relay">On their server, alongside everyone else's.</div>
     <div class="a ours cmpr" data-r="both" data-l="BridgePit">On your Mac, encrypted. It is never sent to us.</div>
-    <div class="q cmpr" data-r="funded">Who can reach your funded account</div>
-    <div class="a old cmpr" data-r="funded" data-l="Cloud relay">A third party holds working credentials to it.</div>
-    <div class="a ours cmpr" data-r="funded" data-l="BridgePit">Only you. Nothing of ours can reach the account.</div>
-    <div class="q cmpr" data-r="own">Worst case if they are breached</div>
-    <div class="a old cmpr" data-r="own" data-l="Cloud relay">A live brokerage account with your money in it.</div>
-    <div class="a ours cmpr" data-r="own" data-l="BridgePit">Nothing of ours to breach. The keys never left your Mac.</div>
     <div class="q cmpr" data-r="both">Whose connection the order leaves from</div>
     <div class="a old cmpr" data-r="both" data-l="Cloud relay">Theirs — one address shared by every customer.</div>
     <div class="a ours cmpr" data-r="both" data-l="BridgePit">Yours. The same connection you place orders from by hand.</div>
     <div class="q cmpr" data-r="both">What sits between you and your broker</div>
     <div class="a old cmpr" data-r="both" data-l="Cloud relay">Their servers, their queue, their rate limits.</div>
     <div class="a ours cmpr" data-r="both" data-l="BridgePit">Nothing of ours. Your Mac talks to your broker directly.</div>
-    <div class="q cmpr" data-r="funded">Where your firm's numbers are enforced</div>
-    <div class="a old cmpr" data-r="funded" data-l="Cloud relay">On their server, if it is reachable at the time.</div>
-    <div class="a ours cmpr" data-r="funded" data-l="BridgePit">On your Mac, by the same program placing the orders.</div>
-    <div class="q cmpr" data-r="own">Trying it before you trust it</div>
-    <div class="a old cmpr" data-r="own" data-l="Cloud relay">Broker credentials go in before the trial starts.</div>
-    <div class="a ours cmpr" data-r="own" data-l="BridgePit">Paper is free. No card, no credentials, real fills to watch.</div>
     <div class="q cmpr flip" data-r="both">While your Mac is off</div>
     <div class="a old cmpr flip" data-r="both" data-l="Cloud relay">It keeps running without you.</div>
     <div class="a ours cmpr flip" data-r="both" data-l="BridgePit">Nothing runs. Your machine is the engine.</div>
-    <div class="q cmpr" data-r="funded">An account closed for sitting idle</div>
-    <div class="a old cmpr" data-r="funded" data-l="Cloud relay">Not their problem. You watch the calendar yourself.</div>
-    <div class="a ours cmpr" data-r="funded" data-l="BridgePit">It can place one small trade on the last day, if you switch that on.</div>
-    <div class="q cmpr" data-r="own">Your fill record at tax time</div>
-    <div class="a old cmpr" data-r="own" data-l="Cloud relay">In their dashboard. Access ends with the subscription.</div>
-    <div class="a ours cmpr" data-r="own" data-l="BridgePit">A dated log on your own disk. Yours permanently.</div>
     <div class="q cmpr" data-r="both">Who can see your positions</div>
     <div class="a old cmpr" data-r="both" data-l="Cloud relay">They can. It is their database.</div>
     <div class="a ours cmpr" data-r="both" data-l="BridgePit">You and your broker.</div>
+    <div class="cmpsep" data-r="funded">Because you are on a funded account</div>
+    <div class="cmpsep" data-r="own">Because it is your own money</div>
+    <div class="q cmpr" data-r="funded">Who can reach your funded account</div>
+    <div class="a old cmpr" data-r="funded" data-l="Cloud relay">A third party holds working credentials to it.</div>
+    <div class="a ours cmpr" data-r="funded" data-l="BridgePit">Only you. Nothing of ours can reach the account.</div>
+    <div class="q cmpr" data-r="funded">Where your firm's numbers are enforced</div>
+    <div class="a old cmpr" data-r="funded" data-l="Cloud relay">On their server, if it is reachable at the time.</div>
+    <div class="a ours cmpr" data-r="funded" data-l="BridgePit">On your Mac, by the same program placing the orders.</div>
+    <div class="q cmpr" data-r="funded">An account closed for sitting idle</div>
+    <div class="a old cmpr" data-r="funded" data-l="Cloud relay">Not their problem. You watch the calendar yourself.</div>
+    <div class="a ours cmpr" data-r="funded" data-l="BridgePit">It can place one small trade on the last day, if you switch that on.</div>
+    <div class="q cmpr" data-r="own">Worst case if they are breached</div>
+    <div class="a old cmpr" data-r="own" data-l="Cloud relay">A live brokerage account with your money in it.</div>
+    <div class="a ours cmpr" data-r="own" data-l="BridgePit">Nothing of ours to breach. The keys never left your Mac.</div>
+    <div class="q cmpr" data-r="own">Trying it before you trust it</div>
+    <div class="a old cmpr" data-r="own" data-l="Cloud relay">Broker credentials go in before the trial starts.</div>
+    <div class="a ours cmpr" data-r="own" data-l="BridgePit">Paper is free. No card, no credentials, real fills to watch.</div>
+    <div class="q cmpr" data-r="own">Your fill record at tax time</div>
+    <div class="a old cmpr" data-r="own" data-l="Cloud relay">In their dashboard. Access ends with the subscription.</div>
+    <div class="a ours cmpr" data-r="own" data-l="BridgePit">A dated log on your own disk. Yours permanently.</div>
   </div>
 
   <p class="cmpnote"><b>The row where they win is real.</b> A cloud tool runs while your machine is closed and BridgePit does not, because nothing of ours lives anywhere else to run it. If you need fills while your Mac is off, buy the cloud tool. If you want to be at the desk with nothing in between, this is the one.</p>
@@ -1361,11 +1365,18 @@
     var btns=[].slice.call(sw.querySelectorAll('button'));
     function cap(cells){
       cells.forEach(function(c){ c.classList.remove('top','bot') });
-      var vis=cells.filter(function(c){ return !c.classList.contains('hide') && c.classList.contains('a') });
-      if(vis.length){
-        vis[0].classList.add('top'); vis[1].classList.add('top');
-        vis[vis.length-2].classList.add('bot'); vis[vis.length-1].classList.add('bot');
-      }
+      /* two blocks: the shared rows, then the ones that belong to this audience */
+      var kids=[].slice.call(cmp.children), groups=[[]];
+      kids.forEach(function(el){
+        if(el.classList.contains('hide')) return;
+        if(el.classList.contains('cmpsep')){ groups.push([]); return }
+        if(el.classList.contains('a')) groups[groups.length-1].push(el);
+      });
+      groups.forEach(function(g){
+        if(g.length<2) return;
+        g[0].classList.add('top'); g[1].classList.add('top');
+        g[g.length-2].classList.add('bot'); g[g.length-1].classList.add('bot');
+      });
     }
     function apply(aud, animate){
       var cells=[].slice.call(cmp.querySelectorAll('[data-r]'));
