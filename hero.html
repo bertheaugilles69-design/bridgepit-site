@@ -878,7 +878,12 @@
   .tunnel p{margin-top:9px;font:400 14px/1.6 var(--sans);color:var(--dim2)}
 
   @media(max-width:900px){ .stp{grid-template-columns:1fr;gap:26px} }
-  .prices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;max-width:820px}
+  .prices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+  .price.soon{opacity:.72}
+  .price.soon .ptag{color:var(--dim2)}
+  .soontag{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line2);border-radius:999px;
+    padding:4px 11px;font:600 10.5px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+  .pbtn.off{background:transparent;border:1px dashed var(--line2);color:var(--dim2);cursor:default}
   .price{border:1px solid var(--line);border-radius:12px;padding:28px 26px 30px;background:rgba(255,255,255,.014)}
   .price.hi{border-color:var(--line2);background:var(--panel)}
   .ptag{font:600 11px var(--sans);letter-spacing:.13em;text-transform:uppercase;color:var(--dim2)}
@@ -1182,8 +1187,20 @@
       </div>
       <a class="pbtn" href="#download">Start on paper first</a>
     </div>
+    <div class="price soon">
+      <div class="ptag">Multi <span class="soontag">Coming</span></div>
+      <div class="amt">$99<span> /month</span></div>
+      <div class="plist">
+        <div><i></i>One alert into every account, filling together</div>
+        <div><i></i>Each account with its own size and stop distance</div>
+        <div><i></i>Each with its own loss limit, so one bad day doesn't close the rest</div>
+        <div><i></i>Which account is closest to a payout, and what is holding it up</div>
+      </div>
+      <span class="pbtn off">Not on sale yet</span>
+    </div>
   </div>
   <p class="pnote2"><b>The first fifty keep $49.</b> While your subscription runs without a break, that price does not move, whatever it becomes later.</p>
+  <p class="pnote2" style="margin-top:12px"><b>On several accounts at one firm:</b> running the same signal into more than one account is something firms look at closely. What makes it yours is that they are your own accounts running your own strategy, not trades copied between different people. Check your firm's own rule before you set it up — some require every account to trade the same way, and some forbid it outright.</p>
   <p class="pnote2" style="margin-top:12px">Your broker or your firm charges its own platform and data fees. That goes to them, not to us, and it is the same fee you pay trading by hand.</p>
 </section>
 
