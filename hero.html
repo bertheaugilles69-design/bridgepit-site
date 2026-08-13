@@ -562,7 +562,7 @@
                 <div><div class="nm">Main account</div><div class="aid">RITH-104281</div></div>
                 <span class="abadge exec">execution</span>
               </div>
-              <div class="pnl down" id="aPnl">−$180.00</div>
+              <div class="pnl up" id="aPnl">+$354.00</div>
               <div class="pnls">today, realised</div>
               <div class="bal">balance $52,430.00</div>
               <div class="spark">
@@ -574,8 +574,8 @@
               </div>
               <div class="range"><i style="left:65.7%"></i></div>
               <div class="rlabels"><span>floor <b>$47,500</b></span><span>target <b>$55,000</b></span></div>
-              <div class="abar"><i id="aBar" style="width:30%"></i></div>
-              <div class="s">day loss budget <b class="num">$180</b> of $600 used · auto-halt at −$600</div>
+              <div class="abar"><i id="aBar" style="width:0%"></i></div>
+              <div class="s">day loss budget <b class="num">$0</b> of $600 used · auto-halt at −$600</div>
               <div class="mrow">
                 <div>Room to floor <b>$4,930</b></div>
                 <div>To target <b>$2,570</b></div>
@@ -627,8 +627,8 @@
             <div class="tile"><h4>Open positions</h4><div class="v" id="tPos">3</div>
               <div class="s" id="tPosS">MNQ +3 · across two accounts</div></div>
             <div class="tile"><h4>Loss budget <small>(losses only)</small></h4>
-              <div class="v" id="tBud">$270 <small>of $1,200</small></div>
-              <div class="meter"><i id="tBar" style="width:22.5%"></i></div>
+              <div class="v" id="tBud">$90 <small>of $1,200</small></div>
+              <div class="meter"><i id="tBar" style="width:7.5%"></i></div>
               <div class="s">auto-halt per account · profits uncapped</div></div>
             <div class="tile"><h4>EOD flatten</h4><div class="v">15:55</div>
               <div class="s">ET · failsafe force-flat</div></div>
@@ -640,7 +640,7 @@
             <div class="tr"><span><b class="w">VWAP-fade</b></span><span>21</span><span>52%</span>
               <span class="num money up">+$465.50</span><span class="pf2 num">1.21</span><span class="lastt num">08-13 12:48</span></div>
             <div class="tr"><span><b class="w">Breakout-1m</b></span><span>34</span><span>47%</span>
-              <span class="num money down">−$212.00</span><span class="pf2 num">0.94</span><span class="lastt num">08-13 13:55</span></div>
+              <span class="num money up">+$284.00</span><span class="pf2 num">1.09</span><span class="lastt num">08-13 13:55</span></div>
             <div class="tr"><span><b class="w">Overnight-gap</b></span><span>4</span><span>50%</span>
               <span class="num money down">−$88.00</span><span class="pf2 num">0.86</span><span class="lastt num">08-06 09:31</span></div>
           </div>
@@ -650,7 +650,7 @@
             <div class="th"><span class="cl">Closed (ET)</span><span>Strategy</span><span>Side</span><span>Qty</span>
               <span class="px">Entry → exit</span><span class="pts">Points</span><span>P&amp;L</span><span class="hold">Hold</span></div>
             <div class="tr"><span class="cl num">13:55</span><span><b class="w">Breakout-1m</b></span><span class="side-BUY">LONG</span><span>2 MNQ</span>
-              <span class="px num">23,455.00 → 23,388.25</span><span class="pts num down">−66.75</span><span class="num money down">−$267.00</span><span class="hold">9m</span></div>
+              <span class="px num">23,388.25 → 23,455.00</span><span class="pts num up">+66.75</span><span class="num money up">+$267.00</span><span class="hold">9m</span></div>
             <div class="tr"><span class="cl num">12:48</span><span><b class="w">VWAP-fade</b></span><span class="side-SELL">SHORT</span><span>1 MES</span>
               <span class="px num">5,858.75 → 5,866.00</span><span class="pts num down">−7.25</span><span class="num money down">−$36.25</span><span class="hold">24m</span></div>
             <div class="tr"><span class="cl num">11:26</span><span><b class="w">Breakout-1m</b></span><span class="side-BUY">LONG</span><span>2 MNQ</span>
@@ -1005,7 +1005,10 @@
     {t:'10:50:07',k:'FILL',  s:'VWAP-fade',   d:'BUY 1 @ 5,836.25 · position −1 → 0'},
     {t:'12:48:30',k:'FILL',  s:'VWAP-fade',   d:'BUY 1 @ 5,866.00 · position −1 → 0'},
     {t:'13:46:11',k:'ORDER', s:'Breakout-1m', d:'BUY 2 MNQ1! → Main account'},
-    {t:'13:55:12',k:'FILL',  s:'Breakout-1m', d:'SELL 2 @ 23,388.25 · position 2 → 0'}
+    {t:'13:55:12',k:'FILL',  s:'Breakout-1m', d:'SELL 2 @ 23,455.00 · position 2 → 0 · +$267.00'},
+    {t:'14:31:50',k:'ORDER', s:'Breakout-1m', d:'BUY 2 MNQ1! → Main account · mirrored ×1 to Second'},
+    {t:'14:31:51',k:'FILL',  s:'Breakout-1m', d:'BUY 3 @ 23,441.00 · book 0 → MNQ +3'},
+    {t:'14:31:52',k:'STOP',  s:'Breakout-1m', d:'Protective stop resting at broker · 23,409.00'}
   ];
 
   function line(r,animate){
