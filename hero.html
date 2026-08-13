@@ -250,8 +250,8 @@
 
   /* per-account cards */
   .accts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-  .accts.one{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
-  .accts.one .acct{grid-column:1}
+  .accts.one{grid-template-columns:1fr}
+  .accts.one .mrow{grid-template-columns:repeat(4,minmax(0,1fr));gap:8px 22px}
   .acct{border:1px solid var(--al);border-radius:16px;padding:16px 17px;background:var(--card)}
   .acct.exec{border-color:rgba(143,169,214,.3)}
   .acct .head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
