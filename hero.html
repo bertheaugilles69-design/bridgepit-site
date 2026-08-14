@@ -345,7 +345,7 @@
   .shield svg{width:16px;height:16px;flex:none;margin-top:1px}
   .shield span{font:400 12.5px/1.55 var(--sans);color:var(--adim)}
 
-  .strat .th,.strat .tr{grid-template-columns:minmax(0,1.4fr) 84px 68px minmax(0,1.2fr) 84px 66px}
+  .strat .th,.strat .tr{grid-template-columns:minmax(0,1.4fr) 92px 80px 104px 76px 62px}
 
   /* the honest caption under the frame */
   .under{margin-top:16px;display:flex;flex-wrap:wrap;gap:8px 24px;
@@ -595,8 +595,8 @@
               <div class="mrow">
                 <div>Room to floor <b>$4,930</b></div>
                 <div>To target <b>$2,570</b></div>
-                <div>Peak balance <b>$52,610</b></div>
-                <div>Worst day <b>−$410</b></div>
+                <div>Peak EOD <b>$52,610</b></div>
+                <div>Worst trade <b>−$410</b></div>
               </div>
               <div class="ameta">
                 <div>Positions <b><span class="poschip">MNQ +2</span></b></div>
@@ -679,10 +679,10 @@
         <div class="view" data-v="strat">
           <div class="bar"><div class="sect" style="margin:0">Strategies</div><button class="addbtn" type="button">+ Add strategy</button></div>
           <div class="tbl strat">
-            <div class="th"><span>Strategy</span><span>Instrument</span><span>Contracts</span><span>Routes to</span><span>Emergency stop</span><span>Status</span></div>
-            <div class="tr"><span><b class="w">Breakout-1m</b></span><span>MNQ1!</span><span>2</span><span>Rithmic</span><span>32 pts</span><span class="up">On</span></div>
-            <div class="tr"><span><b class="w">VWAP-fade</b></span><span>MES1!</span><span>1</span><span>Rithmic</span><span>18 pts</span><span class="up">On</span></div>
-            <div class="tr"><span><b class="w">Overnight-gap</b></span><span>MNQ1!</span><span>1</span><span>—</span><span>40 pts</span><span style="color:#5C6470">Off</span></div>
+            <div class="th"><span>Strategy</span><span>Instrument</span><span>Contracts</span><span>Emergency stop</span><span>Position</span><span>Status</span></div>
+            <div class="tr"><span><b class="w">Breakout-1m</b></span><span>MNQ1!</span><span>2</span><span>32 pts</span><span>2</span><span class="up">On</span></div>
+            <div class="tr"><span><b class="w">VWAP-fade</b></span><span>MES1!</span><span>1</span><span>18 pts</span><span>0</span><span class="up">On</span></div>
+            <div class="tr"><span><b class="w">Overnight-gap</b></span><span>MNQ1!</span><span>1</span><span>40 pts</span><span>0</span><span style="color:#5C6470">Off</span></div>
           </div>
           <div class="shield">
             <svg viewBox="0 0 24 24" fill="none" stroke="#8C94A1" stroke-width="1.6"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>
@@ -847,7 +847,7 @@
   .btn2.g{background:transparent;border:1px solid var(--al2);color:var(--atx)}
   .two{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}
   .rtbl{border:1px solid var(--al);border-radius:10px;overflow:hidden;background:var(--card)}
-  .rtbl .rh,.rtbl .rr{display:grid;grid-template-columns:minmax(0,.9fr) 68px 60px 92px 40px;
+  .rtbl .rh,.rtbl .rr{display:grid;grid-template-columns:minmax(0,.8fr) 62px 56px 84px 48px 38px;
     gap:10px;padding:9px 13px;align-items:center;font:400 12px var(--sans);color:var(--adim)}
   .rtbl .rh{background:rgba(255,255,255,.025);font:600 8.5px var(--sans);letter-spacing:.035em;
     text-transform:uppercase;color:var(--adim2)}
@@ -951,8 +951,8 @@
   <div class="tl" id="tl">
     <div class="tlrow"><div class="tlt">09:47</div><div class="tlm"><i></i></div>
       <div class="tlc">
-        <div class="tlw">TradingView fires the same alert three times.</div>
-        <div class="tlg"><span class="gchip">Duplicate guard</span>One order leaves. The other two are refused and written into the log, so you can see it happened instead of finding a doubled position.</div>
+        <div class="tlw">TradingView fires the same alert three times in a row.</div>
+        <div class="tlg"><span class="gchip">Duplicate guard</span>The same signal repeated within ten seconds sends one order. The rest are refused and written into the log, so you see it happened instead of finding a doubled position.</div>
       </div></div>
 
     <div class="tlrow"><div class="tlt">09:47</div><div class="tlm"><i></i></div>
@@ -970,7 +970,7 @@
     <div class="tlrow"><div class="tlt">13:58</div><div class="tlm"><i></i></div>
       <div class="tlc">
         <div class="tlw">The day turns against you.</div>
-        <div class="tlg"><span class="gchip">Stop for today</span>At the number you set, new entries stop. Exits and stops keep working. It resets by itself the next morning.</div>
+        <div class="tlg"><span class="gchip">Stop for today</span>At the number you set, new entries stop. Exits and stops keep working. It resets by itself when the next session opens, 6pm New York.</div>
       </div></div>
 
     <div class="tlrow"><div class="tlt">14:20</div><div class="tlm"><i></i></div>
@@ -982,11 +982,11 @@
     <div class="tlrow"><div class="tlt">15:55</div><div class="tlm"><i></i></div>
       <div class="tlc">
         <div class="tlw">The session ends and something is still open.</div>
-        <div class="tlg"><span class="gchip">End of day flatten</span>At the time you chose, anything still open is closed, and the app keeps asking the broker until it can confirm you are flat.</div>
+        <div class="tlg"><span class="gchip">End of day flatten</span>At the time you chose, anything still open is closed, and the app keeps asking the broker until it confirms you are flat. If it still cannot by the cutoff, it raises the alarm rather than pretending.</div>
       </div></div>
   </div>
 
-  <p class="tlend"><b>And across days:</b> fall a set distance below your best balance and BridgePit stops for good, not just for the day — the one rail that does not reset in the morning.</p>
+  <p class="tlend"><b>And across days:</b> fall a set distance below your best <b>end-of-day</b> balance and BridgePit stops for good, not just for the day — the one rail that never resets by itself.</p>
 </section>
 
 <!-- ════ SCREEN 4 — the side-by-side ════ -->
@@ -1038,7 +1038,7 @@
     <div class="a ours cmpr" data-r="own" data-l="BridgePit">Paper is free. No card, no credentials, real fills to watch.</div>
     <div class="q cmpr" data-r="own">If the company behind it disappears</div>
     <div class="a old cmpr" data-r="own" data-l="Cloud relay">Their servers stop, and your automation stops with them.</div>
-    <div class="a ours cmpr" data-r="own" data-l="BridgePit">The app keeps running on your Mac. It needs nothing from us.</div>
+    <div class="a ours cmpr" data-r="own" data-l="BridgePit">The app keeps running on your Mac and paper never stops. Live trading follows the licence you hold.</div>
   </div>
 
   <p class="cmpnote"><b>The row where they win is real.</b> A cloud tool runs while your machine is closed and BridgePit does not, because nothing of ours lives anywhere else to run it. If you need fills while your Mac is off, buy the cloud tool. If you want to be at the desk with nothing in between, this is the one.</p>
@@ -1058,7 +1058,7 @@
       <div class="sn">1</div>
       <h3>Open it and pick a password.</h3>
       <p>There is no account to create and nothing to sign into. The password guards the dashboard on <b>this machine</b>, and it is stored here.</p>
-      <div class="proof"><span><b>You know it worked</b>The app opens without a warning from macOS, because Apple has signed and notarised it. If you forget the password there is no reset link — by design.</span></div>
+      <div class="proof"><span><b>You know it worked</b>The app opens without a warning from macOS: it is signed by the developer and notarised by Apple. If you forget the password there is no reset link — by design.</span></div>
     </div>
     <div class="rep">
       <div class="rept"><span class="t">Welcome to BridgePit</span></div>
@@ -1084,10 +1084,10 @@
       <div class="rept"><span class="t">Strategies</span><span class="r"><i></i>Paper</span></div>
       <div class="repb">
         <div class="rtbl">
-          <div class="rh"><span>Strategy</span><span>Instrument</span><span>Contracts</span><span>Emergency stop</span><span>Status</span></div>
-          <div class="rr"><span><b>Breakout-1m</b></span><span>MNQ1!</span><span>2</span><span>32 pts</span><span class="on3">on</span></div>
-          <div class="rr"><span><b>VWAP-fade</b></span><span>MES1!</span><span>1</span><span>18 pts</span><span class="on3">on</span></div>
-          <div class="rr"><span><b>Overnight-gap</b></span><span>MNQ1!</span><span>1</span><span>none</span><span class="off3">off</span></div>
+          <div class="rh"><span>Strategy</span><span>Instrument</span><span>Contracts</span><span>Emergency stop</span><span>Position</span><span>Status</span></div>
+          <div class="rr"><span><b>Breakout-1m</b></span><span>MNQ1!</span><span>2</span><span>32 pts</span><span>0</span><span class="on3">on</span></div>
+          <div class="rr"><span><b>VWAP-fade</b></span><span>MES1!</span><span>1</span><span>18 pts</span><span>0</span><span class="on3">on</span></div>
+          <div class="rr"><span><b>Overnight-gap</b></span><span>MNQ1!</span><span>1</span><span>none</span><span>0</span><span class="off3">off</span></div>
         </div>
         <div class="note">The name must match the strategy_name in your TradingView alert exactly.</div>
       </div>
@@ -1111,7 +1111,7 @@
             <div class="fld">$600</div>
           </div>
           <div>
-            <div class="lbl">Stop for good after falling this far below your best</div>
+            <div class="lbl">Stop for good after falling this far below your best end-of-day balance</div>
             <div class="fld">$4,000</div>
           </div>
           <div>
@@ -1242,7 +1242,7 @@
       Download for macOS <span class="sz">.dmg</span>
     </a>
   </div>
-  <p class="dlfacts">Apple Silicon (M1 or later) · signed and notarised by Apple · macOS 13+</p>
+  <p class="dlfacts">Apple Silicon (M1 or later) · developer-signed, notarised by Apple · macOS 13+</p>
 </section>
 
 <footer class="foot">
