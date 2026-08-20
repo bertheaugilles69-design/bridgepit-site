@@ -109,10 +109,12 @@
   .b-ghost .arrow{margin-left:auto;transition:transform .25s}
   .b-ghost:hover .arrow{transform:translateY(3px)}
 
-  .facts{margin-top:26px;display:flex;flex-wrap:wrap;align-items:center;
-    font:600 12px/1.9 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--dim2)}
-  .facts span{white-space:nowrap}
-  .facts span + span::before{content:"·";margin:0 .7em;font-weight:500}
+  .facts{margin-top:26px;display:flex;flex-direction:column;align-items:flex-start;gap:8px;
+    font:600 12px/1.4 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--dim2)}
+  .facts-row{display:flex;flex-wrap:wrap;align-items:baseline;column-gap:0;row-gap:8px}
+  .facts-row span{white-space:nowrap}
+  .facts-row span:not(:last-child)::after{content:"·";margin:0 .75em;font-weight:500;opacity:.55}
+  .facts-row.must{color:#9A9AA3}
 
   /* ── the two paths: the whole argument, in one picture ──
      Same three boxes both times. The only difference is which box
@@ -605,7 +607,14 @@
       </a>
     </div>
 
-    <p class="facts"><span>macOS</span><span>Rithmic</span><span>free on paper</span><span>lid closed, nothing trades</span><span>no internet, nothing trades</span></p>
+    <div class="facts">
+      <div class="facts-row">
+        <span>macOS</span><span>Rithmic</span><span>free on paper</span>
+      </div>
+      <div class="facts-row must">
+        <span>lid closed, nothing trades</span><span>no internet, nothing trades</span>
+      </div>
+    </div>
   </div>
 
   <div class="paths">
