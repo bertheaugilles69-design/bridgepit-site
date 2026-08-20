@@ -106,15 +106,6 @@
   @keyframes ftfloat{
     0%,100%{transform:translate3d(0,0,0)}
     50%{transform:translate3d(0,-7px,0)}}
-  .hero-dust{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0}
-  .hero-dust i{position:absolute;width:2.5px;height:2.5px;border-radius:50%;
-    background:rgba(232,236,244,.42);animation:dust 20s linear infinite}
-  .hero-dust i:nth-child(odd){width:1.5px;height:1.5px;background:rgba(232,236,244,.28)}
-  @keyframes dust{
-    0%{transform:translate3d(0,12px,0);opacity:0}
-    12%{opacity:.55}
-    80%{opacity:.18}
-    100%{transform:translate3d(10px,-110px,0);opacity:0}}
   .hero-wash{position:absolute;right:-8%;top:6%;width:46vw;height:40vw;pointer-events:none;z-index:0;
     background:radial-gradient(ellipse at center,rgba(232,236,244,.08),transparent 68%);
     animation:washdrift 26s ease-in-out infinite}
@@ -125,7 +116,7 @@
     .hero{height:auto;min-height:0;overflow:visible;padding-bottom:56px}
     .hero .stage{margin-top:32px}
     .hero .stage .ftwin{min-height:0;border-radius:16px;zoom:1}
-    .hero-dust,.hero-wash{display:none}
+    .hero-wash{display:none}
     .hero .ft-float{animation:none}
     .hero h1{max-width:none}
     .hero .buttons{flex-direction:column;align-items:flex-start}
@@ -592,7 +583,7 @@
   @media(prefers-reduced-motion:reduce){
     .pathrow.ours .wire::after{animation:none;opacity:1;left:calc(100% - 6px)}
     .plabel .lv i{animation:none}
-    .hero-dust,.hero-wash{display:none}
+    .hero-wash{display:none}
     .hero .ft-float,body::before{animation:none}
   }
   @media(max-width:700px) and (prefers-reduced-motion:reduce){
@@ -628,26 +619,6 @@
 <!-- ════ SCREEN 1 - the edge: it runs on your machine ════ -->
 <main class="hero">
 <div class="hero-wash" aria-hidden="true"></div>
-<div class="hero-dust" aria-hidden="true">
-  <i style="left:79%;top:18%;animation-duration:18s;animation-delay:-2s"></i>
-  <i style="left:83%;top:36%;animation-duration:24s;animation-delay:-9s"></i>
-  <i style="left:87%;top:12%;animation-duration:21s;animation-delay:-5s"></i>
-  <i style="left:81%;top:54%;animation-duration:19s;animation-delay:-12s"></i>
-  <i style="left:90%;top:28%;animation-duration:26s;animation-delay:-7s"></i>
-  <i style="left:85%;top:68%;animation-duration:22s;animation-delay:-15s"></i>
-  <i style="left:93%;top:16%;animation-duration:17s;animation-delay:-4s"></i>
-  <i style="left:78%;top:44%;animation-duration:23s;animation-delay:-11s"></i>
-  <i style="left:89%;top:60%;animation-duration:20s;animation-delay:-8s"></i>
-  <i style="left:84%;top:8%;animation-duration:25s;animation-delay:-1s"></i>
-  <i style="left:91%;top:74%;animation-duration:18s;animation-delay:-14s"></i>
-  <i style="left:95%;top:40%;animation-duration:27s;animation-delay:-6s"></i>
-  <i style="left:80%;top:82%;animation-duration:21s;animation-delay:-10s"></i>
-  <i style="left:86%;top:22%;animation-duration:16s;animation-delay:-3s"></i>
-  <i style="left:92%;top:50%;animation-duration:24s;animation-delay:-13s"></i>
-  <i style="left:88%;top:86%;animation-duration:19s;animation-delay:-16s"></i>
-  <i style="left:94%;top:64%;animation-duration:22s;animation-delay:-18s"></i>
-  <i style="left:82%;top:6%;animation-duration:20s;animation-delay:-20s"></i>
-</div>
 <div class="hero-in">
   <div class="say">
     <h1><span class="beat">Your laptop.</span><br><span class="beat">Your alerts.</span><br><span class="beat">Your control.</span></h1>
