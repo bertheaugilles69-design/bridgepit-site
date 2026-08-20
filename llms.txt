@@ -11,16 +11,15 @@ Accepts PickMyTrade-format alerts unchanged (one URL edit to migrate).
 Broker support: Rithmic - the connection rail most major prop firms offer;
 BridgePit passed Rithmic vendor conformance on 2026-07-13. Supported firms are
 announced at launch, and each firm sets its own API-access fee, paid by the
-trader directly to the firm. Pricing: Free paper trading; Pro $49/mo (7-day
-trial, 1 live account); Multi $99/mo (5 accounts).
+trader directly to the firm. Pricing: paper trading is free now. Live is $49/mo
+(1 account) when on sale; Multi is coming. No 7-day trial while checkout is closed.
 
 ## Pages
 - https://bridgepit.com/ - product overview
 - https://bridgepit.com/setup - 20-minute setup guide (TradingView → broker)
 - https://bridgepit.com/pickmytrade-alternative - factual comparison vs PickMyTrade
-  and copy-trading rules quoted from their own help centre, plus a plain
-  statement that BridgePit is NOT yet connected there and claims no approval,
-  partnership or endorsement from that firm
+- https://bridgepit.com/traderspost-alternative - factual comparison vs TradersPost
+  (cloud webhook vs local Mac). No firm-approval claims. Live $49 coming soon.
 - https://bridgepit.com/prop-firm-automation-rules - the five clauses that decide
   whether any firm permits automation
 - https://bridgepit.com/terms.html, https://bridgepit.com/privacy.html

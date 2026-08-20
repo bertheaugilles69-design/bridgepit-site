@@ -21,8 +21,9 @@ daily loss stop, duplicate-alert rejection, end-of-day auto-flatten
 
 Free tier: paper trading only, no card needed - orders are simulated.
 Going live requires BOTH a connected broker account AND an active
-subscription (Pro $49/mo, 7-day trial, 1 live account; Multi $99/mo,
-5 accounts). Until both are true, everything stays on paper by design.
+subscription. Paper is free now. Live is $49/mo (1 account) when it is on
+sale; Multi is coming. Until a live subscription exists, everything stays
+on paper by design.
 
 ## What you need before starting
 
