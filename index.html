@@ -78,31 +78,30 @@
   .navcta:hover{opacity:.86}
   @media(max-width:860px){ .links{display:none} .navin{grid-template-columns:1fr auto} }
 
-  /* ── screen 1: full-height room ── */
+  /* ── screen 1: BridgeMind layout — left type, window sits on the bottom ── */
   .hero{max-width:none;margin:0;min-height:100dvh;display:flex;flex-direction:column;
-    padding:0 var(--gut) 20px}
-  .hero .say{max-width:var(--max);width:100%;margin:0 auto;padding:clamp(12px,2.4vh,28px) 0 10px;
-    text-align:center;flex:none}
-  .hero .badge{justify-content:center;margin-bottom:14px}
-  .hero h1{font:700 clamp(36px,4.4vw,64px)/1.05 var(--sans);letter-spacing:-.038em;color:#fff;
-    max-width:16ch;margin:0 auto}
-  .hero .sub{margin:14px auto 0;font:400 17px/1.45 var(--sans);color:var(--dim);max-width:40ch}
-  .hero .buttons{margin:20px auto 0;display:flex;flex-wrap:wrap;justify-content:center;gap:12px;max-width:none}
-  .hero .b{padding:14px 20px;min-width:0;width:auto}
+    padding:0 clamp(20px,5vw,72px) 0}
+  .hero .say{width:100%;max-width:none;margin:0;padding:clamp(20px,4vh,44px) 0 clamp(16px,2.4vh,24px);
+    text-align:left;flex:none}
+  .hero h1{font:700 clamp(40px,6.6vw,92px)/1.02 var(--sans);letter-spacing:-.042em;color:#fff;
+    max-width:none;margin:0}
+  .hero .sub{margin:18px 0 0;font:400 19px/1.45 var(--sans);color:var(--dim);max-width:46ch}
+  .hero .buttons{margin:28px 0 0;display:flex;flex-wrap:wrap;justify-content:flex-start;gap:12px;max-width:none}
+  .hero .b{padding:16px 22px;min-width:0;width:auto}
   .hero .b .sz{margin-left:12px}
   .hero .b-ghost .arrow{margin-left:8px}
-  .hero .facts{margin:16px auto 0;align-items:center;font-size:11px}
-  .hero .stage{flex:1;display:flex;flex-direction:column;min-height:0;width:100%;max-width:1180px;
-    margin:0 auto;position:relative}
-  .hero .stage .ftwin{flex:1;min-height:min(480px,52dvh);max-height:min(680px,62dvh);
-    box-shadow:0 36px 80px rgba(0,0,0,.55)}
-  .hero .dashcap{max-width:1180px;width:100%;margin:10px auto 0;padding:0 4px;
-    font:400 12.5px var(--sans);color:#52525B;text-align:left}
+  .hero .facts{margin:18px 0 0;align-items:flex-start;font-size:11px}
+  .hero .stage{flex:1;display:flex;flex-direction:column;min-height:0;width:100%;max-width:none;
+    margin:0;position:relative}
+  .hero .dashcap{width:100%;margin:0 0 12px;padding:0;
+    font:400 13.5px var(--sans);color:#8A8A93;text-align:left}
+  .hero .stage .ftwin{flex:1;min-height:min(420px,46dvh);max-height:none;border-radius:16px 16px 0 0;
+    box-shadow:0 -8px 48px rgba(0,0,0,.35)}
   @media(max-width:980px){
-    .hero{min-height:0;padding-bottom:36px}
-    .hero .stage .ftwin{min-height:420px;max-height:none}
-    .hero .buttons{flex-direction:column;align-items:center}
-    .hero .b{width:min(100%,390px);justify-content:center}
+    .hero{min-height:0;padding-bottom:0}
+    .hero .stage .ftwin{min-height:380px;border-radius:16px}
+    .hero .buttons{flex-direction:column;align-items:flex-start}
+    .hero .b{width:min(100%,390px)}
     .hero .b .sz{margin-left:auto}
   }
   @media(max-width:640px){
@@ -600,18 +599,6 @@
 <!-- ════ SCREEN 1 - the edge: it runs on your machine ════ -->
 <main class="hero">
   <div class="say">
-    <div class="badge">
-      <span class="ic">
-        <svg width="15" height="15" viewBox="0 0 128 128" fill="none">
-          <line x1="16" y1="90" x2="112" y2="90" stroke="#FAFAFA" stroke-width="7" stroke-linecap="round"/>
-          <rect x="40" y="46" width="13" height="34" rx="3" fill="#A1A1AA"/>
-          <rect x="76" y="38" width="13" height="42" rx="3" fill="#FAFAFA"/>
-        </svg>
-      </span>
-      <span class="nm">BridgePit</span>
-      <span class="tag"><i></i>For macOS</span>
-    </div>
-
     <h1><span class="beat">Your laptop.</span> <span class="beat">Your alerts.</span><br><span class="beat">Your control.</span></h1>
 
     <p class="sub">Your TradingView alerts become orders at your broker. The app on your Mac places them - so halt and your limits run on the same machine as the trade, not in the cloud.</p>
@@ -624,18 +611,10 @@
         See how it works <span class="arrow">↓</span>
       </a>
     </div>
-
-    <div class="facts">
-      <div class="facts-row">
-        <span>macOS</span><span>Rithmic</span><span>free on paper</span>
-      </div>
-      <div class="facts-row must">
-        <span>lid closed, no new orders</span><span>no internet, no new orders</span>
-      </div>
-    </div>
   </div>
 
   <div class="stage" id="the-app">
+    <p class="dashcap">The real dashboard — sample numbers. Lid closed or no internet: no new orders.</p>
     <div class="ftwin" aria-label="BridgePit dashboard">
       <aside class="ft-side">
         <div class="ft-logo"><span class="mk"><svg width="12" height="12" viewBox="0 0 128 128" fill="none"><line x1="16" y1="90" x2="112" y2="90" stroke="#C7CCD6" stroke-width="8" stroke-linecap="round"/><rect x="40" y="48" width="12" height="32" rx="2" fill="#B9BFCB"/><rect x="76" y="48" width="12" height="32" rx="2" fill="#EAEDF2"/></svg></span>BridgePit</div>
@@ -689,7 +668,6 @@
         </div>
       </div>
     </div>
-    <p class="dashcap">The real dashboard. Sample numbers, not a live account.</p>
   </div>
 </main>
 
