@@ -78,21 +78,21 @@
   .navcta:hover{opacity:.86}
   @media(max-width:860px){ .links{display:none} .navin{grid-template-columns:1fr auto} }
 
-  /* ── screen 1: same skeleton as BridgeMind, not zoomed ── */
+  /* ── screen 1: bigger type + a dark frame around it (their space) ── */
   .hero{max-width:none;margin:0;height:100dvh;min-height:100dvh;display:flex;flex-direction:column;
-    padding:0 clamp(24px,6vw,80px) 0;overflow:hidden}
-  .hero-in{width:100%;max-width:1080px;margin:0 auto;flex:1;display:flex;flex-direction:column;min-height:0}
-  .hero .say{width:100%;max-width:none;margin:0;padding:clamp(16px,3.2vh,36px) 0 12px;
+    padding:0 clamp(48px,11vw,200px) 0;overflow:hidden}
+  .hero-in{width:100%;max-width:none;margin:0;flex:1;display:flex;flex-direction:column;min-height:0}
+  .hero .say{width:100%;max-width:none;margin:0;padding:clamp(12px,2.6vh,28px) 0 10px;
     text-align:left;flex:none}
-  .hero h1{font:700 clamp(34px,3.9vw,56px)/1.06 var(--sans);letter-spacing:-.036em;color:#fff;
+  .hero h1{font:700 clamp(40px,5.4vw,80px)/1.04 var(--sans);letter-spacing:-.04em;color:#fff;
     max-width:none;margin:0}
-  .hero .sub{margin:14px 0 0;font:400 17px/1.5 var(--sans);color:var(--dim);max-width:42ch}
-  .hero .buttons{margin:22px 0 0;display:flex;flex-wrap:wrap;justify-content:flex-start;gap:12px;max-width:none}
-  .hero .b{padding:14px 20px;min-width:0;width:auto}
+  .hero .sub{margin:16px 0 0;font:400 18px/1.45 var(--sans);color:var(--dim);max-width:44ch}
+  .hero .buttons{margin:24px 0 0;display:flex;flex-wrap:wrap;justify-content:flex-start;gap:12px;max-width:none}
+  .hero .b{padding:15px 22px;min-width:0;width:auto}
   .hero .b .sz{margin-left:12px}
   .hero .b-ghost .arrow{margin-left:8px}
   .hero .facts{margin:18px 0 0;align-items:flex-start;font-size:11px}
-  .hero .stage{flex:1;display:flex;flex-direction:column;min-height:52dvh;width:100%;max-width:none;
+  .hero .stage{flex:1;display:flex;flex-direction:column;min-height:0;width:100%;max-width:none;
     margin:0;position:relative}
   .hero .dashcap{width:100%;margin:0 0 10px;padding:0;
     font:400 13px var(--sans);color:#8A8A93;text-align:left}
