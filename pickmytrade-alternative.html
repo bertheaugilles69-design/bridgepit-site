@@ -7,7 +7,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>PickMyTrade alternative that runs on your own machine — BridgePit</title>
+<title>PickMyTrade alternative that runs on your own machine - BridgePit</title>
 <meta name="description" content="BridgePit is a PickMyTrade alternative with no cloud in the middle: your TradingView alerts execute on your own computer, orders reach your broker from your own IP, and your credentials never leave your machine. $49/mo, 7-day free trial.">
 <link rel="canonical" href="https://bridgepit.com/pickmytrade-alternative">
 <meta property="og:type" content="article">
@@ -22,10 +22,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
- {"@type":"Question","name":"Can I keep my existing PickMyTrade alert format?","acceptedAnswer":{"@type":"Answer","text":"Yes. BridgePit accepts the PickMyTrade alert message format unchanged — switching is editing one webhook URL per TradingView alert."}},
+ {"@type":"Question","name":"Can I keep my existing PickMyTrade alert format?","acceptedAnswer":{"@type":"Answer","text":"Yes. BridgePit accepts the PickMyTrade alert message format unchanged - switching is editing one webhook URL per TradingView alert."}},
  {"@type":"Question","name":"Why does it matter where execution runs?","acceptedAnswer":{"@type":"Answer","text":"A cloud service places your orders from its datacenter IP and holds your broker access to do it. Software on your own machine places orders from your own IP with credentials that never leave your computer. Rules differ by firm and change; always check your firm's current rules."}},
  {"@type":"Question","name":"Is BridgePit fully automated?","acceptedAnswer":{"@type":"Answer","text":"Semi-automated by design: it executes your TradingView alerts and you supervise, with a kill-switch, position caps, a daily loss stop, and an end-of-day flatten."}},
- {"@type":"Question","name":"What does BridgePit cost compared to PickMyTrade?","acceptedAnswer":{"@type":"Answer","text":"BridgePit Pro is $49/month with a 7-day free trial (one live account; free paper trading without a card). PickMyTrade lists $50/month, $120/quarter, or $350/year with a 5-day trial (checked July 2026). Your prop firm sets its own API-access fee, paid to the firm directly — not to us."}}]}
+ {"@type":"Question","name":"What does BridgePit cost compared to PickMyTrade?","acceptedAnswer":{"@type":"Answer","text":"BridgePit Pro is $49/month with a 7-day free trial (one live account; free paper trading without a card). PickMyTrade lists $50/month, $120/quarter, or $350/year with a 5-day trial (checked July 2026). Your prop firm sets its own API-access fee, paid to the firm directly - not to us."}}]}
 </script>
 <style>
   :root{
@@ -94,24 +94,24 @@
 <main>
   <div class="kicker">Comparison · facts checked July 20, 2026</div>
   <h1>A PickMyTrade alternative that isn't another cloud.</h1>
-  <p class="lede">PickMyTrade forwards your TradingView alerts to your broker through its servers. BridgePit does the same job with <b>no servers in the middle</b>: a desktop app on your own machine executes the alert, the order leaves from your own IP, and your broker login never leaves your computer. Same alerts — different architecture.</p>
+  <p class="lede">PickMyTrade forwards your TradingView alerts to your broker through its servers. BridgePit does the same job with <b>no servers in the middle</b>: a desktop app on your own machine executes the alert, the order leaves from your own IP, and your broker login never leaves your computer. Same alerts - different architecture.</p>
 
   <h2>The one difference that decides it.</h2>
   <div class="paths">
     <div class="path">
-      <h3>Cloud relay — PickMyTrade</h3>
+      <h3>Cloud relay - PickMyTrade</h3>
       <div class="hop">TradingView fires your alert</div>
       <div class="hop warn">…to <b>their cloud servers</b>, which hold your broker access</div>
       <div class="hop warn">…which place the order from <b>a datacenter IP</b></div>
     </div>
     <div class="path">
-      <h3>Local execution — BridgePit</h3>
+      <h3>Local execution - BridgePit</h3>
       <div class="hop">TradingView fires your alert</div>
       <div class="hop good">…to <b>your own computer</b>, credentials encrypted on it</div>
       <div class="hop good">…which places the order from <b>your own IP</b></div>
     </div>
   </div>
-  <p class="fine">Why funded traders care: firm rules on automation and third-party tools differ and change — some firms prohibit automation entirely. Always check your firm's current policy yourself.</p>
+  <p class="fine">Why funded traders care: firm rules on automation and third-party tools differ and change - some firms prohibit automation entirely. Always check your firm's current policy yourself.</p>
 
   <h2>Side by side.</h2>
   <table>
@@ -120,18 +120,18 @@
     <tr><td>Your broker login</td><td><b>Encrypted on your computer, never sent to us</b></td><td>Held by the service so it can trade for you</td></tr>
     <tr><td>Price</td><td>$49/mo Pro (1 live account) · $99/mo Multi (5) · 7-day trial · paper free, no card</td><td>$50/mo · $120/quarter · $350/yr · unlimited accounts · 5-day trial</td></tr>
     <tr><td>Brokers</td><td>Rithmic-based prop firms (supported firms announced at launch)</td><td>Tradovate, Rithmic and others</td></tr>
-    <tr><td>Safety rails</td><td><b>Kill-switch, daily loss stop, position caps, duplicate rejection, EOD auto-flatten</b> — enforced on your machine</td><td>Feature set varies; see their docs</td></tr>
-    <tr><td>Needs your computer on</td><td>Yes, during your trading hours — that's what "your own IP" means</td><td>No</td></tr>
+    <tr><td>Safety rails</td><td><b>Kill-switch, daily loss stop, position caps, duplicate rejection, EOD auto-flatten</b> - enforced on your machine</td><td>Feature set varies; see their docs</td></tr>
+    <tr><td>Needs your computer on</td><td>Yes, during your trading hours - that's what "your own IP" means</td><td>No</td></tr>
     <tr><td>Alert format</td><td colspan="2"><b>Compatible.</b> BridgePit accepts PickMyTrade-format alerts unchanged</td></tr>
   </table>
-  <p class="fine">PickMyTrade pricing and account terms read from pickmytrade.io on July 20, 2026. Your prop firm sets its own API-access fee for a direct connection, paid to the firm directly — not to us.</p>
+  <p class="fine">PickMyTrade pricing and account terms read from pickmytrade.io on July 20, 2026. Your prop firm sets its own API-access fee for a direct connection, paid to the firm directly - not to us.</p>
 
   <h2>When PickMyTrade is the better pick.</h2>
-  <p>Honest answer, because it's also our sales filter: if you run <b>many accounts</b> on their flat $50, need a <b>broker we don't support yet</b>, or want <b>nothing running at home</b> — machine off, cloud does everything — PickMyTrade fits you better today. BridgePit exists for one trader specifically: the one whose income depends on a funded account and who doesn't want their execution living on someone else's IP.</p>
+  <p>Honest answer, because it's also our sales filter: if you run <b>many accounts</b> on their flat $50, need a <b>broker we don't support yet</b>, or want <b>nothing running at home</b> - machine off, cloud does everything - PickMyTrade fits you better today. BridgePit exists for one trader specifically: the one whose income depends on a funded account and who doesn't want their execution living on someone else's IP.</p>
 
   <h2>Switching takes one URL change.</h2>
   <ol>
-    <li><b>Install BridgePit</b> and follow the <a href="setup" style="color:var(--blue)">20-minute setup</a> — it ends with a paper fill on your screen.</li>
+    <li><b>Install BridgePit</b> and follow the <a href="setup" style="color:var(--blue)">20-minute setup</a> - it ends with a paper fill on your screen.</li>
     <li><b>Edit each TradingView alert:</b> replace the PickMyTrade webhook URL with yours ending in <code>/v2/add-trade-data</code>. The message body stays exactly as it is.</li>
     <li><b>Watch a day of paper fills</b>, then cancel the old subscription when you trust what you see.</li>
   </ol>
@@ -144,11 +144,11 @@
   <h2 class="faq">Questions traders ask.</h2>
   <div class="faq">
     <h3>Can I keep my existing alert format?</h3>
-    <p>Yes — BridgePit reads the PickMyTrade message format natively. One URL edit per alert, nothing else.</p>
+    <p>Yes - BridgePit reads the PickMyTrade message format natively. One URL edit per alert, nothing else.</p>
     <h3>Is BridgePit fully automated?</h3>
     <p>Semi-automated by design: it executes, you supervise. Kill-switch, caps, daily loss stop, and end-of-day flatten are always on.</p>
     <h3>Is local execution allowed at my prop firm?</h3>
-    <p>BridgePit runs on your own computer and sends orders from your own IP — no cloud server between your signals and your broker. Rules differ by firm and change, so always check your firm's current policy.</p>
+    <p>BridgePit runs on your own computer and sends orders from your own IP - no cloud server between your signals and your broker. Rules differ by firm and change, so always check your firm's current policy.</p>
     <h3>What if my internet drops mid-position?</h3>
     <p>Nothing trades while it is down. TradingView cannot reach the Mac, and the Mac cannot reach the broker. If you set a stop on that strategy, it is already at the broker. When the connection returns, BridgePit reconnects and the end-of-day flatten retries until the account is confirmed flat.</p>
   </div>

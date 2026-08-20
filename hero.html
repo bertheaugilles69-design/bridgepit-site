@@ -4,24 +4,24 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>BridgePit — TradingView alerts, executed on your own machine</title>
+<title>BridgePit - TradingView alerts, executed on your own machine</title>
 <meta name="description" content="BridgePit runs your TradingView alerts on your own Mac and your own connection. Your broker login is encrypted locally and never sent anywhere. You set your daily loss limit, emergency stop and end-of-day flatten, and they run on the same machine that places the orders. Free on paper.">
 <link rel="canonical" href="https://bridgepit.com/">
 <link rel="icon" href="mark.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="BridgePit">
 <meta property="og:title" content="Your alerts run on your machine. Your limits stop them, not your firm.">
-<meta property="og:description" content="They route signals. This is a cockpit. Local execution for funded and retail futures traders — nothing of ours between your Mac and your broker. Free on paper.">
+<meta property="og:description" content="They route signals. This is a cockpit. Local execution for funded and retail futures traders - nothing of ours between your Mac and your broker. Free on paper.">
 <meta property="og:url" content="https://bridgepit.com/">
 <meta property="og:image" content="https://bridgepit.com/og.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Your alerts run on your machine. Your limits stop them, not your firm.">
-<meta name="twitter:description" content="They route signals. This is a cockpit. Local execution for futures traders — nothing of ours between your Mac and your broker.">
+<meta name="twitter:description" content="They route signals. This is a cockpit. Local execution for futures traders - nothing of ours between your Mac and your broker.">
 <meta name="twitter:image" content="https://bridgepit.com/og.png">
 <style>
   /* ──────────────────────────────────────────────────────────────
      Neutral black. No navy, no blue-grey, no glow, no gradient.
-     One family: the system sans (SF Pro on a Mac) — no serif.
+     One family: the system sans (SF Pro on a Mac) - no serif.
      type    13 · 15 · 17 · 20 · 64      weights 400 · 500 · 700
      radius  8 (buttons and panels) · 999 (the one pill)
      line    rgba(255,255,255,.09) hairline · .18 emphasis
@@ -48,7 +48,7 @@
   html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
   body{background:var(--bg);color:var(--txt);font:15px/1.55 var(--sans);
     -webkit-font-smoothing:antialiased;overflow-x:hidden;position:relative}
-  /* two very faint lights — silver, not colour. Barely there on purpose. */
+  /* two very faint lights - silver, not colour. Barely there on purpose. */
   body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
     background:
       radial-gradient(42vw 36vw at 76% 26%, rgba(232,236,244,.10), transparent 60%),
@@ -105,7 +105,7 @@
 
   /* ── the two paths: the whole argument, in one picture ──
      Same three boxes both times. The only difference is which box
-     holds your broker login — and that is the entire product. */
+     holds your broker login - and that is the entire product. */
   .paths{display:grid;gap:16px;min-width:0}
   .pathrow{border:1px solid var(--line);border-radius:10px;padding:17px 19px 19px;
     background:#0A0A0C}
@@ -239,7 +239,7 @@
   .addbtn{margin-left:auto;background:#A9BEE2;border:none;border-radius:9px;padding:8px 14px;
     font:600 12.5px var(--sans);color:#0A0D12;cursor:default}
 
-  /* pre-flight — the app's own go/no-go strip */
+  /* pre-flight - the app's own go/no-go strip */
   .preflight{display:flex;flex-wrap:wrap;align-items:center;gap:9px 26px;
     border:1px solid var(--al);border-radius:999px;padding:13px 22px;margin-bottom:16px;background:var(--card)}
   .pf{display:inline-flex;align-items:center;gap:8px;font:500 12.5px var(--sans);color:var(--atx);white-space:nowrap}
@@ -295,7 +295,7 @@
   .meter{height:4px;border-radius:3px;background:rgba(255,255,255,.07);margin-top:9px;overflow:hidden}
   .meter i{display:block;height:100%;background:var(--amb);transition:width .5s}
 
-  /* section titles — the app's serif */
+  /* section titles - the app's serif */
   .sect{display:flex;align-items:baseline;justify-content:space-between;gap:14px;
     margin:26px 0 12px;font:500 17px var(--serif);letter-spacing:-.01em;color:var(--atx)}
   .sect span{font:400 12px var(--sans);color:var(--adim2)}
@@ -424,7 +424,7 @@
   </div>
 </nav>
 
-<!-- ════ SCREEN 1 — the edge: it runs on your machine ════ -->
+<!-- ════ SCREEN 1 - the edge: it runs on your machine ════ -->
 <main class="hero">
   <div class="say">
     <div class="badge">
@@ -441,7 +441,7 @@
 
     <h1>Your alerts run on your machine. Your limits stop them, not your firm.</h1>
 
-    <p class="sub">The cloud tools keep your broker login on their server and send your orders from their address. BridgePit runs on your Mac — and so does <b>every guard: the duplicate block, the stop resting at your broker, your daily loss limit, flat by close</b>.</p>
+    <p class="sub">The cloud tools keep your broker login on their server and send your orders from their address. BridgePit runs on your Mac - and so does <b>every guard: the duplicate block, the stop resting at your broker, your daily loss limit, flat by close</b>.</p>
 
     <div class="buttons">
       <a class="b b-primary" href="#download">
@@ -499,12 +499,12 @@
   </div>
 </main>
 
-<!-- ════ SCREEN 2 — the second edge: the cockpit ════ -->
+<!-- ════ SCREEN 2 - the second edge: the cockpit ════ -->
 <section class="cockpit" id="cockpit">
   <div class="chead">
     <div class="eyebrow">And once it's running</div>
     <h2>They route signals. This is a cockpit.</h2>
-    <p class="csub">Every strategy, every order and every block — on one screen, on your machine. <b>It checks itself the whole session</b> and tells you the moment something isn't right.</p>
+    <p class="csub">Every strategy, every order and every block - on one screen, on your machine. <b>It checks itself the whole session</b> and tells you the moment something isn't right.</p>
   </div>
 
   <div class="slot">
@@ -671,7 +671,7 @@
           </div>
           <div class="shield">
             <svg viewBox="0 0 24 24" fill="none" stroke="#8C94A1" stroke-width="1.6"><path d="M12 2.8 4.6 6v6.2c0 4.4 3.1 7.6 7.4 9 4.3-1.4 7.4-4.6 7.4-9V6z"/></svg>
-            <span>Your credentials are encrypted on this machine and never sent anywhere. Orders leave from your own address — there is no server of ours in the path.</span>
+            <span>Your credentials are encrypted on this machine and never sent anywhere. Orders leave from your own address - there is no server of ours in the path.</span>
           </div>
         </div>
 
@@ -693,7 +693,7 @@
     </div>
 
     <div class="under">
-      <span><i></i>Scroll inside it — the whole dashboard is in there</span>
+      <span><i></i>Scroll inside it - the whole dashboard is in there</span>
       <span><i></i>Press Halt and watch it stop</span>
       <span class="rep">A working replica of the BridgePit dashboard. Sample numbers, not a real account.</span>
     </div>
@@ -707,7 +707,7 @@
   .bhead{max-width:660px;margin-bottom:clamp(30px,4vh,52px)}
   .bhead .csub{margin-top:18px}
 
-  /* screen 4 — the side-by-side. Same job on the surface, different underneath. */
+  /* screen 4 - the side-by-side. Same job on the surface, different underneath. */
   .cmp{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1fr) minmax(0,1fr);
     position:relative}
   .cmp::before{content:"";position:absolute;right:-4%;top:-8%;width:56%;height:116%;pointer-events:none;
@@ -765,7 +765,7 @@
   .anim .cmpr.lit{opacity:1;transform:none}
   @media(prefers-reduced-motion: reduce){ .anim .cmpr{opacity:1;transform:none;transition:none} }
 
-  /* screen 3 — one day, and the rail that catches each thing that goes wrong */
+  /* screen 3 - one day, and the rail that catches each thing that goes wrong */
   .tl{display:grid;gap:0;position:relative}
   .tlrow{display:grid;grid-template-columns:78px 26px minmax(0,1fr);align-items:stretch;
     padding:20px 0 22px;opacity:1}
@@ -807,7 +807,7 @@
     background:#0B0B0E;font:400 12px/1.5 var(--mono);color:var(--dim2);overflow-x:auto;white-space:pre}
   .step b{color:var(--txt);font-weight:500}
 
-  /* screen 5 — setting it up. Replicas of the real screens, not pictures. */
+  /* screen 5 - setting it up. Replicas of the real screens, not pictures. */
   .stp{display:grid;grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);
     gap:clamp(26px,4vw,58px);align-items:center;padding:clamp(30px,4vh,46px) 0}
   .stp+.stp{border-top:1px solid var(--line)}
@@ -940,12 +940,12 @@
   @media(max-width:620px){ .rails{grid-template-columns:1fr} }
 </style>
 
-<!-- ════ SCREEN 3 — the rails, as one day ════ -->
+<!-- ════ SCREEN 3 - the rails, as one day ════ -->
 <section class="band" id="safety">
   <div class="bhead">
     <div class="eyebrow">The rails</div>
     <h2>A day only has to go wrong once.</h2>
-    <p class="csub">Here is an ordinary session, and the rail that catches each thing that goes wrong in it. You set the numbers — the app enforces them on the same machine that places the orders.</p>
+    <p class="csub">Here is an ordinary session, and the rail that catches each thing that goes wrong in it. You set the numbers - the app enforces them on the same machine that places the orders.</p>
   </div>
 
   <div class="tl" id="tl">
@@ -958,7 +958,7 @@
     <div class="tlrow"><div class="tlt">09:47</div><div class="tlm"><i></i></div>
       <div class="tlc">
         <div class="tlw">The entry fills.</div>
-        <div class="tlg"><span class="gchip">Stop at the broker</span>Your emergency stop is placed with the broker in the same breath — not held inside the app, so it survives the app closing, the Mac dying, or the internet dropping.</div>
+        <div class="tlg"><span class="gchip">Stop at the broker</span>Your emergency stop is placed with the broker in the same breath - not held inside the app, so it survives the app closing, the Mac dying, or the internet dropping.</div>
       </div></div>
 
     <div class="tlrow"><div class="tlt">11:26</div><div class="tlm"><i></i></div>
@@ -986,10 +986,10 @@
       </div></div>
   </div>
 
-  <p class="tlend"><b>And across days:</b> fall a set distance below your best <b>end-of-day</b> balance and BridgePit stops for good, not just for the day — the one rail that never resets by itself.</p>
+  <p class="tlend"><b>And across days:</b> fall a set distance below your best <b>end-of-day</b> balance and BridgePit stops for good, not just for the day - the one rail that never resets by itself.</p>
 </section>
 
-<!-- ════ SCREEN 4 — the side-by-side ════ -->
+<!-- ════ SCREEN 4 - the side-by-side ════ -->
 <section class="band" id="why">
   <div class="bhead">
     <div class="eyebrow">Cloud relay · BridgePit</div>
@@ -1010,14 +1010,14 @@
     <div class="a old cmpr" data-r="both" data-l="Cloud relay">On their server, alongside everyone else's.</div>
     <div class="a ours cmpr" data-r="both" data-l="BridgePit">On your Mac, encrypted. It is never sent to us.</div>
     <div class="q cmpr" data-r="both">Whose connection the order leaves from</div>
-    <div class="a old cmpr" data-r="both" data-l="Cloud relay">Theirs — one address shared by every customer.</div>
+    <div class="a old cmpr" data-r="both" data-l="Cloud relay">Theirs - one address shared by every customer.</div>
     <div class="a ours cmpr" data-r="both" data-l="BridgePit">Yours. The same connection you place orders from by hand.</div>
     <div class="q cmpr" data-r="both">What sits between you and your broker</div>
     <div class="a old cmpr" data-r="both" data-l="Cloud relay">Their servers, their queue, their rate limits.</div>
     <div class="a ours cmpr" data-r="both" data-l="BridgePit">Nothing of ours. Your Mac talks to your broker directly.</div>
     <div class="q cmpr flip" data-r="both">While your Mac is off</div>
     <div class="a old cmpr flip" data-r="both" data-l="Cloud relay">It keeps running without you.</div>
-    <div class="a ours cmpr flip" data-r="both" data-l="BridgePit">Nothing runs. While it is armed it holds the Mac awake — but a closed lid still sleeps.</div>
+    <div class="a ours cmpr flip" data-r="both" data-l="BridgePit">Nothing runs. While it is armed it holds the Mac awake - but a closed lid still sleeps.</div>
     <div class="q cmpr" data-r="both">Who can see your positions</div>
     <div class="a old cmpr" data-r="both" data-l="Cloud relay">They can. It is their database.</div>
     <div class="a ours cmpr" data-r="both" data-l="BridgePit">You and your broker.</div>
@@ -1045,7 +1045,7 @@
   <p class="cmpnote" style="margin-top:12px">macOS and Rithmic today. Other brokers are added only once each one is proven end to end with real orders.</p>
 </section>
 
-<!-- ════ SCREEN 5 — setting it up ════ -->
+<!-- ════ SCREEN 5 - setting it up ════ -->
 <section class="band" id="how">
   <div class="bhead">
     <div class="eyebrow">Setting it up</div>
@@ -1058,7 +1058,7 @@
       <div class="sn">1</div>
       <h3>Open it and pick a password.</h3>
       <p>There is no account to create and nothing to sign into. The password guards the dashboard on <b>this machine</b>, and it is stored here.</p>
-      <div class="proof"><span><b>You know it worked</b>The app opens without a warning from macOS: it is signed by the developer and notarised by Apple. If you forget the password there is no reset link — by design.</span></div>
+      <div class="proof"><span><b>You know it worked</b>The app opens without a warning from macOS: it is signed by the developer and notarised by Apple. If you forget the password there is no reset link - by design.</span></div>
     </div>
     <div class="rep">
       <div class="rept"><span class="t">Welcome to BridgePit</span></div>
@@ -1077,7 +1077,7 @@
     <div>
       <div class="sn">2</div>
       <h3>Add what you trade, and your strategies.</h3>
-      <p>Name each strategy exactly as it appears in your alert, pick the instrument, the number of contracts and the emergency stop. <b>You never type a contract month</b> — the app works out the front month itself.</p>
+      <p>Name each strategy exactly as it appears in your alert, pick the instrument, the number of contracts and the emergency stop. <b>You never type a contract month</b> - the app works out the front month itself.</p>
       <div class="proof"><span><b>You know it worked</b>The strategy shows up in the table with a position of 0 and its status on. Nothing can trade that is not listed here.</span></div>
     </div>
     <div class="rep">
@@ -1098,7 +1098,7 @@
     <div>
       <div class="sn">3</div>
       <h3>Set the numbers that stop you.</h3>
-      <p>BridgePit does not know your firm's rules, so these are <b>your</b> numbers. Leave one empty to switch that protection off — nothing here is locked, and you get a plain warning instead of a refusal.</p>
+      <p>BridgePit does not know your firm's rules, so these are <b>your</b> numbers. Leave one empty to switch that protection off - nothing here is locked, and you get a plain warning instead of a refusal.</p>
       <div class="proof"><span><b>You know it worked</b>The dashboard stops saying "not set". The loss budget shows your number and starts counting down the moment you trade.</span></div>
     </div>
     <div class="rep">
@@ -1122,7 +1122,7 @@
             <div class="cbx"><i></i><span>Close everything at the end of the day</span></div>
           </div>
         </div>
-        <div class="note">Resets every morning. The one below your best balance never resets — at that point it is your decision, not a program's.</div>
+        <div class="note">Resets every morning. The one below your best balance never resets - at that point it is your decision, not a program's.</div>
       </div>
     </div>
   </div>
@@ -1132,7 +1132,7 @@
       <div class="sn">4</div>
       <h3>Copy the alert block. Send a test.</h3>
       <p>The app writes the TradingView block for you, with your token already inside it. Paste it into your alert's message box, then <b>press Send a test signal</b> before a single real alert exists.</p>
-      <div class="proof"><span><b>You know it worked</b>A fill appears in the activity log within a second. In paper mode it fills on paper — nothing reaches your broker until you say so.</span></div>
+      <div class="proof"><span><b>You know it worked</b>A fill appears in the activity log within a second. In paper mode it fills on paper - nothing reaches your broker until you say so.</span></div>
     </div>
     <div class="rep">
       <div class="rept"><span class="t">Alert setup</span><span class="r"><i></i>Paper</span></div>
@@ -1182,7 +1182,7 @@
       <div class="plist">
         <div><i></i>Your orders reach your real broker</div>
         <div><i></i>Every guard running on your own numbers</div>
-        <div><i></i>Cancel whenever — it is a subscription, not a contract</div>
+        <div><i></i>Cancel whenever - it is a subscription, not a contract</div>
         <div><i></i>A direct line to the two people who build it</div>
       </div>
       <a class="pbtn" href="#download">Start on paper first</a>
@@ -1200,7 +1200,7 @@
     </div>
   </div>
   <p class="pnote2"><b>The first fifty keep $49.</b> While your subscription runs without a break, that price does not move, whatever it becomes later.</p>
-  <p class="pnote2" style="margin-top:12px"><b>On several accounts at one firm:</b> running the same signal into more than one account is something firms look at closely. What makes it yours is that they are your own accounts running your own strategy, not trades copied between different people. Check your firm's own rule before you set it up — some require every account to trade the same way, and some forbid it outright.</p>
+  <p class="pnote2" style="margin-top:12px"><b>On several accounts at one firm:</b> running the same signal into more than one account is something firms look at closely. What makes it yours is that they are your own accounts running your own strategy, not trades copied between different people. Check your firm's own rule before you set it up - some require every account to trade the same way, and some forbid it outright.</p>
   <p class="pnote2" style="margin-top:12px">Your broker or your firm charges its own platform and data fees. That goes to them, not to us, and it is the same fee you pay trading by hand.</p>
 </section>
 
@@ -1214,13 +1214,13 @@
     <div class="qa"><h3>Can you see my broker login?</h3>
       <p>No. It is encrypted on your machine and never sent anywhere. We run no server in the path between you and your broker, so there is nothing on our side to leak.</p></div>
     <div class="qa"><h3>Is this allowed where I trade?</h3>
-      <p>Rules differ by firm and they change. BridgePit places orders from your own machine and your own connection, and you stay at the controls. Read your firm's rules — we never claim approval on your behalf.</p></div>
+      <p>Rules differ by firm and they change. BridgePit places orders from your own machine and your own connection, and you stay at the controls. Read your firm's rules - we never claim approval on your behalf.</p></div>
     <div class="qa"><h3>What if my Mac closes mid-trade?</h3>
-      <p>If you gave that strategy a stop distance, the stop is resting at your broker rather than inside the app, so it still protects the position. If you left it blank, there is no stop — the app never invents one for you. It also holds the Mac awake while armed and warns you on battery.</p></div>
+      <p>If you gave that strategy a stop distance, the stop is resting at your broker rather than inside the app, so it still protects the position. If you left it blank, there is no stop - the app never invents one for you. It also holds the Mac awake while armed and warns you on battery.</p></div>
     <div class="qa"><h3>Which brokers work today?</h3>
       <p>Rithmic. More are added only once each one is proven end to end with real orders, not before.</p></div>
     <div class="qa"><h3>Does it trade on its own?</h3>
-      <p>It acts on the alerts you set up, on the instruments and sizes you set, and it stops the moment you press halt. It is your strategy and your session — the app is the cockpit, not the pilot.</p></div>
+      <p>It acts on the alerts you set up, on the instruments and sizes you set, and it stops the moment you press halt. It is your strategy and your session - the app is the cockpit, not the pilot.</p></div>
     <div class="qa"><h3>Can I try it without handing over my broker login?</h3>
       <p>Yes, and you should. Paper mode is free and needs no card and no broker connection. Alerts arrive, orders fill on paper, and you watch a whole session before deciding anything.</p></div>
     <div class="qa"><h3>How do I cancel?</h3>
@@ -1290,7 +1290,7 @@
     {t:'09:47:02',k:'ORDER', s:'Breakout-1m', d:'BUY 2 MNQ1! → Main account'},
     {t:'09:47:03',k:'FILL',  s:'Breakout-1m', d:'BUY 2 @ 23,412.25 · position 0 → 2'},
     {t:'09:47:03',k:'STOP',  s:'Breakout-1m', d:'Protective stop resting at broker · 23,380.25'},
-    {t:'10:14:41',k:'REJECT',s:'Breakout-1m', d:'Burst duplicate within 10s — no second order sent'},
+    {t:'10:14:41',k:'REJECT',s:'Breakout-1m', d:'Burst duplicate within 10s - no second order sent'},
     {t:'10:28:04',k:'FILL',  s:'Breakout-1m', d:'SELL 2 @ 23,466.75 · position 2 → 0'},
     {t:'10:32:19',k:'ORDER', s:'VWAP-fade',   d:'SELL 1 MES1! → Main account'},
     {t:'10:50:07',k:'FILL',  s:'VWAP-fade',   d:'BUY 1 @ 5,836.25 · position −1 → 0'},
@@ -1348,7 +1348,7 @@
   }
 })();
 
-/* screen 3 — the day lights up one row at a time as you come down it */
+/* screen 3 - the day lights up one row at a time as you come down it */
 (function(){
   var tl=document.getElementById('tl'); if(!tl) return;
   if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -1380,7 +1380,7 @@
     crows.forEach(function(r){ io2.observe(r) });
   }
 
-  /* the audience switch — same control the app uses on its risk screen */
+  /* the audience switch - same control the app uses on its risk screen */
   var sw=document.getElementById('audsw');
   if(sw&&cmp){
     var btns=[].slice.call(sw.querySelectorAll('button'));
