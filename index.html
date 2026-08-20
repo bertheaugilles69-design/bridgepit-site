@@ -78,30 +78,30 @@
   .navcta:hover{opacity:.86}
   @media(max-width:860px){ .links{display:none} .navin{grid-template-columns:1fr auto} }
 
-  /* ── screen 1: bigger type + a dark frame around it (their space) ── */
-  .hero{max-width:none;margin:0;height:100dvh;min-height:100dvh;display:flex;flex-direction:column;
-    padding:0 clamp(64px,14vw,240px) 0;overflow:hidden}
+  /* ── screen 1: four blocks with air; window is a full card, then a gap ── */
+  .hero{max-width:none;margin:0;min-height:100dvh;height:auto;display:flex;flex-direction:column;
+    padding:0 clamp(64px,14vw,240px) clamp(72px,10vh,120px);overflow:visible}
   .hero-in{width:100%;max-width:none;margin:0;flex:1;display:flex;flex-direction:column;min-height:0}
-  .hero .say{width:100%;max-width:none;margin:0;padding:clamp(8px,2vh,22px) 0 8px;
+  .hero .say{width:100%;max-width:none;margin:0;padding:clamp(12px,2.4vh,28px) 0 0;
     text-align:left;flex:none}
   .hero h1{font:700 clamp(38px,5vw,72px)/1.05 var(--sans);letter-spacing:-.04em;color:#fff;
     max-width:none;margin:0}
-  .hero .sub{margin:16px 0 0;font:400 18px/1.45 var(--sans);color:var(--dim);max-width:44ch}
-  .hero .buttons{margin:24px 0 0;display:flex;flex-wrap:wrap;justify-content:flex-start;gap:12px;max-width:none}
+  .hero .sub{margin:32px 0 0;font:400 18px/1.45 var(--sans);color:var(--dim);max-width:44ch}
+  .hero .buttons{margin:36px 0 0;display:flex;flex-wrap:wrap;justify-content:flex-start;gap:12px;max-width:none}
   .hero .b{padding:15px 22px;min-width:0;width:auto}
   .hero .b .sz{margin-left:12px}
   .hero .b-ghost .arrow{margin-left:8px}
   .hero .facts{margin:18px 0 0;align-items:flex-start;font-size:11px}
-  .hero .stage{flex:1;display:flex;flex-direction:column;min-height:0;width:100%;max-width:none;
-    margin:0;position:relative}
-  .hero .dashcap{width:100%;margin:0 0 10px;padding:0;
+  .hero .stage{flex:none;display:flex;flex-direction:column;width:100%;max-width:none;
+    margin:40px 0 0;position:relative}
+  .hero .dashcap{width:100%;margin:0 0 12px;padding:0;
     font:400 13px var(--sans);color:#8A8A93;text-align:left}
-  .hero .stage .ftwin{flex:1;min-height:0;max-height:none;border-radius:16px 16px 0 0;
-    box-shadow:0 -8px 48px rgba(0,0,0,.35)}
+  .hero .stage .ftwin{flex:none;min-height:0;max-height:none;border-radius:16px;
+    box-shadow:0 24px 64px rgba(0,0,0,.4)}
   @media(max-width:980px){
-    .hero{height:auto;min-height:0;overflow:visible;padding-bottom:0}
-    .hero .stage{min-height:360px}
-    .hero .stage .ftwin{min-height:360px;border-radius:16px}
+    .hero{height:auto;min-height:0;overflow:visible;padding-bottom:56px}
+    .hero .stage{margin-top:32px}
+    .hero .stage .ftwin{min-height:0;border-radius:16px}
     .hero h1{max-width:none}
     .hero .buttons{flex-direction:column;align-items:flex-start}
     .hero .b{width:min(100%,390px)}
@@ -899,7 +899,7 @@
   /* ── the rest of the page: same system, no new ideas ── */
   .band{max-width:var(--max);margin:0 auto;padding:clamp(56px,9vh,110px) var(--gut);
     border-top:1px solid var(--line);position:relative;z-index:1}
-  #paths.band{max-width:1080px}
+  #paths.band{max-width:1080px;padding-top:clamp(72px,12vh,140px);border-top:none}
   #paths .paths{display:grid;gap:16px}
   .bhead{max-width:660px;margin-bottom:clamp(30px,4vh,52px)}
   .bhead .csub{margin-top:18px}
