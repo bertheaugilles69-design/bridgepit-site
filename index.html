@@ -569,7 +569,6 @@
     <div class="links">
       <a href="#cockpit">The app</a>
       <a href="#safety">Safety</a>
-      <a href="#how">Setup</a>
       <a href="#pricing">Pricing</a>
     </div>
     <div class="navr"><a class="navcta" href="#download">Download</a></div>
@@ -965,89 +964,6 @@
     .anim .tlrow{opacity:1;transform:none;transition:none}
   }
 
-  .steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
-  .step{border:1px solid var(--line);border-radius:12px;padding:26px 24px 28px;background:rgba(255,255,255,.014)}
-  .step .sn{width:30px;height:30px;border-radius:999px;border:1px solid var(--line2);display:grid;place-items:center;
-    font:600 13px var(--mono);color:var(--txt);margin-bottom:20px}
-  .step h3{font:600 17px var(--sans);letter-spacing:-.015em;color:#fff}
-  .step p{margin-top:10px;font:400 14.5px/1.55 var(--sans);color:var(--dim)}
-  .step .mini{margin-top:16px;border:1px solid var(--line);border-radius:8px;padding:11px 13px;
-    background:#0B0B0E;font:400 12px/1.5 var(--mono);color:var(--dim2);overflow-x:auto;white-space:pre}
-  .step b{color:var(--txt);font-weight:500}
-
-  /* screen 5 - setting it up. Replicas of the real screens, not pictures. */
-  .stp{display:grid;grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);
-    gap:clamp(26px,4vw,58px);align-items:center;padding:clamp(30px,4vh,46px) 0}
-  .stp+.stp{border-top:1px solid var(--line)}
-  .sn{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;
-    border-radius:999px;border:1px solid var(--line2);font:600 13px var(--mono);color:var(--txt);
-    margin-bottom:18px}
-  .stp h3{font:600 clamp(20px,2vw,25px)/1.2 var(--sans);letter-spacing:-.022em;color:#fff;text-wrap:balance}
-  .stp p{margin-top:12px;font:400 15px/1.6 var(--sans);color:var(--dim);max-width:46ch}
-  .stp p b{color:var(--txt);font-weight:500}
-  .proof{margin-top:20px;display:flex;gap:10px;align-items:flex-start;
-    border-left:2px solid var(--green);padding:2px 0 2px 13px}
-  .proof span{font:400 14px/1.55 var(--sans);color:var(--dim)}
-  .proof b{display:block;font:600 11px var(--sans);letter-spacing:.11em;text-transform:uppercase;
-    color:var(--green);margin-bottom:5px}
-  .howfull{padding:clamp(30px,4vh,46px) 0 0;border-top:1px solid var(--line)}
-  .howfull p{font:400 15px/1.6 var(--sans);color:var(--dim);max-width:54ch}
-  .howfull p b{color:var(--txt);font-weight:500}
-  .howfull a.hfcta{display:inline-block;margin-top:16px;padding:12px 22px;border:1px solid var(--line2);
-    border-radius:10px;color:var(--txt);font:600 14px var(--sans);text-decoration:none}
-  .howfull a.hfcta:hover{background:rgba(255,255,255,.05)}
-  .howfull .hfurl{display:block;margin-top:10px;font:400 13px var(--sans);color:var(--dim2)}
-
-  /* the little app windows */
-  .rep{--abg:#0A0D12;--card:rgba(22,27,36,.72);--al:rgba(255,255,255,.07);--al2:rgba(255,255,255,.14);
-    --atx:#E6EAF0;--adim:#8C94A1;--adim2:#5C6470;--acc:#8FA9D6;--grn:#4FB584;
-    --serif:Newsreader,Georgia,serif;
-    background:var(--abg);border:1px solid var(--al2);border-radius:14px;overflow:hidden;
-    box-shadow:0 30px 70px rgba(0,0,0,.55);color:var(--atx);min-width:0}
-  .rept{display:flex;align-items:center;gap:10px;padding:13px 17px;border-bottom:1px solid var(--al)}
-  .rept .t{font:500 15px var(--serif);color:var(--atx)}
-  .rept .r{margin-left:auto;display:inline-flex;align-items:center;gap:6px;border-radius:999px;
-    border:1px solid rgba(79,181,132,.3);background:rgba(79,181,132,.12);padding:4px 10px;
-    font:600 10.5px var(--sans);color:var(--grn)}
-  .rept .r i{width:5px;height:5px;border-radius:999px;background:var(--grn);display:block}
-  .repb{padding:17px}
-  .lbl{font:400 12px var(--sans);color:var(--adim);margin-bottom:6px}
-  .fld{border:1px solid var(--al2);border-radius:9px;padding:11px 13px;background:rgba(0,0,0,.25);
-    font:400 13.5px var(--sans);color:var(--atx);margin-bottom:13px}
-  .fld.ph{color:var(--adim2)}
-  .fld.mono{font-family:var(--mono);font-size:12.5px}
-  .hint{margin:-7px 0 14px;font:400 11.5px/1.5 var(--sans);color:var(--adim2)}
-  .btn2{display:inline-block;border-radius:9px;padding:9px 16px;font:600 12.5px var(--sans);
-    background:#F3F5F8;color:#0A0D12}
-  .btn2.g{background:transparent;border:1px solid var(--al2);color:var(--atx)}
-  .two{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}
-  .rtbl{border:1px solid var(--al);border-radius:10px;overflow:hidden;background:var(--card)}
-  .rtbl .rh,.rtbl .rr{display:grid;grid-template-columns:minmax(0,.9fr) 52px 36px 46px 30px 40px;
-    gap:8px;padding:9px 12px;align-items:center;font:400 12px var(--sans);color:var(--adim)}
-  .rtbl .rh{background:rgba(255,255,255,.025);font:600 8.5px var(--sans);letter-spacing:.04em;
-    text-transform:uppercase;color:var(--adim2)}
-  .rtbl .rh span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .rtbl .rr{border-top:1px solid var(--al)}
-  .rtbl .rr b{color:var(--atx);font-weight:600}
-  .on3{color:var(--grn);font-weight:600;font-size:11px}
-  .off3{color:var(--adim2);font-weight:600;font-size:11px}
-  .code{border:1px solid var(--al);border-radius:10px;background:rgba(0,0,0,.3);padding:13px 15px;
-    font:400 12px/1.7 var(--mono);color:var(--adim);white-space:pre;overflow-x:auto}
-  .code b{color:var(--atx);font-weight:400}
-  .code .mask{color:var(--adim2);letter-spacing:1px}
-  .row2{display:flex;gap:10px;align-items:center;margin-top:13px;flex-wrap:wrap}
-  .fill{margin-top:14px;border:1px solid rgba(79,181,132,.25);background:rgba(79,181,132,.08);
-    border-radius:10px;padding:11px 13px;font:400 12px var(--mono);color:var(--grn)}
-  .cbx{display:flex;gap:9px;align-items:flex-start;font:400 13px var(--sans);color:var(--atx)}
-  .cbx i{width:15px;height:15px;flex:none;border-radius:4px;background:#8FA9D6;position:relative;margin-top:1px}
-  .cbx i::after{content:"";position:absolute;left:5px;top:2px;width:4px;height:8px;
-    border:solid #0A0D12;border-width:0 2px 2px 0;transform:rotate(42deg)}
-  .seg2{display:inline-flex;border:1px solid var(--al2);border-radius:10px;overflow:hidden;margin-bottom:14px}
-  .seg2 span{padding:8px 14px;font:500 12.5px var(--sans);color:var(--adim)}
-  .seg2 span.on{background:rgba(143,169,214,.16);color:#DCE5F4}
-  .note{margin-top:9px;font:400 11.5px/1.5 var(--sans);color:var(--adim2)}
-
-  @media(max-width:900px){ .stp{grid-template-columns:1fr;gap:26px} }
   .prices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
   .price.soon{opacity:.72}
   .price.soon .ptag{color:var(--dim2)}
@@ -1091,7 +1007,7 @@
   .foot .fr{margin-left:auto;font:400 13px var(--sans);color:var(--dim2)}
 
   @media(max-width:960px){
-    .steps,.faq,.prices{grid-template-columns:1fr}
+    .faq,.prices{grid-template-columns:1fr}
     .rails{grid-template-columns:1fr 1fr}
     .foot .fr{margin-left:0;width:100%}
   }
@@ -1174,119 +1090,6 @@
   </div>
 
   <p class="tlend"><b>And across days:</b> fall a set distance below your best <b>end-of-day</b> balance and BridgePit stops for good, not just for the day - the one rail that never resets by itself.</p>
-</section>
-
-<!-- ════ SCREEN 5 - setting it up ════ -->
-<section class="band" id="how">
-  <div class="bhead">
-    <div class="eyebrow">Setting it up</div>
-    <h2>Four screens, and a test fill before any money moves.</h2>
-    <p class="csub">This is the app. The full walkthrough, in order, is one page.</p>
-  </div>
-
-  <div class="stp">
-    <div>
-      <div class="sn">1</div>
-      <h3>Open it and pick a password.</h3>
-      <p>There is no account to create and nothing to sign into. The password guards the dashboard on <b>this machine</b>, and it is stored here.</p>
-      <div class="proof"><span><b>You know it worked</b>The app opens without a warning from macOS: it is signed by the developer and notarised by Apple. If you forget the password there is no reset link - by design.</span></div>
-    </div>
-    <div class="rep">
-      <div class="rept"><span class="t">Welcome to BridgePit</span></div>
-      <div class="repb">
-        <div class="lbl">Password</div>
-        <div class="fld ph">••••••••••••</div>
-        <div class="lbl">Repeat password</div>
-        <div class="fld ph">••••••••••••</div>
-        <span class="btn2">Set password</span>
-        <div class="note">This is not a website. The page is served by the app running on your own computer. Your password is stored on this machine and is never sent anywhere.</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="stp">
-    <div>
-      <div class="sn">2</div>
-      <h3>Add what you trade, and your strategies.</h3>
-      <p>Name each strategy exactly as it appears in your alert, pick the instrument, the number of contracts and the emergency stop. <b>You never type a contract month</b> - the app works out the front month itself.</p>
-      <div class="proof"><span><b>You know it worked</b>The strategy shows up in the table with a position of 0 and its status on. Nothing can trade that is not listed here.</span></div>
-    </div>
-    <div class="rep">
-      <div class="rept"><span class="t">Strategies</span><span class="r"><i></i>Paper</span></div>
-      <div class="repb">
-        <div class="rtbl">
-          <div class="rh"><span>Strategy</span><span>Symbol</span><span>Size</span><span>Stop</span><span>Pos</span><span>Status</span></div>
-          <div class="rr"><span><b>Breakout-1m</b></span><span>MNQ1!</span><span>2</span><span>32 pts</span><span>0</span><span class="on3">on</span></div>
-          <div class="rr"><span><b>VWAP-fade</b></span><span>MES1!</span><span>1</span><span>18 pts</span><span>0</span><span class="on3">on</span></div>
-          <div class="rr"><span><b>Overnight-gap</b></span><span>MNQ1!</span><span>1</span><span>none</span><span>0</span><span class="off3">off</span></div>
-        </div>
-        <div class="note">The name must match the strategy_name in your TradingView alert exactly.</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="stp">
-    <div>
-      <div class="sn">3</div>
-      <h3>Set the numbers that stop you.</h3>
-      <p>BridgePit does not know your firm's rules, so these are <b>your</b> numbers. Leave one empty to switch that protection off - nothing here is locked, and you get a plain warning instead of a refusal.</p>
-      <div class="proof"><span><b>You know it worked</b>The dashboard stops saying "not set". The loss budget shows your number and starts counting down the moment you trade.</span></div>
-    </div>
-    <div class="rep">
-      <div class="rept"><span class="t">Your risk limits</span></div>
-      <div class="repb">
-        <div class="seg2"><span class="on">Funded / prop account</span><span>My own account</span></div>
-        <div class="two">
-          <div>
-            <div class="lbl">Stop for today after losing</div>
-            <div class="fld">$600</div>
-          </div>
-          <div>
-            <div class="lbl">Stop for good after falling this far below your best end-of-day balance</div>
-            <div class="fld">$4,000</div>
-          </div>
-          <div>
-            <div class="lbl">Close everything at</div>
-            <div class="fld">15:55</div>
-          </div>
-          <div style="align-self:center">
-            <div class="cbx"><i></i><span>Close everything at the end of the day</span></div>
-          </div>
-        </div>
-        <div class="note">Resets every morning. The one below your best balance never resets - at that point it is your decision, not a program's.</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="stp">
-    <div>
-      <div class="sn">4</div>
-      <h3>Copy the alert block. Send a test.</h3>
-      <p>The app writes the TradingView block for you, with your token already inside it. Paste it into your alert's message box, then <b>press Send a test signal</b> before a single real alert exists.</p>
-      <div class="proof"><span><b>You know it worked</b>A fill appears in the activity log within a second. In paper mode it fills on paper - nothing reaches your broker until you say so.</span></div>
-    </div>
-    <div class="rep">
-      <div class="rept"><span class="t">Alert setup</span><span class="r"><i></i>Paper</span></div>
-      <div class="repb">
-        <div class="fld mono" style="display:flex;align-items:center;justify-content:space-between">Breakout-1m · MNQ1! <span style="color:#5C6470">▾</span></div>
-        <div class="code">{
-  "strategy_name": <b>"Breakout-1m"</b>,
-  "data": "{{strategy.order.action}}",
-  "quantity": "{{strategy.order.contracts}}",
-  "price": "{{close}}",
-  "token": "<span class="mask">••••••••••••••••</span>"
-}</div>
-        <div class="row2"><span class="btn2 g">Copy block</span><span class="btn2">Send a test signal</span></div>
-        <div class="fill">10:14:41  FILL  Breakout-1m  ·  test signal arrived, filled on paper</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="howfull">
-    <p><b>Do the full setup.</b> The screens above are inside the app. The page that walks the whole chain - including the one extra step so TradingView can reach this Mac - is the setup guide. Read every step. Do exactly what it says. Skip it and alerts never arrive.</p>
-    <a class="hfcta" href="setup.html">Full setup guide</a>
-    <span class="hfurl">bridgepit.com/setup</span>
-  </div>
 </section>
 
 <!-- ════ PRICING ════ -->
