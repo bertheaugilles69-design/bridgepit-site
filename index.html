@@ -80,11 +80,11 @@
 
   /* ── screen 1: bigger type + a dark frame around it (their space) ── */
   .hero{max-width:none;margin:0;height:100dvh;min-height:100dvh;display:flex;flex-direction:column;
-    padding:0 clamp(48px,11vw,200px) 0;overflow:hidden}
+    padding:0 clamp(64px,14vw,240px) 0;overflow:hidden}
   .hero-in{width:100%;max-width:none;margin:0;flex:1;display:flex;flex-direction:column;min-height:0}
-  .hero .say{width:100%;max-width:none;margin:0;padding:clamp(12px,2.6vh,28px) 0 10px;
+  .hero .say{width:100%;max-width:none;margin:0;padding:clamp(8px,2vh,22px) 0 8px;
     text-align:left;flex:none}
-  .hero h1{font:700 clamp(40px,5.4vw,80px)/1.04 var(--sans);letter-spacing:-.04em;color:#fff;
+  .hero h1{font:700 clamp(38px,5vw,72px)/1.05 var(--sans);letter-spacing:-.04em;color:#fff;
     max-width:none;margin:0}
   .hero .sub{margin:16px 0 0;font:400 18px/1.45 var(--sans);color:var(--dim);max-width:44ch}
   .hero .buttons{margin:24px 0 0;display:flex;flex-wrap:wrap;justify-content:flex-start;gap:12px;max-width:none}
@@ -602,7 +602,7 @@
 <main class="hero">
 <div class="hero-in">
   <div class="say">
-    <h1><span class="beat">Your laptop.</span> <span class="beat">Your alerts.</span><br><span class="beat">Your control.</span></h1>
+    <h1><span class="beat">Your laptop.</span><br><span class="beat">Your alerts.</span><br><span class="beat">Your control.</span></h1>
 
     <p class="sub">Your TradingView alerts become orders at your broker. The app on your Mac places them - so halt and your limits run on the same machine as the trade, not in the cloud.</p>
 
