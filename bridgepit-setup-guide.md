@@ -27,8 +27,9 @@ subscription (Pro $49/mo, 7-day trial, 1 live account; Multi $99/mo,
 ## What you need before starting
 
 1. Your computer — the Mac app is ready today (M1 or newer); Windows is on
-   its way. Use the machine you normally trade from. It must stay on during
-   your trading hours (that is what "executes from your own IP" means).
+   its way. Use the machine you normally trade from. It must stay on, lid
+   open, and connected to the internet during your trading hours (that is
+   what "executes from your own IP" means). No internet, nothing trades.
 2. TradingView on a plan with webhook alerts (Essential and up).
 3. A futures prop account at a firm that supports Rithmic, with API access
    enabled. Your firm charges its own API-access fee, paid to the firm
@@ -160,10 +161,11 @@ the dashboard kill-switch are already on.
 
 ## The one habit that matters
 
-BridgePit executes; you supervise. Keep the machine on during your trading
-hours, glance at the dashboard like you would glance at a position, quit
-only when you are flat. Rules differ by prop firm and change — always check
-your firm's current policy yourself.
+BridgePit executes; you supervise. Keep the machine on, lid open, and on
+the internet during your trading hours. Glance at the dashboard like you
+would glance at a position. Quit only when you are flat. No internet,
+nothing trades. Rules differ by prop firm and change — always check your
+firm's current policy yourself.
 
 ## Support
 
