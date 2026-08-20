@@ -78,10 +78,37 @@
   .navcta:hover{opacity:.86}
   @media(max-width:860px){ .links{display:none} .navin{grid-template-columns:1fr auto} }
 
-  /* ── screen 1: the hero ── */
-  .hero{max-width:var(--max);margin:0 auto;padding:clamp(44px,7vh,88px) var(--gut) clamp(52px,8vh,96px);
-    display:grid;grid-template-columns:minmax(0,505px) minmax(0,1fr);
-    gap:clamp(28px,3.4vw,52px);align-items:center}
+  /* ── screen 1: full-height room ── */
+  .hero{max-width:none;margin:0;min-height:100dvh;display:flex;flex-direction:column;
+    padding:0 var(--gut) 20px}
+  .hero .say{max-width:var(--max);width:100%;margin:0 auto;padding:clamp(12px,2.4vh,28px) 0 10px;
+    text-align:center;flex:none}
+  .hero .badge{justify-content:center;margin-bottom:14px}
+  .hero h1{font:700 clamp(36px,4.4vw,64px)/1.05 var(--sans);letter-spacing:-.038em;color:#fff;
+    max-width:16ch;margin:0 auto}
+  .hero .sub{margin:14px auto 0;font:400 17px/1.45 var(--sans);color:var(--dim);max-width:40ch}
+  .hero .buttons{margin:20px auto 0;display:flex;flex-wrap:wrap;justify-content:center;gap:12px;max-width:none}
+  .hero .b{padding:14px 20px;min-width:0;width:auto}
+  .hero .b .sz{margin-left:12px}
+  .hero .b-ghost .arrow{margin-left:8px}
+  .hero .facts{margin:16px auto 0;align-items:center;font-size:11px}
+  .hero .stage{flex:1;display:flex;flex-direction:column;min-height:0;width:100%;max-width:1180px;
+    margin:0 auto;position:relative}
+  .hero .stage .ftwin{flex:1;min-height:min(480px,52dvh);max-height:min(680px,62dvh);
+    box-shadow:0 36px 80px rgba(0,0,0,.55)}
+  .hero .dashcap{max-width:1180px;width:100%;margin:10px auto 0;padding:0 4px;
+    font:400 12.5px var(--sans);color:#52525B;text-align:left}
+  @media(max-width:980px){
+    .hero{min-height:0;padding-bottom:36px}
+    .hero .stage .ftwin{min-height:420px;max-height:none}
+    .hero .buttons{flex-direction:column;align-items:center}
+    .hero .b{width:min(100%,390px);justify-content:center}
+    .hero .b .sz{margin-left:auto}
+  }
+  @media(max-width:640px){
+    .hero h1{max-width:none}
+    .hero h1 .beat{white-space:normal}
+  }
 
   .badge{display:inline-flex;align-items:center;gap:9px;margin-bottom:26px}
   .badge .ic{width:30px;height:30px;border-radius:8px;border:1px solid var(--line);
@@ -91,7 +118,6 @@
     letter-spacing:.08em;color:var(--dim2);text-transform:uppercase}
   .badge .tag i{width:6px;height:6px;border-radius:2px;background:var(--green);display:block}
 
-  h1{font:700 clamp(32px,3.4vw,46px)/1.06 var(--sans);letter-spacing:-.033em;color:#fff}
   h1 .beat{white-space:nowrap}
 
   .sub{margin-top:22px;font:400 17px/1.5 var(--sans);color:var(--dim);max-width:42ch}
@@ -512,9 +538,6 @@
     .accts{grid-template-columns:1fr}
     .tiles{grid-template-columns:1fr 1fr}
   }
-  @media(max-width:1280px){
-    .hero{grid-template-columns:1fr;gap:36px;padding-top:36px;max-width:calc(680px + 2 * var(--gut))}
-  }
   @media(max-width:760px){ .app{height:auto} .mainpane>.view{overflow-y:visible} .mainpane::after{display:none} }
   @media(max-width:700px){
     .chain{flex-direction:column;align-items:stretch}
@@ -566,7 +589,7 @@
         <rect x="76" y="48" width="12" height="32" rx="2.5" fill="#FAFAFA"/>
       </svg>BridgePit</a>
     <div class="links">
-      <a href="#cockpit">The app</a>
+      <a href="#the-app">The app</a>
       <a href="#safety">Safety</a>
       <a href="#pricing">Pricing</a>
     </div>
@@ -597,7 +620,7 @@
       <a class="b b-primary" href="#download">
         Download for macOS <span class="sz">.dmg</span>
       </a>
-      <a class="b b-ghost" href="#cockpit">
+      <a class="b b-ghost" href="#paths">
         See how it works <span class="arrow">↓</span>
       </a>
     </div>
@@ -612,175 +635,7 @@
     </div>
   </div>
 
-  <div class="paths">
-    <div class="pathrow old">
-      <div class="plabel">The cloud way</div>
-      <div class="chain">
-        <div class="node"><span class="nt">TradingView</span></div>
-        <div class="wire"><span class="wl">alert</span></div>
-        <div class="node mid">
-          <span class="nt">Their server</span>
-          <span class="ns">their server places the order</span>
-        </div>
-        <div class="wire"><span class="wl">order</span></div>
-        <div class="node"><span class="nt">Your broker</span></div>
-      </div>
-      <p class="pnote">If their server is down, slow, or blocked, your account is the one that finds out.</p>
-    </div>
-
-    <div class="pathrow ours">
-      <div class="plabel">BridgePit<span class="lv"><i></i>live on your machine</span></div>
-      <div class="chain">
-        <div class="node"><span class="nt">TradingView</span></div>
-        <div class="wire w1"><span class="wl">alert</span></div>
-        <div class="node mid">
-          <span class="nt">Your Mac</span>
-          <span class="ns">your Mac places the order</span>
-        </div>
-        <div class="wire w2"><span class="wl">order</span></div>
-        <div class="node"><span class="nt">Your broker</span></div>
-      </div>
-      <p class="pnote">The order leaves from this Mac.</p>
-    </div>
-  </div>
-</main>
-
-<!-- ════ SCREEN 2 - featured dashboard, then two unlike satellites ════ -->
-<style>
-  #cockpit.feat{max-width:none;margin:0;padding:0 0 clamp(72px,10vh,120px);border-top:1px solid var(--line)}
-  #cockpit .col{max-width:var(--max);margin:0 auto;padding:clamp(44px,7vh,80px) var(--gut) 28px}
-  #cockpit .pairw{max-width:var(--max);margin:0 auto;padding:0 var(--gut)}
-  #cockpit .intro{font:600 12px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--dim2);margin-bottom:18px}
-  #cockpit .floor-type{max-width:505px}
-  #cockpit .floor-type h2{font:700 clamp(32px,3.4vw,46px)/1.06 var(--sans);letter-spacing:-.033em;color:#fff;max-width:none}
-  #cockpit .floor-type p{margin-top:22px;font:400 17px/1.5 var(--sans);color:var(--dim);max-width:42ch}
-  #cockpit .floor-type p b{color:var(--txt);font-weight:500}
-  #cockpit .bleed{width:100vw;margin-left:calc(50% - 50vw);padding:0 max(var(--gut),calc((100vw - 1080px) / 2))}
-  #cockpit .dashcap{max-width:1080px;margin:12px auto 0;padding:0 4px;font:400 12.5px var(--sans);color:#52525B}
-  #cockpit .ftwin{
-    --abg:#0A0D12;--aside:#0B0E14;--card:rgba(22,27,36,.72);--card2:rgba(30,36,46,.75);
-    --al:rgba(255,255,255,.07);--al2:rgba(255,255,255,.14);
-    --atx:#E6EAF0;--adim:#8C94A1;--adim2:#5C6470;
-    --acc:#8FA9D6;--accbg:rgba(143,169,214,.12);
-    --grn:#4FB584;--grnbg:rgba(79,181,132,.12);
-    --red:#C4574A;--serif:"Newsreader",Georgia,"Times New Roman",serif;
-    background:var(--abg);border:1px solid var(--al2);border-radius:16px;overflow:hidden;
-    color:var(--atx);display:grid;grid-template-columns:148px minmax(0,1fr);
-    min-height:0;box-shadow:0 28px 64px rgba(0,0,0,.5)}
-  #cockpit .ft-side{background:var(--aside);border-right:1px solid var(--al);padding:16px 10px;display:flex;flex-direction:column}
-  #cockpit .ft-logo{display:flex;align-items:center;gap:8px;padding:4px 8px 18px;font:700 14px var(--sans);letter-spacing:-.02em}
-  #cockpit .ft-logo .mk{width:24px;height:24px;border-radius:7px;background:#0E1218;border:1px solid var(--al2);display:grid;place-items:center}
-  #cockpit .ft-nav{display:flex;flex-direction:column;gap:2px}
-  #cockpit .ft-nav span{display:flex;align-items:center;padding:8px 10px;border-radius:9px;font:500 13px var(--sans);color:var(--adim)}
-  #cockpit .ft-nav span.on{background:rgba(255,255,255,.05);color:var(--atx)}
-  #cockpit .ft-nav .lab{padding:16px 10px 5px;font:600 10px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--adim2)}
-  #cockpit .ft-plan{margin-top:auto;border:1px solid var(--al);border-radius:12px;padding:11px 13px;background:var(--card)}
-  #cockpit .ft-plan .pt{font:400 11.5px var(--sans);color:var(--adim2)}
-  #cockpit .ft-plan .pv{margin-top:3px;font:600 13.5px var(--sans);color:var(--atx)}
-  #cockpit .ft-main{min-width:0;display:flex;flex-direction:column}
-  #cockpit .ft-top{height:54px;border-bottom:1px solid var(--al);display:flex;align-items:center;gap:12px;padding:0 22px;background:rgba(8,9,13,.75);flex:none}
-  #cockpit .ft-top h3{font:500 18px var(--serif);letter-spacing:-.01em;color:var(--atx);margin:0}
-  #cockpit .ft-top .clk{margin-left:auto;font:500 12px var(--mono);color:var(--adim);font-variant-numeric:tabular-nums}
-  #cockpit .ftpill{display:inline-flex;align-items:center;gap:7px;padding:5px 11px;border-radius:20px;font:600 12px var(--sans);background:var(--grnbg);color:var(--grn)}
-  #cockpit .ftpill i{width:7px;height:7px;border-radius:50%;background:var(--grn);display:block}
-  #cockpit .ft-body{padding:14px 18px 16px;min-width:0}
-  #cockpit .ft-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px;flex-wrap:wrap}
-  #cockpit .ftseg{display:inline-flex;background:var(--card);border:1px solid var(--al);border-radius:11px;padding:4px}
-  #cockpit .ftseg b{display:inline-block;padding:6px 14px;border-radius:8px;font:600 13px var(--sans);color:var(--atx);background:var(--card2);border:1px solid rgba(143,169,214,.35)}
-  #cockpit .ftseg em{font-style:normal;color:var(--red);margin-left:8px;font-variant-numeric:tabular-nums}
-  #cockpit .ftbtns{display:flex;gap:8px}
-  #cockpit .ftbtn{border-radius:8px;padding:8px 14px;font:600 13px var(--sans)}
-  #cockpit .ftbtn.red{background:transparent;border:1px solid var(--red);color:var(--red)}
-  #cockpit .ftbtn.ghost{background:transparent;border:1px solid var(--al2);color:var(--atx)}
-  #cockpit .ftbtn.white{background:#fff;color:#0A0D12;border:none}
-  #cockpit .ftacct{position:relative;overflow:hidden;padding:20px 22px 18px;background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--al2);border-radius:16px}
-  #cockpit .ftacct::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,var(--red),transparent 55%);opacity:.7}
-  #cockpit .ftacct .nm{font:700 15px var(--sans);letter-spacing:-.02em}
-  #cockpit .ftacct .aid{font:400 11px var(--mono);color:var(--adim2);margin-top:3px}
-  #cockpit .ftbadge{font:700 10.5px var(--sans);letter-spacing:.04em;text-transform:uppercase;padding:3.5px 9px;border-radius:6px;background:var(--accbg);color:var(--acc)}
-  #cockpit .ftacct .pnl{font:650 32px/1 var(--sans);letter-spacing:-.035em;font-variant-numeric:tabular-nums;margin-top:8px;color:var(--red)}
-  #cockpit .ftacct .pnls{font:400 12px var(--sans);color:var(--adim2);margin-top:5px}
-  #cockpit .ftacct .bal{color:var(--adim);font-size:13px;margin-top:3px;font-variant-numeric:tabular-nums}
-  #cockpit .ftrange{position:relative;height:6px;border-radius:3px;margin:16px 0 6px;background:linear-gradient(90deg,rgba(196,87,74,.55),rgba(217,160,63,.38) 35%,rgba(79,181,132,.5))}
-  #cockpit .ftrange i{position:absolute;top:-4px;width:3px;height:14px;border-radius:2px;background:#fff;transform:translateX(-50%)}
-  #cockpit .ftrl{display:flex;justify-content:space-between;font:400 11px var(--sans);color:var(--adim2);font-variant-numeric:tabular-nums}
-  #cockpit .ftrl b{color:var(--adim);font-weight:600}
-  #cockpit .ftlbar{height:5px;border-radius:3px;background:rgba(255,255,255,.07);margin:12px 0 7px;overflow:hidden}
-  #cockpit .ftlbar i{display:block;height:100%;width:30%;background:var(--red);border-radius:3px}
-  #cockpit .ftacct .s{font:400 12.5px var(--sans);color:var(--adim)}
-  #cockpit .ftacct .s b{color:var(--atx);font-weight:600;font-variant-numeric:tabular-nums}
-  #cockpit .ftmrow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px;padding-top:13px;border-top:1px solid var(--al)}
-  #cockpit .ftmrow div{font:400 11px var(--sans);color:var(--adim2);text-transform:uppercase;letter-spacing:.04em}
-  #cockpit .ftmrow b{display:block;color:var(--atx);font:650 14px var(--sans);margin-top:3px;text-transform:none;letter-spacing:0;font-variant-numeric:tabular-nums}
-  #cockpit .ftmeta{display:flex;gap:22px;margin-top:14px;padding-top:13px;border-top:1px solid var(--al);font:400 12px var(--sans);color:var(--adim)}
-  #cockpit .ftmeta b{display:block;color:var(--atx);font-size:13px;font-weight:650;margin-top:1px}
-  #cockpit .ftchip{display:inline-flex;background:var(--card2);border:1px solid var(--al2);border-radius:6px;padding:2px 8px;font:600 12px var(--sans);color:var(--atx)}
-  #cockpit .fttiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:14px}
-  #cockpit .fttile{background:var(--card);border:1px solid var(--al);border-radius:16px;padding:12px 14px}
-  #cockpit .fttile h4{font:600 10.5px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--adim2);margin-bottom:10px}
-  #cockpit .fttile .v{font:600 22px var(--sans);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
-  #cockpit .fttile .v small{font:400 13px var(--sans);color:var(--adim);font-weight:400}
-  #cockpit .fttile .s{margin-top:5px;font:400 12px var(--sans);color:var(--adim)}
-  #cockpit .fttile .meter{height:4px;border-radius:3px;background:rgba(255,255,255,.07);margin-top:9px;overflow:hidden}
-  #cockpit .fttile .meter i{display:block;height:100%;width:30%;background:var(--red)}
-  #cockpit .ftact{margin:22px 0 10px;font:500 16px var(--serif);letter-spacing:-.01em;color:var(--atx);display:flex;align-items:baseline;justify-content:space-between}
-  #cockpit .ftact span{font:400 12px var(--sans);color:var(--adim2)}
-  #cockpit .ftbl{border:1px solid var(--al);border-radius:16px;overflow:hidden;background:var(--card)}
-  #cockpit .ftbl .th,#cockpit .ftbl .tr{display:grid;grid-template-columns:78px 88px minmax(0,1fr);gap:10px;padding:10px 16px;align-items:center}
-  #cockpit .ftbl .th{font:600 10px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--adim2);background:rgba(255,255,255,.025)}
-  #cockpit .ftbl .tr{border-top:1px solid var(--al);font:400 12.5px var(--sans);color:var(--adim)}
-  #cockpit .fttm{font-family:var(--mono);font-size:11.5px;color:var(--adim2);font-variant-numeric:tabular-nums}
-  #cockpit .ftev{font:700 10px var(--sans);letter-spacing:.06em;border-radius:5px;padding:3px 7px;display:inline-block}
-  #cockpit .ftev.ok{color:var(--grn);background:var(--grnbg)}
-  #cockpit .ftev.bad{color:var(--red);background:var(--redbg)}
-  #cockpit .ftev.dim{color:var(--adim);background:rgba(255,255,255,.05)}
-  #cockpit .pair{display:grid;grid-template-columns:minmax(280px,.36fr) minmax(0,.64fr);gap:56px 48px;align-items:start;margin-top:clamp(64px,9vh,96px)}
-  #cockpit .sat h3{font:600 clamp(22px,2.2vw,30px)/1.12 var(--sans);letter-spacing:-.03em;color:#fff;max-width:14ch;text-wrap:balance}
-  #cockpit .sat p{margin-top:12px;font:400 15px/1.5 var(--sans);color:var(--dim);max-width:36ch}
-  #cockpit .sat-app{margin-top:22px}
-  #cockpit .settings{background:#0A0D12;border:1px solid rgba(255,255,255,.14);border-radius:16px;overflow:hidden;color:#E6EAF0;min-height:560px;display:flex;flex-direction:column;box-shadow:0 24px 56px rgba(0,0,0,.45)}
-  #cockpit .settings .ft-top{flex:none}
-  #cockpit .settings .ft-body{flex:1;padding:18px 18px 20px;display:flex;flex-direction:column}
-  #cockpit .ftmuted{font:400 12.5px/1.45 var(--sans);color:#8C94A1;margin-bottom:12px}
-  #cockpit .ftfld{display:flex;align-items:center;justify-content:space-between;background:#0A0D12;border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:9px 12px;font:500 13px var(--mono);color:#E6EAF0;margin-bottom:12px}
-  #cockpit .ftfld span{color:#5C6470;font-family:var(--sans);font-weight:400}
-  #cockpit .ftcode{background:#07090C;border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:14px 16px;font:400 12.5px/1.75 var(--mono);color:#8C94A1;white-space:pre;overflow-x:auto;margin:0;flex:1}
-  #cockpit .ftcode .k{color:#5C6470}
-  #cockpit .ftcode .s{color:#E6EAF0}
-  #cockpit .ftcode .mask{color:#5C6470;letter-spacing:.08em}
-  #cockpit .ftacts{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
-  #cockpit .ftfill{margin-top:14px;font:400 12px/1.45 var(--mono);color:#4FB584;padding:10px 12px;border-radius:8px;background:rgba(79,181,132,.12)}
-  #cockpit .watch-stack{margin-top:22px}
-  #cockpit .ftpf{display:flex;flex-wrap:wrap;align-items:center;gap:8px 22px;border:1px solid rgba(255,255,255,.07);border-radius:99px;padding:12px 20px;background:rgba(22,27,36,.72)}
-  #cockpit .ftp{display:inline-flex;align-items:center;gap:8px;font:500 12.5px var(--sans);color:#8C94A1;white-space:nowrap}
-  #cockpit .ftp i{width:7px;height:7px;border-radius:50%;background:#4FB584;display:block;flex:none}
-  #cockpit .ftp.info i{background:#5C6470}
-  #cockpit .ftp.bad{color:#C4574A;font-weight:600}
-  #cockpit .ftp.bad i{background:#C4574A}
-  #cockpit .watch-tbl{margin-top:12px}
-  @media(max-width:980px){
-    #cockpit .ftwin{grid-template-columns:1fr}
-    #cockpit .ft-side{display:none}
-    #cockpit .fttiles,#cockpit .ftmrow{grid-template-columns:1fr 1fr}
-    #cockpit .pair{grid-template-columns:1fr;gap:48px}
-    #cockpit .settings{min-height:480px}
-    #cockpit .ftpf{border-radius:16px}
-  }
-  @media(max-width:640px){
-    #cockpit .floor-type h2{max-width:none}
-    #cockpit .ftacct .pnl{font-size:34px}
-  }
-</style>
-<section class="cockpit feat" id="cockpit">
-  <div class="col">
-    <p class="intro">Once it’s running</p>
-    <div class="floor-type">
-      <h2>It stops at the number you set.</h2>
-      <p>Today is <b>−$180</b>. You said stop at <b>−$600</b>.</p>
-    </div>
-  </div>
-
-  <div class="bleed">
+  <div class="stage" id="the-app">
     <div class="ftwin" aria-label="BridgePit dashboard">
       <aside class="ft-side">
         <div class="ft-logo"><span class="mk"><svg width="12" height="12" viewBox="0 0 128 128" fill="none"><line x1="16" y1="90" x2="112" y2="90" stroke="#C7CCD6" stroke-width="8" stroke-linecap="round"/><rect x="40" y="48" width="12" height="32" rx="2" fill="#B9BFCB"/><rect x="76" y="48" width="12" height="32" rx="2" fill="#EAEDF2"/></svg></span>BridgePit</div>
@@ -835,6 +690,177 @@
       </div>
     </div>
     <p class="dashcap">The real dashboard. Sample numbers, not a live account.</p>
+  </div>
+</main>
+
+
+<section class="band" id="paths">
+  <div class="paths">
+    <div class="pathrow old">
+      <div class="plabel">The cloud way</div>
+      <div class="chain">
+        <div class="node"><span class="nt">TradingView</span></div>
+        <div class="wire"><span class="wl">alert</span></div>
+        <div class="node mid">
+          <span class="nt">Their server</span>
+          <span class="ns">their server places the order</span>
+        </div>
+        <div class="wire"><span class="wl">order</span></div>
+        <div class="node"><span class="nt">Your broker</span></div>
+      </div>
+      <p class="pnote">If their server is down, slow, or blocked, your account is the one that finds out.</p>
+    </div>
+
+    <div class="pathrow ours">
+      <div class="plabel">BridgePit<span class="lv"><i></i>live on your machine</span></div>
+      <div class="chain">
+        <div class="node"><span class="nt">TradingView</span></div>
+        <div class="wire w1"><span class="wl">alert</span></div>
+        <div class="node mid">
+          <span class="nt">Your Mac</span>
+          <span class="ns">your Mac places the order</span>
+        </div>
+        <div class="wire w2"><span class="wl">order</span></div>
+        <div class="node"><span class="nt">Your broker</span></div>
+      </div>
+      <p class="pnote">The order leaves from this Mac.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════ SCREEN 2 - featured dashboard, then two unlike satellites ════ -->
+<style>
+  #cockpit.feat{max-width:none;margin:0;padding:0 0 clamp(72px,10vh,120px);border-top:1px solid var(--line)}
+  #cockpit .col{max-width:var(--max);margin:0 auto;padding:clamp(44px,7vh,80px) var(--gut) 28px}
+  #cockpit .pairw{max-width:var(--max);margin:0 auto;padding:0 var(--gut)}
+  #cockpit .intro{font:600 12px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--dim2);margin-bottom:18px}
+  #cockpit .floor-type{max-width:505px}
+  #cockpit .floor-type h2{font:700 clamp(32px,3.4vw,46px)/1.06 var(--sans);letter-spacing:-.033em;color:#fff;max-width:none}
+  #cockpit .floor-type p{margin-top:22px;font:400 17px/1.5 var(--sans);color:var(--dim);max-width:42ch}
+  #cockpit .floor-type p b{color:var(--txt);font-weight:500}
+  .stage{width:100%}
+  .dashcap{max-width:1080px;margin:12px auto 0;padding:0 4px;font:400 12.5px var(--sans);color:#52525B}
+  .ftwin{
+    --abg:#0A0D12;--aside:#0B0E14;--card:rgba(22,27,36,.72);--card2:rgba(30,36,46,.75);
+    --al:rgba(255,255,255,.07);--al2:rgba(255,255,255,.14);
+    --atx:#E6EAF0;--adim:#8C94A1;--adim2:#5C6470;
+    --acc:#8FA9D6;--accbg:rgba(143,169,214,.12);
+    --grn:#4FB584;--grnbg:rgba(79,181,132,.12);
+    --red:#C4574A;--redbg:rgba(196,87,74,.12);--serif:"Newsreader",Georgia,"Times New Roman",serif;
+    background:var(--abg);border:1px solid var(--al2);border-radius:16px;overflow:hidden;
+    color:var(--atx);display:grid;grid-template-columns:148px minmax(0,1fr);
+    min-height:0;box-shadow:0 28px 64px rgba(0,0,0,.5)}
+  .ft-side{background:var(--aside);border-right:1px solid var(--al);padding:16px 10px;display:flex;flex-direction:column}
+  .ft-logo{display:flex;align-items:center;gap:8px;padding:4px 8px 18px;font:700 14px var(--sans);letter-spacing:-.02em}
+  .ft-logo .mk{width:24px;height:24px;border-radius:7px;background:#0E1218;border:1px solid var(--al2);display:grid;place-items:center}
+  .ft-nav{display:flex;flex-direction:column;gap:2px}
+  .ft-nav span{display:flex;align-items:center;padding:8px 10px;border-radius:9px;font:500 13px var(--sans);color:var(--adim)}
+  .ft-nav span.on{background:rgba(255,255,255,.05);color:var(--atx)}
+  .ft-nav .lab{padding:16px 10px 5px;font:600 10px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--adim2)}
+  .ft-plan{margin-top:auto;border:1px solid var(--al);border-radius:12px;padding:11px 13px;background:var(--card)}
+  .ft-plan .pt{font:400 11.5px var(--sans);color:var(--adim2)}
+  .ft-plan .pv{margin-top:3px;font:600 13.5px var(--sans);color:var(--atx)}
+  .ft-main{min-width:0;display:flex;flex-direction:column}
+  .ft-top{height:54px;border-bottom:1px solid var(--al);display:flex;align-items:center;gap:12px;padding:0 22px;background:rgba(8,9,13,.75);flex:none}
+  .ft-top h3{font:500 18px var(--serif);letter-spacing:-.01em;color:var(--atx);margin:0}
+  .ft-top .clk{margin-left:auto;font:500 12px var(--mono);color:var(--adim);font-variant-numeric:tabular-nums}
+  .ftpill{display:inline-flex;align-items:center;gap:7px;padding:5px 11px;border-radius:20px;font:600 12px var(--sans);background:var(--grnbg);color:var(--grn)}
+  .ftpill i{width:7px;height:7px;border-radius:50%;background:var(--grn);display:block}
+  .ft-body{padding:14px 18px 16px;min-width:0}
+  .ft-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+  .ftseg{display:inline-flex;background:var(--card);border:1px solid var(--al);border-radius:11px;padding:4px}
+  .ftseg b{display:inline-block;padding:6px 14px;border-radius:8px;font:600 13px var(--sans);color:var(--atx);background:var(--card2);border:1px solid rgba(143,169,214,.35)}
+  .ftseg em{font-style:normal;color:var(--red);margin-left:8px;font-variant-numeric:tabular-nums}
+  .ftbtns{display:flex;gap:8px}
+  .ftbtn{border-radius:8px;padding:8px 14px;font:600 13px var(--sans)}
+  .ftbtn.red{background:transparent;border:1px solid var(--red);color:var(--red)}
+  .ftbtn.ghost{background:transparent;border:1px solid var(--al2);color:var(--atx)}
+  .ftbtn.white{background:#fff;color:#0A0D12;border:none}
+  .ftacct{position:relative;overflow:hidden;padding:20px 22px 18px;background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--al2);border-radius:16px}
+  .ftacct::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,var(--red),transparent 55%);opacity:.7}
+  .ftacct .nm{font:700 15px var(--sans);letter-spacing:-.02em}
+  .ftacct .aid{font:400 11px var(--mono);color:var(--adim2);margin-top:3px}
+  .ftbadge{font:700 10.5px var(--sans);letter-spacing:.04em;text-transform:uppercase;padding:3.5px 9px;border-radius:6px;background:var(--accbg);color:var(--acc)}
+  .ftacct .pnl{font:650 32px/1 var(--sans);letter-spacing:-.035em;font-variant-numeric:tabular-nums;margin-top:8px;color:var(--red)}
+  .ftacct .pnls{font:400 12px var(--sans);color:var(--adim2);margin-top:5px}
+  .ftacct .bal{color:var(--adim);font-size:13px;margin-top:3px;font-variant-numeric:tabular-nums}
+  .ftrange{position:relative;height:6px;border-radius:3px;margin:16px 0 6px;background:linear-gradient(90deg,rgba(196,87,74,.55),rgba(217,160,63,.38) 35%,rgba(79,181,132,.5))}
+  .ftrange i{position:absolute;top:-4px;width:3px;height:14px;border-radius:2px;background:#fff;transform:translateX(-50%)}
+  .ftrl{display:flex;justify-content:space-between;font:400 11px var(--sans);color:var(--adim2);font-variant-numeric:tabular-nums}
+  .ftrl b{color:var(--adim);font-weight:600}
+  .ftlbar{height:5px;border-radius:3px;background:rgba(255,255,255,.07);margin:12px 0 7px;overflow:hidden}
+  .ftlbar i{display:block;height:100%;width:30%;background:var(--red);border-radius:3px}
+  .ftacct .s{font:400 12.5px var(--sans);color:var(--adim)}
+  .ftacct .s b{color:var(--atx);font-weight:600;font-variant-numeric:tabular-nums}
+  .ftmrow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px;padding-top:13px;border-top:1px solid var(--al)}
+  .ftmrow div{font:400 11px var(--sans);color:var(--adim2);text-transform:uppercase;letter-spacing:.04em}
+  .ftmrow b{display:block;color:var(--atx);font:650 14px var(--sans);margin-top:3px;text-transform:none;letter-spacing:0;font-variant-numeric:tabular-nums}
+  .ftmeta{display:flex;gap:22px;margin-top:14px;padding-top:13px;border-top:1px solid var(--al);font:400 12px var(--sans);color:var(--adim)}
+  .ftmeta b{display:block;color:var(--atx);font-size:13px;font-weight:650;margin-top:1px}
+  .ftchip{display:inline-flex;background:var(--card2);border:1px solid var(--al2);border-radius:6px;padding:2px 8px;font:600 12px var(--sans);color:var(--atx)}
+  .fttiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:14px}
+  .fttile{background:var(--card);border:1px solid var(--al);border-radius:16px;padding:12px 14px}
+  .fttile h4{font:600 10.5px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--adim2);margin-bottom:10px}
+  .fttile .v{font:600 22px var(--sans);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+  .fttile .v small{font:400 13px var(--sans);color:var(--adim);font-weight:400}
+  .fttile .s{margin-top:5px;font:400 12px var(--sans);color:var(--adim)}
+  .fttile .meter{height:4px;border-radius:3px;background:rgba(255,255,255,.07);margin-top:9px;overflow:hidden}
+  .fttile .meter i{display:block;height:100%;width:30%;background:var(--red)}
+  .ftact{margin:22px 0 10px;font:500 16px var(--serif);letter-spacing:-.01em;color:var(--atx);display:flex;align-items:baseline;justify-content:space-between}
+  .ftact span{font:400 12px var(--sans);color:var(--adim2)}
+  .ftbl{border:1px solid var(--al);border-radius:16px;overflow:hidden;background:var(--card)}
+  .ftbl .th,.ftbl .tr{display:grid;grid-template-columns:78px 88px minmax(0,1fr);gap:10px;padding:10px 16px;align-items:center}
+  .ftbl .th{font:600 10px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--adim2);background:rgba(255,255,255,.025)}
+  .ftbl .tr{border-top:1px solid var(--al);font:400 12.5px var(--sans);color:var(--adim)}
+  .fttm{font-family:var(--mono);font-size:11.5px;color:var(--adim2);font-variant-numeric:tabular-nums}
+  .ftev{font:700 10px var(--sans);letter-spacing:.06em;border-radius:5px;padding:3px 7px;display:inline-block}
+  .ftev.ok{color:var(--grn);background:var(--grnbg)}
+  .ftev.bad{color:var(--red);background:var(--redbg)}
+  .ftev.dim{color:var(--adim);background:rgba(255,255,255,.05)}
+  #cockpit .pair{display:grid;grid-template-columns:minmax(280px,.36fr) minmax(0,.64fr);gap:56px 48px;align-items:start;margin-top:clamp(64px,9vh,96px)}
+  #cockpit .sat h3{font:600 clamp(22px,2.2vw,30px)/1.12 var(--sans);letter-spacing:-.03em;color:#fff;max-width:14ch;text-wrap:balance}
+  #cockpit .sat p{margin-top:12px;font:400 15px/1.5 var(--sans);color:var(--dim);max-width:36ch}
+  #cockpit .sat-app{margin-top:22px}
+  #cockpit .settings{background:#0A0D12;border:1px solid rgba(255,255,255,.14);border-radius:16px;overflow:hidden;color:#E6EAF0;min-height:560px;display:flex;flex-direction:column;box-shadow:0 24px 56px rgba(0,0,0,.45)}
+  #cockpit .settings .ft-top{flex:none}
+  #cockpit .settings .ft-body{flex:1;padding:18px 18px 20px;display:flex;flex-direction:column}
+  .ftmuted{font:400 12.5px/1.45 var(--sans);color:#8C94A1;margin-bottom:12px}
+  .ftfld{display:flex;align-items:center;justify-content:space-between;background:#0A0D12;border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:9px 12px;font:500 13px var(--mono);color:#E6EAF0;margin-bottom:12px}
+  .ftfld span{color:#5C6470;font-family:var(--sans);font-weight:400}
+  .ftcode{background:#07090C;border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:14px 16px;font:400 12.5px/1.75 var(--mono);color:#8C94A1;white-space:pre;overflow-x:auto;margin:0;flex:1}
+  .ftcode .k{color:#5C6470}
+  .ftcode .s{color:#E6EAF0}
+  .ftcode .mask{color:#5C6470;letter-spacing:.08em}
+  .ftacts{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+  .ftfill{margin-top:14px;font:400 12px/1.45 var(--mono);color:#4FB584;padding:10px 12px;border-radius:8px;background:rgba(79,181,132,.12)}
+  #cockpit .watch-stack{margin-top:22px}
+  .ftpf{display:flex;flex-wrap:wrap;align-items:center;gap:8px 22px;border:1px solid rgba(255,255,255,.07);border-radius:99px;padding:12px 20px;background:rgba(22,27,36,.72)}
+  .ftp{display:inline-flex;align-items:center;gap:8px;font:500 12.5px var(--sans);color:#8C94A1;white-space:nowrap}
+  .ftp i{width:7px;height:7px;border-radius:50%;background:#4FB584;display:block;flex:none}
+  .ftp.info i{background:#5C6470}
+  .ftp.bad{color:#C4574A;font-weight:600}
+  .ftp.bad i{background:#C4574A}
+  #cockpit .watch-tbl{margin-top:12px}
+  @media(max-width:980px){
+    .ftwin{grid-template-columns:1fr}
+    .ft-side{display:none}
+    .fttiles,.ftmrow{grid-template-columns:1fr 1fr}
+    #cockpit .pair{grid-template-columns:1fr;gap:48px}
+    #cockpit .settings{min-height:480px}
+    .ftpf{border-radius:16px}
+  }
+  @media(max-width:640px){
+    #cockpit .floor-type h2{max-width:none}
+    .ftacct .pnl{font-size:34px}
+  }
+</style>
+<section class="cockpit feat" id="cockpit">
+  <div class="col">
+    <p class="intro">Once it’s running</p>
+    <div class="floor-type">
+      <h2>It stops at the number you set.</h2>
+      <p>Today is <b>−$180</b>. You said stop at <b>−$600</b>.</p>
+    </div>
   </div>
 
   <div class="pairw">
@@ -891,6 +917,8 @@
   /* ── the rest of the page: same system, no new ideas ── */
   .band{max-width:var(--max);margin:0 auto;padding:clamp(56px,9vh,110px) var(--gut);
     border-top:1px solid var(--line);position:relative;z-index:1}
+  #paths.band{max-width:1080px}
+  #paths .paths{display:grid;gap:16px}
   .bhead{max-width:660px;margin-bottom:clamp(30px,4vh,52px)}
   .bhead .csub{margin-top:18px}
 
