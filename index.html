@@ -86,7 +86,9 @@
   .hero{max-width:none;margin:0;min-height:100dvh;height:auto;display:flex;flex-direction:column;
     padding:0 clamp(64px,14vw,240px) clamp(72px,10vh,120px);overflow:visible}
   .hero-in{width:100%;max-width:none;margin:0;flex:1;display:flex;flex-direction:column;min-height:0}
-  .hero .say{width:100%;max-width:none;margin:0;padding:clamp(36px,6vh,72px) 0 0;
+  .hero-lead{display:grid;grid-template-columns:minmax(280px,34rem) minmax(0,1fr);
+    gap:clamp(24px,3.5vw,56px);align-items:center;padding:clamp(36px,6vh,72px) 0 0}
+  .hero .say{width:100%;max-width:none;margin:0;padding:0;
     text-align:left;flex:none}
   .hero h1{font:700 clamp(38px,5vw,72px)/1.05 var(--sans);letter-spacing:-.04em;color:#fff;
     max-width:none;margin:0}
@@ -102,14 +104,12 @@
     font:400 13px var(--sans);color:#8A8A93;text-align:left}
   .hero .stage .ftwin{flex:none;min-height:0;max-height:none;border-radius:16px;
     box-shadow:0 24px 64px rgba(0,0,0,.4)}
-  .hero .stage-row{display:grid;grid-template-columns:minmax(0,1fr) 300px;
-    gap:clamp(20px,2.6vw,40px);align-items:start}
   .hero .ft-float{position:relative;z-index:2;min-width:0;animation:ftfloat 12s ease-in-out infinite}
   @keyframes ftfloat{
     0%,100%{transform:translate3d(0,0,0)}
     50%{transform:translate3d(0,-7px,0)}}
   .hero-chart{position:relative;z-index:0;pointer-events:none;width:100%;
-    aspect-ratio:560/300;margin-top:72px;display:flex;align-items:stretch}
+    height:min(48vh, 440px);min-height:240px;display:flex;align-items:stretch}
   .hero-chart svg{width:100%;height:100%;display:block;overflow:visible}
   .hero-wash{position:absolute;right:-8%;top:6%;width:46vw;height:40vw;pointer-events:none;z-index:0;
     background:radial-gradient(ellipse at center,rgba(232,236,244,.08),transparent 68%);
@@ -117,15 +117,11 @@
   @keyframes washdrift{
     0%,100%{transform:translate3d(0,0,0)}
     50%{transform:translate3d(-5%,7%,0)}}
-  @media(max-width:1280px){
-    .hero .stage-row{grid-template-columns:1fr}
-    .hero-chart{display:none}
-  }
   @media(max-width:980px){
     .hero{height:auto;min-height:0;overflow:visible;padding-bottom:56px}
+    .hero-lead{display:block;padding-top:clamp(28px,5vh,48px)}
     .hero .stage{margin-top:32px}
     .hero .stage .ftwin{min-height:0;border-radius:16px}
-    .hero .stage-row{grid-template-columns:1fr}
     .hero-wash,.hero-chart{display:none}
     .hero .ft-float{animation:none}
     .hero h1{max-width:none}
@@ -593,7 +589,7 @@
   @media(prefers-reduced-motion:reduce){
     .pathrow.ours .wire::after{animation:none;opacity:1;left:calc(100% - 6px)}
     .plabel .lv i{animation:none}
-    .hero-wash,.hero-chart{display:none}
+    .hero-wash{display:none}
     .hero .ft-float,body::before{animation:none}
   }
   @media(max-width:700px) and (prefers-reduced-motion:reduce){
@@ -630,6 +626,7 @@
 <main class="hero">
 <div class="hero-wash" aria-hidden="true"></div>
 <div class="hero-in">
+  <div class="hero-lead">
   <div class="say">
     <h1><span class="beat">Your laptop.</span><br><span class="beat">Your alerts.</span><br><span class="beat">Your control.</span></h1>
 
@@ -644,10 +641,16 @@
       </a>
     </div>
   </div>
+    <div class="hero-chart" aria-hidden="true">
+      <svg id="hx-svg" viewBox="0 0 640 340" preserveAspectRatio="xMidYMid meet" fill="none">
+        <g id="hx-hist"></g>
+        <g id="hx-live"></g>
+      </svg>
+    </div>
+  </div>
 
   <div class="stage" id="the-app">
     <p class="dashcap">The real dashboard — sample numbers. Lid closed or no internet: no new orders.</p>
-    <div class="stage-row">
     <div class="ft-float">
     <div class="ftwin" aria-label="BridgePit dashboard">
       <aside class="ft-side">
@@ -740,69 +743,6 @@
         </div>
         <span class="ft-fab" aria-hidden="true"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a8 8 0 01-11.5 7.2L3 21l1.8-6.5A8 8 0 1121 12z"/></svg></span>
       </div>
-    </div>
-    </div>
-    <div class="hero-chart" aria-hidden="true">
-      <svg viewBox="0 0 560 300" preserveAspectRatio="xMidYMid meet" fill="none">
-            <line x1="13.36" y1="38.86" x2="13.36" y2="124.59" stroke="rgba(201,210,222,.55)" stroke-width="1"/>
-            <rect x="7.93" y="56.20" width="10.85" height="45.34" rx="0.7" fill="rgba(201,210,222,.34)"/>
-            <line x1="32.07" y1="99.97" x2="32.07" y2="137.16" stroke="rgba(201,210,222,.55)" stroke-width="1"/>
-            <rect x="26.64" y="101.54" width="10.85" height="22.36" rx="0.7" fill="rgba(201,210,222,.34)"/>
-            <line x1="50.79" y1="90.23" x2="50.79" y2="126.53" stroke="rgba(201,210,222,.55)" stroke-width="1"/>
-            <rect x="45.36" y="114.23" width="10.85" height="9.68" rx="0.7" fill="rgba(230,234,240,.18)" stroke="rgba(230,234,240,.62)" stroke-width="1"/>
-            <line x1="69.50" y1="93.85" x2="69.50" y2="180.03" stroke="rgba(201,210,222,.55)" stroke-width="1"/>
-            <rect x="64.07" y="114.23" width="10.85" height="47.57" rx="0.7" fill="rgba(201,210,222,.34)"/>
-            <line x1="88.21" y1="95.06" x2="88.21" y2="174.71" stroke="rgba(201,210,222,.55)" stroke-width="1"/>
-            <rect x="82.79" y="117.98" width="10.85" height="43.81" rx="0.7" fill="rgba(230,234,240,.18)" stroke="rgba(230,234,240,.62)" stroke-width="1"/>
-            <line x1="106.93" y1="80.39" x2="106.93" y2="143.81" stroke="rgba(201,210,222,.55)" stroke-width="1"/>
-            <rect x="101.50" y="117.98" width="10.85" height="14.64" rx="0.7" fill="rgba(201,210,222,.34)"/>
-            <line x1="125.64" y1="129.28" x2="125.64" y2="178.50" stroke="rgba(201,210,222,.55)" stroke-width="1"/>
-            <rect x="120.22" y="132.62" width="10.85" height="31.15" rx="0.7" fill="rgba(201,210,222,.34)"/>
-            <line x1="144.36" y1="153.10" x2="144.36" y2="178.12" stroke="rgba(201,210,222,.55)" stroke-width="1"/>
-            <rect x="138.93" y="163.77" width="10.85" height="1.60" rx="0.7" fill="rgba(201,210,222,.34)"/>
-            <line x1="163.07" y1="141.54" x2="163.07" y2="188.83" stroke="rgba(201,210,222,.55)" stroke-width="1"/>
-            <rect x="157.64" y="161.79" width="10.85" height="3.06" rx="0.7" fill="rgba(230,234,240,.18)" stroke="rgba(230,234,240,.62)" stroke-width="1"/>
-            <line x1="181.79" y1="158.10" x2="181.79" y2="182.12" stroke="rgba(201,210,222,.55)" stroke-width="1"/>
-            <rect x="176.36" y="160.78" width="10.85" height="1.60" rx="0.7" fill="rgba(230,234,240,.18)" stroke="rgba(230,234,240,.62)" stroke-width="1"/>
-            <line x1="200.50" y1="148.51" x2="200.50" y2="212.68" stroke="rgba(201,210,222,.55)" stroke-width="1"/>
-            <rect x="195.07" y="160.78" width="10.85" height="51.67" rx="0.7" fill="rgba(201,210,222,.34)"/>
-            <line x1="219.21" y1="205.78" x2="219.21" y2="233.98" stroke="rgba(201,210,222,.55)" stroke-width="1"/>
-            <rect x="213.79" y="212.44" width="10.85" height="5.70" rx="0.7" fill="rgba(201,210,222,.34)"/>
-            <line x1="237.93" y1="123.93" x2="237.93" y2="239.78" stroke="rgba(201,210,222,.55)" stroke-width="1"/>
-            <rect x="232.50" y="137.33" width="10.85" height="80.81" rx="0.7" fill="rgba(230,234,240,.18)" stroke="rgba(230,234,240,.62)" stroke-width="1"/>
-            <line x1="256.64" y1="126.14" x2="256.64" y2="205.86" stroke="rgba(201,210,222,.55)" stroke-width="1"/>
-            <rect x="251.22" y="137.33" width="10.85" height="48.55" rx="0.7" fill="rgba(201,210,222,.34)"/>
-            <line x1="275.36" y1="168.61" x2="275.36" y2="209.46" stroke="rgba(201,210,222,.55)" stroke-width="1"/>
-            <rect x="269.93" y="185.88" width="10.85" height="8.77" rx="0.7" fill="rgba(201,210,222,.34)"/>
-            <line x1="294.07" y1="175.59" x2="294.07" y2="239.30" stroke="rgba(201,210,222,.55)" stroke-width="1"/>
-            <rect x="288.64" y="194.65" width="10.85" height="38.30" rx="0.7" fill="rgba(201,210,222,.34)"/>
-            <line x1="312.79" y1="169.03" x2="312.79" y2="253.14" stroke="rgba(201,210,222,.55)" stroke-width="1"/>
-            <rect x="307.36" y="178.21" width="10.85" height="54.73" rx="0.7" fill="rgba(230,234,240,.18)" stroke="rgba(230,234,240,.62)" stroke-width="1"/>
-            <line x1="331.50" y1="155.56" x2="331.50" y2="192.20" stroke="rgba(201,210,222,.55)" stroke-width="1"/>
-            <rect x="326.07" y="178.21" width="10.85" height="5.70" rx="0.7" fill="rgba(201,210,222,.34)"/>
-            <line x1="350.21" y1="144.68" x2="350.21" y2="209.43" stroke="rgba(201,210,222,.55)" stroke-width="1"/>
-            <rect x="344.79" y="157.39" width="10.85" height="26.52" rx="0.7" fill="rgba(230,234,240,.18)" stroke="rgba(230,234,240,.62)" stroke-width="1"/>
-            <line x1="368.93" y1="127.83" x2="368.93" y2="164.04" stroke="rgba(201,210,222,.55)" stroke-width="1"/>
-            <rect x="363.50" y="142.99" width="10.85" height="14.41" rx="0.7" fill="rgba(230,234,240,.18)" stroke="rgba(230,234,240,.62)" stroke-width="1"/>
-            <line x1="387.64" y1="96.53" x2="387.64" y2="172.01" stroke="rgba(201,210,222,.55)" stroke-width="1"/>
-            <rect x="382.22" y="114.71" width="10.85" height="28.28" rx="0.7" fill="rgba(230,234,240,.18)" stroke="rgba(230,234,240,.62)" stroke-width="1"/>
-            <line x1="406.36" y1="95.73" x2="406.36" y2="141.97" stroke="rgba(201,210,222,.55)" stroke-width="1"/>
-            <rect x="400.93" y="114.71" width="10.85" height="8.72" rx="0.7" fill="rgba(201,210,222,.34)"/>
-            <line x1="425.07" y1="95.04" x2="425.07" y2="138.97" stroke="rgba(201,210,222,.55)" stroke-width="1"/>
-            <rect x="419.64" y="110.82" width="10.85" height="12.61" rx="0.7" fill="rgba(230,234,240,.18)" stroke="rgba(230,234,240,.62)" stroke-width="1"/>
-            <line x1="443.79" y1="106.33" x2="443.79" y2="136.89" stroke="rgba(201,210,222,.55)" stroke-width="1"/>
-            <rect x="438.36" y="110.82" width="10.85" height="15.88" rx="0.7" fill="rgba(201,210,222,.34)"/>
-            <line x1="462.50" y1="91.33" x2="462.50" y2="149.58" stroke="rgba(201,210,222,.55)" stroke-width="1"/>
-            <rect x="457.07" y="119.15" width="10.85" height="7.55" rx="0.7" fill="rgba(230,234,240,.18)" stroke="rgba(230,234,240,.62)" stroke-width="1"/>
-            <line x1="481.21" y1="75.61" x2="481.21" y2="139.45" stroke="rgba(201,210,222,.55)" stroke-width="1"/>
-            <rect x="475.79" y="96.64" width="10.85" height="22.50" rx="0.7" fill="rgba(230,234,240,.18)" stroke="rgba(230,234,240,.62)" stroke-width="1"/>
-            <line x1="499.93" y1="75.66" x2="499.93" y2="132.50" stroke="rgba(201,210,222,.55)" stroke-width="1"/>
-            <rect x="494.50" y="96.64" width="10.85" height="5.62" rx="0.7" fill="rgba(201,210,222,.34)"/>
-            <line id="hx-px" x1="518.64" y1="146.13" x2="560" y2="146.13" stroke="#C4574A" stroke-width="1" stroke-dasharray="3 5" opacity=".55"/>
-            <line id="hx-wick" x1="518.64" y1="93.03" x2="518.64" y2="159.99" stroke="#C4574A" stroke-width="1.25"/>
-            <rect id="hx-body" x="513.22" y="102.26" width="10.85" height="43.87" rx="0.7" fill="#C4574A"/>
-            <circle id="hx-dot" cx="555.00" cy="146.13" r="2.2" fill="#C4574A"/>
-      </svg>
     </div>
     </div>
   </div>
@@ -1404,34 +1344,75 @@
   }
 })();
 (function(){
-  var wick=document.getElementById('hx-wick'), body=document.getElementById('hx-body');
-  var px=document.getElementById('hx-px'), dot=document.getElementById('hx-dot');
-  if(!wick||!body) return;
+  var svg=document.getElementById('hx-svg');
+  var hist=document.getElementById('hx-hist');
+  var live=document.getElementById('hx-live');
+  if(!svg||!hist||!live) return;
+  var W=640,H=340,pl=6,pr=22,pt=14,pb=18,N=32;
+  var slot=(W-pl-pr)/N, bw=slot*0.56;
+  var red='#C4574A', grn='#4FB584';
+  var sw='rgba(201,210,222,.52)';
+  var upf='rgba(230,234,240,.18)', ups='rgba(230,234,240,.6)', dnf='rgba(201,210,222,.34)';
+  var bars=[], p=100;
+  for(var i=0;i<N;i++){
+    var c=p+Math.sin(i*0.55)*0.32+((i%9===0)?-0.38:0.06)+((i*13)%7-3)*0.035;
+    var h=Math.max(p,c)+0.12+Math.abs(Math.sin(i))*0.1;
+    var l=Math.min(p,c)-0.12-Math.abs(Math.cos(i*1.3))*0.1;
+    bars.push({o:p,h:h,l:l,c:c}); p=c;
+  }
+  var lo,hi;
+  function refit(){
+    lo=1e9; hi=-1e9;
+    for(var i=0;i<bars.length;i++){ if(bars[i].l<lo)lo=bars[i].l; if(bars[i].h>hi)hi=bars[i].h; }
+    var pad=(hi-lo)*0.18||0.5; lo-=pad; hi+=pad;
+  }
+  function Y(v){ return pt+(hi-v)/(hi-lo)*(H-pt-pb); }
+  function candle(b,x,isLive){
+    var yO=Y(b.o), yC=Y(b.c), yH=Y(b.h), yL=Y(b.l);
+    var top=Math.min(yO,yC), bh=Math.max(2, Math.abs(yC-yO));
+    var up=b.c>=b.o, col=isLive?(up?grn:red):null;
+    var s='<line x1="'+x.toFixed(2)+'" y1="'+yH.toFixed(2)+'" x2="'+x.toFixed(2)+'" y2="'+yL.toFixed(2)+'" stroke="'+(col||sw)+'" stroke-width="'+(isLive?1.4:1)+'"/>';
+    if(isLive) s+='<rect x="'+(x-bw/2).toFixed(2)+'" y="'+top.toFixed(2)+'" width="'+bw.toFixed(2)+'" height="'+bh.toFixed(2)+'" rx="0.7" fill="'+col+'"/>';
+    else if(up) s+='<rect x="'+(x-bw/2).toFixed(2)+'" y="'+top.toFixed(2)+'" width="'+bw.toFixed(2)+'" height="'+bh.toFixed(2)+'" rx="0.7" fill="'+upf+'" stroke="'+ups+'" stroke-width="1"/>';
+    else s+='<rect x="'+(x-bw/2).toFixed(2)+'" y="'+top.toFixed(2)+'" width="'+bw.toFixed(2)+'" height="'+bh.toFixed(2)+'" rx="0.7" fill="'+dnf+'"/>';
+    return s;
+  }
+  function paintHist(){
+    refit();
+    var html='';
+    for(var i=0;i<bars.length-1;i++) html+=candle(bars[i], pl+i*slot+slot/2, false);
+    hist.innerHTML=html;
+  }
+  function paintLive(){
+    var b=bars[bars.length-1], x=pl+(N-1)*slot+slot/2, yC=Y(b.c), col=b.c>=b.o?grn:red;
+    live.innerHTML=candle(b,x,true)
+      +'<line x1="'+x.toFixed(2)+'" y1="'+yC.toFixed(2)+'" x2="'+(W-4)+'" y2="'+yC.toFixed(2)+'" stroke="'+col+'" stroke-width="1" stroke-dasharray="3 5" opacity=".55"/>'
+      +'<circle cx="'+(W-6)+'" cy="'+yC.toFixed(2)+'" r="2.5" fill="'+col+'"/>';
+  }
+  paintHist(); paintLive();
   if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   if(window.matchMedia('(max-width:980px)').matches) return;
-  var pt=10,H=300,pb=18,mn=98.04418518747903,mx=100.40020705586413,span=mx-mn;
-  var openP=99.60105437102582, closeP=99.22105437102583, highP=99.68105437102582, lowP=99.10105437102582;
-  function Y(v){return pt+(mx-v)/span*(H-pt-pb)}
-  var red='#C4574A', grn='#4FB584';
-  function paint(){
-    var yO=Y(openP), yC=Y(closeP), yH=Y(highP), yL=Y(lowP);
-    var top=Math.min(yO,yC), h=Math.max(1.2, Math.abs(yC-yO));
-    var col=closeP>=openP?grn:red;
-    wick.setAttribute('y1',yH.toFixed(2)); wick.setAttribute('y2',yL.toFixed(2)); wick.setAttribute('stroke',col);
-    body.setAttribute('y',top.toFixed(2)); body.setAttribute('height',h.toFixed(2)); body.setAttribute('fill',col);
-    if(px){px.setAttribute('y1',yC.toFixed(2)); px.setAttribute('y2',yC.toFixed(2)); px.setAttribute('stroke',col)}
-    if(dot){dot.setAttribute('cy',yC.toFixed(2)); dot.setAttribute('fill',col)}
+  var prev=0, born=0;
+  function frame(t){
+    if(!prev){ prev=t; born=t; }
+    var b=bars[bars.length-1];
+    b.c += Math.sin(t/130)*0.022 + Math.sin(t/51)*0.016 + (Math.random()-0.5)*0.035;
+    if(b.c>b.o+0.85) b.c=b.o+0.85;
+    if(b.c<b.o-0.85) b.c=b.o-0.85;
+    b.h=Math.max(b.h,b.o,b.c);
+    b.l=Math.min(b.l,b.o,b.c);
+    if(t-born>1400){
+      var nx=b.c;
+      bars.push({o:nx,h:nx,l:nx,c:nx});
+      bars.shift();
+      born=t;
+      paintHist();
+    }
+    paintLive();
+    prev=t;
+    requestAnimationFrame(frame);
   }
-  function tick(){
-    closeP+=(Math.random()-0.52)*0.065;
-    if(closeP>openP+0.32) closeP=openP+0.32;
-    if(closeP<openP-1.02) closeP=openP-1.02;
-    highP=Math.max(highP*0.996+Math.max(openP,closeP)*0.004, openP, closeP);
-    lowP=Math.min(lowP*0.996+Math.min(openP,closeP)*0.004, openP, closeP);
-    paint();
-    setTimeout(tick, 280+Math.random()*520);
-  }
-  tick();
+  requestAnimationFrame(frame);
 })();
 (function(){
   var app=document.getElementById('app'); if(!app) return;
