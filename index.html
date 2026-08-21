@@ -3,7 +3,6 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex">
 <title>BridgePit - TradingView alerts, executed on your own machine</title>
 <meta name="description" content="BridgePit runs your TradingView alerts on your own Mac and your own connection. Your broker login is encrypted locally and never sent anywhere. You set your daily loss limit, emergency stop and end-of-day flatten, and they run on the same machine that places the orders. Free on paper.">
 <link rel="canonical" href="https://bridgepit.com/">
@@ -617,6 +616,7 @@
       <a href="#the-app">The app</a>
       <a href="#safety">Safety</a>
       <a href="#pricing">Pricing</a>
+      <a href="setup.html">Setup</a>
     </div>
     <div class="navr"><a class="navcta" href="#download">Download</a></div>
   </div>
@@ -650,7 +650,7 @@
   </div>
 
   <div class="stage" id="the-app">
-    <p class="dashcap">The real dashboard — sample numbers. Lid closed or no internet: no new orders.</p>
+    <p class="dashcap">The real dashboard - sample numbers. Lid closed or no internet: no new orders.</p>
     <div class="ft-float">
     <div class="ftwin" aria-label="BridgePit dashboard">
       <aside class="ft-side">
@@ -683,14 +683,14 @@
           </div>
           <div class="ft-pre">
             <details>
-              <summary>8 checks — all clear<span> · details</span></summary>
+              <summary>8 checks - all clear<span> · details</span></summary>
               <div class="ft-pre-pills">
                 <span class="ftp"><i></i>Broker session</span>
                 <span class="ftp"><i></i>Execution</span>
                 <span class="ftp"><i></i>Entries</span>
                 <span class="ftp info"><i></i>Book<span class="dt"> · open: MNQ 2</span></span>
                 <span class="ftp"><i></i>P&amp;L feed</span>
-                <span class="ftp info"><i></i>Heartbeat<span class="dt"> · optional — no monitor URL set</span></span>
+                <span class="ftp info"><i></i>Heartbeat<span class="dt"> · optional - no monitor URL set</span></span>
                 <span class="ftp"><i></i>Alert delivery</span>
                 <span class="ftp"><i></i>Power</span>
               </div>
@@ -1135,6 +1135,9 @@
   .dlbtn{margin:34px auto 0;max-width:390px}
   .dlfacts{margin-top:22px;font:600 12px/1.9 var(--sans);letter-spacing:.1em;
     text-transform:uppercase;color:var(--dim2)}
+  .dlnext{margin:20px auto 0;max-width:56ch;font:400 15px/1.65 var(--sans);color:var(--dim)}
+  .dlnext a{color:var(--txt);text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--line2)}
+  .dlnext a:hover{text-decoration-color:var(--txt)}
 
   .foot{max-width:var(--max);margin:0 auto;padding:0 var(--gut) 60px;position:relative;z-index:1;
     display:flex;flex-wrap:wrap;gap:14px 28px;align-items:center;
@@ -1307,13 +1310,14 @@
 <!-- ════ DOWNLOAD ════ -->
 <section class="dl" id="download">
   <h2>Run one session on paper, free.</h2>
-  <p class="csub">Nothing to sign into, no card, no cloud account. It is a Mac app, and it stops when you close it.</p>
+  <p class="csub">No BridgePit account and no card. It is a Mac app, and it stops when you close it.</p>
   <div class="buttons dlbtn">
     <a class="b b-primary" href="downloads/BridgePit-mac.dmg">
       Download for macOS <span class="sz">.dmg</span>
     </a>
   </div>
   <p class="dlfacts">Apple Silicon (M1 or later) · developer-signed, notarised by Apple · macOS 13+</p>
+  <p class="dlnext">The download is step one of five. TradingView still has to reach your Mac, so you also install one free app called Tailscale and sign in to it with Google or Apple. <a href="setup.html">Walk the setup guide</a> before your first alert.</p>
 </section>
 
 <footer class="foot">
