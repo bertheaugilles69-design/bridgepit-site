@@ -113,7 +113,7 @@ In TradingView, create an alert on your strategy and set two fields:
   "token": "your-token-from-settings",
   "multiple_accounts": [{
     "token": "your-token-from-settings",
-    "connection_name": "TRADOVATE1",
+    "connection_name": "RITHMIC1",
     "account_id": "your-account-id",
     "quantity_multiplier": 1
   }]

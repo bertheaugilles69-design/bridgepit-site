@@ -178,10 +178,10 @@
       <div class="stepno">Step three</div>
       <h2>Connect your broker.</h2>
       <p><b>Connections → + Add connection.</b> Pick your broker, enter the login your broker or prop firm gave you, then <b>Save &amp; Connect</b>. The status pill turns green; your first connection becomes the execution account automatically.</p>
-      <figure class="plate"><img src="setup-connection.png" alt="A saved Tradovate connection card with its controls" width="2072" height="420"></figure>
-      <p class="figcap"><b>Connections.</b> Your login is shown masked; the pill goes green once connected.</p>
+      <figure class="plate"><img src="setup-connection-rithmic.png" alt="A saved Rithmic connection card, connected, marked as the execution account" width="1066" height="294"></figure>
+      <p class="figcap"><b>Connections.</b> Your login is shown masked; the pill goes green once connected, and <b>Executing</b> marks the account orders go to.</p>
       <p class="aside">Credentials are encrypted on your machine with a key that never leaves it, used only to open your broker session. They never touch our servers - we couldn't read them if we wanted to.</p>
-      <p class="aside">One thing to know before you try: connecting over Rithmic needs a paid Rithmic market-data subscription on your account. Demo and trial logins can't connect this way. Paper mode inside BridgePit works regardless, so you can test the whole chain first.</p>
+      <p class="aside">One thing to know before you try: your firm has to switch on Rithmic API access for your account, and the firm charges its own fee for that, paid to them and not to us. Demo and trial Rithmic logins can't connect this way. This is not a CME market-data licence and it is not something you buy from us: your charts stay on TradingView, and BridgePit only sends orders. Paper mode inside BridgePit works regardless, so you can test the whole chain first.</p>
     </section>
 
     <section class="step">
@@ -205,7 +205,7 @@
   "token": "<span class="hl">your-token-from-settings</span>",
   "multiple_accounts": [{
     "token": "<span class="hl">your-token-from-settings</span>",
-    "connection_name": "<span class="hl">TRADOVATE1</span>",     <span class="cm">← the name from step three</span>
+    "connection_name": "<span class="hl">RITHMIC1</span>",       <span class="cm">← the name from step three</span>
     "account_id": "<span class="hl">your-account-id</span>",
     "quantity_multiplier": 1
   }]
