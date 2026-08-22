@@ -24,7 +24,7 @@
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
  {"@type":"Question","name":"Can I keep my existing PickMyTrade alert format?","acceptedAnswer":{"@type":"Answer","text":"Yes. BridgePit accepts the PickMyTrade alert message format unchanged - switching is editing one webhook URL per TradingView alert."}},
  {"@type":"Question","name":"Why does it matter where execution runs?","acceptedAnswer":{"@type":"Answer","text":"A cloud service places your orders from its datacenter IP and holds your broker access to do it. Software on your own machine places orders from your own IP with credentials that never leave your computer. Rules differ by firm and change; always check your firm's current rules."}},
- {"@type":"Question","name":"Is BridgePit fully automated?","acceptedAnswer":{"@type":"Answer","text":"Semi-automated by design: it executes your TradingView alerts and you supervise, with a kill-switch, position caps, a daily loss stop, and an end-of-day flatten."}},
+ {"@type":"Question","name":"Is BridgePit fully automated?","acceptedAnswer":{"@type":"Answer","text":"It executes, you supervise. You set the halt, the caps, and the daily stop. End-of-day flatten is on unless you change it."}},
  {"@type":"Question","name":"What does BridgePit cost compared to PickMyTrade?","acceptedAnswer":{"@type":"Answer","text":"BridgePit paper trading is free now. Live is $49/month for one account when it goes on sale; Multi is coming. PickMyTrade lists $50/month, $120/quarter, or $350/year with a 5-day trial (checked July 2026). Your prop firm sets its own API-access fee, paid to the firm directly - not to us."}}]}
 </script>
 <style>
@@ -146,7 +146,7 @@
     <h3>Can I keep my existing alert format?</h3>
     <p>Yes - BridgePit reads the PickMyTrade message format natively. One URL edit per alert, nothing else.</p>
     <h3>Is BridgePit fully automated?</h3>
-    <p>Semi-automated by design: it executes, you supervise. Kill-switch, caps, daily loss stop, and end-of-day flatten are always on.</p>
+    <p>It executes, you supervise. You set the halt, the caps, and the daily stop. End-of-day flatten is on unless you change it.</p>
     <h3>Is local execution allowed at my prop firm?</h3>
     <p>BridgePit runs on your own computer and sends orders from your own IP - no cloud server between your signals and your broker. Rules differ by firm and change, so always check your firm's current policy.</p>
     <h3>What if my internet drops mid-position?</h3>
