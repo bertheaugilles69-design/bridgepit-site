@@ -24,7 +24,7 @@
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
  {"@type":"Question","name":"How is BridgePit different from TradersPost?","acceptedAnswer":{"@type":"Answer","text":"TradersPost receives TradingView webhooks in the cloud and sends orders to your broker. BridgePit runs on your own computer: the alert lands on your Mac, the order leaves from your own IP, and your broker login never leaves the machine."}},
  {"@type":"Question","name":"Why does it matter where execution runs?","acceptedAnswer":{"@type":"Answer","text":"A cloud service places your orders from its datacenter IP and holds your broker access to do it. Software on your own machine places orders from your own IP with credentials that never leave your computer. Rules differ by firm and change; always check your firm's current rules."}},
- {"@type":"Question","name":"Is BridgePit fully automated?","acceptedAnswer":{"@type":"Answer","text":"It executes, you supervise. You set the halt, the caps, and the daily stop. End-of-day flatten is on unless you change it."}},
+ {"@type":"Question","name":"Is BridgePit fully automated?","acceptedAnswer":{"@type":"Answer","text":"Semi-automated by design: it executes your TradingView alerts and you supervise. The kill-switch, per-strategy contract caps, duplicate rejection and the end-of-day flatten are on from the start. The daily loss stop is the one number you enter yourself."}},
  {"@type":"Question","name":"What does BridgePit cost compared to TradersPost?","acceptedAnswer":{"@type":"Answer","text":"BridgePit paper trading is free now. Live is $49/month for one account when it goes on sale; Multi is coming. TradersPost Starter is $41.65/month billed yearly on traderspost.io/pricing (checked August 20, 2026), with a 7-day trial. Your prop firm sets its own API-access fee, paid to the firm directly - not to us."}}]}
 </script>
 <style>
@@ -121,7 +121,7 @@
     <tr><td>Price</td><td>Paper free now · Live $49/mo (1 account), coming soon · Multi coming</td><td>Starter $41.65/mo billed yearly · 7-day trial · extra live accounts $10/mo</td></tr>
     <tr><td>Brokers</td><td>Rithmic-based prop firms (supported firms announced at launch)</td><td>Tradovate, NinjaTrader, Interactive Brokers, TradeStation, plus stocks, options and crypto venues</td></tr>
     <tr><td>What it trades</td><td>Futures through Rithmic, on the Mac</td><td>Stocks, options, futures, crypto - more asset classes, more brokers</td></tr>
-    <tr><td>Safety rails</td><td><b>Kill-switch, daily loss stop, position caps, duplicate rejection, EOD auto-flatten</b> - enforced on your machine</td><td>Strategy subscriptions, manual or live auto-submit; see their docs</td></tr>
+    <tr><td>Safety rails</td><td><b>Kill-switch, position caps, duplicate rejection, EOD auto-flatten</b> - on from the start, enforced on your machine; the daily loss stop is the one number you enter</td><td>Strategy subscriptions, manual or live auto-submit; see their docs</td></tr>
     <tr><td>Needs your computer on</td><td>Yes - lid open, on the internet, during your hours</td><td>No. That is their edge.</td></tr>
     <tr><td>Alert format</td><td>BridgePit JSON (and PickMyTrade-format alerts)</td><td>Their own JSON (<code>ticker</code>, <code>action</code>). Not a one-URL swap.</td></tr>
   </table>
@@ -147,7 +147,7 @@
     <h3>Do I keep my TradersPost alert as-is?</h3>
     <p>No. Their payload is their own. You paste the block BridgePit writes, and you point the webhook at your Mac. Paper first.</p>
     <h3>Is BridgePit fully automated?</h3>
-    <p>It executes, you supervise. You set the halt, the caps, and the daily stop. End-of-day flatten is on unless you change it.</p>
+    <p>Semi-automated by design: it executes your TradingView alerts and you supervise. The kill-switch, per-strategy contract caps, duplicate rejection and the end-of-day flatten are on from the start. The daily loss stop is the one number you enter yourself.</p>
     <h3>Is local execution allowed at my prop firm?</h3>
     <p>BridgePit runs on your own computer and sends orders from your own IP. Rules differ by firm and change, so always check your firm's current policy. We never claim approval on your behalf.</p>
     <h3>What if my internet drops mid-position?</h3>

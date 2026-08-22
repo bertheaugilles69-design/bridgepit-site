@@ -5,7 +5,9 @@ TradingView strategy alerts on the trader's own futures broker account,
 locally from the trader's own computer and IP address - no cloud middleman.
 Built for traders who want their orders placed from their own machine
 and VPS execution. Semi-automated by design: it executes, the trader
-supervises (kill-switch, position caps, daily loss stop, EOD auto-flatten).
+supervises. Kill-switch, position caps, duplicate rejection and EOD
+auto-flatten are on from the start; the daily loss stop is the one
+number the trader enters.
 Credentials are encrypted on the trader's machine and never touch our servers.
 Accepts PickMyTrade-format alerts unchanged (one URL edit to migrate).
 Broker support: Rithmic - the connection rail most major prop firms offer;

@@ -16,8 +16,9 @@ broker account, locally from your own computer and IP address. No cloud
 middleman: your broker credentials are encrypted on your machine and never
 touch BridgePit's servers. It is semi-automated by design - it executes,
 you supervise. Built-in rails: kill-switch, per-strategy position caps,
-daily loss stop, duplicate-alert rejection, end-of-day auto-flatten
-(15:55 ET by default, configurable).
+duplicate-alert rejection and end-of-day auto-flatten (15:55 ET by
+default, configurable) are on from the start; the daily loss stop is
+the one number you enter yourself.
 
 Free tier: paper trading only, no card needed - orders are simulated.
 Going live requires BOTH a connected broker account AND an active
