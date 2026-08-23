@@ -167,8 +167,8 @@
       <p class="figcap"><b>Terminal.</b> The first line - yours will show your own machine's name - is your new address. Done; you can close the window.</p>
       <p class="aside"><b>The first time, you'll probably get a link instead of an address.</b> It looks like <code>https://login.tailscale.com/f/funnel?node=…</code> That is normal: this feature is switched off on new accounts, and Tailscale is asking you to switch it on. Open that link in your browser, approve it, then <b>run the same line again</b> - the second run gives you the address above. Nothing went wrong, and you still only ever type the one line.</p>
       <p>That's the whole trick, and you never have to type it again. From now on the app shows your finished webhook address - your new address with <code>/webhook</code> on the end - ready to copy, under <b>Settings → Your webhook</b>:</p>
-      <figure class="plate"><img src="setup-webhook.png" alt="The Settings page showing your webhook URL and token, each with a copy button" width="2080" height="540"></figure>
-      <p class="figcap"><b>Settings → Your webhook.</b> Top box: where alerts go. Bottom box: the token that proves an alert is yours. You'll paste both in step four.</p>
+      <figure class="plate"><img src="setup-webhook.png" alt="Settings, Your webhook: the public URL with a Copy button, and the token masked with Reveal and Copy" width="4400" height="1252"></figure>
+      <p class="figcap"><b>Settings → Your webhook.</b> Top box: the address alerts go to. Bottom box: the token that proves an alert is yours, kept hidden so a screenshot of this screen cannot give it away. You will not have to type either one.</p>
       <p class="aside">Is a public address safe? With the setup on this page, yes: through it the app answers alerts and nothing else - and only alerts carrying your token. Your dashboard, settings and broker login are not reachable through it. Set the tunnel up exactly as described here; other tunnelling tools work differently and this guide doesn't cover them.</p>
     </section>
 
@@ -177,8 +177,8 @@
       <h2>Connect your broker.</h2>
       <p><b>Connections → + Add connection.</b> Enter the Rithmic login your broker or prop firm gave you - Rithmic is the broker BridgePit connects to today - then <b>Save &amp; Connect</b>. The status pill turns green.</p>
       <p><b>Your orders stay on paper until you click "Set as execution" on the connection card.</b> That click is deliberate and it is the one that makes fills real. A connection can sit green and connected for days without ever placing a live order.</p>
-      <figure class="plate"><img src="setup-connection-rithmic.png" alt="A saved Rithmic connection card, connected, marked as the execution account" width="1066" height="294"></figure>
-      <p class="figcap"><b>Connections.</b> Your login is shown masked; the pill goes green once connected, and <b>Executing</b> marks the account orders go to.</p>
+      <figure class="plate"><img src="setup-connection-rithmic.png" alt="A saved Rithmic connection card with Connect, Auto-connect, Set as execution and Delete" width="2240" height="632"></figure>
+      <p class="figcap"><b>Connections.</b> Your login is shown masked. <b>Connect</b> logs in; the pill goes green. <b>Set as execution</b> is the separate click that makes fills real - until you press it, everything is paper.</p>
       <p class="aside">The green pill records your last successful login, not a live heartbeat. If the broker link drops later the pill can still read Connected - BridgePit tells you through your alerts and writes a <code>CONN_DOWN</code> row in Recent activity, so trust those over the pill.</p>
       <p class="aside">Credentials are encrypted on your machine with a key that never leaves it, used only to open your broker session. They never touch our servers - we couldn't read them if we wanted to.</p>
       <p class="aside">Two things to sort out with your firm before you try, because neither is ours to switch on. <b>First</b>, they have to enable Rithmic API access for your account, and they charge their own fee for it - paid to them, not to us. <b>Second</b>, your Rithmic account needs a paid subscription with them: demo and trial Rithmic logins cannot connect at all. That is not a CME market-data licence and it is not something you buy from us - your charts stay on TradingView and BridgePit only sends orders. Paper mode inside BridgePit works regardless, so you can test the whole chain first.</p>
@@ -190,12 +190,12 @@
       <h2>Name your strategy. Wire the alert.</h2>
       <p>On <b>Strategies</b>, add your strategy. The name is the handshake - your alert must send exactly the same one.</p>
       <p class="caution"><b>"Contracts per signal" is your size, and it multiplies.</b> BridgePit takes the contract count in the alert and multiplies it by this number - a 1-lot signal at 3 sends 3 contracts. It also refuses any order that would take the net position above it. <b>Leave it at 1</b> unless you deliberately want to scale, and if your TradingView strategy already trades more than one contract, leave it at 1 or the two multiply and the order is refused. Do not set it to your firm's maximum as a safety ceiling - that is the opposite of what it does.</p>
-      <figure class="plate"><img src="setup-strategy.png" alt="The Strategies table with one strategy: Breakout-1m on MNQ1!, size ×2, enabled" width="2072" height="252"></figure>
-      <p class="figcap"><b>Strategies.</b> One row per strategy; the size is applied and the position ceiling checked before any order leaves.</p>
+      <figure class="plate"><img src="setup-strategy.png" alt="The Your strategies table: Breakout-1m on MNQ1!, 2 contracts, a 120-point emergency stop, switched on" width="4400" height="656"></figure>
+      <p class="figcap"><b>Your strategies.</b> One row each. <b>Contracts</b> is your size and it multiplies the alert's; the same number is the ceiling any order is checked against before it leaves.</p>
       <p><b>Don't type the alert message. The app writes it for you.</b> Open <b>Settings → Alert setup</b>, pick your strategy, and press <b>Copy block</b>. Your token is already in it, so there is nothing to fill in and nothing to mistype.</p>
       <p>Then, in TradingView, open the alert window - the <b>⏰ alarm-clock icon</b> on the right toolbar, then <b>Create alert</b>. Two rows, one thing on each:</p>
       <figure class="plate"><img src="setup-tvalert.png" alt="The TradingView Create Alert dialog with the Message and Notifications rows highlighted" width="1888" height="1620"></figure>
-      <p class="figcap"><b>Your TradingView alert window.</b> <b>①&nbsp;Message</b> - click it, clear what's there, paste the block. <b>②&nbsp;Notifications</b> - click it, switch on <b>Webhook URL</b>, and paste your address from step&nbsp;two.</p>
+      <p class="figcap"><b>Your TradingView alert window.</b> <b>①&nbsp;Message</b> - click it, clear what's there, paste the block. <b>②&nbsp;Notifications</b> - click it, switch on <b>Webhook URL</b>, and paste your address from step&nbsp;two. The condition shown here is only an example of the dialog - set yours to your strategy, as the box above says.</p>
       <p class="caution"><b>Set the alert's Condition to your strategy itself</b>, not to the indicator or the symbol. <code>{{strategy.order.action}}</code> and <code>{{strategy.order.contracts}}</code> only fill in when the condition is the strategy - otherwise they arrive empty and every alert is refused with <code>qty &lt;= 0</code>.</p>
       <p>For reference, this is what <b>Copy block</b> gives you. Six lines, and only the first two are yours:</p>
 <pre><code>{
@@ -215,13 +215,13 @@
       <div class="stepno">Step five</div>
       <h2>Fire one alert. Watch it fill on paper.</h2>
       <p>Trigger your alert once - or use BridgePit's own <b>Send a test signal</b> button under <b>Settings → Alert setup</b>, which needs no TradingView at all. Then look at the dashboard:</p>
-      <figure class="plate"><img src="setup-fills.png" alt="The activity feed: a buy order and fill, a rejected duplicate, then the sell order and fill - all marked paper" width="2072" height="630"></figure>
-      <p class="figcap"><b>Recent activity.</b> A full round trip on paper - and one duplicate alert caught and refused on the way.</p>
+      <figure class="plate"><img src="setup-fills.png" alt="Recent activity: a buy order and fill, then the sell order and fill, every row marked paper" width="4400" height="1000"></figure>
+      <p class="figcap"><b>Recent activity.</b> One test signal, four rows: the buy order, its fill, the sell order, its fill. Every fill says <b>(paper)</b>, which is what you want to see first.</p>
       <p>A <b>FILL</b> row wearing your strategy's name means the whole chain works: TradingView reached your machine, your machine simulated the order. No order from your alerts can reach a real account until you press <b>Set as execution</b> on a connection - until then every fill is paper, by design.</p>
       <p class="caution"><b>One thing does reach a connected account regardless: the end-of-day flatten.</b> From 15:55 ET it cancels working orders and closes positions on any broker session BridgePit is connected to - subscription or not, execution or not - because an unpaid bill must never leave a position open overnight. If you are also trading that account by hand, disconnect it here or switch the end-of-day flatten off before you paper-test.</p>
       <p>When you're ready, paste the license key from your purchase email under <b>Subscription</b>:</p>
-      <figure class="plate"><img src="setup-license.png" alt="The license key field on the Subscription page with its Activate button" width="2072" height="252"></figure>
-      <p class="figcap"><b>Subscription.</b> The key activates on this machine - no account to create.</p>
+      <figure class="plate"><img src="setup-license.png" alt="The license key field on the Subscription page with its Activate button" width="4400" height="672"></figure>
+      <p class="figcap"><b>Choose your plan.</b> The key activates on this machine - no account to create.</p>
       <p class="caution"><b>BridgePit will not let you go live until you have proved it can reach you.</b> Clicking <b>Set as execution</b> is refused, with the reason, until both of these are done:<br>
       <b>1.</b> In <b>Settings → Where we reach you</b>, set up Telegram or e-mail. Then in <b>Settings → Alert delivery</b>, click <b>Send test message</b>, and once it arrives click <b>I received it</b>.<br>
       <b>2.</b> In <b>Settings → What BridgePit depends on</b>, click <b>Read the list</b>, then <b>I have read this</b>.<br>
