@@ -153,17 +153,18 @@
     <section class="step">
       <div class="stepno">Step two</div>
       <h2>Give your machine an address TradingView can find.</h2>
-      <p>Here's the thing this step solves: TradingView lives on the internet, and your computer - on purpose - can't be found from the internet. So we give it one address, for one door, once. A free app called Tailscale does it. Three small moves:</p>
+      <p>Here's the thing this step solves: TradingView lives on the internet, and your computer - on purpose - can't be found from the internet. So we give it one address, for one door, once. A free app called Tailscale does it. Four small moves:</p>
       <ol class="moves">
         <li><b>Install Tailscale and sign in.</b> Download it at <a href="https://tailscale.com/download" style="color:var(--blue)">tailscale.com/download</a>, open it, and sign in with Google or Apple - the free personal plan is all you need.</li>
+        <li><b>Answer the two macOS questions - the second one properly.</b> First macOS asks to add a VPN configuration: click <b>Allow</b>. Then it says Tailscale <i>would like to use a new network extension</i>, offering <b>OK</b> and <b>Open System Settings</b>. <b>Click Open System Settings</b>, find Tailscale in the list, and switch it on. Clicking OK looks like it worked and doesn't turn anything on - Tailscale then sits there half-installed with nothing to tell you why.</li>
         <li><b>Open Terminal.</b> Press <code>⌘ space</code>, type <b>Terminal</b>, press return. A plain text window opens - you'll type exactly one line in it, ever.</li>
         <li><b>Paste this line and press return:</b></li>
       </ol>
       <div class="term"><div class="bar"><i></i><i></i><i></i></div><pre><code><span class="you">tailscale funnel --bg 8787</span>
-<span class="out">Available on the internet:</span>
-<span class="url">https://your-mac.tail1234.ts.net</span>
-<span class="out">→ 127.0.0.1:8787</span></code></pre></div>
-      <p class="figcap"><b>Terminal.</b> The middle line - yours will show your own machine's name - is your new address. Done; you can close the window.</p>
+<span class="url">https://your-mac.tail1234.ts.net/</span>
+<span class="out">|-- proxy http://127.0.0.1:8787</span></code></pre></div>
+      <p class="figcap"><b>Terminal.</b> The first line - yours will show your own machine's name - is your new address. Done; you can close the window.</p>
+      <p class="aside"><b>The first time, you'll probably get a link instead of an address.</b> It looks like <code>https://login.tailscale.com/f/funnel?node=…</code> That is normal: this feature is switched off on new accounts, and Tailscale is asking you to switch it on. Open that link in your browser, approve it, then <b>run the same line again</b> - the second run gives you the address above. Nothing went wrong, and you still only ever type the one line.</p>
       <p>That's the whole trick, and you never have to type it again. From now on the app shows your finished webhook address - your new address with <code>/webhook</code> on the end - ready to copy, under <b>Settings → Your webhook</b>:</p>
       <figure class="plate"><img src="setup-webhook.png" alt="The Settings page showing your webhook URL and token, each with a copy button" width="2080" height="540"></figure>
       <p class="figcap"><b>Settings → Your webhook.</b> Top box: where alerts go. Bottom box: the token that proves an alert is yours. You'll paste both in step four.</p>
@@ -229,10 +230,12 @@
     <h2>Every failure says its name.</h2>
     <table>
       <tr><th>You see</th><th>It means</th></tr>
+      <tr><td>a login.tailscale.com link instead of an address</td><td>Normal on a new account - the feature is off until you switch it on. Open the link, approve it, then run the same line again.</td></tr>
+      <tr><td>command not found: tailscale</td><td>Tailscale is installed but Terminal can't see it. Use the long form instead: <code>/Applications/Tailscale.app/Contents/MacOS/Tailscale funnel --bg 8787</code></td></tr>
       <tr><td>bad token</td><td>The token in your alert doesn't match Settings. Re-copy it into both places it appears in the message.</td></tr>
       <tr><td>unknown strategy</td><td>The alert's <code>strategy_name</code> doesn't exactly match a strategy in the app. Case and spaces count.</td></tr>
       <tr><td>REJECT · burst duplicate</td><td>Working as intended - the same signal arrived twice within seconds and the copy was refused.</td></tr>
-      <tr><td>nothing appears at all</td><td>TradingView can't reach your machine. Run <code>tailscale funnel status</code>, and check the URL ends in <code>/webhook</code>.</td></tr>
+      <tr><td>nothing appears at all</td><td>TradingView can't reach your machine. Run <code>tailscale funnel status</code> - it should say <b>Funnel on</b> and list your address. Also check the URL in TradingView ends in <code>/webhook</code>. If Tailscale says it's connected but nothing arrives, the address can still be down: connected and serving are two different things.</td></tr>
       <tr><td>fills say (paper) after subscribing</td><td>Live needs a green connection <b>and</b> an activated key - check both on the dashboard.</td></tr>
     </table>
     <p>Stuck anyway? <a href="mailto:support@bridgepit.com">support@bridgepit.com</a> - paste the row from Recent activity if there is one, and you'll get a specific answer.</p>

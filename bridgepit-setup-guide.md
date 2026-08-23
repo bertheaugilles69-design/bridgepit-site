@@ -56,14 +56,31 @@ address, for one door, once.
 
 1. Install Tailscale and sign in (Google or Apple login; the free personal
    plan is enough).
-2. Open Terminal: press Cmd-Space, type "Terminal", press return.
-3. Paste this one line and press return:
+2. Answer the two macOS questions - the second one properly. macOS asks to
+   add a VPN configuration: click Allow. Then it says Tailscale "would like
+   to use a new network extension" and offers OK or Open System Settings.
+   Click Open System Settings, find Tailscale, and switch it on. Clicking OK
+   turns nothing on and gives no error - Tailscale then sits half-installed.
+3. Open Terminal: press Cmd-Space, type "Terminal", press return.
+4. Paste this one line and press return:
 
    tailscale funnel --bg 8787
 
-   It prints your public address, e.g. https://your-mac.tail1234.ts.net
+   It prints your public address, e.g.
+
+   https://your-mac.tail1234.ts.net/
+   |-- proxy http://127.0.0.1:8787
+
    (yours shows your own machine's name). You can close Terminal; you never
    need to type it again.
+
+   First run on a new account usually prints a link instead, like
+   https://login.tailscale.com/f/funnel?node=... That is normal: Funnel is
+   off until you switch it on. Open the link, approve it, then run the same
+   line again - the second run gives the address.
+
+   If Terminal says "command not found: tailscale", use the long form:
+   /Applications/Tailscale.app/Contents/MacOS/Tailscale funnel --bg 8787
 
 Your webhook URL is that address plus /webhook. The app also shows the
 finished URL and your secret token, both with copy buttons, under
@@ -74,8 +91,11 @@ endpoint, and every alert must carry your secret token. The dashboard,
 settings, and broker credentials answer only on your machine - enforced in
 the app itself, not just by the tunnel.
 
-Troubleshooting this step: run "tailscale funnel status" in Terminal to
-check the tunnel is up.
+Troubleshooting this step: run "tailscale funnel status" in Terminal. It
+should say "Funnel on" and list your address. Note that Tailscale can show
+itself as connected while the public address serves nothing - connected and
+serving are two different things, so trust this command, not the app's
+status.
 
 ## Step 3 - Connect your broker
 
