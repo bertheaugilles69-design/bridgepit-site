@@ -107,6 +107,17 @@ endpoint, and every alert must carry your secret token. The dashboard,
 settings, and broker credentials answer only on your machine - enforced in
 the app itself, not just by the tunnel.
 
+A saved address is not a live one. Your line is saved for good and you
+never type it again, but the address only answers while Tailscale is
+running and serving it - and a Mac that has restarted comes back with
+neither Tailscale nor BridgePit running until you log in and start them.
+TradingView fires each alert once and never retries, so an alert sent to a
+dead address is simply gone, and the one you can least afford to lose is an
+exit. BridgePit re-tests the address every half minute and says so at the
+top of the dashboard when it stops answering - but only while the dashboard
+is open, and nothing reaches your phone. In Tailscale's settings, switch on
+"Launch Tailscale at login".
+
 Troubleshooting this step: run "tailscale funnel status" in Terminal. It
 should say "Funnel on" and list your address. Note that Tailscale can show
 itself as connected while the public address serves nothing - connected and
