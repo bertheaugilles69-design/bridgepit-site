@@ -617,7 +617,7 @@
   /* narrower than the column, and centred in it */
   .bpframe{max-width:1120px;margin-inline:auto;
     position:relative;border:1px solid rgba(255,255,255,.10);
-    border-radius:16px;overflow:hidden;background:#0B1220;
+    border-radius:16px;overflow:hidden;background:#0A0D12;
     box-shadow:0 24px 64px rgba(0,0,0,.4)}
   .bpviewport{position:relative;width:100%;container-type:inline-size;
     /* half the dashboard's height: the rest is there, you scroll to it */
@@ -710,22 +710,15 @@
   unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
 .bptwin{
     /* BridgePit design system — mirrors bridgepit.com: ink ground, glass
-       surfaces, steel accent, SOBER money green/red (reserved for P&L).
-       The ground is a near-black NAVY (25 Aug, Gilles picked it from four
-       rendered candidates on the live dashboard). Everything that reads as
-       the ground, and every ink-on-light, sits in the same blue family — a
-       neutral #191919 left beside it reads warm and dirty. Blue is a GROUND
-       only: it is never an accent, never a status, and no state is ever
-       communicated with it. */
-    --bg:#0B1220; --sidebar:#0F1728; --panel:rgba(11,18,32,0); --panel2:rgba(26,38,60,.62);
+       surfaces, steel accent, SOBER money green/red (reserved for P&L). */
+    --bg:#0A0D12; --sidebar:#0B0E14; --panel:rgba(22,27,36,.72); --panel2:rgba(30,36,46,.75);
     --line:rgba(255,255,255,.07); --line2:rgba(255,255,255,.14);
-    --txt:#EAEBEC; --dim:#90959C; --dim2:#60656C;
-    --plat:#D1D3D5;
-    --accent:#D1D3D5; --accent2:#EAEBEC; --accentbg:rgba(209,211,213,.10);
-    --green:#33BF85; --greenbg:rgba(51,191,133,.12);
-    --red:#D9455E; --redbg:rgba(217,69,94,.13);
-    --amber:#BFAE86; --amberbg:rgba(191,174,134,.11);
-    --warn:#D9A03F;  --warnbg:rgba(217,160,63,.12);   /* an actual warning, not a limit */
+    --txt:#E6EAF0; --dim:#8C94A1; --dim2:#5C6470;
+    --plat:#C9D2DE;
+    --accent:#8FA9D6; --accent2:#A9BEE2; --accentbg:rgba(143,169,214,.12);
+    --green:#4FB584; --greenbg:rgba(79,181,132,.12);
+    --red:#C4574A; --redbg:rgba(196,87,74,.12);
+    --amber:#d9a03f; --amberbg:rgba(217,160,63,.12);
     --radius:16px;
     --serif:"Newsreader",Georgia,'Times New Roman',serif;
   }
@@ -733,110 +726,100 @@
 .bptwin{font:14px/1.55 -apple-system,BlinkMacSystemFont,"Inter","Segoe UI",sans-serif;
        background:var(--bg);color:var(--txt);-webkit-font-smoothing:antialiased}
 .bptwin body::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
-    background:none}
+    background:radial-gradient(ellipse 90% 60% at 50% 30%,rgba(44,76,127,.10),transparent 65%)}
 .bptwin a{color:inherit;text-decoration:none}
 .bptwin .app{display:flex;min-height:100%;position:relative;z-index:1}
-.bptwin .sidebar{width:216px;background:var(--sidebar);
+.bptwin .sidebar{width:246px;background:var(--sidebar);border-right:1px solid var(--line);
     display:flex;flex-direction:column;position:absolute;height:100%;padding:20px 14px;z-index:10}
-.bptwin .logo[hidden]{display:none}
 .bptwin .logo{display:flex;align-items:center;gap:10px;padding:6px 10px 22px;font-weight:700;font-size:17px;letter-spacing:-.2px}
-.bptwin .logo .mark{width:28px;height:28px;border-radius:8px;background:#0F1626;border:1px solid var(--line2);
+.bptwin .logo .mark{width:28px;height:28px;border-radius:8px;background:#0e1218;border:1px solid var(--line2);
     display:grid;place-items:center;color:var(--plat);font-size:15px;font-weight:800}
-.bptwin .nav{display:flex;flex-direction:column;gap:2px;flex:1;margin-top:14px}
+.bptwin .nav{display:flex;flex-direction:column;gap:2px;flex:1}
 .bptwin .nav a{display:flex;align-items:center;gap:11px;padding:9px 11px;border-radius:9px;color:var(--dim);font-weight:500;cursor:pointer;transition:.12s}
-.bptwin .nav a:hover{background:rgba(255,255,255,.035);color:var(--txt)}
-.bptwin .nav a.active{background:rgba(255,255,255,.06);color:var(--txt);font-weight:600}
+.bptwin .nav a:hover{background:var(--panel);color:var(--txt)}
+.bptwin .nav a.active{background:transparent;color:var(--txt)}
 .bptwin .nav a svg{width:17px;height:17px;flex:none;stroke-width:1.9}
 .bptwin .nav .label{font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:var(--dim2);padding:14px 11px 6px;font-weight:600}
 .bptwin .side-foot{border-top:1px solid var(--line);padding-top:14px;margin-top:8px}
 .bptwin .plan{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px}
 .bptwin .plan .t{font-size:12px;color:var(--dim)}
 .bptwin .plan .p{font-weight:700;margin:2px 0 8px}
-.bptwin .plan a{display:block;text-align:center;background:var(--accent);color:#0B1220;border-radius:7px;padding:7px;font-weight:600;font-size:13px}
-.bptwin .main{flex:1;margin-left:216px}
-.bptwin .topbar{height:58px;display:flex;align-items:center;
-    justify-content:space-between;padding:0 28px 0 clamp(28px,3vw,44px);max-width:1412px;margin:0;width:100%;
-    position:relative;top:0;background:rgba(11,18,32,.82);backdrop-filter:blur(10px);z-index:5}
-.bptwin .topbar h1{font-size:18px;font-weight:600;letter-spacing:-.02em}
-.bptwin .tlock{display:flex;align-items:center;gap:10px}
-.bptwin .tlock .tmark{display:none}
+.bptwin .plan a{display:block;text-align:center;background:var(--accent);color:#fff;border-radius:7px;padding:7px;font-weight:600;font-size:13px}
+.bptwin .main{flex:1;margin-left:246px}
+.bptwin .topbar{height:60px;border-bottom:1px solid var(--line);display:flex;align-items:center;
+    justify-content:space-between;padding:0 28px;position:relative;top:0;background:rgba(8,9,13,.75);backdrop-filter:blur(10px);z-index:5}
+.bptwin .topbar h1{font-family:var(--serif);font-size:19px;font-weight:500;letter-spacing:-.01em}
 .bptwin .topbar .right{display:flex;align-items:center;gap:12px}
 .bptwin .clock{font-size:12px;color:var(--dim);font-variant-numeric:tabular-nums}
-.bptwin .content{padding:14px 28px 40px clamp(28px,3vw,44px);max-width:1412px;margin:0}
-.bptwin .pill{display:inline-flex;align-items:center;gap:7px;padding:5px 11px;border-radius:20px;font-size:var(--t-meta);font-weight:600}
+.bptwin .content{padding:28px;max-width:1120px}
+.bptwin .pill{display:inline-flex;align-items:center;gap:7px;padding:5px 11px;border-radius:20px;font-size:12px;font-weight:600}
 .bptwin .pill .dot{width:7px;height:7px;border-radius:50%}
 .bptwin .pill.ok{background:var(--greenbg);color:var(--green)}
 .bptwin .pill.ok .dot{background:var(--green);box-shadow:0 0 0 3px rgba(46,224,110,.14);animation:pulse 2.4s infinite}
 .bptwin .pill.bad{background:var(--redbg);color:var(--red)}
 .bptwin .pill.bad .dot{background:var(--red)}
-.bptwin .pill.warn{background:var(--warnbg);color:var(--warn)}
-.bptwin .pill.warn .dot{background:var(--warn)}
+.bptwin .pill.warn{background:var(--amberbg);color:var(--amber)}
+.bptwin .pill.warn .dot{background:var(--amber)}
 .bptwin .setup-active .brokerHint{display:none}
 .bptwin .flashrow{animation:flashbg 2.4s ease}
 @keyframes flashbg{0%{background:var(--amberbg)}100%{background:transparent}}
 .bptwin #bpt-preflight summary{cursor:pointer;font-size:13px;padding:6px 0}
 @keyframes pulse{0%,100%{box-shadow:0 0 0 3px rgba(46,224,110,.14)}50%{box-shadow:0 0 0 5px rgba(46,224,110,.05)}}
 .bptwin .seg{display:inline-flex;background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:4px;gap:2px}
-.bptwin .seg button{border:none;background:transparent;color:var(--dim);font:inherit;font-weight:600;font-size:var(--t-body);
+.bptwin .seg button{border:none;background:transparent;color:var(--dim);font:inherit;font-weight:600;font-size:13px;
     padding:7px 16px;border-radius:8px;cursor:pointer;transition:.15s;display:flex;align-items:center;gap:8px}
 .bptwin .seg button:hover{color:var(--txt)}
 .bptwin .seg button.on{background:var(--panel2);color:var(--txt);box-shadow:0 2px 8px rgba(0,0,0,.35);border:1px solid var(--line2);padding:6px 15px}
 .bptwin .seg button.on{border-color:rgba(143,169,214,.35)}
-.bptwin .seg .mini{font-size:var(--t-micro);font-weight:700;font-variant-numeric:tabular-nums}
+.bptwin .seg .mini{font-size:11px;font-weight:700;font-variant-numeric:tabular-nums}
 .bptwin .mini.up{color:var(--green)}
 .bptwin .mini.dn{color:var(--red)}
 .bptwin .grid{display:grid;gap:16px}
-.bptwin .grid.g2{gap:12px}
 .bptwin .g4{grid-template-columns:repeat(4,1fr)}
 .bptwin .g3{grid-template-columns:repeat(3,1fr)}
 .bptwin .g2{grid-template-columns:repeat(2,1fr)}
 .bptwin .gdash{grid-template-columns:repeat(auto-fit,minmax(185px,1fr))}
 .bptwin .bar{height:5px;border-radius:3px;background:var(--panel2);margin:9px 0 7px;overflow:hidden}
 .bptwin .bar i{display:block;height:100%;width:0;border-radius:3px;background:var(--red);transition:width .4s}
-.bptwin .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:var(--s5);backdrop-filter:blur(10px)}
-.bptwin .card h3{font-size:var(--t-micro);text-transform:uppercase;letter-spacing:.14em;color:var(--dim2);margin-bottom:var(--s3);font-weight:600}
-.bptwin .stat .v{font-size:var(--n-stat);font-weight:600;letter-spacing:-.3px;font-variant-numeric:tabular-nums}
-.bptwin .stat .s{color:var(--dim);font-size:var(--t-meta);margin-top:var(--s1)}
-.bptwin .sec-title{font-size:15px;font-weight:600;letter-spacing:-.01em;margin:30px 0 14px;display:flex;align-items:center;justify-content:space-between}
+.bptwin .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:18px;backdrop-filter:blur(10px)}
+.bptwin .card h3{font-size:10.5px;text-transform:uppercase;letter-spacing:.14em;color:var(--dim2);margin-bottom:12px;font-weight:600}
+.bptwin .stat .v{font-size:24px;font-weight:600;letter-spacing:-.3px;font-variant-numeric:tabular-nums}
+.bptwin .stat .s{color:var(--dim);font-size:13px;margin-top:2px}
+.bptwin .sec-title{font-family:var(--serif);font-size:17px;font-weight:500;letter-spacing:-.01em;margin:30px 0 14px;display:flex;align-items:center;justify-content:space-between}
 .bptwin .sec-title .muted, .bptwin .sec-title span{font-family:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",sans-serif}
-.bptwin .acct{position:relative;overflow:hidden}
+.bptwin .acct{position:relative;overflow:hidden;padding:20px}
 .bptwin .acct::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;
     background:linear-gradient(90deg,var(--plat),transparent 60%);opacity:.5}
 .bptwin .acct.exec::before{background:linear-gradient(90deg,var(--green),transparent 60%);opacity:.6}
-.bptwin .acct .head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:var(--s3)}
-.bptwin .acct .nm{font-weight:700;font-size:var(--t-title);letter-spacing:-.2px}
-.bptwin .acct .aid{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:var(--t-micro);color:var(--dim2);margin-top:3px}
-.bptwin .acct .pnl{font-size:var(--n-hero);font-weight:650;letter-spacing:-.5px;font-variant-numeric:tabular-nums;line-height:1.1}
+.bptwin .acct .head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px}
+.bptwin .acct .nm{font-weight:700;font-size:15px;letter-spacing:-.2px}
+.bptwin .acct .aid{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;color:var(--dim2);margin-top:3px}
+.bptwin .acct .pnl{font-size:34px;font-weight:650;letter-spacing:-.5px;font-variant-numeric:tabular-nums;line-height:1.1}
 .bptwin .pnl.up{color:var(--green)}
 .bptwin .pnl.dn{color:var(--red)}
 .bptwin .pnl.zero{color:var(--txt)}
-.bptwin .acct .bal{color:var(--dim);font-size:var(--t-body);margin-top:var(--s1);font-variant-numeric:tabular-nums}
-.bptwin .acct .meta{display:flex;gap:18px;margin-top:var(--s5)}
-.bptwin .acct .meta div{font-size:var(--t-micro);color:var(--dim2);text-transform:uppercase;letter-spacing:.4px}
-.bptwin .acct .meta b{display:block;color:var(--txt);font-size:var(--t-body);font-weight:650;margin-top:2px;
-    font-variant-numeric:tabular-nums;text-transform:none;letter-spacing:0}
-.bptwin .badge{font-size:var(--t-micro);font-weight:700;letter-spacing:.4px;text-transform:uppercase;padding:3.5px 9px;border-radius:6px}
+.bptwin .acct .bal{color:var(--dim);font-size:13px;margin-top:3px;font-variant-numeric:tabular-nums}
+.bptwin .acct .meta{display:flex;gap:18px;margin-top:14px;padding-top:13px;border-top:1px solid var(--line)}
+.bptwin .acct .meta div{font-size:12px;color:var(--dim)}
+.bptwin .acct .meta b{display:block;color:var(--txt);font-size:13px;font-weight:650;margin-top:1px;font-variant-numeric:tabular-nums}
+.bptwin .badge{font-size:10.5px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;padding:3.5px 9px;border-radius:6px}
 .bptwin .badge.exec{background:var(--greenbg);color:var(--green)}
 .bptwin .badge.route{background:var(--accentbg);color:var(--accent2)}
 .bptwin .poschip{display:inline-flex;gap:5px;background:var(--panel2);border:1px solid var(--line2);border-radius:6px;
-    padding:2px 8px;font-size:var(--t-meta);font-weight:600;font-variant-numeric:tabular-nums;margin-right:6px}
-.bptwin .range{position:relative;height:6px;border-radius:3px;margin:var(--s2) 0 var(--s1);
-    background:linear-gradient(90deg,rgba(217,69,94,.5),rgba(217,160,63,.38) 35%,rgba(51,191,133,.45));opacity:.9}
+    padding:2px 8px;font-size:12px;font-weight:600;font-variant-numeric:tabular-nums;margin-right:6px}
+.bptwin .range{position:relative;height:6px;border-radius:3px;margin:16px 0 6px;
+    background:linear-gradient(90deg,rgba(196,87,74,.55),rgba(217,160,63,.38) 35%,rgba(79,181,132,.5));opacity:.9}
 .bptwin .range i{position:absolute;top:-4px;width:3px;height:14px;border-radius:2px;background:#fff;
     box-shadow:0 0 8px rgba(255,255,255,.7);transform:translateX(-50%)}
-.bptwin .rlabels{display:flex;justify-content:space-between;font-size:var(--t-micro);color:var(--dim2);font-variant-numeric:tabular-nums}
+.bptwin .rlabels{display:flex;justify-content:space-between;font-size:11px;color:var(--dim2);font-variant-numeric:tabular-nums}
 .bptwin .rlabels b{color:var(--dim);font-weight:600}
-.bptwin .mrow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:var(--s5)}
-.bptwin .mrow div{font-size:var(--t-micro);color:var(--dim2);text-transform:uppercase;letter-spacing:.4px}
-.bptwin .mrow b{display:block;color:var(--txt);font-size:var(--t-body);font-weight:650;margin-top:2px;font-variant-numeric:tabular-nums;text-transform:none;letter-spacing:0}
-.bptwin .acctchip{font-size:var(--t-micro);font-weight:700;padding:2px 7px;border-radius:5px;letter-spacing:.3px}
+.bptwin .mrow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px;padding-top:13px;border-top:1px solid var(--line)}
+.bptwin .mrow div{font-size:11px;color:var(--dim2);text-transform:uppercase;letter-spacing:.4px}
+.bptwin .mrow b{display:block;color:var(--txt);font-size:14px;font-weight:650;margin-top:2px;font-variant-numeric:tabular-nums;text-transform:none;letter-spacing:0}
+.bptwin .acctchip{font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:5px;letter-spacing:.3px}
 .bptwin .acctchip.ev{background:var(--greenbg);color:var(--green)}
 .bptwin .acctchip.ma{background:var(--accentbg);color:var(--accent2)}
-.bptwin .acctchip.sy{background:rgba(148,148,148,.13);color:var(--dim)}
-.bptwin .acct .bar{margin:var(--s5) 0 var(--s2)}
-.bptwin .acct > .s{font-size:var(--t-meta);color:var(--dim)}
-.bptwin .acct .acts{padding-top:var(--s4)}
-.bptwin #bpt-acctCards.grid{gap:var(--s5)}
+.bptwin .acctchip.sy{background:rgba(139,148,158,.13);color:var(--dim)}
 .bptwin .pf-ack{margin-left:7px;cursor:pointer;text-decoration:underline;opacity:.75}
 .bptwin .pf-ack:hover{opacity:1}
 .bptwin .preflight{display:flex;flex-wrap:wrap;align-items:center;gap:8px 24px;
@@ -854,9 +837,9 @@
 .bptwin .pf.bad{color:var(--red)}
 .bptwin .pf.info .d{background:var(--dim2)}
 .bptwin .pf .dt{color:var(--dim);font-weight:500}
-.bptwin .spark{margin-top:var(--s5)}
+.bptwin .spark{margin-top:10px}
 .bptwin .spark svg{display:block;width:100%;height:44px;overflow:visible}
-.bptwin .spark .cap{font-size:var(--t-micro);color:var(--dim2);margin-top:var(--s1)}
+.bptwin .spark .cap{font-size:11px;color:var(--dim2);margin-top:2px}
 .bptwin .side-long{color:var(--green);font-weight:700}
 .bptwin .side-short{color:var(--red);font-weight:700}
 .bptwin .scard .head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px}
@@ -870,21 +853,21 @@
 .bptwin .srow div{font-size:11px;color:var(--dim2);text-transform:uppercase;letter-spacing:.4px}
 .bptwin .srow b{display:block;color:var(--txt);font-size:14px;font-weight:650;margin-top:2px;font-variant-numeric:tabular-nums;text-transform:none;letter-spacing:0}
 .bptwin table{width:100%;border-collapse:collapse}
-.bptwin th{text-align:left;font-size:var(--t-micro);text-transform:uppercase;letter-spacing:1.3px;color:var(--dim2);padding:var(--s3);border-bottom:1px solid var(--line);font-weight:600}
+.bptwin th{text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:1.3px;color:var(--dim2);padding:10px 12px;border-bottom:1px solid var(--line);font-weight:600}
 .bptwin table:has(#bpt-perfBody) :is(td, .bptwin th):nth-child(n+2){text-align:right}
 .bptwin table:has(#bpt-perfBody) :is(td, .bptwin th):nth-child(6){text-align:right}
 .bptwin table:has(#bpt-blotBody) :is(td, .bptwin th):nth-child(n+4){text-align:right}
-.bptwin td{padding:var(--s3);border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+.bptwin td{padding:12px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
 .bptwin tr:last-child td{border-bottom:none}
 .bptwin .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px}
 .bptwin .tag{font-size:11px;font-weight:600;padding:3px 8px;border-radius:6px}
 .bptwin .tag.on{background:var(--greenbg);color:var(--green)}
-.bptwin .tag.off{background:rgba(148,148,148,.13);color:var(--dim)}
+.bptwin .tag.off{background:rgba(139,148,158,.13);color:var(--dim)}
 .bptwin .kind{font-weight:600;font-size:12px}
 .bptwin .k-FILL, .bptwin .k-RITHMIC_FILL, .bptwin .k-CONN_UP, .bptwin .k-CONNECTED{color:var(--green)}
 .bptwin .k-REJECT, .bptwin .k-HALT, .bptwin .k-ACCOUNT_HALT, .bptwin .k-CONN_DOWN, .bptwin .k-ORDER_ERR, .bptwin .k-ORDER_REJECTED, .bptwin .k-HANDLE_ERR, .bptwin .k-EOD_FAIL, .bptwin .k-EOD_NOT_CLEAN, .bptwin .k-FLATTEN_FAIL, .bptwin .k-ACCOUNT_FLATTEN_FAIL, .bptwin .k-CLOSE_FAILED, .bptwin .k-WATCHDOG_TRIP, .bptwin .k-WATCHDOG_BLIND, .bptwin .k-PROTECTIVE_STOP_FIRED{color:var(--red)}
 .bptwin .k-FLATTEN_ALL, .bptwin .k-ACCOUNT_FLATTENED, .bptwin .k-RESUME, .bptwin .k-ACCOUNT_RESUME, .bptwin .k-WATCHDOG_REARM, .bptwin .k-CLOSED, .bptwin .k-ORDER, .bptwin .k-ACCOUNT_SWAP{color:var(--accent2)}
-.bptwin .k-WARN, .bptwin .k-EODCHECK, .bptwin .k-START, .bptwin .k-PNL_ERR, .bptwin .k-POS_ERR, .bptwin .k-REJECT_STALE, .bptwin .k-REJECT_STALE_EXIT, .bptwin .k-EOD_PREEMPTED_EXIT{color:var(--warn)}
+.bptwin .k-WARN, .bptwin .k-EODCHECK, .bptwin .k-START, .bptwin .k-PNL_ERR, .bptwin .k-POS_ERR, .bptwin .k-REJECT_STALE, .bptwin .k-REJECT_STALE_EXIT, .bptwin .k-EOD_PREEMPTED_EXIT{color:var(--amber)}
 .bptwin .k-RECONCILE, .bptwin .k-CONTRACT, .bptwin .k-WATCHDOG_ON, .bptwin .k-CONN_ADD, .bptwin .k-GUARD_HEALTH_ERR{color:var(--dim)}
 .bptwin .k-FUNNEL_DOWN, .bptwin .k-GUARD_BLIND, .bptwin .k-GUARD_STALE, .bptwin .k-STATE_MISSING{color:var(--red)}
 .bptwin .k-GAP, .bptwin .k-FUNNEL_UP, .bptwin .k-FUNNEL_BLIP, .bptwin .k-WATCHDOG_NO_BALANCE, .bptwin .k-PROTECTIVE_STOP_KEPT, .bptwin .k-CONNECT_RETRY{color:var(--amber)}
@@ -892,14 +875,14 @@
 .bptwin .evt-main{font-weight:600;font-size:13px}
 .bptwin .evt-sub{color:var(--dim);font-size:12px}
 .bptwin .btn{border:none;border-radius:8px;padding:9px 16px;font-weight:600;cursor:pointer;font-size:13px;transition:.12s}
-.bptwin .btn-p{background:#fff;color:#0B1220}
-.bptwin .btn-p:hover{background:#DFDFDF}
+.bptwin .btn-p{background:#fff;color:#0A0D12}
+.bptwin .btn-p:hover{background:#E4E2DA}
 .bptwin .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,.18);color:var(--txt)}
 .bptwin .btn-ghost:hover{border-color:var(--dim)}
 .bptwin .btn-red{background:transparent;border:1px solid var(--red);color:var(--red)}
 .bptwin .btn-red:hover{background:var(--red);color:#fff}
 .bptwin .btn-green{background:transparent;border:1px solid var(--green);color:var(--green)}
-.bptwin .btn-green:hover{background:var(--green);color:#0B1220}
+.bptwin .btn-green:hover{background:var(--green);color:#06120a}
 .bptwin .conn{display:flex;align-items:center;gap:16px}
 .bptwin .conn .ico{width:44px;height:44px;border-radius:10px;background:var(--panel2);border:1px solid var(--line);display:grid;place-items:center;font-weight:800;color:var(--accent2)}
 .bptwin .conn .meta{flex:1}
@@ -907,7 +890,7 @@
 .bptwin .conn .d{color:var(--dim);font-size:13px}
 .bptwin .price{position:relative}
 .bptwin .price.hi{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
-.bptwin .price .badge2{position:absolute;top:-10px;left:18px;background:var(--accent);color:#0B1220;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px}
+.bptwin .price .badge2{position:absolute;top:-10px;left:18px;background:var(--accent);color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px}
 .bptwin .price .amt{font-size:32px;font-weight:600;letter-spacing:-.5px;margin:6px 0}
 .bptwin .price .amt span{font-size:14px;color:var(--dim);font-weight:500}
 .bptwin .price ul{list-style:none;margin:16px 0;display:flex;flex-direction:column;gap:9px}
@@ -930,16 +913,16 @@
 .bptwin .fab{position:absolute;bottom:24px;right:24px;width:56px;height:56px;border-radius:50%;background:#fff;
     display:grid;place-items:center;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:30;transition:.15s}
 .bptwin .fab:hover{transform:translateY(-2px)}
-.bptwin .fab svg{width:24px;height:24px;color:#0B1220}
+.bptwin .fab svg{width:24px;height:24px;color:#0A0D12}
 .bptwin .chat{position:absolute;bottom:92px;right:24px;width:360px;max-width:92vw;height:460px;background:var(--panel);
     border:1px solid var(--line2);border-radius:16px;z-index:30;display:none;flex-direction:column;overflow:hidden;box-shadow:0 16px 48px rgba(0,0,0,.5)}
 .bptwin .chat.show{display:flex}
 .bptwin .chat-head{background:var(--panel2);padding:16px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px}
-.bptwin .chat-head .av{width:32px;height:32px;border-radius:50%;background:#0F1626;border:1px solid var(--line2);display:grid;place-items:center;color:var(--plat);font-weight:700}
+.bptwin .chat-head .av{width:32px;height:32px;border-radius:50%;background:#0e1218;border:1px solid var(--line2);display:grid;place-items:center;color:var(--plat);font-weight:700}
 .bptwin .chat-body{flex:1;overflow:auto;padding:16px;display:flex;flex-direction:column;gap:10px}
 .bptwin .msg{max-width:80%;padding:10px 13px;border-radius:12px;font-size:13px;line-height:1.5}
 .bptwin .msg.bot{background:var(--panel2);align-self:flex-start;border-bottom-left-radius:3px}
-.bptwin .msg.me{background:#fff;color:#0B1220;align-self:flex-end;border-bottom-right-radius:3px}
+.bptwin .msg.me{background:#fff;color:#0A0D12;align-self:flex-end;border-bottom-right-radius:3px}
 .bptwin .quick{display:flex;flex-wrap:wrap;gap:6px;padding:0 16px 8px}
 .bptwin .quick button{background:transparent;border:1px solid var(--line2);color:var(--accent2);border-radius:16px;padding:6px 11px;font-size:12px;cursor:pointer}
 .bptwin .quick button:hover{border-color:var(--accent)}
@@ -964,23 +947,23 @@
 .bptwin .btn:active{transform:translateY(0)}
 .bptwin button:focus-visible, .bptwin input:focus-visible, .bptwin select:focus-visible, .bptwin a:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
 .bptwin .seg button{position:relative}
-.bptwin .seg.unset{border-color:var(--warn);box-shadow:0 0 0 1px var(--warnbg)}
+.bptwin .seg.unset{border-color:var(--amber);box-shadow:0 0 0 1px var(--amberbg)}
 .bptwin .pf{transition:border-color .18s,background .18s}
 .bptwin .poschip{box-shadow:inset 0 1px 0 rgba(255,255,255,.03)}
 .bptwin .sec-title{letter-spacing:-.1px}
 .bptwin .content .sec-title{font-family:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",sans-serif;
     font-size:var(--t-micro);font-weight:650;text-transform:uppercase;letter-spacing:.14em;
-    color:var(--dim);margin:var(--s6) 0 var(--s4);padding-bottom:var(--s2);
+    color:var(--dim);margin:40px 0 14px;padding-bottom:10px;
     border-bottom:1px solid var(--line);align-items:flex-end}
-.bptwin .content .sec-title:first-of-type{margin-top:var(--s5)}
+.bptwin .content .sec-title:first-of-type{margin-top:26px}
 .bptwin .content .sec-title > span:not(.pill):not(.badge), .bptwin .content .sec-title label, .bptwin .content .sec-title a{color:var(--dim2);font-size:var(--t-meta);
     font-weight:400;text-transform:none;letter-spacing:0}
 .bptwin .content .sec-title label{display:flex;align-items:center;cursor:pointer}
-.bptwin .content > .grid > .card, .bptwin .content .card{box-shadow:none}
-.bptwin .acct{background:transparent;border-color:var(--line2)}
+.bptwin .content > .grid > .card, .bptwin .content .card{box-shadow:0 1px 0 rgba(255,255,255,.03) inset,0 18px 40px -32px rgba(0,0,0,.9)}
+.bptwin .acct{background:linear-gradient(180deg,var(--panel2),var(--panel));border-color:var(--line2)}
 .bptwin .gdash > .card{background:transparent;border-color:var(--line);box-shadow:none}
 .bptwin .gdash > .card h3{color:var(--dim2)}
-.bptwin .grid.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.bptwin .grid.g2{grid-template-columns:repeat(auto-fit,minmax(430px,1fr))}
 .bptwin .grid.g2 > .acct:last-child:nth-child(odd), .bptwin .grid.g2 > .card:last-child:nth-child(odd){grid-column:1/-1}
 .bptwin .acts{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:14px;
     padding-top:13px;border-top:1px solid var(--line)}
@@ -998,16 +981,13 @@
 .bptwin .acct .nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .bptwin .mrow{grid-template-columns:repeat(auto-fit,minmax(96px,1fr))}
 .bptwin .acct .bal, .bptwin .mrow b, .bptwin .stat .v, .bptwin td{font-variant-numeric:tabular-nums}
-.bptwin .logo{height:58px;box-sizing:border-box;padding:0 11px;margin:0;border-bottom:none;
-    gap:10px;font-size:16px;font-weight:700;letter-spacing:-.3px;align-items:center}
-.bptwin .logo > span:last-child{display:flex;flex-direction:column;line-height:1.2}
-.bptwin .logo .who{display:block;font-size:11px;font-weight:500;color:var(--dim2);letter-spacing:0;margin-top:0}
-.bptwin .logo .mark{width:26px;height:26px;border-radius:0;background:none;
-    border:none;box-shadow:none}
-.bptwin .logo .mark svg{width:26px;height:26px}
+.bptwin .logo{height:60px;padding:0 24px;margin:0 -14px 14px;border-bottom:1px solid var(--line);
+    gap:11px;font-size:17.5px;letter-spacing:-.3px}
+.bptwin .logo .mark{width:32px;height:32px;border-radius:9px;
+    background:linear-gradient(160deg,#131924,#0C1016);border-color:var(--line2);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05)}
+.bptwin .logo .mark svg{width:21px;height:21px}
 .bptwin .sidebar{padding-top:0}
-.bptwin .sidebar::after{content:"";position:absolute;left:215px;top:0;bottom:0;width:1px;
-    background:var(--line);pointer-events:none}
 .bptwin .topbar h1{font-size:20px}
 .bptwin .clock{font-size:var(--t-meta);letter-spacing:.1px}
 .bptwin .clock b{font-weight:600;color:var(--txt)}
@@ -1018,10 +998,6 @@
     --t-body:13.5px;    /* sentences the customer reads */
     --t-meta:12.5px;    /* labels, chips, secondary facts */
     --t-micro:11.5px;   /* section rules, and explanation under a control */
-    /* Numbers are not text and never sat on the ladder — the card's P&L was
-       already a hand-typed 34. Two steps, named, instead of 34/24/22 loose. */
-    --n-hero:34px;      /* the one number a card is about */
-    --n-stat:24px;      /* the number on a stat panel */
     --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:22px; --s6:30px;
   }
 .bptwin .muted{font-size:var(--t-meta)}
@@ -1067,7 +1043,7 @@
 .bptwin select option{background:var(--sidebar);color:var(--txt)}
 .bptwin .modal{width:540px;padding:0;display:flex;flex-direction:column;
     box-shadow:0 32px 80px -28px rgba(0,0,0,.85);background:var(--sidebar)}
-.bptwin .modal > h2{padding:22px 26px 0;font-weight:600;font-size:var(--t-display);letter-spacing:-.01em}
+.bptwin .modal > h2{padding:22px 26px 0;font-family:var(--serif);font-weight:500;font-size:var(--t-display);letter-spacing:-.01em}
 .bptwin .modal > .sub{padding:5px 26px 18px;margin:0;border-bottom:1px solid var(--line)}
 .bptwin .modal .mbody{padding:20px 26px 4px;overflow-y:auto;flex:1;min-height:0}
 .bptwin .modal .mfoot{display:flex;justify-content:flex-end;gap:10px;align-items:center;
@@ -1087,8 +1063,8 @@
 .bptwin input[type=checkbox]:not(.sw):hover, .bptwin .cb:hover{border-color:var(--dim)}
 .bptwin input[type=checkbox]:not(.sw):checked, .bptwin .cb:checked{background:var(--green);border-color:var(--green)}
 .bptwin input[type=checkbox]:not(.sw):checked::after, .bptwin .cb:checked::after{content:"";width:10px;height:6px;
-    border-left:2px solid #0B1220;border-bottom:2px solid #0B1220;transform:rotate(-45deg) translate(1px,-1px)}
-.bptwin .card.guard{padding:var(--s5)}
+    border-left:2px solid #0A0D12;border-bottom:2px solid #0A0D12;transform:rotate(-45deg) translate(1px,-1px)}
+.bptwin .card.guard{padding:20px 22px}
 .bptwin .guard .g-head{display:flex;justify-content:space-between;align-items:flex-start;gap:20px}
 .bptwin .guard.on .g-state b{color:var(--green)}
 .bptwin .guard .g-line{font-size:var(--t-meta);color:var(--dim);margin-top:5px;max-width:62ch}
@@ -1105,8 +1081,8 @@
 .bptwin .g-msg.show{opacity:1;transform:none}
 .bptwin .g-msg .tick{width:15px;height:15px;border-radius:50%;background:var(--green);
     display:inline-grid;place-content:center;flex:none}
-.bptwin .g-msg .tick::after{content:"";width:7px;height:4px;border-left:1.8px solid #0B1220;
-    border-bottom:1.8px solid #0B1220;transform:rotate(-45deg) translate(1px,-1px)}
+.bptwin .g-msg .tick::after{content:"";width:7px;height:4px;border-left:1.8px solid #0A0D12;
+    border-bottom:1.8px solid #0A0D12;transform:rotate(-45deg) translate(1px,-1px)}
 @media (prefers-reduced-motion: reduce){.bptwin .guard .g-track, .bptwin .guard .g-knob, .bptwin .guard .g-msg{transition:none}
 .bptwin .card.guard.saved{animation:none}}
 .bptwin .guard .g-body{max-height:0;opacity:0;overflow:hidden;transition:max-height .32s ease,opacity .22s ease}
@@ -1134,7 +1110,7 @@
     background:var(--bg);border:1px solid var(--line);border-radius:9px}
 .bptwin .guard .g-what b{color:var(--txt);font-weight:600}
 @media (prefers-reduced-motion: reduce){.bptwin .guard .g-body{transition:none}}
-.bptwin .card.guards{padding:var(--s5)}
+.bptwin .card.guards{padding:20px 22px}
 .bptwin .guards .grd{display:flex;gap:20px;align-items:flex-start;padding:18px 0;border-top:1px solid var(--line)}
 .bptwin .guards .grd:first-of-type{border-top:none;padding-top:14px}
 .bptwin .guards .grd-main{flex:1;min-width:0}
@@ -1160,12 +1136,11 @@
 .bptwin .field .hint{font-size:11.5px;line-height:1.45;color:var(--dim2);margin-top:6px}
 .bptwin .field label .muted{font-weight:400;font-size:11.5px}
 .bptwin .field:last-child{margin-bottom:0}
-.bptwin #bpt-setupRail{padding:var(--s5)}
+.bptwin #bpt-setupRail{padding:20px 22px}
 .bptwin #bpt-setupRail .su-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
-.bptwin #bpt-setupRail .su-title{font-weight:600;font-size:var(--t-title);letter-spacing:-.01em}
+.bptwin #bpt-setupRail .su-title{font-family:var(--serif);font-weight:500;font-size:var(--t-title);letter-spacing:-.01em}
 .bptwin #bpt-setupRail .su-sub{font-size:12.5px;margin-top:2px}
 .bptwin #bpt-setupRail .su-hide{font-size:12px;white-space:nowrap;flex:none}
-.bptwin #bpt-setupRail .su-guide{padding:5px 12px;font-size:var(--t-meta);white-space:nowrap}
 .bptwin #bpt-setupRail .su-hide:hover{color:var(--txt)}
 .bptwin #bpt-setupRail .su-meter{height:3px;border-radius:2px;background:var(--panel2);margin:14px 0 4px;overflow:hidden}
 .bptwin #bpt-setupRail .su-meter i{display:block;height:100%;background:var(--green);border-radius:2px;transition:width .5s ease}
@@ -1199,9 +1174,10 @@
 .bptwin .view.active{animation:fadein .18s ease}
 @keyframes fadein{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:none}}
 .bptwin .nav a{position:relative}
+.bptwin .nav a.active::before{content:"";position:absolute;left:-14px;top:8px;bottom:8px;width:3px;border-radius:2px;background:var(--accent)}
 .bptwin .logo .mark{box-shadow:none}
 .bptwin #bpt-tunnelGuide .tg-status{display:flex;align-items:center;gap:9px;font-size:13.5px;margin-bottom:6px}
-.bptwin #bpt-tunnelGuide .tg-status .tg-dot{width:9px;height:9px;border-radius:50%;background:var(--warn);flex:none;box-shadow:0 0 0 3px var(--warnbg)}
+.bptwin #bpt-tunnelGuide .tg-status .tg-dot{width:9px;height:9px;border-radius:50%;background:var(--amber);flex:none;box-shadow:0 0 0 3px var(--amberbg)}
 .bptwin #bpt-tunnelGuide.tg-proven .tg-status .tg-dot{background:var(--green);box-shadow:0 0 0 3px var(--greenbg)}
 .bptwin #bpt-tunnelGuide .tg-lede{font-size:13px;margin-bottom:18px}
 .bptwin #bpt-tunnelGuide .tg-rail{list-style:none;margin:0;padding:0}
@@ -1286,7 +1262,7 @@
 <div class="app">
   <!-- Sidebar -->
   <aside class="sidebar">
-    <div class="logo"><span class="mark"><svg width="18" height="18" viewBox="0 0 128 128" fill="none" style="flex:none"><g stroke="#CECECE" stroke-width="2.5" stroke-linecap="round" opacity=".9"><line x1="46" y1="24" x2="24" y2="90"></line><line x1="46" y1="24" x2="62" y2="90"></line><line x1="82" y1="24" x2="104" y2="90"></line><line x1="82" y1="24" x2="66" y2="90"></line></g><line x1="16" y1="90" x2="112" y2="90" stroke="#CECECE" stroke-width="4" stroke-linecap="round"></line><line x1="46" y1="22" x2="46" y2="98" stroke="#CECECE" stroke-width="3" stroke-linecap="round"></line><line x1="82" y1="22" x2="82" y2="98" stroke="#CECECE" stroke-width="3" stroke-linecap="round"></line><rect x="40" y="48" width="12" height="32" rx="2.5" fill="#C2C2C2"></rect><rect x="76" y="48" width="12" height="32" rx="2.5" fill="#EEEEEE"></rect></svg></span><span>BridgePit<span class="who">Signed in as you</span></span></div>
+    <div class="logo"><span class="mark" style="background:#0E1218"><svg width="18" height="18" viewBox="0 0 128 128" fill="none" style="flex:none"><g stroke="#C7CCD6" stroke-width="2" stroke-linecap="round" opacity=".75"><line x1="46" y1="24" x2="24" y2="90"></line><line x1="46" y1="24" x2="62" y2="90"></line><line x1="82" y1="24" x2="104" y2="90"></line><line x1="82" y1="24" x2="66" y2="90"></line></g><line x1="16" y1="90" x2="112" y2="90" stroke="#C7CCD6" stroke-width="4" stroke-linecap="round"></line><line x1="46" y1="22" x2="46" y2="98" stroke="#C7CCD6" stroke-width="3" stroke-linecap="round"></line><line x1="82" y1="22" x2="82" y2="98" stroke="#C7CCD6" stroke-width="3" stroke-linecap="round"></line><rect x="40" y="48" width="12" height="32" rx="2.5" fill="#B9BFCB"></rect><rect x="76" y="48" width="12" height="32" rx="2.5" fill="#EAEDF2"></rect></svg></span> BridgePit</div>
     <nav class="nav" id="bpt-nav">
       <a data-view="dashboard" class="active" role="link"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l9-9 9 9M5 10v10h14V10"></path></svg><span>Dashboard</span></a>
       <a data-view="connections" role="link"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5a4 4 0 00-5.7 0l-3 3a4 4 0 105.7 5.7l1.5-1.5m-1.5-6a4 4 0 015.7 0l3-3a4 4 0 10-5.7-5.7L15 4.5"></path></svg><span>Connections</span></a>
@@ -1313,7 +1289,7 @@
   <!-- Main -->
   <div class="main">
     <div class="topbar">
-      <div class="tlock"><span class="tmark"><svg width="22" height="22" viewBox="0 0 128 128" fill="none"><g stroke="#CECECE" stroke-width="2.5" stroke-linecap="round" opacity=".9"><line x1="46" y1="24" x2="24" y2="90"></line><line x1="46" y1="24" x2="62" y2="90"></line><line x1="82" y1="24" x2="104" y2="90"></line><line x1="82" y1="24" x2="66" y2="90"></line></g><line x1="16" y1="90" x2="112" y2="90" stroke="#CECECE" stroke-width="4" stroke-linecap="round"></line><line x1="46" y1="22" x2="46" y2="98" stroke="#CECECE" stroke-width="3" stroke-linecap="round"></line><line x1="82" y1="22" x2="82" y2="98" stroke="#CECECE" stroke-width="3" stroke-linecap="round"></line><rect x="40" y="48" width="12" height="32" rx="2.5" fill="#C2C2C2"></rect><rect x="76" y="48" width="12" height="32" rx="2.5" fill="#EEEEEE"></rect></svg></span><h1 id="bpt-pageTitle">Dashboard</h1></div>
+      <h1 id="bpt-pageTitle">Dashboard</h1>
       <div class="right">
         <span class="clock" id="bpt-etClock">Tue 25 Aug<span class="sep">·</span><b>10:32</b> ET</span>
         <span class="pill ok" id="bpt-topStatus"><span class="dot"></span><span id="bpt-topStatusText">Live</span></span>
@@ -1337,16 +1313,16 @@
         <div id="bpt-setupRail" class="card" style="display:none;margin-bottom:16px"></div>
 
         <!-- Early-close day banner (shown only when today is a half-day) -->
-        <div id="bpt-earlyCloseBanner" class="card" style="display:none;margin-bottom:16px;border-left:3px solid var(--warn);background:var(--warnbg)"></div>
+        <div id="bpt-earlyCloseBanner" class="card" style="display:none;margin-bottom:16px;border-left:3px solid var(--amber);background:var(--amberbg)"></div>
 
         <!-- Only when live AND keep-awake is down. Day one should not nag. -->
-        <div id="bpt-machineMustRun" class="card" style="display:none;margin-bottom:16px;border-left:3px solid var(--red);background:var(--redbg,#1A1020)"></div>
+        <div id="bpt-machineMustRun" class="card" style="display:none;margin-bottom:16px;border-left:3px solid var(--red);background:var(--redbg,#2a1214)"></div>
 
         <!-- Pre-flight strip -->
         <div class="preflight" id="bpt-preflight"><details><summary class="muted">14 checks — all clear<span style="opacity:.6"> · details</span></summary><div class="preflight" style="margin-top:8px"><span class="pf ok" title="connected"><span class="d"></span>Broker session</span><span class="pf ok" title="LIVE"><span class="d"></span>Execution</span><span class="pf ok" title="armed"><span class="d"></span>Entries</span><span class="pf info" title="open: Breakout-1m 2"><span class="d"></span>Book <span class="dt">· open: Breakout-1m 2</span></span><span class="pf ok" title="reading 9s ago"><span class="d"></span>P&amp;L feed</span><span class="pf info" title="optional — no monitor URL set"><span class="d"></span>Heartbeat <span class="dt">· optional — no monitor URL set</span></span><span class="pf ok" title="proven 2026-08-25 09:12 · telegram+email"><span class="d"></span>Alert delivery</span><span class="pf ok" title="read and confirmed 2026-08-25 08:57"><span class="d"></span>What BridgePit depends on</span><span class="pf ok" title="holding awake. Do not close the lid. Quit BridgePit only when you are flat."><span class="d"></span>This Mac</span><span class="pf ok" title="reachable — BridgePit answered and rejected the unsigned probe"><span class="d"></span>Public webhook</span><span class="pf ok" title="on AC"><span class="d"></span>Power</span><span class="pf ok" title="PRO · valid until 2027-08-25"><span class="d"></span>Licence</span><span class="pf ok" title="all beating"><span class="d"></span>Watchers</span><span class="pf info" title="10:31:58 ET"><span class="d"></span>Last TV signal <span class="dt">· 10:31:58 ET</span></span></div></details></div>
 
         <!-- Per-account cards (All view) -->
-        <div class="grid " id="bpt-acctCards" style="margin-bottom:var(--s1)"><div class="card acct exec">
+        <div class="grid " id="bpt-acctCards" style="margin-bottom:4px"><div class="card acct exec">
       <div class="head">
         <div><div class="nm">Main account</div><div class="aid">RITH-104281</div></div>
         <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:flex-end">
@@ -1364,12 +1340,12 @@
       <div class="range"><i style="left:58.61333333333333%"></i></div>
         <div class="rlabels"><span>floor <b>$47,500</b></span><span>target <b>$55,000</b></span></div>
       <div class="bar"><i style="width:30%"></i></div>
-      <div class="s">day loss budget $180 used · auto-halt −$600 · its own limit</div>
-      <div class="mrow"><div>Min balance<b style="color:var(--amber)">$47,500</b></div><div>Room to floor<b style="color:var(--txt)">$4,396</b></div><div>Peak EOD<b>$52,610</b></div><div>To target<b style="color:var(--accent2)">$3,104</b></div></div>
-      <details style="margin-top:var(--s3)" data-pay="RITH-104281" ontoggle="payToggle(this)">
-    <summary style="cursor:pointer;font-size:var(--t-body);list-style:none">Payout <span style="color:var(--amber);font-weight:650">held by: Balance a payout needs</span> <span class="muted" style="font-size:var(--t-micro)">· details</span></summary>
-    <div style="display:flex;gap:8px;align-items:baseline;margin-top:var(--s2);font-size:var(--t-meta)"><span style="flex:none"><span style="color:var(--red)">✗</span></span><div><b style="font-size:var(--t-meta)">Balance a payout needs</b><div class="hint">balance $51,896 of $55,000 — $3,104 to go</div></div></div><div style="display:flex;gap:8px;align-items:baseline;margin-top:var(--s2);font-size:var(--t-meta)"><span style="flex:none"><span style="color:var(--green)">✓</span></span><div><b style="font-size:var(--t-meta)">Balance it must stay above</b><div class="hint">balance $51,896 is at or above $47,500</div></div></div>
-    <div class="muted" style="font-size:var(--t-micro);margin-top:var(--s2)">Your figures, from your firm's dashboard — <a href="#" style="color:var(--accent2)">edit</a>. BridgePit only does the arithmetic; the firm's own page decides.</div>
+      <div class="s" style="font-size:12px;color:var(--dim)">day loss budget $180 used · auto-halt −$600 · its own limit</div>
+      <div class="mrow"><div>Min balance<b style="color:var(--red)">$47,500</b></div><div>Room to floor<b style="color:var(--green)">$4,396</b></div><div>Peak EOD<b>$52,610</b></div><div>To target<b style="color:var(--accent2)">$3,104</b></div></div>
+      <details style="margin-top:10px" data-pay="RITH-104281" ontoggle="payToggle(this)">
+    <summary style="cursor:pointer;font-size:13px;list-style:none">Payout <span style="color:var(--amber);font-weight:650">held by: Balance a payout needs</span> <span class="muted" style="font-size:11px">· details</span></summary>
+    <div style="display:flex;gap:8px;align-items:baseline;margin-top:6px"><span style="flex:none"><span style="color:var(--red)">✗</span></span><div><b style="font-size:12px">Balance a payout needs</b><div class="hint">balance $51,896 of $55,000 — $3,104 to go</div></div></div><div style="display:flex;gap:8px;align-items:baseline;margin-top:6px"><span style="flex:none"><span style="color:var(--green)">✓</span></span><div><b style="font-size:12px">Balance it must stay above</b><div class="hint">balance $51,896 is at or above $47,500</div></div></div>
+    <div class="muted" style="font-size:11px;margin-top:8px">Your figures, from your firm's dashboard — <a href="#" style="color:var(--accent2)">edit</a>. BridgePit only does the arithmetic; the firm's own page decides.</div>
   </details>
       <div class="meta">
         <div>Positions <b><span class="poschip">Breakout-1m +2</span></b></div>
@@ -1386,14 +1362,14 @@
     </div></div>
 
         <!-- System strip -->
-        <div class="grid gdash" style="margin-top:var(--s4)">
+        <div class="grid gdash" style="margin-top:16px">
           <div class="card stat"><h3>System</h3><div id="bpt-dashConn"><span class="pill ok"><span class="dot"></span>Running</span></div><div class="s" id="bpt-dashMode">LIVE · executing</div><div class="s" id="bpt-dashAwake">Holding awake. Do not close the lid. Quit BridgePit only when you are flat.</div></div>
           <div class="card stat"><h3>Open positions</h3><div class="v" id="bpt-dashPos">1</div><div class="s" id="bpt-dashPosD">Breakout-1m 2</div></div>
           <div class="card stat"><h3>Loss budget</h3><div class="v" id="bpt-dashStop"><span style="color:var(--red)">$180</span> <span class="muted" style="font-size:14px">of $600</span></div><div class="bar"><i id="bpt-dashBar" style="width: 30%;"></i></div><div class="s" id="bpt-dashLimLine">execution account · losses only · auto-halt at −$600 · profits uncapped</div></div>
-          <div class="card stat"><h3>EOD flatten</h3><div class="v" id="bpt-dashEod">15:55</div><div class="s" id="bpt-dashEodS">ET · failsafe force-flat</div></div>
+          <div class="card stat"><h3>EOD flatten</h3><div class="v" id="bpt-dashEod" style="font-size:22px">15:55</div><div class="s" id="bpt-dashEodS">ET · failsafe force-flat</div></div>
         </div>
 
-        <div id="bpt-perfSec" style=""><div class="sec-title">Performance <span class="muted" style="font-weight:400">closed round-trips · last 30 days · Rithmic-confirmed fills</span></div>
+        <div id="bpt-perfSec" style=""><div class="sec-title">Performance <span class="muted" style="font-weight:400;font-size:13px">closed round-trips · last 30 days · Rithmic-confirmed fills</span></div>
         <div class="card" style="padding:0">
           <table><thead><tr><th>Strategy</th><th>Trades</th><th>Win %</th><th>Total P&amp;L</th><th>Profit factor</th><th>Last trade (ET)</th></tr></thead>
           <tbody id="bpt-perfBody"><tr><td style="font-weight:550">Breakout-1m</td><td>4</td><td>50%</td>
