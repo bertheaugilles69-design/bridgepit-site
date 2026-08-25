@@ -168,7 +168,7 @@
      places the order. */
   .paths{display:grid;gap:16px;min-width:0}
   .pathrow{border:1px solid var(--line);border-radius:10px;padding:17px 19px 19px;
-    background:#0A0A0C}
+    background:#090E18}
   .pathrow.old{opacity:.7}
   .pathrow.ours{border-color:var(--line2);background:var(--panel);
     box-shadow:0 24px 60px rgba(0,0,0,.5)}
@@ -183,18 +183,18 @@
 
   .chain{display:flex;align-items:stretch;gap:0}
   .node{flex:1 1 0;min-width:0;display:flex;flex-direction:column;justify-content:center;align-items:center;
-    text-align:center;border:1px solid var(--line);border-radius:8px;padding:12px 13px;background:#0B0B0E}
+    text-align:center;border:1px solid var(--line);border-radius:8px;padding:12px 13px;background:#0A0F1A}
   .node.mid{flex:1.6 1 0}
   .node .nt{display:flex;align-items:center;justify-content:center;gap:7px;font:600 13px var(--sans);color:var(--txt);
     letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .node .ns{display:block;margin-top:6px;font:400 11px/1.45 var(--sans);color:#5B5B63}
   .pathrow.old .node.mid{border-style:dashed;border-color:rgba(227,179,65,.55)}
-  .pathrow.ours .node.mid{border-color:var(--line2);background:#101015}
+  .pathrow.ours .node.mid{border-color:var(--line2);background:#111A2A}
   .pathrow.ours .node.mid .nt{color:#fff}
 
   .wire{flex:0 0 78px;align-self:center;position:relative;height:1px;background:var(--line)}
   .wire .wl{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;
-    padding:0 7px;background:#0A0A0C;
+    padding:0 7px;background:#090E18;
     font:600 9px var(--sans);letter-spacing:.13em;text-transform:uppercase;color:#5B5B63;white-space:nowrap}
   .pathrow.ours .wire{background:var(--line2)}
   .pathrow.ours .wire .wl{background:var(--panel);color:var(--dim2)}
@@ -275,7 +275,7 @@
     color:var(--atx);box-shadow:0 48px 110px rgba(0,0,0,.62);min-height:460px}
   .twin-side{background:var(--aside);border-right:1px solid var(--al);padding:16px 10px;display:flex;flex-direction:column}
   .twin-logo{display:flex;align-items:center;gap:8px;padding:4px 8px 16px;font:700 14px var(--sans);letter-spacing:-.02em}
-  .twin-logo .mk{width:24px;height:24px;border-radius:7px;background:#0E1218;border:1px solid var(--al2);display:grid;place-items:center}
+  .twin-logo .mk{width:24px;height:24px;border-radius:7px;background:#0B1220;border:1px solid var(--al2);display:grid;place-items:center}
   .twin-nav{display:flex;flex-direction:column;gap:2px}
   .twin-nav span{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:9px;
     font:500 13px var(--sans);color:var(--adim)}
@@ -567,7 +567,7 @@
     .node .nt{justify-content:flex-start}
     .wire{flex:0 0 28px;width:1px;height:28px;align-self:center;background:var(--line)}
     .wire .wl{top:50%;left:50%;right:auto;transform:translate(-50%,-50%);padding:0 7px}
-    .pathrow.old .wire .wl{background:#0A0A0C}
+    .pathrow.old .wire .wl{background:#090E18}
     .pathrow.ours .wire{background:var(--line2)}
     .pathrow.ours .wire .wl{background:var(--panel)}
     .pathrow.ours .wire::after{left:-2.5px;top:0;
@@ -1839,6 +1839,11 @@
 
 
 <section class="band" id="paths">
+  <div class="bhead">
+    <div class="eyebrow">The difference</div>
+    <h2><span class="beat">Whose machine</span> <span class="beat">places the order.</span></h2>
+    <p class="csub">Same alert either way. The difference is which machine turns it into an order.</p>
+  </div>
   <div class="paths">
     <div class="pathrow old">
       <div class="plabel">The cloud way</div>
