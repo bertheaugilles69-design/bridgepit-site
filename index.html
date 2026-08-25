@@ -1328,10 +1328,10 @@
 
         <!-- Account switcher -->
         <div class="row" style="justify-content:space-between;margin-bottom:18px">
-          <div class="seg" id="bpt-acctSeg" style=""><span role="button" aria-disabled="true" class="on" data-acct="__all">All accounts <span class="mini up">+$275</span></span><span role="button" aria-disabled="true" class="" data-acct="ACC-01">Main account <span class="mini up">+$310</span></span><span role="button" aria-disabled="true" class="" data-acct="ACC-02">Second account <span class="mini dn">−$180</span></span><span role="button" aria-disabled="true" class="" data-acct="ACC-03">Third account <span class="mini up">+$145</span></span></div>
+          <div class="seg" id="bpt-acctSeg" style=""><button disabled class="on" data-acct="__all">All accounts <span class="mini up">+$275</span></button><button disabled class="" data-acct="ACC-01">Main account <span class="mini up">+$310</span></button><button disabled class="" data-acct="ACC-02">Second account <span class="mini dn">−$180</span></button><button disabled class="" data-acct="ACC-03">Third account <span class="mini up">+$145</span></button></div>
           <div class="row" style="gap:8px">
-            <span role="button" aria-disabled="true" class="btn btn-red" id="bpt-dashHalt">Halt trading</span>
-            <span role="button" aria-disabled="true" class="btn btn-ghost" id="bpt-closeAllBtn" title="Closes every open position on every connected account, at market.">Close all positions</span>
+            <button disabled class="btn btn-red" id="bpt-dashHalt">Halt trading</button>
+            <button disabled class="btn btn-ghost" id="bpt-closeAllBtn" title="Closes every open position on every connected account, at market.">Close all positions</button>
           </div>
         </div>
 
@@ -1341,7 +1341,7 @@
         <div class="muted su-sub">1 of 4 done — the next step is the only one you need.
           Following the written guide? It covers the same ground with pictures.</div></div>
       <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex:none">
-        <span role="button" aria-disabled="true" class="btn btn-ghost su-guide">Open the setup guide</span>
+        <button disabled class="btn btn-ghost su-guide">Open the setup guide</button>
         <a href="#" class="muted su-hide">I know what I'm doing — hide this</a>
       </div>
     </div>
@@ -1350,7 +1350,7 @@
       <span class="su-disc">1</span>
       <div class="su-body"><div class="su-label">See your first fill (paper)</div>
         <div class="muted su-detail">Send a test alert — it takes the exact path a TradingView alert takes and fills in the simulator. Nothing is real yet.</div></div>
-      <span role="button" aria-disabled="true" class="btn btn-p" style="flex:none;white-space:nowrap">Send a test alert</span></li><li class="su-step done">
+      <button disabled class="btn btn-p" style="flex:none;white-space:nowrap">Send a test alert</button></li><li class="su-step done">
       <span class="su-disc">✓</span>
       <div class="su-body"><div class="su-label">Connect your broker</div>
         </div>
@@ -1404,11 +1404,11 @@
         <div>Strategies <b>1</b></div>
       </div>
       <div class="acts">
-        <span role="button" aria-disabled="true" class="btn btn-ghost">Halt this account</span>
-        <span role="button" aria-disabled="true" class="btn btn-ghost" style="color:var(--red)">Close this account only</span>
+        <button disabled class="btn btn-ghost">Halt this account</button>
+        <button disabled class="btn btn-ghost" style="color:var(--red)">Close this account only</button>
         <span class="quiet">
-          <span role="button" aria-disabled="true" class="lnk">Limits &amp; firm figures</span>
-          <span role="button" aria-disabled="true" class="lnk">Replace…</span>
+          <button disabled class="lnk">Limits &amp; firm figures</button>
+          <button disabled class="lnk">Replace…</button>
         </span>
       </div>
     </div><div class="card acct ">
@@ -1440,11 +1440,11 @@
         <div>Strategies <b>1</b></div>
       </div>
       <div class="acts">
-        <span role="button" aria-disabled="true" class="btn btn-ghost">Resume this account</span>
+        <button disabled class="btn btn-ghost">Resume this account</button>
         
         <span class="quiet">
-          <span role="button" aria-disabled="true" class="lnk">Limits &amp; firm figures</span>
-          <span role="button" aria-disabled="true" class="lnk">Replace…</span>
+          <button disabled class="lnk">Limits &amp; firm figures</button>
+          <button disabled class="lnk">Replace…</button>
         </span>
       </div>
     </div><div class="card acct ">
@@ -1472,11 +1472,11 @@
         <div>Strategies <b>1</b></div>
       </div>
       <div class="acts">
-        <span role="button" aria-disabled="true" class="btn btn-ghost">Halt this account</span>
-        <span role="button" aria-disabled="true" class="btn btn-ghost" style="color:var(--red)">Close this account only</span>
+        <button disabled class="btn btn-ghost">Halt this account</button>
+        <button disabled class="btn btn-ghost" style="color:var(--red)">Close this account only</button>
         <span class="quiet">
-          <span role="button" aria-disabled="true" class="lnk">Limits &amp; firm figures</span>
-          <span role="button" aria-disabled="true" class="lnk">Replace…</span>
+          <button disabled class="lnk">Limits &amp; firm figures</button>
+          <button disabled class="lnk">Replace…</button>
         </span>
       </div>
     </div></div>
@@ -1736,7 +1736,7 @@
   #cockpit .settings .ft-top{flex:none}
   #cockpit .settings .ft-body{flex:1;padding:18px 18px 20px;display:flex;flex-direction:column}
   .ftmuted{font:400 12.5px/1.45 var(--sans);color:#8C94A1;margin-bottom:12px}
-  .ftfld{display:flex;align-items:center;justify-content:space-between;background:#0A0D12;border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:9px 12px;font:500 13px var(--mono);color:#E6EAF0;margin-bottom:12px}
+  .ftfld{display:flex;align-items:center;justify-content:space-between;background:#0B1220;border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:9px 12px;font:500 13px var(--mono);color:#E6EAF0;margin-bottom:12px}
   .ftfld span{color:#5C6470;font-family:var(--sans);font-weight:400}
   .ftcode{background:#07090C;border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:14px 16px;font:400 12.5px/1.75 var(--mono);color:#8C94A1;white-space:pre;overflow-x:auto;margin:0;flex:1}
   .ftcode .k{color:#5C6470}
