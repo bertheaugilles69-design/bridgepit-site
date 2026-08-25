@@ -610,14 +610,30 @@
   .bpframe{position:relative;border:1px solid rgba(255,255,255,.10);
     border-radius:16px;overflow:hidden;background:#0B1220;
     box-shadow:0 24px 64px rgba(0,0,0,.4)}
-  .bpviewport{position:relative;width:100%;overflow:hidden;
-    aspect-ratio:1728 / 1862}
-  .bpviewport{container-type:inline-size}
-  .bptwin{position:absolute;top:0;left:0;width:1728px;
-    transform-origin:0 0;transform:scale(calc(100cqw / 1728px));
+  .bpviewport{position:relative;width:100%;container-type:inline-size;
+    /* half the dashboard's height: the rest is there, you scroll to it */
+    aspect-ratio:1728 / 931;
+    overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;
+    scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.18) transparent}
+  .bpviewport::-webkit-scrollbar{width:8px}
+  .bpviewport::-webkit-scrollbar-thumb{background:rgba(255,255,255,.16);border-radius:8px}
+  .bpviewport::-webkit-scrollbar-track{background:transparent}
+  /* zoom, not transform: a transformed element keeps its unscaled layout box,
+     so the frame would scroll a 1862px range over a 1345px picture. zoom
+     shrinks the box itself and the scrollbar tells the truth. */
+  .bptwin{position:relative;width:1728px;
+    zoom:calc(100cqw / 1728px);
     /* the twin is a picture: nothing in it is reachable */
     pointer-events:none;user-select:none}
   .bptwin *{cursor:default!important}
+  /* Below a laptop the column is too narrow to shrink a 1728px screen into and
+     still have it be legible — at a phone's width the type lands at about two
+     pixels. Hold a readable zoom instead and let the frame scroll both ways;
+     it reads as a screenshot you can move around, not as mush. */
+  @media (max-width:900px){
+    .bpviewport{aspect-ratio:auto;height:min(62vh,520px);overflow-x:auto}
+    .bptwin{zoom:.44}
+  }
   /* The app sizes itself to a window it does not have here: .app is
      height:100vh + overflow:hidden, which inside a page fragment collapses and
      cuts the dashboard off mid-card. Here the frame grows to the content. */
@@ -2648,19 +2664,19 @@
 </script>
 
 <script>
-/* The twin is scaled by CSS (container query units). Older Safari cannot divide
-   two lengths inside scale(), and would then draw the app at 1440px inside a
-   narrower frame and clip it. Set the same factor from script when the CSS one
+/* The twin is scaled by CSS (container query units). Older engines cannot divide two lengths inside a calc() that has to
+   produce a number, and would then draw the app at 1728px inside a narrower
+   frame. Set the same factor from script when the CSS one
    did not compute. The measured aspect-ratio holds the frame's height either
    way, so nothing jumps. */
 (function(){
   var tw=document.querySelector('.bptwin'), vp=document.querySelector('.bpviewport');
   if(!tw||!vp) return;
   function fit(){
-    if(getComputedStyle(tw).transform!=='none') return;
-    tw.style.transform='scale('+(vp.clientWidth/1728)+')';
+    if(parseFloat(getComputedStyle(tw).zoom||1)!==1) return;
+    tw.style.zoom=(vp.clientWidth/1728);
   }
-  fit(); addEventListener('resize',function(){ tw.style.transform=''; fit() });
+  fit(); addEventListener('resize',function(){ tw.style.zoom=''; fit() });
 })();
 </script>
 </body>
