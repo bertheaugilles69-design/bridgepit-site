@@ -1736,8 +1736,13 @@
   }
 
   /* screen 3 - one day, and the rail that catches each thing that goes wrong */
-  .tl{display:grid;gap:0;position:relative}
-  .tlrow{display:grid;grid-template-columns:78px 26px minmax(0,1fr);align-items:stretch;
+/* This section is the one that gets a centred head and a wider measure. Left
+     against the comparison list above it, the two read as the same generic
+     list twice; the day deserves to look like its own thing. */
+  #safety .bhead{max-width:760px;margin-left:auto;margin-right:auto;text-align:center}
+  #safety .bhead .csub{margin-left:auto;margin-right:auto}
+  .tl{display:grid;gap:0;position:relative;max-width:1120px;margin:0 auto}
+  .tlrow{display:grid;grid-template-columns:92px 30px minmax(0,1fr);align-items:stretch;
     padding:20px 0 22px;opacity:1}
   .tlrow+.tlrow{border-top:1px solid var(--line)}
   .tlt{font:500 13px var(--mono);color:var(--dim2);padding-top:2px;letter-spacing:-.01em}
@@ -1748,13 +1753,13 @@
   .tlm i{position:relative;margin-top:5px;width:9px;height:9px;border-radius:999px;
     background:var(--bg);border:1px solid var(--line2);transition:background .5s,border-color .5s,box-shadow .5s}
   .tlc{padding-left:4px}
-  .tlw{font:600 19px/1.35 var(--sans);letter-spacing:-.018em;color:#fff;text-wrap:balance}
-  .tlg{margin-top:11px;font:400 15px/1.6 var(--sans);color:var(--dim);max-width:72ch}
+  .tlw{font:600 20px/1.32 var(--sans);letter-spacing:-.018em;color:#fff;text-wrap:balance}
+  .tlg{margin-top:11px;font:400 15.5px/1.62 var(--sans);color:var(--dim);max-width:none;padding-right:24px}
   .gchip{display:inline-block;margin-right:10px;border:1px solid var(--line2);border-radius:999px;
     padding:3px 11px;font:600 11px var(--sans);letter-spacing:.04em;color:var(--txt);
     vertical-align:1px;white-space:nowrap}
   .tlend{margin-top:34px;padding-top:26px;border-top:1px solid var(--line);
-    font:400 15px/1.6 var(--sans);color:var(--dim);max-width:66ch}
+    font:400 15px/1.6 var(--sans);color:var(--dim);max-width:1120px;margin-left:auto;margin-right:auto;text-align:center}
   .tlend b{color:var(--txt);font-weight:500}
 
   /* the sequence lights up as you come down the page */
