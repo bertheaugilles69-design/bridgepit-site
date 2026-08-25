@@ -371,7 +371,9 @@
      own palette and type: ink ground, glass panels, steel accent, a serif for
      section titles, and colour reserved for money. Same as the app itself. */
   .slot{min-width:0}
-  .app{
+  /* Dead mock. Must not match the real twin's root class .app or the old
+     palette (red #C4574A, ground #0A0D12) paints over the current app. */
+  .slot .app{
     --abg:#0A0D12; --aside:#0B0E14; --card:rgba(22,27,36,.72); --card2:rgba(30,36,46,.75);
     --al:rgba(255,255,255,.07); --al2:rgba(255,255,255,.14);
     --atx:#E6EAF0; --adim:#8C94A1; --adim2:#5C6470;
@@ -559,7 +561,7 @@
     .blot .pts{display:none}
   }
   @media(max-width:1100px){
-    .app{grid-template-columns:1fr}
+    .slot .app{grid-template-columns:1fr}
     .side{flex-direction:row;align-items:center;border-right:none;border-bottom:1px solid var(--al);overflow-x:auto}
     .snav{flex-direction:row;padding:8px 10px}
     .snav button.on::before{display:none}
@@ -567,7 +569,7 @@
     .accts{grid-template-columns:1fr}
     .tiles{grid-template-columns:1fr 1fr}
   }
-  @media(max-width:760px){ .app{height:auto} .mainpane>.view{overflow-y:visible} .mainpane::after{display:none} }
+  @media(max-width:760px){ .slot .app{height:auto} .mainpane>.view{overflow-y:visible} .mainpane::after{display:none} }
   @media(max-width:700px){
     .chain{flex-direction:column;align-items:stretch}
     .node{align-items:flex-start;text-align:left}
@@ -1298,12 +1300,12 @@
     <div class="side-foot">
       <div class="plan">
         <div class="t">Current plan</div>
-        <div class="p" id="bpt-planName">Pro · licensed</div>
+        <div class="p" id="bpt-planName">Free · paper</div>
         <a data-view="subscription">Manage plan</a>
       </div>
       <!-- Rithmic marks, always on screen while connected (sidebar is fixed).
            Full copyright notices live in the page footer, #rithmicAttrib. -->
-      <div class="side-rithmic show" id="bpt-sideRithmic">
+      <div class="side-rithmic" id="bpt-sideRithmic">
         <img src="/rithmic/trading-platform-by-rithmic.png" alt="Trading Platform by Rithmic">
         <img class="omne" src="/rithmic/powered-by-omne.png" alt="Powered by OMNE">
       </div>
@@ -1315,8 +1317,8 @@
     <div class="topbar">
       <div class="tlock"><span class="tmark"><svg width="22" height="22" viewBox="0 0 128 128" fill="none"><g stroke="#CECECE" stroke-width="2.5" stroke-linecap="round" opacity=".9"><line x1="46" y1="24" x2="24" y2="90"></line><line x1="46" y1="24" x2="62" y2="90"></line><line x1="82" y1="24" x2="104" y2="90"></line><line x1="82" y1="24" x2="66" y2="90"></line></g><line x1="16" y1="90" x2="112" y2="90" stroke="#CECECE" stroke-width="4" stroke-linecap="round"></line><line x1="46" y1="22" x2="46" y2="98" stroke="#CECECE" stroke-width="3" stroke-linecap="round"></line><line x1="82" y1="22" x2="82" y2="98" stroke="#CECECE" stroke-width="3" stroke-linecap="round"></line><rect x="40" y="48" width="12" height="32" rx="2.5" fill="#C2C2C2"></rect><rect x="76" y="48" width="12" height="32" rx="2.5" fill="#EEEEEE"></rect></svg></span><h1 id="bpt-pageTitle">Dashboard</h1></div>
       <div class="right">
-        <span class="clock" id="bpt-etClock">Tue 25 Aug<span class="sep">·</span><b>10:32</b> ET</span>
-        <span class="pill ok" id="bpt-topStatus"><span class="dot"></span><span id="bpt-topStatusText">Live</span></span>
+        <span class="clock" id="bpt-etClock">Tue 25 Aug<span class="sep">·</span><b>15:43</b> ET</span>
+        <span class="pill bad" id="bpt-topStatus"><span class="dot"></span><span id="bpt-topStatusText">1 account halted</span></span>
       </div>
     </div>
     <div class="content">
@@ -1326,7 +1328,7 @@
 
         <!-- Account switcher -->
         <div class="row" style="justify-content:space-between;margin-bottom:18px">
-          <div class="seg" id="bpt-acctSeg" style="display: none;"><span role="button" aria-disabled="true" class="on" data-acct="__all">All accounts <span class="mini dn">−$180</span></span><span role="button" aria-disabled="true" class="" data-acct="RITH-104281">Main account <span class="mini dn">−$180</span></span></div>
+          <div class="seg" id="bpt-acctSeg" style=""><span role="button" aria-disabled="true" class="on" data-acct="__all">All accounts <span class="mini up">+$275</span></span><span role="button" aria-disabled="true" class="" data-acct="ACC-01">Main account <span class="mini up">+$310</span></span><span role="button" aria-disabled="true" class="" data-acct="ACC-02">Second account <span class="mini dn">−$180</span></span><span role="button" aria-disabled="true" class="" data-acct="ACC-03">Third account <span class="mini up">+$145</span></span></div>
           <div class="row" style="gap:8px">
             <span role="button" aria-disabled="true" class="btn btn-red" id="bpt-dashHalt">Halt trading</span>
             <span role="button" aria-disabled="true" class="btn btn-ghost" id="bpt-closeAllBtn" title="Closes every open position on every connected account, at market.">Close all positions</span>
@@ -1334,7 +1336,33 @@
         </div>
 
         <!-- Getting set up: the stranger's first ten minutes, one step at a time -->
-        <div id="bpt-setupRail" class="card" style="display:none;margin-bottom:16px"></div>
+        <div id="bpt-setupRail" class="card" style="display: block; margin-bottom: 16px;"><div class="su-head">
+      <div><b class="su-title">Getting set up</b>
+        <div class="muted su-sub">1 of 4 done — the next step is the only one you need.
+          Following the written guide? It covers the same ground with pictures.</div></div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex:none">
+        <span role="button" aria-disabled="true" class="btn btn-ghost su-guide">Open the setup guide</span>
+        <a href="#" class="muted su-hide">I know what I'm doing — hide this</a>
+      </div>
+    </div>
+    <div class="su-meter"><i style="width:25%"></i></div>
+    <ol class="su-rail"><li class="su-step cur">
+      <span class="su-disc">1</span>
+      <div class="su-body"><div class="su-label">See your first fill (paper)</div>
+        <div class="muted su-detail">Send a test alert — it takes the exact path a TradingView alert takes and fills in the simulator. Nothing is real yet.</div></div>
+      <span role="button" aria-disabled="true" class="btn btn-p" style="flex:none;white-space:nowrap">Send a test alert</span></li><li class="su-step done">
+      <span class="su-disc">✓</span>
+      <div class="su-body"><div class="su-label">Connect your broker</div>
+        </div>
+      </li><li class="su-step todo">
+      <span class="su-disc">3</span>
+      <div class="su-body"><div class="su-label">Wire TradingView to your webhook</div>
+        </div>
+      </li><li class="su-step todo">
+      <span class="su-disc">4</span>
+      <div class="su-body"><div class="su-label">Go live when you are ready</div>
+        </div>
+      </li></ol></div>
 
         <!-- Early-close day banner (shown only when today is a half-day) -->
         <div id="bpt-earlyCloseBanner" class="card" style="display:none;margin-bottom:16px;border-left:3px solid var(--warn);background:var(--warnbg)"></div>
@@ -1343,36 +1371,104 @@
         <div id="bpt-machineMustRun" class="card" style="display:none;margin-bottom:16px;border-left:3px solid var(--red);background:var(--redbg,#1A1020)"></div>
 
         <!-- Pre-flight strip -->
-        <div class="preflight" id="bpt-preflight"><details><summary class="muted">14 checks — all clear<span style="opacity:.6"> · details</span></summary><div class="preflight" style="margin-top:8px"><span class="pf ok" title="connected"><span class="d"></span>Broker session</span><span class="pf ok" title="LIVE"><span class="d"></span>Execution</span><span class="pf ok" title="armed"><span class="d"></span>Entries</span><span class="pf info" title="open: Breakout-1m 2"><span class="d"></span>Book <span class="dt">· open: Breakout-1m 2</span></span><span class="pf ok" title="reading 9s ago"><span class="d"></span>P&amp;L feed</span><span class="pf info" title="optional — no monitor URL set"><span class="d"></span>Heartbeat <span class="dt">· optional — no monitor URL set</span></span><span class="pf ok" title="proven 2026-08-25 09:12 · telegram+email"><span class="d"></span>Alert delivery</span><span class="pf ok" title="read and confirmed 2026-08-25 08:57"><span class="d"></span>What BridgePit depends on</span><span class="pf ok" title="holding awake. Do not close the lid. Quit BridgePit only when you are flat."><span class="d"></span>This Mac</span><span class="pf ok" title="reachable — BridgePit answered and rejected the unsigned probe"><span class="d"></span>Public webhook</span><span class="pf ok" title="on AC"><span class="d"></span>Power</span><span class="pf ok" title="PRO · valid until 2027-08-25"><span class="d"></span>Licence</span><span class="pf ok" title="all beating"><span class="d"></span>Watchers</span><span class="pf info" title="10:31:58 ET"><span class="d"></span>Last TV signal <span class="dt">· 10:31:58 ET</span></span></div></details></div>
+        <div class="preflight" id="bpt-preflight"><details><summary class="muted">⚠ Downtime: this Mac was asleep or unreachable from 06:54 to 07:00 ET (5 minutes). Any alert TradingView sent in that window never arrived — TradingView does not send it twice. Check your broker before you trust the dashboard.<span style="opacity:.6"> · details</span></summary><div class="preflight" style="margin-top:8px"><span class="pf ok" title="connected"><span class="d"></span>Broker session</span><span class="pf info" title="paper mode — fills go to the simulator until you choose an execution account"><span class="d"></span>Execution <span class="dt">· paper mode — fills go to the simulator until you choose an execution account</span></span><span class="pf info" title="halted accounts: ACC-02 (trail)"><span class="d"></span>Entries <span class="dt">· halted accounts: ACC-02 (trail)</span></span><span class="pf info" title="open: GC_ORB 2"><span class="d"></span>Book <span class="dt">· open: GC_ORB 2</span></span><span class="pf ok" title="reading 10s ago"><span class="d"></span>P&amp;L feed</span><span class="pf info" title="optional — no monitor URL set"><span class="d"></span>Heartbeat <span class="dt">· optional — no monitor URL set</span></span><span class="pf info" title="to do — set up Telegram or email in Settings (required before going live)"><span class="d"></span>Alert delivery <span class="dt">· to do — set up Telegram or email in Settings (required before going live)</span></span><span class="pf info" title="not read yet — shown before live execution can be armed"><span class="d"></span>What BridgePit depends on <span class="dt">· not read yet — shown before live execution can be armed</span></span><span class="pf info" title="to do — BridgePit must stay open on this Mac. Closing the lid sleeps the computer."><span class="d"></span>This Mac <span class="dt">· to do — BridgePit must stay open on this Mac. Closing the lid sleeps the computer.</span></span><span class="pf bad" title="this Mac was asleep or unreachable from 06:54 to 07:00 ET (5 minutes). Any alert TradingView sent in that window never arrived — TradingView does not send it twice. Check your broker before you trust the dashboard."><span class="d"></span>Downtime <span class="dt">· this Mac was asleep or unreachable from 06:54 to 07:00 ET (5 minutes). Any alert TradingView sent in that window never arrived — TradingView does not send it twice. Check your broker before you trust the dashboard.</span> <a class="pf-ack" title="Stop showing this. The downtime itself stays in the activity log — the alerts it lost do not come back.">dismiss</a></span><span class="pf info" title="on battery · 7h 03m left"><span class="d"></span>Power <span class="dt">· on battery · 7h 03m left</span></span><span class="pf info" title="funnel is beating but watching nothing — no public address set — nothing is checking that TradingView can still reach you; telegram is beating but watching nothing — Telegram is not set up — there is no /halt or /flatten from your phone"><span class="d"></span>Watchers <span class="dt">· funnel is beating but watching nothing — no public address set — nothing is checking that TradingView can still reach you; telegram is beating but watching nothing — Telegram is not set up — there is no /halt or /flatten from your phone</span></span><span class="pf info" title="none since start"><span class="d"></span>Last TV signal <span class="dt">· none since start</span></span></div></details></div>
 
         <!-- Per-account cards (All view) -->
-        <div class="grid " id="bpt-acctCards" style="margin-bottom:var(--s1)"><div class="card acct exec">
+        <div class="grid g2" id="bpt-acctCards" style="margin-bottom:var(--s1)"><div class="card acct exec">
       <div class="head">
-        <div><div class="nm">Main account</div><div class="aid">RITH-104281</div></div>
+        <div><div class="nm">Main account</div><div class="aid">ACC-01</div></div>
         <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:flex-end">
           
           
           <span class="badge exec">execution</span>
         </div>
       </div>
-      <span class="pnl dn ">−$180</span>
-      <div class="bal">balance $51,896.00</div>
+      <span class="pnl up ">+$310</span>
+      <div class="bal">balance $52,428.00</div>
       <div class="spark"><svg viewBox="0 0 240 38" preserveAspectRatio="none">
-    <polyline points="3.0,17.8 22.5,12.0 42.0,14.7 61.5,7.0 81.0,3.0 100.5,6.1 120.0,13.3 139.5,10.2 159.0,17.3 178.5,20.9 198.0,24.1 217.5,26.9 237.0,35.0" fill="none" stroke="var(--red)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" opacity=".85"></polyline>
-    <circle cx="237.0" cy="35.0" r="2.6" fill="var(--red)"></circle><circle cx="3.0" cy="17.8" r="6" fill="transparent"><title>2026-08-11  $52,280</title></circle><circle cx="22.5" cy="12.0" r="6" fill="transparent"><title>2026-08-12  $52,410</title></circle><circle cx="42.0" cy="14.7" r="6" fill="transparent"><title>2026-08-13  $52,350</title></circle><circle cx="61.5" cy="7.0" r="6" fill="transparent"><title>2026-08-14  $52,520</title></circle><circle cx="81.0" cy="3.0" r="6" fill="transparent"><title>2026-08-15  $52,610</title></circle><circle cx="100.5" cy="6.1" r="6" fill="transparent"><title>2026-08-16  $52,540</title></circle><circle cx="120.0" cy="13.3" r="6" fill="transparent"><title>2026-08-17  $52,380</title></circle><circle cx="139.5" cy="10.2" r="6" fill="transparent"><title>2026-08-18  $52,450</title></circle><circle cx="159.0" cy="17.3" r="6" fill="transparent"><title>2026-08-19  $52,290</title></circle><circle cx="178.5" cy="20.9" r="6" fill="transparent"><title>2026-08-20  $52,210</title></circle><circle cx="198.0" cy="24.1" r="6" fill="transparent"><title>2026-08-21  $52,140</title></circle><circle cx="217.5" cy="26.9" r="6" fill="transparent"><title>2026-08-24  $52,076</title></circle><circle cx="237.0" cy="35.0" r="6" fill="transparent"><title>now  $51,896</title></circle></svg>
-    <div class="cap">equity · 12d ▼ $384</div></div>
-      <div class="range"><i style="left:58.61333333333333%"></i></div>
-        <div class="rlabels"><span>floor <b>$47,500</b></span><span>target <b>$55,000</b></span></div>
-      <div class="bar"><i style="width:30%"></i></div>
-      <div class="s">day loss budget $180 used · auto-halt −$600 · its own limit</div>
-      <div class="mrow"><div>Min balance<b style="color:var(--amber)">$47,500</b></div><div>Room to floor<b style="color:var(--txt)">$4,396</b></div><div>Peak EOD<b>$52,610</b></div><div>To target<b style="color:var(--accent2)">$3,104</b></div></div>
-      <details style="margin-top:var(--s3)" data-pay="RITH-104281" ontoggle="payToggle(this)">
-    <summary style="cursor:pointer;font-size:var(--t-body);list-style:none">Payout <span style="color:var(--amber);font-weight:650">held by: Balance a payout needs</span> <span class="muted" style="font-size:var(--t-micro)">· details</span></summary>
-    <div style="display:flex;gap:8px;align-items:baseline;margin-top:var(--s2);font-size:var(--t-meta)"><span style="flex:none"><span style="color:var(--red)">✗</span></span><div><b style="font-size:var(--t-meta)">Balance a payout needs</b><div class="hint">balance $51,896 of $55,000 — $3,104 to go</div></div></div><div style="display:flex;gap:8px;align-items:baseline;margin-top:var(--s2);font-size:var(--t-meta)"><span style="flex:none"><span style="color:var(--green)">✓</span></span><div><b style="font-size:var(--t-meta)">Balance it must stay above</b><div class="hint">balance $51,896 is at or above $47,500</div></div></div>
+    <polyline points="3.0,35.0 22.5,33.6 42.0,34.2 61.5,6.5 81.0,4.2 100.5,4.8 120.0,6.3 139.5,4.6 159.0,5.2 178.5,4.6 198.0,6.1 217.5,7.1 237.0,3.0" fill="none" stroke="var(--green)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" opacity=".85"></polyline>
+    <circle cx="237.0" cy="3.0" r="2.6" fill="var(--green)"></circle><circle cx="3.0" cy="35.0" r="6" fill="transparent"><title>2026-08-13  $50,000</title></circle><circle cx="22.5" cy="33.6" r="6" fill="transparent"><title>2026-08-14  $50,110</title></circle><circle cx="42.0" cy="34.2" r="6" fill="transparent"><title>2026-08-15  $50,060</title></circle><circle cx="61.5" cy="6.5" r="6" fill="transparent"><title>2026-08-16  $52,160</title></circle><circle cx="81.0" cy="4.2" r="6" fill="transparent"><title>2026-08-17  $52,340</title></circle><circle cx="100.5" cy="4.8" r="6" fill="transparent"><title>2026-08-18  $52,290</title></circle><circle cx="120.0" cy="6.3" r="6" fill="transparent"><title>2026-08-19  $52,180</title></circle><circle cx="139.5" cy="4.6" r="6" fill="transparent"><title>2026-08-20  $52,310</title></circle><circle cx="159.0" cy="5.2" r="6" fill="transparent"><title>2026-08-21  $52,260</title></circle><circle cx="178.5" cy="4.6" r="6" fill="transparent"><title>2026-08-22  $52,310</title></circle><circle cx="198.0" cy="6.1" r="6" fill="transparent"><title>2026-08-23  $52,190</title></circle><circle cx="217.5" cy="7.1" r="6" fill="transparent"><title>2026-08-24  $52,118</title></circle><circle cx="237.0" cy="3.0" r="6" fill="transparent"><title>now  $52,428</title></circle></svg>
+    <div class="cap">equity · 12d ▲ $2,428</div></div>
+      <div class="range"><i style="left:95.08571428571429%"></i></div>
+        <div class="rlabels"><span>floor <b>$49,100</b></span><span>target <b>$52,600</b></span></div>
+      <div class="bar"><i style="width:0%"></i></div>
+      <div class="s">day loss budget $0 used · auto-halt −$1,000</div>
+      <div class="mrow"><div>Min balance<b style="color:var(--amber)">$49,100</b></div><div>Room to floor<b style="color:var(--txt)">$3,328</b></div><div>Peak EOD<b>$52,310</b></div><div>To target<b style="color:var(--accent2)">$172</b></div></div>
+      <details style="margin-top:var(--s3)" data-pay="ACC-01" ontoggle="payToggle(this)">
+    <summary style="cursor:pointer;font-size:var(--t-body);list-style:none">Payout <span style="color:var(--amber);font-weight:650">held by: Best-day rule (+1 more)</span> <span class="acctchip ev" style="white-space:nowrap" title="fewest unmet gates, then smallest dollar distance">closest to payout</span> <span class="muted" style="font-size:var(--t-micro)">· details</span></summary>
+    <div style="display:flex;gap:8px;align-items:baseline;margin-top:var(--s2);font-size:var(--t-meta)"><span style="flex:none"><span style="color:var(--red)">✗</span></span><div><b style="font-size:var(--t-meta)">Balance a payout needs</b><div class="hint">balance $52,428 of $52,600 — $172 to go</div></div></div><div style="display:flex;gap:8px;align-items:baseline;margin-top:var(--s2);font-size:var(--t-meta)"><span style="flex:none"><span style="color:var(--green)">✓</span></span><div><b style="font-size:var(--t-meta)">Balance it must stay above</b><div class="hint">balance $52,428 is at or above $50,100</div></div></div><div style="display:flex;gap:8px;align-items:baseline;margin-top:var(--s2);font-size:var(--t-meta)"><span style="flex:none"><span style="color:var(--green)">✓</span></span><div><b style="font-size:var(--t-meta)">Trading days a payout needs</b><div class="hint">11 of 10 — counted from days with a closed trade or a non-flat recorded day P&amp;L</div></div></div><div style="display:flex;gap:8px;align-items:baseline;margin-top:var(--s2);font-size:var(--t-meta)"><span style="flex:none"><span style="color:var(--red)">✗</span></span><div><b style="font-size:var(--t-meta)">Best-day rule</b><div class="hint">best day $2,100 (2026-08-16) is 99% of total $2,118 — your 30% cap needs total ≥ $7,000 ($4,882 more, without a bigger best day)</div></div></div>
     <div class="muted" style="font-size:var(--t-micro);margin-top:var(--s2)">Your figures, from your firm's dashboard — <a href="#" style="color:var(--accent2)">edit</a>. BridgePit only does the arithmetic; the firm's own page decides.</div>
   </details>
       <div class="meta">
-        <div>Positions <b><span class="poschip">Breakout-1m +2</span></b></div>
+        <div>Positions <b><span class="poschip">MNQU6 +2</span></b></div>
+        <div>Strategies <b>1</b></div>
+      </div>
+      <div class="acts">
+        <span role="button" aria-disabled="true" class="btn btn-ghost">Halt this account</span>
+        <span role="button" aria-disabled="true" class="btn btn-ghost" style="color:var(--red)">Close this account only</span>
+        <span class="quiet">
+          <span role="button" aria-disabled="true" class="lnk">Limits &amp; firm figures</span>
+          <span role="button" aria-disabled="true" class="lnk">Replace…</span>
+        </span>
+      </div>
+    </div><div class="card acct ">
+      <div class="head">
+        <div><div class="nm">Second account</div><div class="aid">ACC-02</div></div>
+        <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:flex-end">
+          
+          <span class="pill bad" title="trail"><span class="dot"></span>halted — trail guard</span>
+          <span class="badge route">routed ×1</span>
+        </div>
+      </div>
+      <span class="pnl dn ">−$180</span>
+      <div class="bal">balance $49,930.00</div>
+      <div class="spark"><svg viewBox="0 0 240 38" preserveAspectRatio="none">
+    <polyline points="3.0,20.6 49.8,8.5 96.6,3.0 143.4,22.9 190.2,30.5 237.0,35.0" fill="none" stroke="var(--red)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" opacity=".85"></polyline>
+    <circle cx="237.0" cy="35.0" r="2.6" fill="var(--red)"></circle><circle cx="3.0" cy="20.6" r="6" fill="transparent"><title>2026-08-16  $50,500</title></circle><circle cx="49.8" cy="8.5" r="6" fill="transparent"><title>2026-08-18  $50,980</title></circle><circle cx="96.6" cy="3.0" r="6" fill="transparent"><title>2026-08-20  $51,200</title></circle><circle cx="143.4" cy="22.9" r="6" fill="transparent"><title>2026-08-22  $50,410</title></circle><circle cx="190.2" cy="30.5" r="6" fill="transparent"><title>2026-08-23  $50,110</title></circle><circle cx="237.0" cy="35.0" r="6" fill="transparent"><title>2026-08-24  $49,930</title></circle></svg>
+    <div class="cap">equity · 6d ▼ $570</div></div>
+      
+      <div class="bar"><i style="width:30%"></i></div>
+      <div class="s">day loss budget $180 used · auto-halt −$600 · its own limit</div>
+      <div class="mrow"><div>Min balance<b style="color:var(--amber)">$49,100</b></div><div>Room to floor<b style="color:var(--amber)">$830</b></div><div>Peak EOD<b>$51,200</b></div></div>
+      <details style="margin-top:var(--s3)" data-pay="ACC-02" ontoggle="payToggle(this)">
+    <summary style="cursor:pointer;font-size:var(--t-body);list-style:none">Payout <span style="color:var(--amber);font-weight:650">held by: Balance a payout needs (+1 more)</span> <span class="muted" style="font-size:var(--t-micro)">· details</span></summary>
+    <div style="display:flex;gap:8px;align-items:baseline;margin-top:var(--s2);font-size:var(--t-meta)"><span style="flex:none"><span style="color:var(--red)">✗</span></span><div><b style="font-size:var(--t-meta)">Balance a payout needs</b><div class="hint">balance $49,930 of $52,600 — $2,670 to go</div></div></div><div style="display:flex;gap:8px;align-items:baseline;margin-top:var(--s2);font-size:var(--t-meta)"><span style="flex:none"><span style="color:var(--red)">✗</span></span><div><b style="font-size:var(--t-meta)">Trading days a payout needs</b><div class="hint">6 of 10 — counted from days with a closed trade or a non-flat recorded day P&amp;L. BridgePit only sees days it recorded — check the firm's own day count before relying on this</div></div></div>
+    <div class="muted" style="font-size:var(--t-micro);margin-top:var(--s2)">Your figures, from your firm's dashboard — <a href="#" style="color:var(--accent2)">edit</a>. BridgePit only does the arithmetic; the firm's own page decides.</div>
+  </details>
+      <div class="meta">
+        <div>Positions <b>flat</b></div>
+        <div>Strategies <b>1</b></div>
+      </div>
+      <div class="acts">
+        <span role="button" aria-disabled="true" class="btn btn-ghost">Resume this account</span>
+        
+        <span class="quiet">
+          <span role="button" aria-disabled="true" class="lnk">Limits &amp; firm figures</span>
+          <span role="button" aria-disabled="true" class="lnk">Replace…</span>
+        </span>
+      </div>
+    </div><div class="card acct ">
+      <div class="head">
+        <div><div class="nm">Third account</div><div class="aid">ACC-03</div></div>
+        <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:flex-end">
+          
+          
+          <span class="badge route">routed ×1</span>
+        </div>
+      </div>
+      <span class="pnl up ">+$145</span>
+      <div class="bal">balance $25,325.00</div>
+      <div class="spark"><svg viewBox="0 0 240 38" preserveAspectRatio="none">
+    <polyline points="3.0,35.0 120.0,17.3 237.0,3.0" fill="none" stroke="var(--green)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" opacity=".85"></polyline>
+    <circle cx="237.0" cy="3.0" r="2.6" fill="var(--green)"></circle><circle cx="3.0" cy="35.0" r="6" fill="transparent"><title>2026-08-21  $25,000</title></circle><circle cx="120.0" cy="17.3" r="6" fill="transparent"><title>2026-08-23  $25,180</title></circle><circle cx="237.0" cy="3.0" r="6" fill="transparent"><title>2026-08-24  $25,325</title></circle></svg>
+    <div class="cap">equity · 3d ▲ $325</div></div>
+      
+      <div class="bar"><i style="width:0%"></i></div>
+      <div class="s">day loss budget $0 used · auto-halt −$1,000</div>
+      
+      <div class="muted" style="margin-top:var(--s3)">Payout readiness: <a href="#" style="color:var(--accent2)">enter your firm's figures</a> and BridgePit does the arithmetic.</div>
+      <div class="meta">
+        <div>Positions <b><span class="poschip">MGCZ6 +2</span></b></div>
         <div>Strategies <b>1</b></div>
       </div>
       <div class="acts">
@@ -1387,55 +1483,71 @@
 
         <!-- System strip -->
         <div class="grid gdash" style="margin-top:var(--s4)">
-          <div class="card stat"><h3>System</h3><div id="bpt-dashConn"><span class="pill ok"><span class="dot"></span>Running</span></div><div class="s" id="bpt-dashMode">LIVE · executing</div><div class="s" id="bpt-dashAwake">Holding awake. Do not close the lid. Quit BridgePit only when you are flat.</div></div>
-          <div class="card stat"><h3>Open positions</h3><div class="v" id="bpt-dashPos">1</div><div class="s" id="bpt-dashPosD">Breakout-1m 2</div></div>
-          <div class="card stat"><h3>Loss budget</h3><div class="v" id="bpt-dashStop"><span style="color:var(--red)">$180</span> <span class="muted" style="font-size:14px">of $600</span></div><div class="bar"><i id="bpt-dashBar" style="width: 30%;"></i></div><div class="s" id="bpt-dashLimLine">execution account · losses only · auto-halt at −$600 · profits uncapped</div></div>
+          <div class="card stat"><h3>System</h3><div id="bpt-dashConn"><span class="pill bad"><span class="dot"></span>1 account halted</span></div><div class="s" id="bpt-dashMode">Paper — nothing reaches a broker</div><div class="s" id="bpt-dashAwake">Keep this window open. Closing the lid sleeps the computer.</div></div>
+          <div class="card stat"><h3>Open positions</h3><div class="v" id="bpt-dashPos">1</div><div class="s" id="bpt-dashPosD">GC_ORB 2</div></div>
+          <div class="card stat"><h3>Loss budget</h3><div class="v" id="bpt-dashStop"><span style="color:var(--green)">$0</span> <span class="muted" style="font-size:14px">of $1,000</span></div><div class="bar"><i id="bpt-dashBar" style="width: 0%;"></i></div><div class="s" id="bpt-dashLimLine">execution account · losses only · auto-halt at −$1,000 · profits uncapped</div></div>
           <div class="card stat"><h3>EOD flatten</h3><div class="v" id="bpt-dashEod">15:55</div><div class="s" id="bpt-dashEodS">ET · failsafe force-flat</div></div>
         </div>
 
         <div id="bpt-perfSec" style=""><div class="sec-title">Performance <span class="muted" style="font-weight:400">closed round-trips · last 30 days · Rithmic-confirmed fills</span></div>
         <div class="card" style="padding:0">
           <table><thead><tr><th>Strategy</th><th>Trades</th><th>Win %</th><th>Total P&amp;L</th><th>Profit factor</th><th>Last trade (ET)</th></tr></thead>
-          <tbody id="bpt-perfBody"><tr><td style="font-weight:550">Breakout-1m</td><td>4</td><td>50%</td>
-      <td style="font-weight:650;color:var(--green)">+$50</td>
-      <td>1.20</td><td class="mono muted" style="font-size:12px">08-25 10:12</td></tr></tbody></table>
+          <tbody id="bpt-perfBody"><tr><td style="font-weight:550">NQ_PDHL</td><td>3</td><td>67%</td>
+      <td style="font-weight:650;color:var(--green)">+$392</td>
+      <td>2.69</td><td class="mono muted" style="font-size:12px">08-22 11:47</td></tr><tr><td style="font-weight:550">GC_ORB</td><td>2</td><td>100%</td>
+      <td style="font-weight:650;color:var(--green)">+$275</td>
+      <td>∞</td><td class="mono muted" style="font-size:12px">08-24 11:47</td></tr><tr><td style="font-weight:550">NQ_PDHL <span class="acctchip ma">Second account</span></td><td>1</td><td>100%</td>
+      <td style="font-weight:650;color:var(--green)">+$160</td>
+      <td>∞</td><td class="mono muted" style="font-size:12px">08-16 11:47</td></tr></tbody></table>
         </div>
 
         </div><div id="bpt-blotSec" style=""><div class="sec-title">Trade blotter</div>
         <div class="card" style="padding:0">
           <table><thead><tr><th>Closed (ET)</th><th>Strategy</th><th>Side</th><th>Qty</th><th>Entry → Exit</th><th>Points</th><th>P&amp;L</th><th>Hold</th></tr></thead>
-          <tbody id="bpt-blotBody"><tr><td class="mono muted">08-25 10:12</td>
-      <td><span class="acctchip ev">Main account</span> Breakout-1m</td>
+          <tbody id="bpt-blotBody"><tr><td class="mono muted">08-24 11:47</td>
+      <td><span class="acctchip ma">Third account</span> GC_ORB</td>
+      <td class="side-long">LONG</td><td>1 MGCZ6</td>
+      <td class="mono" style="font-size:12px">2,530 → 2,544.5</td>
+      <td style="color:var(--green)">+14.5</td>
+      <td style="font-weight:650;color:var(--green)">+$145</td>
+      <td class="muted">1.7h</td></tr><tr><td class="mono muted">08-22 11:47</td>
+      <td><span class="acctchip ev">Main account</span> NQ_PDHL</td>
       <td class="side-long">LONG</td><td>2 MNQU6</td>
-      <td class="mono" style="font-size:12px">24,812.25 → 24,767.25</td>
-      <td style="color:var(--red)">-45</td>
-      <td style="font-weight:650;color:var(--red)">−$180</td>
-      <td class="muted">74m</td></tr><tr><td class="mono muted">08-24 14:31</td>
-      <td><span class="acctchip ev">Main account</span> Breakout-1m</td>
+      <td class="mono" style="font-size:12px">23,180 → 23,255</td>
+      <td style="color:var(--green)">+75</td>
+      <td style="font-weight:650;color:var(--green)">+$300</td>
+      <td class="muted">1.7h</td></tr><tr><td class="mono muted">08-20 11:47</td>
+      <td><span class="acctchip ma">Third account</span> GC_ORB</td>
+      <td class="side-long">LONG</td><td>1 MGCZ6</td>
+      <td class="mono" style="font-size:12px">2,508 → 2,521</td>
+      <td style="color:var(--green)">+13</td>
+      <td style="font-weight:650;color:var(--green)">+$130</td>
+      <td class="muted">1.7h</td></tr><tr><td class="mono muted">08-19 11:47</td>
+      <td><span class="acctchip ev">Main account</span> NQ_PDHL</td>
       <td class="side-long">LONG</td><td>2 MNQU6</td>
-      <td class="mono" style="font-size:12px">24,688.5 → 24,671</td>
-      <td style="color:var(--red)">-17.5</td>
-      <td style="font-weight:650;color:var(--red)">−$70</td>
-      <td class="muted">74m</td></tr><tr><td class="mono muted">08-21 11:04</td>
-      <td><span class="acctchip ev">Main account</span> Breakout-1m</td>
+      <td class="mono" style="font-size:12px">23,400 → 23,342</td>
+      <td style="color:var(--red)">-58</td>
+      <td style="font-weight:650;color:var(--red)">−$232</td>
+      <td class="muted">1.7h</td></tr><tr><td class="mono muted">08-16 11:47</td>
+      <td><span class="acctchip ma">Second account</span> NQ_PDHL</td>
+      <td class="side-long">LONG</td><td>1 MNQU6</td>
+      <td class="mono" style="font-size:12px">23,310.25 → 23,390</td>
+      <td style="color:var(--green)">+79.75</td>
+      <td style="font-weight:650;color:var(--green)">+$160</td>
+      <td class="muted">1.7h</td></tr><tr><td class="mono muted">08-16 11:47</td>
+      <td><span class="acctchip ev">Main account</span> NQ_PDHL</td>
       <td class="side-long">LONG</td><td>2 MNQU6</td>
-      <td class="mono" style="font-size:12px">24,610.75 → 24,647.25</td>
-      <td style="color:var(--green)">+36.5</td>
-      <td style="font-weight:650;color:var(--green)">+$146</td>
-      <td class="muted">74m</td></tr><tr><td class="mono muted">08-19 11:02</td>
-      <td><span class="acctchip ev">Main account</span> Breakout-1m</td>
-      <td class="side-long">LONG</td><td>2 MNQU6</td>
-      <td class="mono" style="font-size:12px">24,540 → 24,578.5</td>
-      <td style="color:var(--green)">+38.5</td>
-      <td style="font-weight:650;color:var(--green)">+$154</td>
-      <td class="muted">74m</td></tr></tbody></table>
+      <td class="mono" style="font-size:12px">23,310 → 23,391</td>
+      <td style="color:var(--green)">+81</td>
+      <td style="font-weight:650;color:var(--green)">+$324</td>
+      <td class="muted">1.7h</td></tr></tbody></table>
         </div>
 
         </div><div id="bpt-actSec"><div class="sec-title" style="display:flex;align-items:baseline;justify-content:space-between">Recent activity
           <label class="muted" style="font-weight:400;cursor:pointer"><input disabled type="checkbox" id="bpt-showTech" class="cb">show technical events</label></div>
         <div class="card" style="padding:0">
           <table><thead><tr><th>Time (ET)</th><th>Event</th><th>Strategy</th><th>Detail</th></tr></thead>
-          <tbody id="bpt-logBody"><tr><td class="mono muted">10:31:58</td><td class="kind k-FILL">FILL</td><td><span class="acctchip ev">Main account</span> Breakout-1m</td><td style="font-size:12px"><span class="evt-main"><span style="color:var(--green);font-weight:700">BUY</span> 2 @ 24,812.25</span> <span class="evt-sub">position 0 → 2 (live)</span></td></tr><tr><td class="mono muted">10:31:57</td><td class="kind k-ORDER">ORDER</td><td><span class="acctchip ev">Main account</span> Breakout-1m</td><td style="font-size:12px"><span class="evt-main"><span style="color:var(--green);font-weight:700">BUY</span> 2 MNQU6</span> <span class="evt-sub">→ RITH-104281 · rithmic</span></td></tr><tr><td class="mono muted">10:12:04</td><td class="kind k-FILL">FILL</td><td><span class="acctchip ev">Main account</span> Breakout-1m</td><td style="font-size:12px"><span class="evt-main"><span style="color:var(--red);font-weight:700">SELL</span> 2 @ 24,767.25</span> <span class="evt-sub">position 2 → 0 (live)</span></td></tr><tr><td class="mono muted">09:12:04</td><td class="kind k-CONNECTED">CONNECTED</td><td><span class="acctchip ev">Main account</span> </td><td style="font-size:12px"><span class="evt-main">account RITH-104281</span></td></tr></tbody></table>
+          <tbody id="bpt-logBody"><tr><td class="mono muted">15:42:58</td><td class="kind k-DRIFT_ERR">DRIFT_ERR</td><td><span class="acctchip sy">system</span> </td><td style="font-size:12px"><span class="mono muted" style="font-size:12px">id="dev-fake"  err="'FakeBroker' object has no attribute 'reconcile'"</span></td></tr><tr><td class="mono muted">15:37:58</td><td class="kind k-DRIFT_ERR">DRIFT_ERR</td><td><span class="acctchip sy">system</span> </td><td style="font-size:12px"><span class="mono muted" style="font-size:12px">id="dev-fake"  err="'FakeBroker' object has no attribute 'reconcile'"</span></td></tr><tr><td class="mono muted">15:32:58</td><td class="kind k-DRIFT_ERR">DRIFT_ERR</td><td><span class="acctchip sy">system</span> </td><td style="font-size:12px"><span class="mono muted" style="font-size:12px">id="dev-fake"  err="'FakeBroker' object has no attribute 'reconcile'"</span></td></tr><tr><td class="mono muted">15:27:58</td><td class="kind k-DRIFT_ERR">DRIFT_ERR</td><td><span class="acctchip sy">system</span> </td><td style="font-size:12px"><span class="mono muted" style="font-size:12px">id="dev-fake"  err="'FakeBroker' object has no attribute 'reconcile'"</span></td></tr><tr><td class="mono muted">15:22:58</td><td class="kind k-DRIFT_ERR">DRIFT_ERR</td><td><span class="acctchip sy">system</span> </td><td style="font-size:12px"><span class="mono muted" style="font-size:12px">id="dev-fake"  err="'FakeBroker' object has no attribute 'reconcile'"</span></td></tr><tr><td class="mono muted">15:17:58</td><td class="kind k-DRIFT_ERR">DRIFT_ERR</td><td><span class="acctchip sy">system</span> </td><td style="font-size:12px"><span class="mono muted" style="font-size:12px">id="dev-fake"  err="'FakeBroker' object has no attribute 'reconcile'"</span></td></tr><tr><td colspan="4" style="text-align:center;padding:10px"><a style="cursor:pointer;font-size:13px;color:var(--dim)">Show all 60</a></td></tr></tbody></table>
         </div></div>
       </section>
 
@@ -1455,7 +1567,17 @@
            Wording is Rithmic's, verbatim - do not paraphrase. The R|API+ notice
            is deliberately absent: we use only the R|Protocol API, and Rithmic
            state the R|API+ notice is required only if R|API+ is used. -->
-      
+      <div class="rithmic-attrib" id="bpt-rithmicAttrib">
+        <div class="marks">
+          <img src="/rithmic/trading-platform-by-rithmic.png" alt="Trading Platform by Rithmic">
+        </div>
+        <div class="notices">
+          The R | Protocol API™ software is Copyright © 2026 by Rithmic, LLC. All rights reserved.<br>
+          Trading Platform by Rithmic™ is a trademark of Rithmic, LLC. All rights reserved.<br>
+          The OMNE™ software is Copyright © 2026 by Omnesys, LLC and Omnesys Technologies, Inc. All rights reserved.<br>
+          <img src="/rithmic/powered-by-omne.png" alt="Powered by OMNE"> is a trademark of Omnesys, LLC and Omnesys Technologies, Inc. All rights reserved.
+        </div>
+      </div>
 
     </div>
   </div>
@@ -1610,7 +1732,7 @@
   #cockpit .sat h3{font:600 clamp(22px,2.2vw,30px)/1.12 var(--sans);letter-spacing:-.03em;color:#fff;max-width:14ch;text-wrap:balance}
   #cockpit .sat p{margin-top:12px;font:400 15px/1.5 var(--sans);color:var(--dim);max-width:36ch}
   #cockpit .sat-app{margin-top:22px}
-  #cockpit .settings{background:#0A0D12;border:1px solid rgba(255,255,255,.14);border-radius:16px;overflow:hidden;color:#E6EAF0;min-height:560px;display:flex;flex-direction:column;box-shadow:0 24px 56px rgba(0,0,0,.45)}
+  #cockpit .settings{background:#0B1220;border:1px solid rgba(255,255,255,.14);border-radius:16px;overflow:hidden;color:#E6EAF0;min-height:560px;display:flex;flex-direction:column;box-shadow:0 24px 56px rgba(0,0,0,.45)}
   #cockpit .settings .ft-top{flex:none}
   #cockpit .settings .ft-body{flex:1;padding:18px 18px 20px;display:flex;flex-direction:column}
   .ftmuted{font:400 12.5px/1.45 var(--sans);color:#8C94A1;margin-bottom:12px}
