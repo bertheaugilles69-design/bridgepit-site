@@ -1691,21 +1691,14 @@
     border-top:1px solid var(--line);position:relative;z-index:1}
   #paths.band{max-width:1080px;padding-top:clamp(72px,12vh,140px);border-top:none}
   #paths .paths{display:grid;gap:16px}
-  /* Every band opened with an eyebrow, a huge headline and a small grey line
-     under it, all in the left third — five times down the page, with the right
-     two thirds empty each time. Repeated that often it reads as a template.
-     The head is a row now: headline left, its sentence set against it on the
-     right, both sitting on the same baseline. */
-  .bhead{max-width:none;display:grid;
-    grid-template-columns:minmax(0,1.15fr) minmax(0,24rem);
-    gap:clamp(20px,4vw,72px);align-items:end;
-    margin-bottom:clamp(26px,3.4vh,44px)}
-  .bhead .eyebrow{grid-column:1/-1}
-  .bhead h2{max-width:16ch}
-  .bhead .csub{padding-bottom:7px;margin:0}
-  @media(max-width:900px){ .bhead{grid-template-columns:1fr;gap:14px}
-    .bhead h2{max-width:none} .bhead .csub{padding-bottom:0} }
-  .bhead .csub{margin-top:18px}
+  /* Two columns was worse: the row takes its height from the taller cell, so a
+     one-line headline sat at the bottom of it, the eyebrow floated a long way
+     above, and the sentence was stranded halfway up the right. Back to one
+     column, tight. The emptiness was never the shape — it was the amount of
+     air, and that is in the band padding and these three margins. */
+  .bhead{max-width:720px;margin-bottom:clamp(22px,3vh,38px)}
+  .bhead .eyebrow{margin-bottom:10px}
+  .bhead .csub{margin-top:12px}
 
   /* ── #why - four-row list, same language as the rails ── */
   #why h2 .beat{white-space:nowrap}
