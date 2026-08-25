@@ -1689,8 +1689,6 @@
   /* ── the rest of the page: same system, no new ideas ── */
   .band{max-width:var(--max);margin:0 auto;padding:clamp(46px,6.6vh,84px) var(--gut);
     border-top:1px solid var(--line);position:relative;z-index:1}
-  #paths.band{max-width:1080px;padding-top:clamp(72px,12vh,140px);border-top:none}
-  #paths .paths{display:grid;gap:16px}
   /* Two columns was worse: the row takes its height from the taller cell, so a
      one-line headline sat at the bottom of it, the eyebrow floated a long way
      above, and the sentence was stranded halfway up the right. Back to one
@@ -1702,7 +1700,10 @@
 
   /* ── #why - four-row list, same language as the rails ── */
   #why h2 .beat{white-space:nowrap}
-  .cmp4{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr) minmax(0,1.15fr);max-width:1080px}
+  /* The table kept a 1080px cap from when it lived in its own band. The two
+     diagrams above it now fill the band, so the list hung short of them on the
+     right and read as pushed to one side. Same width as everything else. */
+  .cmp4{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr) minmax(0,1.15fr)}
   .c4h{padding:0 0 14px;font:600 11px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--dim2)}
   .c4h.ours{color:var(--txt)}
   .c4q,.c4a{display:flex;align-items:center;flex-wrap:wrap;gap:8px;min-height:88px;padding:20px 28px 20px 0;
