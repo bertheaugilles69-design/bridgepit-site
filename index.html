@@ -2100,7 +2100,11 @@
       x.font='500 '+size.toFixed(2)+'px '+MONO;
       x.textBaseline='middle';
       x.textAlign = it.side<0 ? 'right' : 'left';
-      x.fillStyle='rgba(209,213,219,'+a.toFixed(3)+')';
+      // Green, chosen from four tints rendered side by side. It is the same
+      // green the app uses for money-up, used here as the corridor's own
+      // colour — decoration, not a status: nothing in this field reports
+      // anything, and the page's live pill still carries the meaning.
+      x.fillStyle='rgba(74,222,128,'+a.toFixed(3)+')';
       x.fillText(it.t, cx+WALL*it.side*k, cy+it.off*k);
     }
   }
