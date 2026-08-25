@@ -1710,8 +1710,6 @@
     font:500 16px/1.4 var(--sans);border-top:1px solid var(--line);color:var(--dim2)}
   .c4a{font:400 16.5px/1.4 var(--sans);padding-right:12px;color:var(--dim)}
   .c4a.ours{color:var(--txt)}
-  .c4q[data-r="3"],.c4a.win{color:var(--txt)}
-  .c4a.mute{color:var(--dim)}
   .c4win{font:600 10px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--dim);
     border:1px solid var(--line2);border-radius:999px;padding:3px 8px;white-space:nowrap}
   .cmp4 [data-r]{opacity:0;transform:translateY(14px);
@@ -1828,7 +1826,7 @@
   <div class="bhead">
     <div class="eyebrow">Where it runs</div>
     <h2><span class="beat">Same job.</span> <span class="beat">Different machine.</span></h2>
-    <p class="csub">The picture first, then four facts. The last one is theirs.</p>
+    <p class="csub">The picture first, then four facts. The last one is what it asks of you.</p>
   </div>
 <div class="paths">
     <div class="pathrow old">
@@ -1878,9 +1876,9 @@
     <div class="c4a" data-r="2" data-l="Cloud">You wait in their queue.</div>
     <div class="c4a ours" data-r="2" data-l="BridgePit">The order was never sitting on their side.</div>
 
-    <div class="c4q" data-r="3"><span class="c4win">They win this one</span>Lid closed, or no internet</div>
-    <div class="c4a win" data-r="3" data-l="Cloud">It keeps placing orders.</div>
-    <div class="c4a mute" data-r="3" data-l="BridgePit">Nothing trades. The work lives only on this machine.</div>
+    <div class="c4q" data-r="3"><span class="c4win">What it needs</span>Lid closed, or no internet</div>
+    <div class="c4a" data-r="3" data-l="Cloud">It keeps placing orders.</div>
+    <div class="c4a ours" data-r="3" data-l="BridgePit">Nothing trades. The work lives only on this machine, which has to stay awake and online for the session.</div>
   </div>
 </section>
 
@@ -2084,13 +2082,21 @@
     cv.width=Math.max(1,r.width*d); cv.height=Math.max(1,r.height*d);
     var x=cv.getContext('2d'); x.setTransform(d,0,0,d,0,0);
     g={x:x,w:r.width,h:r.height};
+    WALL   = r.width  * 0.26;
+    SPREAD = r.height * 0.20;
+    BASE   = r.width  * 0.055;
+    CAP    = r.width  * 0.075;
+    FADE   = r.width  * 0.16;
   }
   fit(); addEventListener('resize',fit);
   // Depth is a divide: a row at depth z is drawn at 1/z of its size and its
   // offset from the centre line. Rows march towards the reader and are
   // recycled to the far end when they pass, so the corridor never ends.
-  var ZF=16, GAP=0.5, SPEED=0.0021, WALL=560, BASE=30, SPREAD=98,
-      DISSOLVE=3.6, PEAK=0.78, VX=0.44, CAP=34;
+  // Geometry is a FRACTION of the box, never fixed pixels: the box is about
+  // 440px wide, and a fixed 560px wall put the near rows outside it, where
+  // they were sliced through the letters by the canvas edge (26 Aug).
+  var ZF=16, GAP=0.5, SPEED=0.0021, DISSOLVE=3.6, PEAK=0.78, VX=0.44,
+      WALL, BASE, SPREAD, CAP, FADE;
   var items=[];
   for(var z=1; z<ZF; z+=GAP){
     var n=items.length;
@@ -2100,7 +2106,11 @@
   function draw(){
     var x=g.x, w=g.w, h=g.h, cx=w*VX, cy=h*0.5;
     x.clearRect(0,0,w,h);
-    items.sort(function(a,b){return b.z-a.z});
+    // Nearest first, so a near row can occlude the far ones behind it. Drawing
+    // far-first just overprinted them and the corridor read as a jumble of
+    // overlapping words (26 Aug).
+    items.sort(function(a,b){return a.z-b.z});
+    var taken=[];
     for(var i=0;i<items.length;i++){
       var it=items[i], k=1/it.z, size=BASE*k;
       // too small to read, or big enough to reach the edge of the box and be
@@ -2113,12 +2123,31 @@
       x.font='500 '+size.toFixed(2)+'px '+MONO;
       x.textBaseline='middle';
       x.textAlign = it.side<0 ? 'right' : 'left';
+      // Measure the row where it will actually land and fade it out before it
+      // touches a wall. A row cut through the middle of a word reads as a page
+      // that failed to load, not as depth — so nothing is ever allowed to
+      // reach the edge, at any window width.
+      var px=cx+WALL*it.side*k, py=cy+it.off*k, tw=x.measureText(it.t).width,
+          x0=it.side<0?px-tw:px, x1=it.side<0?px:px+tw,
+          room=Math.min(x0, w-x1, py-size*0.7, h-(py+size*0.7));
+      if(room<=0) continue;
+      if(room<FADE) a*=room/FADE;
+      // Something nearer is already in this space. In a real corridor it would
+      // hide what is behind it, so hide it here too rather than printing one
+      // row on top of another.
+      var y0=py-size*0.62, y1=py+size*0.62, hid=false;
+      for(var j=0;j<taken.length;j++){
+        var t=taken[j];
+        if(x0<t.x1+2 && x1>t.x0-2 && y0<t.y1+1 && y1>t.y0-1){ hid=true; break; }
+      }
+      if(hid) continue;
+      taken.push({x0:x0,x1:x1,y0:y0,y1:y1});
       // Green, chosen from four tints rendered side by side. It is the same
       // green the app uses for money-up, used here as the corridor's own
       // colour — decoration, not a status: nothing in this field reports
       // anything, and the page's live pill still carries the meaning.
       x.fillStyle='rgba(74,222,128,'+a.toFixed(3)+')';
-      x.fillText(it.t, cx+WALL*it.side*k, cy+it.off*k);
+      x.fillText(it.t, px, py);
     }
   }
   draw();
