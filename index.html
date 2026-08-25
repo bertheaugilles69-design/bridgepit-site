@@ -99,7 +99,7 @@
   .hero .facts{margin:18px 0 0;align-items:flex-start;font-size:11px}
   .hero .stage{flex:none;display:flex;flex-direction:column;width:100%;max-width:none;
     margin:40px 0 0;position:relative}
-  .hero .dashcap{width:100%;margin:0 0 12px;padding:0;
+  .hero .dashcap{width:100%;max-width:1000px;margin:0 auto 12px;padding:0;
     font:400 13px var(--sans);color:#8A8A93;text-align:left}
   .hero .stage .bpframe{flex:none;min-height:0;max-height:none;border-radius:16px;
     box-shadow:0 24px 64px rgba(0,0,0,.4)}
@@ -607,9 +607,8 @@
      labels collide with their numbers — real, but not what the app looks
      like. The ratio is measured, not guessed; re-measure it whenever the twin
      is regenerated. */
-  /* narrower than the column: at full width the panel was the whole page.
-     Left-aligned, because the headline and the caption above it are. */
-  .bpframe{max-width:1000px;
+  /* narrower than the column, and centred in it */
+  .bpframe{max-width:1000px;margin-inline:auto;
     position:relative;border:1px solid rgba(255,255,255,.10);
     border-radius:16px;overflow:hidden;background:#0B1220;
     box-shadow:0 24px 64px rgba(0,0,0,.4)}
