@@ -615,13 +615,13 @@
      like. The ratio is measured, not guessed; re-measure it whenever the twin
      is regenerated. */
   /* narrower than the column, and centred in it */
-  .bpframe{max-width:1000px;margin-inline:auto;
+  .bpframe{max-width:1120px;margin-inline:auto;
     position:relative;border:1px solid rgba(255,255,255,.10);
     border-radius:16px;overflow:hidden;background:#0B1220;
     box-shadow:0 24px 64px rgba(0,0,0,.4)}
   .bpviewport{position:relative;width:100%;container-type:inline-size;
     /* half the dashboard's height: the rest is there, you scroll to it */
-    aspect-ratio:1728 / 931;
+    aspect-ratio:1200 / 985;
     overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;
     scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.18) transparent}
   .bpviewport::-webkit-scrollbar{width:8px}
@@ -630,8 +630,13 @@
   /* zoom, not transform: a transformed element keeps its unscaled layout box,
      so the frame would scroll a 1862px range over a 1345px picture. zoom
      shrinks the box itself and the scrollbar tells the truth. */
-  .bptwin{position:relative;width:1728px;
-    zoom:calc(100cqw / 1728px);
+  /* 1200, not 1728. At 1728 the app was drawn for a window the column does not
+     have and squeezed to 58%, so its 13.5px labels landed at 7.8px against 17px
+     body text and the whole panel read as a shrunken screenshot (26 Aug). The
+     app's own layout holds down to 1200 — verified, no reflow, no overflow —
+     and 1200 in this column lands near 1:1. */
+  .bptwin{position:relative;width:1200px;
+    zoom:calc(100cqw / 1200px);
     /* the twin is a picture: nothing in it is reachable */
     pointer-events:none;user-select:none}
   .bptwin *{cursor:default!important}
@@ -641,7 +646,9 @@
      it reads as a screenshot you can move around, not as mush. */
   @media (max-width:900px){
     .bpviewport{aspect-ratio:auto;height:min(62vh,520px);overflow-x:auto}
-    .bptwin{zoom:.44}
+    /* .44 of 1728 and .63 of 1200 are the same rendered size — the natural
+       width changed, this did not. */
+    .bptwin{zoom:.63}
   }
   /* The app sizes itself to a window it does not have here: .app is
      height:100vh + overflow:hidden, which inside a page fragment collapses and
@@ -649,7 +656,14 @@
   .bptwin .app{height:auto;min-height:0;overflow:visible}
   .bptwin .main{height:auto;min-height:0}
   .bptwin .content{overflow:visible;max-height:none}
-  .bptwin .sidebar{position:absolute;top:0;bottom:0;height:auto}
+  /* The app pins its menu (position:fixed) so the screen scrolls under it. Here
+     the frame is the scrolling window, so the menu sticks to the top of it —
+     same behaviour, one scroll container down. */
+  /* Three classes on purpose: the app's own scoped rule further down sets
+     position and height, and would otherwise win on source order. */
+  .bptwin .app > .sidebar{position:sticky;top:0;align-self:flex-start;
+    height:var(--twin-vh,100%);z-index:10}
+  .bptwin .app > .main{margin-left:0}
   .bptwin .topbar{position:relative}
 
   /* One real card, lifted out of the app's Settings screen. Same stylesheet as
@@ -2336,8 +2350,18 @@
   var tw=document.querySelector('.bptwin'), vp=document.querySelector('.bpviewport');
   if(!tw||!vp) return;
   function fit(){
-    if(parseFloat(getComputedStyle(tw).zoom||1)!==1) return;
-    tw.style.zoom=(vp.clientWidth/1728);
+    if(parseFloat(getComputedStyle(tw).zoom||1)===1) tw.style.zoom=(vp.clientWidth/1200);
+    // The menu is sticky inside the frame, so it needs a height equal to one
+    // frame-full — measured in the twin's own units, which the zoom scales.
+    var z=parseFloat(getComputedStyle(tw).zoom)||1;
+    tw.style.setProperty('--twin-vh', (vp.clientHeight/z)+'px');
+    // On a narrow screen the frame is too small to hold the whole window, so it
+    // scrolls sideways. Open it on the dashboard rather than on the menu — the
+    // menu is still one swipe to the left.
+    if(vp.scrollWidth>vp.clientWidth+4){
+      var sb=tw.querySelector('.sidebar');
+      if(sb) vp.scrollLeft=sb.getBoundingClientRect().width;
+    }
   }
   fit(); addEventListener('resize',function(){ tw.style.zoom=''; fit() });
 })();
