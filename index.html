@@ -651,6 +651,34 @@
   .bpcardframe{max-width:none;background:var(--panel)}
   .bptwin.bpcard{width:auto;zoom:1;padding:20px 22px}
   .bptwin.bpcard .sec-title{margin-top:0}
+
+  /* ── FAQ, folded ──────────────────────────────────────────────────────
+     Nine answers open at once is a wall nobody reads. <details> rather than
+     a script: it opens without JavaScript, it is keyboard-operable, and the
+     answers stay in the page for a crawler even while collapsed. */
+
+  .qa{border-bottom:1px solid var(--line)}
+  .qa summary{list-style:none;cursor:pointer;display:flex;align-items:center;
+    justify-content:space-between;gap:24px;padding:19px 2px;
+    font:600 16px var(--sans);color:#fff;letter-spacing:-.01em;
+    transition:color .14s}
+  .qa summary::-webkit-details-marker{display:none}
+  .qa summary::marker{content:""}
+  .qa summary:hover{color:var(--dim)}
+  .qa summary:focus-visible{outline:2px solid var(--line2);outline-offset:4px;border-radius:6px}
+  .chev{flex:none;width:9px;height:9px;border-right:1.6px solid var(--dim2);
+    border-bottom:1.6px solid var(--dim2);transform:rotate(45deg) translate(-2px,-2px);
+    transition:transform .2s ease,border-color .14s}
+  .qa[open] .chev{transform:rotate(225deg) translate(-2px,-2px)}
+  .qa summary:hover .chev{border-color:var(--txt)}
+  .qa p{margin:-4px 0 22px;padding-right:44px;
+    font:400 15px/1.65 var(--sans);color:var(--dim);border-bottom:none;
+    animation:faqIn .2s ease both}
+  @keyframes faqIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion:reduce){
+    .chev{transition:none}
+    .qa p{animation:none}
+  }
 </style>
 <style id="bp-twin-css">
 @font-face{font-family:"Newsreader";font-style:normal;font-weight:400 500;font-display:swap;
@@ -1752,10 +1780,9 @@
   .pbtn.ghost{background:transparent;border:1px solid var(--line2);color:var(--txt)}
   .pnote2{margin-top:22px;font:400 13.5px/1.6 var(--sans);color:var(--dim2);max-width:820px}
 
-  .faq{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 44px;max-width:1000px}
-  .qa h3{font:600 15.5px var(--sans);color:#fff;letter-spacing:-.01em}
-  .qa p{margin-top:9px;font:400 14.5px/1.6 var(--sans);color:var(--dim);padding-bottom:20px;
-    border-bottom:1px solid var(--line)}
+  .faq{display:block;max-width:860px}
+  
+  
 
   .dl{max-width:var(--max);margin:0 auto;padding:clamp(60px,10vh,120px) var(--gut) clamp(40px,6vh,72px);
     border-top:1px solid var(--line);text-align:center;position:relative;z-index:1}
@@ -1776,7 +1803,7 @@
   .foot .fr{margin-left:auto;font:400 13px var(--sans);color:var(--dim2)}
 
   @media(max-width:960px){
-    .faq,.prices{grid-template-columns:1fr}
+    .prices{grid-template-columns:1fr}
     .rails{grid-template-columns:1fr 1fr}
     .foot .fr{margin-left:0;width:100%}
   }
@@ -1946,26 +1973,44 @@
     <h2>The questions people actually ask.</h2>
   </div>
   <div class="faq">
-    <div class="qa"><h3>Can you see my broker login?</h3>
-      <p>No. It is encrypted on your machine and never sent anywhere. We run no server in the path between you and your broker, so there is nothing on our side to leak.</p></div>
-    <div class="qa"><h3>Is this allowed where I trade?</h3>
-      <p>Rules differ by firm and they change. BridgePit places orders from your own machine and your own connection, and you stay at the controls. Read your firm's rules - we never claim approval on your behalf.</p></div>
-    <div class="qa"><h3>What if I close the lid?</h3>
-      <p>The Mac sleeps. BridgePit stops placing orders. That is how local works - not a cloud tool that keeps going without you. If you set a stop on that strategy, it is already at the broker and still protects the open position. Keep-awake only stops idle sleep while the lid is open.</p></div>
-    <div class="qa"><h3>What if the internet drops?</h3>
-      <p>Nothing trades. TradingView cannot reach the Mac, and the Mac cannot reach the broker. New alerts do not arrive, new orders do not leave, and flatten cannot fire until the connection is back. If you set a stop on that strategy, it is already at the broker and still protects the open position. The Mac has to stay on the internet the whole session - same rule as the lid.</p></div>
-    <div class="qa"><h3>Which brokers work today?</h3>
-      <p>Rithmic. More are added only once each one is proven end to end with real orders, not before.</p></div>
-    <div class="qa"><h3>Does it trade on its own?</h3>
-      <p>It acts on the alerts you set up, on the instruments and sizes you set, and it stops the moment you press halt. It is your strategy and your session - the app is the cockpit, not the pilot.</p></div>
-    <div class="qa"><h3>Can I try it without handing over my broker login?</h3>
-      <p>Yes, and you should. Paper mode is free and needs no card and no broker connection. Alerts arrive, orders fill on paper, and you watch a whole session before deciding anything.</p></div>
-    <div class="qa"><h3>How do I cancel?</h3>
-      <p>Send one email and it is cancelled. There is no retention call and nothing to argue with. Your app keeps working on paper afterwards.</p></div>
-    <div class="qa"><h3>Windows?</h3>
-      <p>macOS today, on Apple Silicon. The Windows build exists and is not released yet.</p></div>
+    <details class="qa">
+      <summary><span>Can you see my broker login?</span><i class="chev" aria-hidden="true"></i></summary>
+      <p>No. It is encrypted on your machine and never sent anywhere. We run no server in the path between you and your broker, so there is nothing on our side to leak.</p>
+    </details>
+    <details class="qa">
+      <summary><span>Is this allowed where I trade?</span><i class="chev" aria-hidden="true"></i></summary>
+      <p>Rules differ by firm and they change. BridgePit places orders from your own machine and your own connection, and you stay at the controls. Read your firm's rules - we never claim approval on your behalf.</p>
+    </details>
+    <details class="qa">
+      <summary><span>What if I close the lid?</span><i class="chev" aria-hidden="true"></i></summary>
+      <p>The Mac sleeps. BridgePit stops placing orders. That is how local works - not a cloud tool that keeps going without you. If you set a stop on that strategy, it is already at the broker and still protects the open position. Keep-awake only stops idle sleep while the lid is open.</p>
+    </details>
+    <details class="qa">
+      <summary><span>What if the internet drops?</span><i class="chev" aria-hidden="true"></i></summary>
+      <p>Nothing trades. TradingView cannot reach the Mac, and the Mac cannot reach the broker. New alerts do not arrive, new orders do not leave, and flatten cannot fire until the connection is back. If you set a stop on that strategy, it is already at the broker and still protects the open position. The Mac has to stay on the internet the whole session - same rule as the lid.</p>
+    </details>
+    <details class="qa">
+      <summary><span>Which brokers work today?</span><i class="chev" aria-hidden="true"></i></summary>
+      <p>Rithmic. More are added only once each one is proven end to end with real orders, not before.</p>
+    </details>
+    <details class="qa">
+      <summary><span>Does it trade on its own?</span><i class="chev" aria-hidden="true"></i></summary>
+      <p>It acts on the alerts you set up, on the instruments and sizes you set, and it stops the moment you press halt. It is your strategy and your session - the app is the cockpit, not the pilot.</p>
+    </details>
+    <details class="qa">
+      <summary><span>Can I try it without handing over my broker login?</span><i class="chev" aria-hidden="true"></i></summary>
+      <p>Yes, and you should. Paper mode is free and needs no card and no broker connection. Alerts arrive, orders fill on paper, and you watch a whole session before deciding anything.</p>
+    </details>
+    <details class="qa">
+      <summary><span>How do I cancel?</span><i class="chev" aria-hidden="true"></i></summary>
+      <p>Send one email and it is cancelled. There is no retention call and nothing to argue with. Your app keeps working on paper afterwards.</p>
+    </details>
+    <details class="qa">
+      <summary><span>Windows?</span><i class="chev" aria-hidden="true"></i></summary>
+      <p>macOS today, on Apple Silicon. The Windows build exists and is not released yet.</p>
+    </details>
   </div>
-</section>
+  </section>
 
 <!-- ════ DOWNLOAD ════ -->
 <section class="dl" id="download">
