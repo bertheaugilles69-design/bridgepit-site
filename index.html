@@ -2081,7 +2081,17 @@
     var yO=Y(b.o), yC=Y(b.c), yH=Y(b.h), yL=Y(b.l);
     var top=Math.min(yO,yC), bh=Math.max(2, Math.abs(yC-yO));
     var up=b.c>=b.o, col=isLive?(up?grn:red):null;
-    var s='<line x1="'+x.toFixed(2)+'" y1="'+yH.toFixed(2)+'" x2="'+x.toFixed(2)+'" y2="'+yL.toFixed(2)+'" stroke="'+(col||sw)+'" stroke-width="'+(isLive?1.4:1)+'"/>';
+    // The wick is TWO segments, high-to-body and body-to-low, not one line
+    // behind the body. The bodies are translucent, so a single line showed
+    // straight through them and candles do not have a line inside the body.
+    var wc=col||sw, ww=(isLive?1.4:1), bot=top+bh, s='';
+    function wick(y1,y2){
+      if(y2-y1<0.4) return '';
+      return '<line x1="'+x.toFixed(2)+'" y1="'+y1.toFixed(2)+'" x2="'+x.toFixed(2)+
+             '" y2="'+y2.toFixed(2)+'" stroke="'+wc+'" stroke-width="'+ww+'"/>';
+    }
+    s+=wick(yH, top);
+    s+=wick(bot, yL);
     if(isLive) s+='<rect x="'+(x-bw/2).toFixed(2)+'" y="'+top.toFixed(2)+'" width="'+bw.toFixed(2)+'" height="'+bh.toFixed(2)+'" rx="0.7" fill="'+col+'"/>';
     else if(up) s+='<rect x="'+(x-bw/2).toFixed(2)+'" y="'+top.toFixed(2)+'" width="'+bw.toFixed(2)+'" height="'+bh.toFixed(2)+'" rx="0.7" fill="'+upf+'" stroke="'+ups+'" stroke-width="1"/>';
     else s+='<rect x="'+(x-bw/2).toFixed(2)+'" y="'+top.toFixed(2)+'" width="'+bw.toFixed(2)+'" height="'+bh.toFixed(2)+'" rx="0.7" fill="'+dnf+'"/>';
