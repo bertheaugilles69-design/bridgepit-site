@@ -82,6 +82,18 @@
   pre .cm{color:var(--dim2)}
   pre .hl{color:#A8C7E8}
 
+  .copywrap{margin:18px 0 6px}
+  .copyhead{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:10px}
+  .copyhead p{margin:0 0 8px;max-width:48ch}
+  .copyhead p:last-child{margin-bottom:0}
+  .fieldnote{font-size:13.5px;color:var(--dim2)}
+  .fieldnote b{color:var(--txt);font-weight:500}
+  .copybtn{flex:none;font:500 13px var(--sans);color:var(--txt);background:rgba(255,255,255,.06);
+    border:1px solid var(--line);border-radius:8px;padding:8px 14px;cursor:pointer;white-space:nowrap}
+  .copybtn:hover{background:rgba(255,255,255,.1)}
+  .copybtn.done{color:var(--green);border-color:rgba(79,181,132,.35)}
+  .copywrap pre{margin:0}
+
   .moves{list-style:none;margin:18px 0 6px;counter-reset:mv}
   .moves li{position:relative;padding:12px 0 12px 44px;border-top:1px solid var(--line);color:var(--dim);counter-increment:mv;max-width:60ch}
   .moves li::before{content:counter(mv);position:absolute;left:0;top:11px;width:26px;height:26px;border-radius:50%;
@@ -198,16 +210,34 @@
       <figure class="plate"><img src="setup-tvalert.png" alt="The TradingView Create Alert dialog with the Message and Notifications rows highlighted" width="1888" height="1620"></figure>
       <p class="figcap"><b>Your TradingView alert window.</b> <b>①&nbsp;Message</b> - click it, clear what's there, paste the block. <b>②&nbsp;Notifications</b> - click it, switch on <b>Webhook URL</b>, and paste your address from step&nbsp;two. The condition shown here is only an example of the dialog - set yours to your strategy, as the box above says.</p>
       <p class="caution"><b>Set the alert's Condition to your strategy itself</b>, not to the indicator or the symbol. <code>{{strategy.order.action}}</code> and <code>{{strategy.order.contracts}}</code> only fill in when the condition is the strategy - otherwise they arrive empty and every alert is refused with <code>qty &lt;= 0</code>.</p>
-      <p>For reference, this is what <b>Copy block</b> gives you. Seven lines. The two highlighted ones are yours:</p>
-<pre><code>{
-  "strategy_name": "<span class="hl">Breakout-1m</span>",           <span class="cm">← same name as in the app</span>
+      <p>Best: in the app, <b>Settings → Alert setup → Copy block</b>. That fills your strategy name and token. If you are wiring from this page, copy below, then change two lines only. Leave every <code>{{...}}</code> exactly as written — a missing quote or a swapped clock and the alert will not trade.</p>
+      <div class="copywrap">
+        <div class="copyhead">
+          <div>
+            <p class="fieldnote"><b>strategy_name</b> is the name you typed in the app — not the chart, not the script title.</p>
+            <p class="fieldnote"><b>token</b> is the one in <b>Settings → Your webhook</b>.</p>
+          </div>
+          <button type="button" class="copybtn" id="copyAlert">Copy</button>
+        </div>
+        <pre id="alertBlock"><code>{
+  "strategy_name": "YourStrategyName",
   "data": "{{strategy.order.action}}",
   "quantity": "{{strategy.order.contracts}}",
   "price": "{{close}}",
   "bar_time": "{{time}}",
   "fired_at": "{{timenow}}",
-  "token": "<span class="hl">your-token-from-settings</span>"
+  "token": "YOUR-TOKEN"
 }</code></pre>
+      </div>
+      <script type="application/json" id="alert-copy-payload">{
+  "strategy_name": "YourStrategyName",
+  "data": "{{strategy.order.action}}",
+  "quantity": "{{strategy.order.contracts}}",
+  "price": "{{close}}",
+  "bar_time": "{{time}}",
+  "fired_at": "{{timenow}}",
+  "token": "YOUR-TOKEN"
+}</script>
       <p class="aside">Two clocks, two jobs. <code>bar_time</code> must be <code>{{time}}</code> - the bar's time - so the same signal cannot fill twice. <code>fired_at</code> must be <code>{{timenow}}</code> - the moment the alert fired - so a late entry is refused. Do not swap them: putting <code>{{time}}</code> in <code>fired_at</code> would refuse every entry on a 5-minute chart, because the bar is already minutes old the instant it fires. And nothing about accounts belongs in this message: which account a strategy trades is set in the app, under the strategy's <b>Account</b> field, with <b>Also run this strategy on</b> for more.</p>
       <p class="aside">BridgePit trades the instrument you picked on the strategy, not the chart the alert fired from, and always at market. Change the instrument on the strategy, not in TradingView.</p>
       <p class="aside">Coming from PickMyTrade? <code>/v2/add-trade-data</code> still answers, so the URL edit is all your tooling notices - but the message needs two changes: add <code>"strategy_name"</code> matching the strategy you added in the app, because BridgePit routes by strategy and not by symbol, and swap in your BridgePit token. Easiest path is <b>Copy block</b> above.</p>
@@ -270,6 +300,25 @@
   <div>© 2026 BridgePit LLC · <a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a> · <a href="mailto:support@bridgepit.com">Contact</a></div>
   <div><a href="./">bridgepit.com</a></div>
 </footer>
-
+<script>
+(function(){
+  var btn=document.getElementById('copyAlert');
+  var src=document.getElementById('alert-copy-payload');
+  if(!btn||!src)return;
+  var text=src.textContent.trim();
+  btn.addEventListener('click', function(){
+    function done(){ btn.textContent='Copied'; btn.classList.add('done'); setTimeout(function(){ btn.textContent='Copy'; btn.classList.remove('done'); }, 1600); }
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(done).catch(fallback);
+    }else fallback();
+    function fallback(){
+      var ta=document.createElement('textarea');
+      ta.value=text; document.body.appendChild(ta); ta.select();
+      try{ document.execCommand('copy'); }catch(e){}
+      document.body.removeChild(ta); done();
+    }
+  });
+})();
+</script>
 </body>
 </html>

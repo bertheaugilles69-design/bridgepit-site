@@ -182,19 +182,20 @@ strategy, and otherwise every alert is refused with "qty <= 0". Then:
 - Notifications: click the row, switch on Webhook URL, paste your address
   from step 2 (ending in /webhook).
 
-For reference, this is what Copy block gives you - seven lines. The
-strategy name and the token are yours; everything else is a TradingView
-placeholder, leave it exactly as written:
+Copy this into TradingView's Message box. Change two lines only:
+strategy_name is the name you typed in the app, not the chart and not
+the script title. token is the one in Settings → Your webhook. Leave
+every {{...}} exactly as written.
 
 ```
 {
-  "strategy_name": "Breakout-1m",
+  "strategy_name": "YourStrategyName",
   "data": "{{strategy.order.action}}",
   "quantity": "{{strategy.order.contracts}}",
   "price": "{{close}}",
   "bar_time": "{{time}}",
   "fired_at": "{{timenow}}",
-  "token": "your-token-from-settings"
+  "token": "YOUR-TOKEN"
 }
 ```
 
