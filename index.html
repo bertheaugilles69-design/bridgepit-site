@@ -657,8 +657,8 @@
   .bptwin #bpt-dashHalt,.bptwin #bpt-closeAllBtn{
     flex:0 0 auto;white-space:nowrap}
 
-  /* Help button is outside .app in the real window (position:fixed). Pin it
-     to the visible frame so it doesn't sit at the bottom of the whole page. */
+  /* Help sits on .bpframe, not inside the scrolling twin — otherwise it
+     rides the dashboard to the bottom as you scroll. */
   .bp-help{position:absolute;right:18px;bottom:18px;width:56px;height:56px;
     border-radius:50%;background:#fff;display:grid;place-items:center;
     box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:20;pointer-events:none}
@@ -1578,7 +1578,8 @@
     </div>
   </div>
 </div>
-</div><div class="bp-help" aria-hidden="true"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a8 8 0 01-11.5 7.2L3 21l1.8-6.5A8 8 0 1121 12z"></path></svg></div></div>
+</div></div>
+<div class="bp-help" aria-hidden="true"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a8 8 0 01-11.5 7.2L3 21l1.8-6.5A8 8 0 1121 12z"></path></svg></div>
       </div>
     </div>
   </div>
