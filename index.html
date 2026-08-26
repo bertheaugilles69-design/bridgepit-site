@@ -170,41 +170,168 @@
   .facts-row span:not(:last-child)::after{content:"·";margin:0 .75em;font-weight:500;opacity:.55}
   .facts-row.must{color:#9A9AA3}
 
+
   /* ── the two paths: the whole argument, in one picture ──
-     Same three boxes both times. The only difference is which box
-     places the order. */
-  .paths{display:grid;gap:20px;min-width:0;margin:0 0 clamp(36px,5vh,56px)}
-  .pathrow{border:1px solid var(--line);border-radius:12px;padding:18px 20px 16px;
-    background:#090E18}
-  .pathrow.ours{border-color:var(--line2);box-shadow:0 20px 50px rgba(0,0,0,.4)}
-  .plabel{display:flex;align-items:center;gap:9px;margin-bottom:16px;
-    font:600 10.5px var(--sans);letter-spacing:.13em;text-transform:uppercase;color:#5B5B63}
-  .pathrow.ours .plabel{color:var(--txt)}
-  .plabel .lv{display:inline-flex;align-items:center;gap:6px;margin-left:auto;
-    letter-spacing:.06em;color:var(--green);font-weight:600}
-  .plabel .lv i{width:5px;height:5px;border-radius:999px;background:var(--green);display:block}
+     Same three stops both times, and only the middle one changes — so only
+     the middle one is drawn as a machine and the ends are a mark and a name.
+     That leaves one lit surface (ours) and one whisper (theirs) instead of
+     eight identical rectangles, and the arrows say which way it runs. */
+  .paths{display:grid;gap:18px;min-width:0;margin:0 0 clamp(46px,5.8vh,66px)}
+  .pathrow{position:relative;border-radius:18px;
+    padding:clamp(20px,2.4vh,26px) clamp(22px,2.4vw,34px) clamp(20px,2.6vh,27px)}
+  .pathrow.old{background:rgba(255,255,255,.015);border:1px solid rgba(255,255,255,.055)}
+  /* the card is lit from behind the Mac tile, so the green is a light in the
+     room rather than a rim on the box */
+  .pathrow.ours{border:1px solid rgba(255,255,255,.10);
+    background:
+      radial-gradient(27% 86% at 50% 55%, rgba(74,222,128,.055), transparent 70%),
+      radial-gradient(88% 150% at 58% -16%, rgba(255,255,255,.035), transparent 58%),
+      linear-gradient(180deg,#121B2D 0%,#0C1322 100%);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.055),0 34px 70px -34px rgba(0,0,0,.9)}
 
-  .chain{display:grid;grid-template-columns:minmax(0,1fr) 108px minmax(0,1.55fr) 108px minmax(0,1fr);
-    align-items:stretch}
-  .node{min-width:0;min-height:68px;display:flex;flex-direction:column;justify-content:center;align-items:center;
-    text-align:center;border:1px solid var(--line);border-radius:8px;padding:13px 14px;background:#0A0F1A}
-  .node .nt{font:600 13.5px var(--sans);letter-spacing:-.015em;white-space:nowrap;
-    overflow:hidden;text-overflow:ellipsis}
-  .node .ns{display:block;margin-top:5px;font:400 11.5px/1.4 var(--sans);color:#5B5B63}
-  .pathrow.old .node.mid{border-style:dashed;border-color:rgba(227,179,65,.58)}
-  .pathrow.ours .node.mid{border-color:var(--line2);background:#121A2B;
-    box-shadow:inset 0 1px 0 var(--green)}
-  .pathrow.ours .node.mid .nt{color:#fff}
+  .plabel{display:flex;align-items:center;gap:12px;margin:0 0 clamp(16px,2.1vh,24px);
+    font:600 11px var(--sans);letter-spacing:.17em;text-transform:uppercase;color:#6B7280}
+  .pathrow.ours .plabel{color:#fff}
+  /* the label gets a rule to the edge, so each card has a masthead instead of
+     a word floating in a corner */
+  .plabel::after{content:"";flex:1;height:1px;background:rgba(255,255,255,.07);order:1}
+  .plabel .lv{order:2}
+  .plabel .lv{display:inline-flex;align-items:center;gap:7px;margin-left:auto;
+    font:600 9.5px var(--sans);letter-spacing:.15em;color:var(--green)}
+  .plabel .lv i{width:5px;height:5px;border-radius:999px;background:var(--green);display:block;
+    box-shadow:0 0 0 3px rgba(74,222,128,.14)}
 
-  .wire{position:relative;height:1px;align-self:center;background:var(--line)}
-  .wire .wl{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;
-    padding:0 8px;background:#090E18;
-    font:600 9px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:#5B5B63;white-space:nowrap}
-  .pathrow.ours .wire{background:var(--line2)}
-  .pathrow.ours .wire .wl{background:#090E18;color:var(--dim2)}
+  .chain{display:grid;
+    grid-template-columns:minmax(0,1fr) minmax(64px,.98fr) minmax(0,1.46fr) minmax(64px,.98fr) minmax(0,1fr);
+    align-items:start}
+  /* the ends are stops, not boxes: a mark and a name. The 18px is the middle
+     tile's own padding-top, so the four marks sit on one line. */
+  .nd{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;
+    min-width:0;padding-top:18px}
+  .nd svg{width:23px;height:23px;color:#525865;flex:none}
+  .nd .nt{font:600 15px var(--sans);letter-spacing:-.02em;color:#8B909C;white-space:nowrap;
+    overflow:hidden;text-overflow:ellipsis;max-width:100%}
+  .pathrow.ours .nd svg{color:#79808F}
+  .pathrow.ours .nd .nt{color:#D9DBE1}
 
-  .pnote{margin-top:14px;font:400 13px/1.5 var(--sans);color:var(--dim2)}
-  .pathrow.ours .pnote{color:var(--dim)}
+  /* the middle is the argument, so it is the only thing with a body */
+  .node.mid{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;
+    gap:9px;border-radius:13px;padding:18px 18px;min-width:0}
+  .node.mid svg{width:24px;height:24px;flex:none}
+  .node.mid .nt{font:700 17.5px var(--sans);letter-spacing:-.024em;color:#fff}
+  .node.mid .ns{font:400 12.5px/1.4 var(--sans);color:#6B7180}
+  /* theirs is a hole in the card, ours is an object sitting on it - the one
+     difference the eye should get before it reads a word */
+  .pathrow.old .node.mid{border:1px dashed rgba(255,255,255,.19);
+    background:repeating-linear-gradient(-45deg,rgba(255,255,255,.028) 0 1px,transparent 1px 7px),
+      linear-gradient(180deg,rgba(0,0,0,.34),rgba(0,0,0,.16));
+    box-shadow:inset 0 2px 12px rgba(0,0,0,.55)}
+  .pathrow.old .node.mid svg{color:#5B6070}
+  .pathrow.old .node.mid .nt{color:#B7BBC5}
+  .pathrow.ours .node.mid{border:1px solid rgba(74,222,128,.32);
+    background:linear-gradient(180deg,#17243A 0%,#0F1930 100%);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 22px 46px -26px rgba(0,0,0,.9)}
+  .pathrow.ours .node.mid svg{color:#fff}
+  .pathrow.ours .node.mid .ns{color:#8A91A1}
+
+  /* one hairline, one arrowhead, the word floating above it */
+  .wire{position:relative;align-self:center;height:1px;margin:0 clamp(12px,1.3vw,22px);
+    background:linear-gradient(90deg,rgba(255,255,255,.035),rgba(255,255,255,.15))}
+  .wire .wl{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);
+    font:700 9.5px var(--sans);letter-spacing:.2em;text-transform:uppercase;color:#565C6B;white-space:nowrap}
+  .wire::after{content:"";position:absolute;right:0;top:50%;
+    transform:translateY(-50%) rotate(45deg);width:5px;height:5px;
+    border-top:1.2px solid rgba(255,255,255,.3);border-right:1.2px solid rgba(255,255,255,.3)}
+  .pathrow.ours .wire{background:linear-gradient(90deg,rgba(255,255,255,.055),rgba(255,255,255,.26))}
+  .pathrow.ours .wire .wl{color:#828A9B}
+  .pathrow.ours .wire::after{border-color:rgba(255,255,255,.46)}
+
+  /* narrower: give the middle back the width it needs, or the two sublines
+     wrap differently and the two tiles stop being the same height */
+  @media(max-width:1080px){
+    .chain{grid-template-columns:minmax(0,.84fr) minmax(46px,.72fr) minmax(0,1.86fr) minmax(46px,.72fr) minmax(0,.84fr)}
+    .wire{margin:0 clamp(8px,1vw,14px)}
+  }
+
+  .pnote{margin-top:clamp(18px,2.1vh,23px);font:400 13.5px/1.55 var(--sans);color:#666C7A;text-align:center}
+  .pathrow.ours .pnote{color:#8E95A5}
+
+  /* ── the picture runs ──────────────────────────────────────────────────
+     One order, and the moment it does not come back. The same ticket leaves
+     TradingView on both rows at the same instant. Ours is stamped by the Mac
+     and comes back filled. Theirs is taken by the server, queued, and then the
+     server stops answering - the ticket is still sitting on their side when the
+     loop ends. That is the sentence under the first diagram, drawn.
+
+     Everything that moves is absolutely placed and animates transform/opacity
+     only, so no frame of this can shift the layout by a pixel. Travel is a
+     transform in percent of the wire the element sits in, which is why the
+     ticket lands in the right place at every width.
+
+     It is paused until the section is on screen (.run), and off entirely for
+     anyone who asked for less motion. */
+  /* the tick and the receipt hang off the broker, so the broker is the frame */
+  .nd{position:relative}
+  .node.mid::before{content:"";position:absolute;inset:0;border-radius:13px;pointer-events:none;
+    opacity:0;background:radial-gradient(72% 96% at 50% 50%,rgba(255,255,255,.15),transparent 72%)}
+  .pathrow.ours .node.mid::before{background:radial-gradient(72% 96% at 50% 50%,rgba(74,222,128,.28),transparent 72%)}
+  .node.mid::after{content:"";position:absolute;inset:-1px;border-radius:14px;pointer-events:none;
+    opacity:0;border:1px solid rgba(74,222,128,.75)}
+  .dead{position:absolute;inset:-1px;border-radius:14px;pointer-events:none;opacity:0;
+    background:rgba(6,9,15,.74);border:1px dashed rgba(255,255,255,.08)}
+  .qd{position:absolute;top:12px;right:13px;opacity:0;pointer-events:none;
+    font:600 9px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:#A9AEBA;
+    border:1px solid rgba(255,255,255,.2);border-radius:999px;padding:3px 8px;
+    background:rgba(12,18,32,.7)}
+  /* the colour has to out-specify .pathrow.ours .nd svg, which is grey */
+  .pathrow .nd svg.tick{position:absolute;top:10px;left:50%;margin-left:-17px;width:34px;height:34px;
+    color:#5BE894;opacity:0;stroke-width:2.7;stroke-dasharray:26;stroke-dashoffset:26;
+    filter:drop-shadow(0 0 10px rgba(74,222,128,.6))}
+  .rcpt{position:absolute;top:calc(100% + 12px);left:50%;transform:translate(-50%,5px);
+    white-space:nowrap;opacity:0;pointer-events:none;font:600 9.5px var(--sans);
+    letter-spacing:.13em;text-transform:uppercase;border-radius:999px;padding:4px 11px;
+    color:var(--green);border:1px solid rgba(74,222,128,.42);background:rgba(74,222,128,.08)}
+  .tkt{position:absolute;left:0;top:12px;width:100%;text-align:center;pointer-events:none;
+    opacity:0;will-change:transform,opacity}
+  .tk{display:inline-block;padding:5px 11px;border-radius:8px;border:1px solid rgba(255,255,255,.17);
+    background:#111A2A;box-shadow:0 10px 22px -10px rgba(0,0,0,.95);
+    font:600 10.5px/1 var(--mono);letter-spacing:.01em;white-space:nowrap;color:#C9CDD6}
+  .pathrow.old .tk{color:#8E93A0;background:#0C1220}
+  .pathrow.ours .w2 .tk{border-color:rgba(74,222,128,.45);color:#E6FFEF;
+    box-shadow:0 10px 24px -10px rgba(74,222,128,.4)}
+
+  #why .pathrow.ours .w1 .tkt{animation:d_o1 7.2s infinite}
+  #why .pathrow.ours .w2 .tkt{animation:d_o2 7.2s infinite}
+  #why .pathrow.old  .w1 .tkt{animation:d_t1 7.2s infinite}
+  #why .pathrow.ours .node.mid::before{animation:d_om 7.2s ease-out infinite}
+  #why .pathrow.old  .node.mid::before{animation:d_tm 7.2s ease-out infinite}
+  #why .pathrow.ours .node.mid::after{animation:d_omr 7.2s ease-out infinite}
+  #why .qd{animation:d_q 7.2s ease-out infinite}
+  #why .dead{animation:d_dead 7.2s ease-in-out infinite}
+  #why .nd svg.tick{animation:d_tick 7.2s ease-out infinite}
+  #why .pathrow.ours .nd-end>svg:first-child{animation:d_hidesvg 7.2s linear infinite}
+  #why .pathrow.ours .rcpt{animation:d_r1 7.2s ease-out infinite}
+  #why .cmp4 [data-r="2"]{animation:d_hi 7.2s ease-in-out infinite}
+  /* after the shorthands, never before: `animation:` resets play-state to
+     running, so a paused rule above these would be wiped out by every one */
+  #why *,#why *::before,#why *::after{animation-play-state:paused!important}
+  #why.run *,#why.run *::before,#why.run *::after{animation-play-state:running!important}
+  @media(prefers-reduced-motion:reduce){
+    #why *,#why *::before,#why *::after{animation:none!important}
+    .tkt,.tick,.qd,.rcpt,.dead,.node.mid::before,.node.mid::after{opacity:0!important}}
+
+  @keyframes d_o1{0%{transform:translateX(-58%) scale(.92);opacity:0} 3.472%{transform:translateX(-58%) scale(.92);opacity:0;animation-timing-function:cubic-bezier(.42,0,.2,1)} 5.833%{opacity:1;transform:translateX(-44%) scale(1)} 15.278%{opacity:1} 17.361%{transform:translateX(58%) scale(.93);opacity:0} 100%{transform:translateX(58%) scale(.93);opacity:0}}
+  @keyframes d_o2{0%{transform:translateX(-58%) scale(.92);opacity:0} 21.944%{transform:translateX(-58%) scale(.92);opacity:0;animation-timing-function:cubic-bezier(.42,0,.2,1)} 24.306%{opacity:1;transform:translateX(-44%) scale(1)} 32.361%{opacity:1} 34.444%{transform:translateX(58%) scale(.93);opacity:0} 100%{transform:translateX(58%) scale(.93);opacity:0}}
+  @keyframes d_t1{0%{transform:translateX(-58%) scale(.92);opacity:0} 3.472%{transform:translateX(-58%) scale(.92);opacity:0;animation-timing-function:cubic-bezier(.42,0,.2,1)} 5.833%{opacity:1;transform:translateX(-44%) scale(1)} 18.056%{opacity:1} 20.139%{transform:translateX(58%) scale(.93);opacity:0} 100%{transform:translateX(58%) scale(.93);opacity:0}}
+  @keyframes d_om{0%{opacity:0} 16.528%{opacity:0} 18.75%{opacity:1} 23.333%{opacity:0} 100%{opacity:0}}
+  @keyframes d_tm{0%{opacity:0} 19.306%{opacity:0} 21.528%{opacity:1} 25.833%{opacity:0} 100%{opacity:0}}
+  @keyframes d_omr{0%{opacity:0;transform:scale(1)} 16.528%{opacity:.9;transform:scale(1);animation-timing-function:cubic-bezier(.2,.7,.3,1)} 26.667%{opacity:0;transform:scale(1.045)} 100%{opacity:0;transform:scale(1.045)}}
+  @keyframes d_q{0%{opacity:0;transform:scale(.9)} 21.111%{opacity:0;transform:scale(.9);animation-timing-function:cubic-bezier(.2,.9,.3,1)} 25.278%{opacity:1;transform:scale(1)} 88.889%{opacity:1;transform:scale(1)} 95.139%{opacity:0;transform:scale(1)} 100%{opacity:0;transform:scale(.9)}}
+  @keyframes d_dead{0%{opacity:0} 36.111%{opacity:0} 43.75%{opacity:1} 88.889%{opacity:1} 96.528%{opacity:0} 100%{opacity:0}}
+  @keyframes d_tick{0%{stroke-dashoffset:26;opacity:0} 33.889%{stroke-dashoffset:26;opacity:1;animation-timing-function:cubic-bezier(.3,.9,.3,1)} 40.556%{stroke-dashoffset:0;opacity:1} 88.194%{stroke-dashoffset:0;opacity:1} 95.139%{stroke-dashoffset:0;opacity:0} 100%{stroke-dashoffset:26;opacity:0}}
+  @keyframes d_hidesvg{0%{opacity:1} 33.889%{opacity:1} 36.667%{opacity:0} 88.194%{opacity:0} 95.556%{opacity:1} 100%{opacity:1}}
+  @keyframes d_r1{0%{opacity:0;transform:translate(-50%,5px)} 35%{opacity:0;transform:translate(-50%,5px);animation-timing-function:cubic-bezier(.2,.9,.3,1)} 39.722%{opacity:1;transform:translate(-50%,0)} 88.194%{opacity:1;transform:translate(-50%,0)} 95.139%{opacity:0;transform:translate(-50%,0)} 100%{opacity:0;transform:translate(-50%,5px)}}
+  @keyframes d_hi{0%{box-shadow:inset 0 0 0 0 rgba(255,255,255,0)} 40.972%{box-shadow:inset 0 0 0 0 rgba(255,255,255,0)} 47.917%{box-shadow:inset 0 0 0 120px rgba(255,255,255,.05)} 77.778%{box-shadow:inset 0 0 0 120px rgba(255,255,255,.05)} 88.889%{box-shadow:inset 0 0 0 0 rgba(255,255,255,0)} 100%{box-shadow:inset 0 0 0 0 rgba(255,255,255,0)}}
 
 
 
@@ -561,10 +688,17 @@
   }
   @media(max-width:760px){ .slot .app{height:auto} .mainpane>.view{overflow-y:visible} .mainpane::after{display:none} }
   @media(max-width:700px){
-    .chain{grid-template-columns:1fr}
-    .node{min-height:0;align-items:flex-start;text-align:left}
-    .wire{width:1px;height:28px;justify-self:center}
-    .wire .wl{padding:0 7px}
+    .chain{grid-template-columns:1fr;justify-items:center}
+    .wire{width:1px;height:34px;margin:0;justify-self:center;
+      background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.15))}
+    .wire .wl{left:auto;right:14px;bottom:auto;top:50%;transform:translateY(-50%)}
+    .wire::after{right:auto;left:50%;top:auto;bottom:0;
+      transform:translateX(-50%) rotate(135deg)}
+    .pathrow.ours .wire{background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.26))}
+    .node.mid{width:100%}
+    /* the ticket rides a horizontal wire and there is no horizontal wire here;
+       the stamp, the dark plate and the tick still play */
+    .tkt,.rcpt{display:none}
     .perf .th,.perf .tr{grid-template-columns:minmax(0,1.3fr) 50px 56px 88px}
     .perf .pf2,.perf .lastt{display:none}
     .blot .th,.blot .tr{grid-template-columns:minmax(0,1.2fr) 50px 64px 86px}
@@ -1793,15 +1927,28 @@
   /* The table kept a 1080px cap from when it lived in its own band. The two
      diagrams above it now fill the band, so the list hung short of them on the
      right and read as pushed to one side. Same width as everything else. */
-  .cmp4{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr) minmax(0,1.15fr)}
-  .c4h{padding:0 0 12px;font:600 11px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--dim2)}
-  .c4h.ours{color:var(--txt)}
-  .c4q,.c4a{display:flex;align-items:center;flex-wrap:wrap;gap:8px;min-height:72px;padding:18px 28px 18px 0;
-    font:500 16px/1.4 var(--sans);border-top:1px solid var(--line);color:var(--dim2)}
-  .c4a{font:400 16.5px/1.45 var(--sans);padding-right:12px;color:var(--dim)}
+  .cmp4{position:relative;display:grid;
+    grid-template-columns:minmax(0,1.1fr) minmax(0,1fr) minmax(0,1.34fr)}
+  /* the winning column is a band behind the cells, not a colour on the text.
+     Absolutely placed, not a grid item: a grid item spanning column 3 would
+     push every auto-placed answer out of that column. The 61.046% is
+     (1.1+1)/3.44 - keep it in step with the fr values above. */
+  .c4band{position:absolute;z-index:0;left:61.046%;right:0;top:-18px;bottom:-2px;border-radius:15px;
+    background:linear-gradient(180deg,rgba(74,222,128,.05) 0,rgba(255,255,255,.033) 24%,rgba(255,255,255,.019) 100%);
+    border:1px solid rgba(255,255,255,.07);border-top-color:rgba(74,222,128,.26);
+    pointer-events:none;opacity:0;transition:opacity .7s cubic-bezier(.16,1,.3,1) .12s}
+  .cmp4.in .c4band{opacity:1}
+  .cmp4 .c4h,.cmp4 .c4q,.cmp4 .c4a{position:relative;z-index:1}
+  .c4h{padding:0 0 17px;font:600 10.5px var(--sans);letter-spacing:.17em;text-transform:uppercase;color:#5B6070}
+  .c4h.ours{color:#fff}
+  .c4q,.c4a{display:flex;align-items:center;flex-wrap:wrap;gap:9px;min-height:74px;
+    padding:19px 34px 19px 0;font:500 15.5px/1.45 var(--sans);
+    border-top:1px solid rgba(255,255,255,.065);color:#7C828F}
+  .c4a{font:400 17px/1.5 var(--sans);padding-right:22px;color:#969CAA}
+  .c4h.ours,.c4a.ours{padding-left:24px;padding-right:24px}
   .c4a.ours{color:var(--txt)}
-  .c4win{font:600 10px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--dim);
-    border:1px solid var(--line2);border-radius:999px;padding:3px 8px;white-space:nowrap}
+  .c4win{font:600 9.5px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:#8B909C;
+    border:1px solid rgba(255,255,255,.16);border-radius:999px;padding:4px 10px;white-space:nowrap}
   .cmp4 [data-r]{opacity:0;transform:translateY(14px);
     transition:opacity .5s cubic-bezier(.16,1,.3,1),transform .5s cubic-bezier(.16,1,.3,1),background .2s,color .2s}
   .cmp4.in [data-r="0"]{transition-delay:.05s}
@@ -1812,15 +1959,18 @@
   .cmp4[data-h="0"] [data-r="0"],
   .cmp4[data-h="1"] [data-r="1"],
   .cmp4[data-h="2"] [data-r="2"],
-  .cmp4[data-h="3"] [data-r="3"]{background:rgba(255,255,255,.028);color:var(--txt)}
+  .cmp4[data-h="3"] [data-r="3"]{background:rgba(255,255,255,.026);color:var(--txt)}
   @media(prefers-reduced-motion:reduce){
     .cmp4 [data-r]{opacity:1;transform:none;transition:none}}
   @media(max-width:720px){
     .cmp4{grid-template-columns:1fr}
+    .c4band{display:none}
     .c4h{display:none}
-    .c4q{min-height:0;padding:24px 0 8px;font:600 11px var(--sans);letter-spacing:.1em;text-transform:uppercase;background:none!important}
+    .c4q{min-height:0;padding:26px 0 8px;font:600 11px var(--sans);letter-spacing:.12em;text-transform:uppercase;background:none!important}
     .c4a{min-height:0;padding:6px 0 4px;border-top:none}
-    .c4a::before{content:attr(data-l);margin-right:.6em;color:var(--dim2);font:600 11px var(--sans);letter-spacing:.08em;text-transform:uppercase}
+    .c4h.ours,.c4a.ours{padding-left:0;padding-right:0}
+    .c4a::before{content:attr(data-l);display:inline-block;min-width:78px;margin-right:.4em;
+      color:var(--dim2);font:600 11px var(--sans);letter-spacing:.08em;text-transform:uppercase}
   }
 
   /* screen 3 - one day, and the rail that catches each thing that goes wrong */
@@ -1923,14 +2073,15 @@
     <div class="pathrow old">
       <div class="plabel">The cloud way</div>
       <div class="chain">
-        <div class="node"><span class="nt">TradingView</span></div>
-        <div class="wire"><span class="wl">alert</span></div>
-        <div class="node mid">
+        <div class="nd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3.6v16.2h16"/><path d="M7.6 15.2l3.7-4.4 3 2.5L19.4 7"/></svg><span class="nt">TradingView</span></div>
+        <div class="wire w1"><span class="wl">alert</span><span class="tkt"><span class="tk">BUY 1 &middot; ES</span></span></div>
+        <div class="node mid"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3.2" y="4.2" width="17.6" height="6.3" rx="1.9"/><rect x="3.2" y="13.5" width="17.6" height="6.3" rx="1.9"/><path d="M6.9 7.35h.01M6.9 16.65h.01" stroke-width="2.1"/></svg>
           <span class="nt">Their server</span>
           <span class="ns">their server places the order</span>
+          <i class="dead"></i><span class="qd">Queued</span>
         </div>
-        <div class="wire"><span class="wl">order</span></div>
-        <div class="node"><span class="nt">Your broker</span></div>
+        <div class="wire w2"><span class="wl">order</span></div>
+        <div class="nd nd-end"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3.6" y="3.8" width="16.8" height="16.4" rx="2.3"/><path d="M7.4 9h6.3M7.4 12.6h9.2M7.4 16.2h4.5"/></svg><span class="nt">Your broker</span></div>
       </div>
       <p class="pnote">If their server is down, slow, or blocked, your account is the one that finds out.</p>
     </div>
@@ -1938,19 +2089,20 @@
     <div class="pathrow ours">
       <div class="plabel">BridgePit<span class="lv"><i></i>live on your machine</span></div>
       <div class="chain">
-        <div class="node"><span class="nt">TradingView</span></div>
-        <div class="wire w1"><span class="wl">alert</span></div>
-        <div class="node mid">
+        <div class="nd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3.6v16.2h16"/><path d="M7.6 15.2l3.7-4.4 3 2.5L19.4 7"/></svg><span class="nt">TradingView</span></div>
+        <div class="wire w1"><span class="wl">alert</span><span class="tkt"><span class="tk">BUY 1 &middot; ES</span></span></div>
+        <div class="node mid"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4.3" y="4.5" width="15.4" height="10.6" rx="1.9"/><path d="M2.4 18.6h19.2"/></svg>
           <span class="nt">Your Mac</span>
           <span class="ns">your Mac places the order</span>
         </div>
-        <div class="wire w2"><span class="wl">order</span></div>
-        <div class="node"><span class="nt">Your broker</span></div>
+        <div class="wire w2"><span class="wl">order</span><span class="tkt"><span class="tk">BUY 1 &middot; ES</span></span></div>
+        <div class="nd nd-end"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3.6" y="3.8" width="16.8" height="16.4" rx="2.3"/><path d="M7.4 9h6.3M7.4 12.6h9.2M7.4 16.2h4.5"/></svg><span class="nt">Your broker</span><svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.6l5 5 10-11"/></svg><span class="rcpt">Filled</span></div>
       </div>
       <p class="pnote">The order leaves from this Mac.</p>
     </div>
   </div>
   <div class="cmp4" id="cmp4">
+    <div class="c4band"></div>
     <div class="c4h"></div>
     <div class="c4h">A cloud tool</div>
     <div class="c4h ours">BridgePit</div>
@@ -2392,6 +2544,17 @@
     });
   },{threshold:.35,rootMargin:'0px 0px -8% 0px'});
   rows.forEach(function(r){ io.observe(r) });
+})();
+
+(function(){
+  /* the picture only runs while it is on screen */
+  var why=document.getElementById('why'); if(why){
+    var go=function(){ why.classList.add('run') }, stop=function(){ why.classList.remove('run') };
+    if('IntersectionObserver' in window){
+      new IntersectionObserver(function(es){ es.forEach(function(e){ e.isIntersecting?go():stop() }) },
+        {threshold:0, rootMargin:'120px 0px'}).observe(why);
+    } else go();
+  }
 })();
 
 (function(){
