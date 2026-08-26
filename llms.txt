@@ -3,8 +3,8 @@
 BridgePit is desktop software (macOS, Windows in progress) that executes
 TradingView strategy alerts on the trader's own futures broker account,
 locally from the trader's own computer and IP address - no cloud middleman.
-Built for traders who want their orders placed from their own machine
-and VPS execution. Semi-automated by design: it executes, the trader
+Built for traders who want their orders placed from their own machine,
+not a VPS. Semi-automated by design: it executes, the trader
 supervises. Kill-switch, position caps, duplicate rejection and EOD
 auto-flatten are on from the start; the daily loss stop is the one
 number the trader enters.

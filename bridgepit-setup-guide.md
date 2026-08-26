@@ -33,12 +33,12 @@ on paper by design.
    open, and connected to the internet during your trading hours (that is
    what "executes from your own IP" means). No internet, nothing trades.
 2. TradingView on a plan with webhook alerts (Essential and up).
-3. A futures prop account at a firm that supports Rithmic, with API access
-   enabled. Your firm charges its own API-access fee, paid to the firm
-   directly. Your Rithmic account also needs a paid subscription with them:
-   demo and trial Rithmic logins cannot connect at all. (No CME market-data
-   licence needed - BridgePit is order-only, your charts stay on
-   TradingView.)
+3. A Rithmic futures account - a funded prop account or your own broker,
+   as long as it is on Rithmic, with API access enabled. They charge their
+   own API-access fee, paid to them directly. Your Rithmic account also
+   needs a paid subscription with them: demo and trial Rithmic logins
+   cannot connect at all. (No CME market-data licence needed - BridgePit is
+   order-only, your charts stay on TradingView.)
 4. Tailscale, a free app used once in step 2 - tailscale.com/download.
 5. Your BridgePit license key if you have subscribed (arrives by email
    after checkout). Not needed for paper trading.
@@ -117,6 +117,8 @@ exit. BridgePit re-tests the address in the background, dashboard open or
 closed. When it stops answering, the top of the dashboard says so. Once you
 are live and Telegram or email is on, a real outage also reaches your
 phone. In Tailscale's settings, switch on "Launch Tailscale at login".
+BridgePit does not start itself: after a reboot, open it, or add it in
+System Settings → General → Login Items.
 
 Troubleshooting this step: run "tailscale funnel status" in Terminal. It
 should say "Funnel on" and list your address. Note that Tailscale can show
@@ -168,6 +170,12 @@ scale, and if your TradingView strategy already trades more than one
 contract, leave it at 1 or the two multiply and the order is refused. Do
 NOT set it to your firm's maximum as a safety ceiling - that is the
 opposite of what it does.
+
+Emergency stop is optional, in points. Leave it blank and there is none.
+Put a number and every fill rests a real stop at the broker that many
+points away, so a closed lid or a dropped line still has a cap. The line
+under the field is that distance in dollars. This is the rail the lid
+and a dead internet cannot take with them.
 
 Don't type the alert message. Open Settings → Alert setup, pick your
 strategy, and press "Copy block". Your token is already in it, so there is
@@ -283,6 +291,12 @@ already on.
   strategy added in the app. Case and spaces count.
 - "REJECT - burst duplicate" - working as intended: the same signal arrived
   twice within seconds and the copy was refused.
+- "this alert carries no bar_time" - the message is missing
+  "bar_time": "{{time}}". Duplicate protection is then only a few seconds.
+  Use Copy block - it writes both clocks.
+- Every entry refused on a 5-minute chart - the two clocks are swapped.
+  bar_time must be {{time}} (the bar). fired_at must be {{timenow}} (the
+  fire). Copy block writes them in the right place.
 - Nothing appears at all - TradingView cannot reach your machine. Run
   "tailscale funnel status", and check the URL ends in /webhook.
 - Fills still say "(paper)" after subscribing - almost always the missing
