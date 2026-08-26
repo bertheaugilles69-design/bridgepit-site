@@ -48,11 +48,11 @@ on paper by design.
 
 ## Step 1 - Install BridgePit
 
-Download the Mac app from https://bridgepit.com (BridgePit-mac.dmg - signed
-and notarized by Apple). Open the file, drag BridgePit into Applications,
-launch it. Your browser opens at 127.0.0.1:8787 - that address means
-"this computer": the dashboard, your settings, and your credentials answer
-only on your machine.
+Download the Mac app from https://bridgepit.com/downloads/BridgePit-mac.dmg
+(signed and notarized by Apple). Open the file, drag BridgePit into
+Applications, launch it. Your browser opens at 127.0.0.1:8787 - that address
+means "this computer": the dashboard, your settings, and your credentials
+answer only on your machine.
 
 The first screen asks you to set a password for the dashboard, at least 8
 characters. Pick one you will keep: there is no account behind it and no
@@ -113,10 +113,10 @@ running and serving it - and a Mac that has restarted comes back with
 neither Tailscale nor BridgePit running until you log in and start them.
 TradingView fires each alert once and never retries, so an alert sent to a
 dead address is simply gone, and the one you can least afford to lose is an
-exit. BridgePit re-tests the address every half minute and says so at the
-top of the dashboard when it stops answering - but only while the dashboard
-is open, and nothing reaches your phone. In Tailscale's settings, switch on
-"Launch Tailscale at login".
+exit. BridgePit re-tests the address in the background, dashboard open or
+closed. When it stops answering, the top of the dashboard says so. Once you
+are live and Telegram or email is on, a real outage also reaches your
+phone. In Tailscale's settings, switch on "Launch Tailscale at login".
 
 Troubleshooting this step: run "tailscale funnel status" in Terminal. It
 should say "Funnel on" and list your address. Note that Tailscale can show
@@ -212,10 +212,11 @@ picked on the strategy, not the chart the alert fired from, and always at
 market.
 
 Migrating from PickMyTrade: /v2/add-trade-data still answers, so the URL
-edit is all your tooling notices - but the message needs two changes. Add
+can stay. The message cannot. Do not keep the PickMyTrade body. Add
 "strategy_name" matching the strategy you added in the app, because
 BridgePit routes by strategy and not by symbol, and swap in your BridgePit
-token. Easiest path is Copy block above.
+token. Easiest path is Copy block above - it writes both, plus the two
+clocks. Keep the old body and the alert is refused.
 
 ## Step 5 - Test on paper, then go live
 
@@ -253,6 +254,13 @@ these are done:
 This is deliberate: a program that places your orders while you are away is
 no use if it cannot tell you something went wrong.
 
+Telegram is also the kill switch. Once it is on, you can text the bot from
+your phone. /halt blocks new entries - exits and the end-of-day flatten
+still run. /flatten closes every open position at market. /resume turns
+entries back on. Each one asks you to reply YES within 60 seconds. Only
+the chat you saved answers; anyone else gets silence. Email can warn you.
+It cannot halt.
+
 Before your first live session: open Settings → Your risk limits and set
 BOTH numbers that ship blank - the Daily stop ("Stop for today after losing
 $...") at your firm's daily limit or tighter, and the Drawdown stop, how
@@ -284,6 +292,9 @@ already on.
   you yet. Set up Telegram or e-mail under Settings → Where we reach you,
   send the test message and confirm it arrived, then read the dependency
   list. The refusal names which one is missing.
+- /halt does nothing - Telegram is not set up, or the bot token was
+  refused. Settings → Where we reach you: send the test message, then try
+  /halt again. It will ask for YES. Email cannot halt.
 - "Rithmic refused this app for your account" - not a password problem.
   Your firm has to enable BridgePit on their Rithmic system for your login;
   ask them to whitelist it. (Or a previous session is still open: wait a

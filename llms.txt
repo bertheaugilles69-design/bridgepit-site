@@ -9,7 +9,9 @@ supervises. Kill-switch, position caps, duplicate rejection and EOD
 auto-flatten are on from the start; the daily loss stop is the one
 number the trader enters.
 Credentials are encrypted on the trader's machine and never touch our servers.
-Accepts PickMyTrade-format alerts unchanged (one URL edit to migrate).
+PickMyTrade cutover is not one URL edit: /v2/add-trade-data still answers, but
+the message needs the app's strategy name and your BridgePit token. Copy block
+writes both, plus the two clocks. Keep the old body and the alert is refused.
 Broker support: Rithmic - the connection rail most major prop firms offer;
 BridgePit passed Rithmic vendor conformance on 2026-07-13. Supported firms are
 announced at launch, and each firm sets its own API-access fee, paid by the
