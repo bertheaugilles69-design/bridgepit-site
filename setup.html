@@ -83,16 +83,17 @@
   pre .hl{color:#A8C7E8}
 
   .copywrap{margin:18px 0 6px}
-  .copyhead{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:10px}
-  .copyhead p{margin:0 0 8px;max-width:48ch}
-  .copyhead p:last-child{margin-bottom:0}
-  .fieldnote{font-size:13.5px;color:var(--dim2)}
+  .fieldnote{font-size:13.5px;color:var(--dim2);margin:0 0 8px;max-width:58ch}
   .fieldnote b{color:var(--txt);font-weight:500}
-  .copybtn{flex:none;font:500 13px var(--sans);color:var(--txt);background:rgba(255,255,255,.06);
-    border:1px solid var(--line);border-radius:8px;padding:8px 14px;cursor:pointer;white-space:nowrap}
-  .copybtn:hover{background:rgba(255,255,255,.1)}
-  .copybtn.done{color:var(--green);border-color:rgba(79,181,132,.35)}
-  .copywrap pre{margin:0}
+  .copyfield{position:relative;background:var(--plate);border:1px solid var(--line);border-radius:10px}
+  .copyfield pre{margin:0;border:none;background:transparent;padding:44px 18px 15px}
+  .copybtn{position:absolute;top:10px;right:10px;z-index:1;font:500 12px var(--sans);
+    color:var(--txt);background:rgba(255,255,255,.08);border:1px solid var(--line);
+    border-radius:7px;padding:5px 11px;cursor:pointer}
+  .copybtn:hover{background:rgba(255,255,255,.12)}
+  .copynote{position:absolute;top:12px;right:72px;z-index:1;font:500 12px var(--sans);
+    color:var(--green);opacity:0;pointer-events:none;transition:opacity .15s}
+  .copynote.on{opacity:1}
 
   .moves{list-style:none;margin:18px 0 6px;counter-reset:mv}
   .moves li{position:relative;padding:12px 0 12px 44px;border-top:1px solid var(--line);color:var(--dim);counter-increment:mv;max-width:60ch}
@@ -212,14 +213,12 @@
       <p class="caution"><b>Set the alert's Condition to your strategy itself</b>, not to the indicator or the symbol. <code>{{strategy.order.action}}</code> and <code>{{strategy.order.contracts}}</code> only fill in when the condition is the strategy - otherwise they arrive empty and every alert is refused with <code>qty &lt;= 0</code>.</p>
       <p>Best: in the app, <b>Settings → Alert setup → Copy block</b>. That fills your strategy name and token. If you are wiring from this page, copy below, then change two lines only. Leave every <code>{{...}}</code> exactly as written — a missing quote or a swapped clock and the alert will not trade.</p>
       <div class="copywrap">
-        <div class="copyhead">
-          <div>
-            <p class="fieldnote"><b>strategy_name</b> is the name you typed in the app — not the chart, not the script title.</p>
-            <p class="fieldnote"><b>token</b> is the one in <b>Settings → Your webhook</b>.</p>
-          </div>
+        <p class="fieldnote"><b>strategy_name</b> is the name you typed in the app - not the chart, not the script title.</p>
+        <p class="fieldnote"><b>token</b> is the one in <b>Settings → Your webhook</b>.</p>
+        <div class="copyfield">
           <button type="button" class="copybtn" id="copyAlert">Copy</button>
-        </div>
-        <pre id="alertBlock"><code>{
+          <span class="copynote" id="copyNote" aria-live="polite">Copied</span>
+          <pre id="alertBlock"><code>{
   "strategy_name": "YourStrategyName",
   "data": "{{strategy.order.action}}",
   "quantity": "{{strategy.order.contracts}}",
@@ -228,6 +227,7 @@
   "fired_at": "{{timenow}}",
   "token": "YOUR-TOKEN"
 }</code></pre>
+        </div>
       </div>
       <script type="application/json" id="alert-copy-payload">{
   "strategy_name": "YourStrategyName",
@@ -306,8 +306,12 @@
   var src=document.getElementById('alert-copy-payload');
   if(!btn||!src)return;
   var text=src.textContent.trim();
+  var note=document.getElementById('copyNote');
+  var hide;
   btn.addEventListener('click', function(){
-    function done(){ btn.textContent='Copied'; btn.classList.add('done'); setTimeout(function(){ btn.textContent='Copy'; btn.classList.remove('done'); }, 1600); }
+    function done(){
+      if(note){ note.classList.add('on'); clearTimeout(hide); hide=setTimeout(function(){ note.classList.remove('on'); }, 1600); }
+    }
     if(navigator.clipboard&&navigator.clipboard.writeText){
       navigator.clipboard.writeText(text).then(done).catch(fallback);
     }else fallback();
