@@ -198,16 +198,17 @@
       <figure class="plate"><img src="setup-tvalert.png" alt="The TradingView Create Alert dialog with the Message and Notifications rows highlighted" width="1888" height="1620"></figure>
       <p class="figcap"><b>Your TradingView alert window.</b> <b>①&nbsp;Message</b> - click it, clear what's there, paste the block. <b>②&nbsp;Notifications</b> - click it, switch on <b>Webhook URL</b>, and paste your address from step&nbsp;two. The condition shown here is only an example of the dialog - set yours to your strategy, as the box above says.</p>
       <p class="caution"><b>Set the alert's Condition to your strategy itself</b>, not to the indicator or the symbol. <code>{{strategy.order.action}}</code> and <code>{{strategy.order.contracts}}</code> only fill in when the condition is the strategy - otherwise they arrive empty and every alert is refused with <code>qty &lt;= 0</code>.</p>
-      <p>For reference, this is what <b>Copy block</b> gives you. Six lines, and only the first two are yours:</p>
+      <p>For reference, this is what <b>Copy block</b> gives you. Seven lines. The two highlighted ones are yours:</p>
 <pre><code>{
   "strategy_name": "<span class="hl">Breakout-1m</span>",           <span class="cm">← same name as in the app</span>
   "data": "{{strategy.order.action}}",
   "quantity": "{{strategy.order.contracts}}",
   "price": "{{close}}",
+  "bar_time": "{{time}}",
   "fired_at": "{{timenow}}",
   "token": "<span class="hl">your-token-from-settings</span>"
 }</code></pre>
-      <p class="aside">Two of those lines earn their place quietly. <code>fired_at</code> must be <code>{{timenow}}</code> - it is how BridgePit refuses an entry that arrives late; <code>{{time}}</code> is the bar's time and would get every entry refused. And nothing about accounts belongs in this message: which account a strategy trades is set in the app, under the strategy's <b>Account</b> field, with <b>Also run this strategy on</b> for more.</p>
+      <p class="aside">Two clocks, two jobs. <code>bar_time</code> must be <code>{{time}}</code> - the bar's time - so the same signal cannot fill twice. <code>fired_at</code> must be <code>{{timenow}}</code> - the moment the alert fired - so a late entry is refused. Do not swap them: putting <code>{{time}}</code> in <code>fired_at</code> would refuse every entry on a 5-minute chart, because the bar is already minutes old the instant it fires. And nothing about accounts belongs in this message: which account a strategy trades is set in the app, under the strategy's <b>Account</b> field, with <b>Also run this strategy on</b> for more.</p>
       <p class="aside">BridgePit trades the instrument you picked on the strategy, not the chart the alert fired from, and always at market. Change the instrument on the strategy, not in TradingView.</p>
       <p class="aside">Coming from PickMyTrade? <code>/v2/add-trade-data</code> still answers, so the URL edit is all your tooling notices - but the message needs two changes: add <code>"strategy_name"</code> matching the strategy you added in the app, because BridgePit routes by strategy and not by symbol, and swap in your BridgePit token. Easiest path is <b>Copy block</b> above.</p>
     </section>

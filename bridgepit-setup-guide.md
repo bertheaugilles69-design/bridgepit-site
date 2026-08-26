@@ -182,8 +182,9 @@ strategy, and otherwise every alert is refused with "qty <= 0". Then:
 - Notifications: click the row, switch on Webhook URL, paste your address
   from step 2 (ending in /webhook).
 
-For reference, this is what Copy block gives you - six lines, and only the
-first two are yours:
+For reference, this is what Copy block gives you - seven lines. The
+strategy name and the token are yours; everything else is a TradingView
+placeholder, leave it exactly as written:
 
 ```
 {
@@ -191,15 +192,17 @@ first two are yours:
   "data": "{{strategy.order.action}}",
   "quantity": "{{strategy.order.contracts}}",
   "price": "{{close}}",
+  "bar_time": "{{time}}",
   "fired_at": "{{timenow}}",
   "token": "your-token-from-settings"
 }
 ```
 
-The {{...}} placeholders are TradingView's own variables - leave them
-exactly as written; TradingView fills them when the alert fires. fired_at
-must be {{timenow}}: it is how BridgePit refuses an entry that arrives
-late. {{time}} is the bar's time and would get every entry refused.
+Two clocks, two jobs. bar_time must be {{time}} (the bar's time) so the
+same signal cannot fill twice. fired_at must be {{timenow}} (the moment
+the alert fired) so a late entry is refused. Do not swap them: {{time}}
+in fired_at would refuse every entry on a 5-minute chart, because the
+bar is already minutes old the instant it fires.
 
 Nothing about accounts belongs in this message. Which account a strategy
 trades is set in the app, under the strategy's Account field, with "Also
