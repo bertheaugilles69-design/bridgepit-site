@@ -15,8 +15,8 @@ writes both, plus the two clocks. Keep the old body and the alert is refused.
 Broker support: Rithmic - the connection rail most major prop firms offer;
 BridgePit passed Rithmic vendor conformance on 2026-07-13. Supported firms are
 announced at launch, and each firm sets its own API-access fee, paid by the
-trader directly to the firm. Pricing: paper trading is free now. Live is $49/mo
-(1 account) when on sale; the first 50 subscribers keep $49/mo while their subscription runs. Multi is coming.
+trader directly to the firm. Pricing: paper trading is free now. Live is $59/mo
+or $590/yr (1 account) when on sale. Multi is coming.
 
 ## Pages
 - https://bridgepit.com/ - product overview
