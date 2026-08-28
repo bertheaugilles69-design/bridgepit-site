@@ -263,11 +263,13 @@ This is deliberate: a program that places your orders while you are away is
 no use if it cannot tell you something went wrong.
 
 Telegram is also the kill switch. Once it is on, you can text the bot from
-your phone. /halt blocks new entries - exits and the end-of-day flatten
-still run. /flatten closes every open position at market. /resume turns
-entries back on. Each one asks you to reply YES within 60 seconds. Only
-the chat you saved answers; anyone else gets silence. Email can warn you.
-It cannot halt.
+your phone. /path checks whether TradingView can reach this Mac right now.
+/halt blocks new entries - exits and the end-of-day flatten still run.
+/flatten closes every open position at market. /resume turns entries back
+on. Halt, flatten and resume ask you to reply YES within 60 seconds. Only
+the chat you saved answers; anyone else gets silence. If /path does not
+answer, this Mac is asleep - that is the same as unreachable. Email can
+warn you. It cannot halt.
 
 Before your first live session: open Settings → Your risk limits and set
 BOTH numbers that ship blank - the Daily stop ("Stop for today after losing
