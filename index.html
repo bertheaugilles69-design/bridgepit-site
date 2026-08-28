@@ -2031,6 +2031,7 @@
   .ptoggle button.on{background:rgba(255,255,255,.09);color:#fff}
   .ptoggle button span{font-weight:400;color:var(--dim2)}
   .ptoggle button.on span{color:var(--dim)}
+  .amt s.was{font:400 24px var(--sans);color:var(--dim2);text-decoration:line-through;text-decoration-thickness:1.5px;margin-right:10px;letter-spacing:0;vertical-align:baseline}
 
   /* was 860px - a 460px dead column beside it at desktop, and nothing else on the page does that */
   .faq{display:block}
@@ -2232,7 +2233,7 @@ function setBilling(mode){
   var yearly=(mode==='y');
   m.classList.toggle('on',!yearly); y.classList.toggle('on',yearly);
   m.setAttribute('aria-pressed',String(!yearly)); y.setAttribute('aria-pressed',String(yearly));
-  amt.innerHTML=yearly?'$590<span> /year · two months free</span>':'$59<span> /month</span>';
+  amt.innerHTML=yearly?'<s class="was">$708</s>$590<span> /year</span>':'$59<span> /month</span>';
   can.textContent=yearly?'Cancel by email. It ends at the close of the year you paid.':'Cancel by email. It ends at the close of the month you paid.';
 }
 </script>
