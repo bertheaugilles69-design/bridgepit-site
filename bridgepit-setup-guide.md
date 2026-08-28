@@ -10,7 +10,7 @@ BridgePit, spread across European and Asian hours. We answer fast.
 
 ## What BridgePit is
 
-BridgePit is desktop software (macOS today, Apple Silicon; Windows in
+BridgePit is desktop software (macOS today, Apple Silicon; a Windows version is
 progress) that executes TradingView strategy alerts on your own futures
 broker account, locally from your own computer and IP address. No cloud
 middleman: your broker credentials are encrypted on your machine and never
@@ -28,7 +28,7 @@ on paper by design.
 
 ## What you need before starting
 
-1. Your computer - the Mac app is ready today (M1 or newer); Windows is on
+1. Your computer - the Mac app is ready today (M1 or newer); a Windows version is planned. It runs on
    its way. Use the machine you normally trade from. It must stay on, lid
    open, and connected to the internet during your trading hours (that is
    what "executes from your own IP" means). No internet, nothing trades.
@@ -37,7 +37,7 @@ on paper by design.
    as long as it is on Rithmic, with API access enabled. They charge their
    own API-access fee, paid to them directly. Your Rithmic account also
    needs a paid subscription with them: demo and trial Rithmic logins
-   cannot connect at all. (No CME market-data licence needed - BridgePit is
+   cannot connect at all. (As we read it, no CME market-data licence is needed - BridgePit is
    order-only, your charts stay on TradingView.)
 4. Tailscale, a free app used once in step 2 - tailscale.com/download.
 5. Your BridgePit license key if you have subscribed (arrives by email
@@ -319,8 +319,9 @@ already on.
   successful login, not a live link. Look for a CONN_DOWN row in Recent
   activity, and trust your e-mail or Telegram alert over the pill.
 - Internet drops mid-position - BridgePit reconnects continuously and
-  alerts you by email/Telegram; the end-of-day flatten retries until your
-  account is confirmed flat.
+  alerts you by email/Telegram; once reconnected, the end-of-day flatten
+  keeps asking the broker until it confirms you are flat, and raises the
+  alarm if it cannot by the cutoff.
 
 ## The one habit that matters
 

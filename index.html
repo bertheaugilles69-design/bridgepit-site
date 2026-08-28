@@ -793,13 +793,6 @@
   .bptwin #bpt-dashHalt,.bptwin #bpt-closeAllBtn{
     flex:0 0 auto;white-space:nowrap}
 
-  /* Help sits on .bpframe, not inside the scrolling twin - otherwise it
-     rides the dashboard to the bottom as you scroll. */
-  .bp-help{position:absolute;right:18px;bottom:18px;width:56px;height:56px;
-    border-radius:50%;background:#fff;display:grid;place-items:center;
-    box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:20;pointer-events:none}
-  .bp-help svg{width:24px;height:24px;color:#0B1220}
-
   /* One real card, lifted out of the app's Settings screen. Same stylesheet as
      the dashboard twin, so it needs the .bptwin scope - but it is a card, not a
      window, so no fixed width and no zoom. */
@@ -1404,7 +1397,7 @@
       <a class="b b-primary" href="#download">
         Download for macOS <span class="sz">.dmg</span>
       </a>
-      <a class="b b-ghost" href="#paths">
+      <a class="b b-ghost" href="#why">
         See how it works <span class="arrow">↓</span>
       </a>
     </div>
@@ -1474,7 +1467,7 @@
           Following the written guide? It covers the same ground with pictures.</div></div>
       <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex:none">
         <button disabled class="btn btn-ghost su-guide">Open the setup guide</button>
-        <a href="#" class="muted su-hide">I know what I'm doing - hide this</a>
+        <a class="muted su-hide" style="cursor:pointer">I know what I'm doing - hide this</a>
       </div>
     </div>
     <div class="su-meter"><i style="width:25%"></i></div>
@@ -1503,7 +1496,7 @@
         <div id="bpt-machineMustRun" class="card" style="display:none;margin-bottom:16px;border-left:3px solid var(--red);background:var(--redbg,#1A1020)"></div>
 
         <!-- Pre-flight strip -->
-        <div class="preflight" id="bpt-preflight"><details><summary class="muted">⚠ Downtime: this Mac was asleep or unreachable from 06:54 to 07:00 ET (5 minutes). Any alert TradingView sent in that window never arrived - TradingView does not send it twice. Check your broker before you trust the dashboard.<span style="opacity:.6"> · details</span></summary><div class="preflight" style="margin-top:8px"><span class="pf ok" title="connected"><span class="d"></span>Broker session</span><span class="pf info" title="paper mode - fills go to the simulator until you choose an execution account"><span class="d"></span>Execution <span class="dt">· paper mode - fills go to the simulator until you choose an execution account</span></span><span class="pf info" title="halted accounts: ACC-02 (trail)"><span class="d"></span>Entries <span class="dt">· halted accounts: ACC-02 (trail)</span></span><span class="pf info" title="open: GC_ORB 2"><span class="d"></span>Book <span class="dt">· open: GC_ORB 2</span></span><span class="pf ok" title="reading 10s ago"><span class="d"></span>P&amp;L feed</span><span class="pf info" title="optional - no monitor URL set"><span class="d"></span>Heartbeat <span class="dt">· optional - no monitor URL set</span></span><span class="pf info" title="to do - set up Telegram or email in Settings (required before going live)"><span class="d"></span>Alert delivery <span class="dt">· to do - set up Telegram or email in Settings (required before going live)</span></span><span class="pf info" title="not read yet - shown before live execution can be armed"><span class="d"></span>What BridgePit depends on <span class="dt">· not read yet - shown before live execution can be armed</span></span><span class="pf info" title="to do - BridgePit must stay open on this Mac. Closing the lid sleeps the computer."><span class="d"></span>This Mac <span class="dt">· to do - BridgePit must stay open on this Mac. Closing the lid sleeps the computer.</span></span><span class="pf bad" title="this Mac was asleep or unreachable from 06:54 to 07:00 ET (5 minutes). Any alert TradingView sent in that window never arrived - TradingView does not send it twice. Check your broker before you trust the dashboard."><span class="d"></span>Downtime <span class="dt">· this Mac was asleep or unreachable from 06:54 to 07:00 ET (5 minutes). Any alert TradingView sent in that window never arrived - TradingView does not send it twice. Check your broker before you trust the dashboard.</span> <a class="pf-ack" title="Stop showing this. The downtime itself stays in the activity log - the alerts it lost do not come back.">dismiss</a></span><span class="pf info" title="on battery · 7h 03m left"><span class="d"></span>Power <span class="dt">· on battery · 7h 03m left</span></span><span class="pf info" title="funnel is beating but watching nothing - no public address set - nothing is checking that TradingView can still reach you; telegram is beating but watching nothing - Telegram is not set up - there is no /halt or /flatten from your phone"><span class="d"></span>Watchers <span class="dt">· funnel is beating but watching nothing - no public address set - nothing is checking that TradingView can still reach you; telegram is beating but watching nothing - Telegram is not set up - there is no /halt or /flatten from your phone</span></span><span class="pf info" title="none since start"><span class="d"></span>Last TV signal <span class="dt">· none since start</span></span></div></details></div>
+        <div class="preflight" id="bpt-preflight"><details><summary class="muted">⚠ Downtime: this Mac was asleep or unreachable from 06:54 to 07:00 ET (5 minutes). Any alert TradingView sent in that window never arrived - TradingView does not send it twice. Check your broker before you trust the dashboard.<span style="opacity:.6"> · details</span></summary><div class="preflight" style="margin-top:8px"><span class="pf ok" title="connected"><span class="d"></span>Broker session</span><span class="pf info" title="paper mode - fills go to the simulator until you choose an execution account"><span class="d"></span>Execution <span class="dt">· paper mode - fills go to the simulator until you choose an execution account</span></span><span class="pf info" title="halted accounts: ACC-02 (trail)"><span class="d"></span>Entries <span class="dt">· halted accounts: ACC-02 (trail)</span></span><span class="pf info" title="open: NQ_PDHL 2 · GC_ORB 2"><span class="d"></span>Book <span class="dt">· open: NQ_PDHL 2 · GC_ORB 2</span></span><span class="pf ok" title="reading 10s ago"><span class="d"></span>P&amp;L feed</span><span class="pf info" title="optional - no monitor URL set"><span class="d"></span>Heartbeat <span class="dt">· optional - no monitor URL set</span></span><span class="pf info" title="to do - set up Telegram or email in Settings (required before going live)"><span class="d"></span>Alert delivery <span class="dt">· to do - set up Telegram or email in Settings (required before going live)</span></span><span class="pf info" title="not read yet - shown before live execution can be armed"><span class="d"></span>What BridgePit depends on <span class="dt">· not read yet - shown before live execution can be armed</span></span><span class="pf info" title="to do - BridgePit must stay open on this Mac. Closing the lid sleeps the computer."><span class="d"></span>This Mac <span class="dt">· to do - BridgePit must stay open on this Mac. Closing the lid sleeps the computer.</span></span><span class="pf bad" title="this Mac was asleep or unreachable from 06:54 to 07:00 ET (5 minutes). Any alert TradingView sent in that window never arrived - TradingView does not send it twice. Check your broker before you trust the dashboard."><span class="d"></span>Downtime <span class="dt">· this Mac was asleep or unreachable from 06:54 to 07:00 ET (5 minutes). Any alert TradingView sent in that window never arrived - TradingView does not send it twice. Check your broker before you trust the dashboard.</span> <a class="pf-ack" title="Stop showing this. The downtime itself stays in the activity log - the alerts it lost do not come back.">dismiss</a></span><span class="pf info" title="on battery · 7h 03m left"><span class="d"></span>Power <span class="dt">· on battery · 7h 03m left</span></span><span class="pf info" title="funnel is beating but watching nothing - no public address set - nothing is checking that TradingView can still reach you; telegram is beating but watching nothing - Telegram is not set up - there is no /halt or /flatten from your phone"><span class="d"></span>Watchers <span class="dt">· funnel is beating but watching nothing - no public address set - nothing is checking that TradingView can still reach you; telegram is beating but watching nothing - Telegram is not set up - there is no /halt or /flatten from your phone</span></span><span class="pf info" title="none since start"><span class="d"></span>Last TV signal <span class="dt">· none since start</span></span></div></details></div>
 
         <!-- Per-account cards (All view) -->
         <div class="grid g2" id="bpt-acctCards" style="margin-bottom:var(--s1)"><div class="card acct exec">
@@ -1529,7 +1522,7 @@
       <details style="margin-top:var(--s3)" data-pay="ACC-01" ontoggle="payToggle(this)">
     <summary style="cursor:pointer;font-size:var(--t-body);list-style:none">Payout <span style="color:var(--amber);font-weight:650">held by: Best-day rule (+1 more)</span> <span class="acctchip ev" style="white-space:nowrap" title="fewest unmet gates, then smallest dollar distance">closest to payout</span> <span class="muted" style="font-size:var(--t-micro)">· details</span></summary>
     <div style="display:flex;gap:8px;align-items:baseline;margin-top:var(--s2);font-size:var(--t-meta)"><span style="flex:none"><span style="color:var(--red)">✗</span></span><div><b style="font-size:var(--t-meta)">Balance a payout needs</b><div class="hint">balance $52,428 of $52,600 - $172 to go</div></div></div><div style="display:flex;gap:8px;align-items:baseline;margin-top:var(--s2);font-size:var(--t-meta)"><span style="flex:none"><span style="color:var(--green)">✓</span></span><div><b style="font-size:var(--t-meta)">Balance it must stay above</b><div class="hint">balance $52,428 is at or above $50,100</div></div></div><div style="display:flex;gap:8px;align-items:baseline;margin-top:var(--s2);font-size:var(--t-meta)"><span style="flex:none"><span style="color:var(--green)">✓</span></span><div><b style="font-size:var(--t-meta)">Trading days a payout needs</b><div class="hint">11 of 10 - counted from days with a closed trade or a non-flat recorded day P&amp;L</div></div></div><div style="display:flex;gap:8px;align-items:baseline;margin-top:var(--s2);font-size:var(--t-meta)"><span style="flex:none"><span style="color:var(--red)">✗</span></span><div><b style="font-size:var(--t-meta)">Best-day rule</b><div class="hint">best day $2,100 (2026-08-16) is 99% of total $2,118 - your 30% cap needs total ≥ $7,000 ($4,882 more, without a bigger best day)</div></div></div>
-    <div class="muted" style="font-size:var(--t-micro);margin-top:var(--s2)">Your figures, from your firm's dashboard - <a href="#" style="color:var(--accent2)">edit</a>. BridgePit only does the arithmetic; the firm's own page decides.</div>
+    <div class="muted" style="font-size:var(--t-micro);margin-top:var(--s2)">Your figures, from your firm's dashboard - <a style="color:var(--accent2);cursor:pointer">edit</a>. BridgePit only does the arithmetic; the firm's own page decides.</div>
   </details>
       <div class="meta">
         <div>Positions <b><span class="poschip">MNQU6 +2</span></b></div>
@@ -1565,7 +1558,7 @@
       <details style="margin-top:var(--s3)" data-pay="ACC-02" ontoggle="payToggle(this)">
     <summary style="cursor:pointer;font-size:var(--t-body);list-style:none">Payout <span style="color:var(--amber);font-weight:650">held by: Balance a payout needs (+1 more)</span> <span class="muted" style="font-size:var(--t-micro)">· details</span></summary>
     <div style="display:flex;gap:8px;align-items:baseline;margin-top:var(--s2);font-size:var(--t-meta)"><span style="flex:none"><span style="color:var(--red)">✗</span></span><div><b style="font-size:var(--t-meta)">Balance a payout needs</b><div class="hint">balance $49,930 of $52,600 - $2,670 to go</div></div></div><div style="display:flex;gap:8px;align-items:baseline;margin-top:var(--s2);font-size:var(--t-meta)"><span style="flex:none"><span style="color:var(--red)">✗</span></span><div><b style="font-size:var(--t-meta)">Trading days a payout needs</b><div class="hint">6 of 10 - counted from days with a closed trade or a non-flat recorded day P&amp;L. BridgePit only sees days it recorded - check the firm's own day count before relying on this</div></div></div>
-    <div class="muted" style="font-size:var(--t-micro);margin-top:var(--s2)">Your figures, from your firm's dashboard - <a href="#" style="color:var(--accent2)">edit</a>. BridgePit only does the arithmetic; the firm's own page decides.</div>
+    <div class="muted" style="font-size:var(--t-micro);margin-top:var(--s2)">Your figures, from your firm's dashboard - <a style="color:var(--accent2);cursor:pointer">edit</a>. BridgePit only does the arithmetic; the firm's own page decides.</div>
   </details>
       <div class="meta">
         <div>Positions <b>flat</b></div>
@@ -1598,7 +1591,7 @@
       <div class="bar"><i style="width:0%"></i></div>
       <div class="s">day loss budget $0 used · auto-halt −$1,000</div>
       
-      <div class="muted" style="margin-top:var(--s3)">Payout readiness: <a href="#" style="color:var(--accent2)">enter your firm's figures</a> and BridgePit does the arithmetic.</div>
+      <div class="muted" style="margin-top:var(--s3)">Payout readiness: <a style="color:var(--accent2);cursor:pointer">enter your firm's figures</a> and BridgePit does the arithmetic.</div>
       <div class="meta">
         <div>Positions <b><span class="poschip">MGCZ6 +2</span></b></div>
         <div>Strategies <b>1</b></div>
@@ -1616,7 +1609,7 @@
         <!-- System strip -->
         <div class="grid gdash" style="margin-top:var(--s4)">
           <div class="card stat"><h3>System</h3><div id="bpt-dashConn"><span class="pill bad"><span class="dot"></span>1 account halted</span></div><div class="s" id="bpt-dashMode">Paper - nothing reaches a broker</div><div class="s" id="bpt-dashAwake">Keep this window open. Closing the lid sleeps the computer.</div></div>
-          <div class="card stat"><h3>Open positions</h3><div class="v" id="bpt-dashPos">1</div><div class="s" id="bpt-dashPosD">GC_ORB 2</div></div>
+          <div class="card stat"><h3>Open positions</h3><div class="v" id="bpt-dashPos">2</div><div class="s" id="bpt-dashPosD">NQ_PDHL 2 · GC_ORB 2</div></div>
           <div class="card stat"><h3>Loss budget</h3><div class="v" id="bpt-dashStop"><span style="color:var(--green)">$0</span> <span class="muted" style="font-size:14px">of $1,000</span></div><div class="bar"><i id="bpt-dashBar" style="width: 0%;"></i></div><div class="s" id="bpt-dashLimLine">execution account · losses only · auto-halt at −$1,000 · profits uncapped</div></div>
           <div class="card stat"><h3>EOD flatten</h3><div class="v" id="bpt-dashEod">15:55</div><div class="s" id="bpt-dashEodS">ET · failsafe force-flat</div></div>
         </div>
@@ -1626,7 +1619,7 @@
           <table><thead><tr><th>Strategy</th><th>Trades</th><th>Win %</th><th>Total P&amp;L</th><th>Profit factor</th><th>Last trade (ET)</th></tr></thead>
           <tbody id="bpt-perfBody"><tr><td style="font-weight:550">NQ_PDHL</td><td>3</td><td>67%</td>
       <td style="font-weight:650;color:var(--green)">+$392</td>
-      <td>2.69</td><td class="mono muted" style="font-size:12px">08-22 11:47</td></tr><tr><td style="font-weight:550">GC_ORB</td><td>2</td><td>100%</td>
+      <td>2.69</td><td class="mono muted" style="font-size:12px">08-22 10:12</td></tr><tr><td style="font-weight:550">GC_ORB</td><td>2</td><td>100%</td>
       <td style="font-weight:650;color:var(--green)">+$275</td>
       <td>∞</td><td class="mono muted" style="font-size:12px">08-24 11:47</td></tr><tr><td style="font-weight:550">NQ_PDHL <span class="acctchip ma">Second account</span></td><td>1</td><td>100%</td>
       <td style="font-weight:650;color:var(--green)">+$160</td>
@@ -1642,44 +1635,44 @@
       <td class="mono" style="font-size:12px">2,530 → 2,544.5</td>
       <td style="color:var(--green)">+14.5</td>
       <td style="font-weight:650;color:var(--green)">+$145</td>
-      <td class="muted">1.7h</td></tr><tr><td class="mono muted">08-22 11:47</td>
+      <td class="muted">1.7h</td></tr><tr><td class="mono muted">08-22 10:12</td>
       <td><span class="acctchip ev">Main account</span> NQ_PDHL</td>
       <td class="side-long">LONG</td><td>2 MNQU6</td>
       <td class="mono" style="font-size:12px">23,180 → 23,255</td>
       <td style="color:var(--green)">+75</td>
       <td style="font-weight:650;color:var(--green)">+$300</td>
-      <td class="muted">1.7h</td></tr><tr><td class="mono muted">08-20 11:47</td>
+      <td class="muted">42m</td></tr><tr><td class="mono muted">08-20 14:03</td>
       <td><span class="acctchip ma">Third account</span> GC_ORB</td>
       <td class="side-long">LONG</td><td>1 MGCZ6</td>
       <td class="mono" style="font-size:12px">2,508 → 2,521</td>
       <td style="color:var(--green)">+13</td>
       <td style="font-weight:650;color:var(--green)">+$130</td>
-      <td class="muted">1.7h</td></tr><tr><td class="mono muted">08-19 11:47</td>
+      <td class="muted">2.6h</td></tr><tr><td class="mono muted">08-19 09:58</td>
       <td><span class="acctchip ev">Main account</span> NQ_PDHL</td>
       <td class="side-long">LONG</td><td>2 MNQU6</td>
       <td class="mono" style="font-size:12px">23,400 → 23,342</td>
       <td style="color:var(--red)">-58</td>
       <td style="font-weight:650;color:var(--red)">−$232</td>
-      <td class="muted">1.7h</td></tr><tr><td class="mono muted">08-16 11:47</td>
+      <td class="muted">31m</td></tr><tr><td class="mono muted">08-16 11:47</td>
       <td><span class="acctchip ma">Second account</span> NQ_PDHL</td>
       <td class="side-long">LONG</td><td>1 MNQU6</td>
       <td class="mono" style="font-size:12px">23,310.25 → 23,390</td>
       <td style="color:var(--green)">+79.75</td>
       <td style="font-weight:650;color:var(--green)">+$160</td>
-      <td class="muted">1.7h</td></tr><tr><td class="mono muted">08-16 11:47</td>
+      <td class="muted">1.1h</td></tr><tr><td class="mono muted">08-16 10:05</td>
       <td><span class="acctchip ev">Main account</span> NQ_PDHL</td>
       <td class="side-long">LONG</td><td>2 MNQU6</td>
       <td class="mono" style="font-size:12px">23,310 → 23,391</td>
       <td style="color:var(--green)">+81</td>
       <td style="font-weight:650;color:var(--green)">+$324</td>
-      <td class="muted">1.7h</td></tr></tbody></table>
+      <td class="muted">55m</td></tr></tbody></table>
         </div>
 
         </div><div id="bpt-actSec"><div class="sec-title" style="display:flex;align-items:baseline;justify-content:space-between">Recent activity
           <label class="muted" style="font-weight:400;cursor:pointer"><input disabled type="checkbox" id="bpt-showTech" class="cb">show technical events</label></div>
         <div class="card" style="padding:0">
           <table><thead><tr><th>Time (ET)</th><th>Event</th><th>Strategy</th><th>Detail</th></tr></thead>
-          <tbody id="bpt-logBody"><tr><td class="mono muted">15:42:58</td><td class="kind k-DRIFT_ERR">DRIFT_ERR</td><td><span class="acctchip sy">system</span> </td><td style="font-size:12px"><span class="mono muted" style="font-size:12px">id="dev-fake"  err="'FakeBroker' object has no attribute 'reconcile'"</span></td></tr><tr><td class="mono muted">15:37:58</td><td class="kind k-DRIFT_ERR">DRIFT_ERR</td><td><span class="acctchip sy">system</span> </td><td style="font-size:12px"><span class="mono muted" style="font-size:12px">id="dev-fake"  err="'FakeBroker' object has no attribute 'reconcile'"</span></td></tr><tr><td class="mono muted">15:32:58</td><td class="kind k-DRIFT_ERR">DRIFT_ERR</td><td><span class="acctchip sy">system</span> </td><td style="font-size:12px"><span class="mono muted" style="font-size:12px">id="dev-fake"  err="'FakeBroker' object has no attribute 'reconcile'"</span></td></tr><tr><td class="mono muted">15:27:58</td><td class="kind k-DRIFT_ERR">DRIFT_ERR</td><td><span class="acctchip sy">system</span> </td><td style="font-size:12px"><span class="mono muted" style="font-size:12px">id="dev-fake"  err="'FakeBroker' object has no attribute 'reconcile'"</span></td></tr><tr><td class="mono muted">15:22:58</td><td class="kind k-DRIFT_ERR">DRIFT_ERR</td><td><span class="acctchip sy">system</span> </td><td style="font-size:12px"><span class="mono muted" style="font-size:12px">id="dev-fake"  err="'FakeBroker' object has no attribute 'reconcile'"</span></td></tr><tr><td class="mono muted">15:17:58</td><td class="kind k-DRIFT_ERR">DRIFT_ERR</td><td><span class="acctchip sy">system</span> </td><td style="font-size:12px"><span class="mono muted" style="font-size:12px">id="dev-fake"  err="'FakeBroker' object has no attribute 'reconcile'"</span></td></tr><tr><td colspan="4" style="text-align:center;padding:10px"><a style="cursor:pointer;font-size:13px;color:var(--dim)">Show all 60</a></td></tr></tbody></table>
+          <tbody id="bpt-logBody"><tr><td class="mono muted">13:58:41</td><td class="kind k-HALT">HALT</td><td><span class="acctchip sy">system</span> </td><td style="font-size:12px"><span class="mono muted" style="font-size:12px">Second account halted - trail guard: $1,270 below best end-of-day balance. Entries blocked; exits still allowed.</span></td></tr><tr><td class="mono muted">11:47:18</td><td class="kind k-REJECT">REJECT</td><td><span class="acctchip sy">GC_ORB</span> </td><td style="font-size:12px"><span class="mono muted" style="font-size:12px">burst duplicate - same signal again 7 seconds later, not resent</span></td></tr><tr><td class="mono muted">11:47:12</td><td class="kind k-FILL">FILL</td><td><span class="acctchip sy">GC_ORB</span> </td><td style="font-size:12px"><span class="mono muted" style="font-size:12px">BUY 2 MGCZ6 @ 2,536.1 (paper) - Third account</span></td></tr><tr><td class="mono muted">11:47:11</td><td class="kind k-ORDER">ORDER</td><td><span class="acctchip sy">GC_ORB</span> </td><td style="font-size:12px"><span class="mono muted" style="font-size:12px">BUY 2 MGCZ6 market - Third account</span></td></tr><tr><td class="mono muted">09:31:02</td><td class="kind k-FILL">FILL</td><td><span class="acctchip sy">NQ_PDHL</span> </td><td style="font-size:12px"><span class="mono muted" style="font-size:12px">BUY 2 MNQU6 @ 23,412.25 (paper) - Main account</span></td></tr><tr><td class="mono muted">09:31:01</td><td class="kind k-ORDER">ORDER</td><td><span class="acctchip sy">NQ_PDHL</span> </td><td style="font-size:12px"><span class="mono muted" style="font-size:12px">BUY 2 MNQU6 market - Main account</span></td></tr><tr><td colspan="4" style="text-align:center;padding:10px"><a style="cursor:pointer;font-size:13px;color:var(--dim)">Show all 60</a></td></tr></tbody></table>
         </div></div>
       </section>
 
@@ -1715,7 +1708,6 @@
   </div>
 </div>
 </div></div>
-<div class="bp-help" aria-hidden="true"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a8 8 0 01-11.5 7.2L3 21l1.8-6.5A8 8 0 1121 12z"></path></svg></div>
       </div>
     </div>
   </div>
@@ -2265,7 +2257,7 @@
     </details>
     <details class="qa">
       <summary><span>Windows?</span><i class="chev" aria-hidden="true"></i></summary>
-      <p>macOS today, on Apple Silicon. The Windows build exists and is not released yet.</p>
+      <p>macOS today, on Apple Silicon. A Windows version is planned, and it is not released yet.</p>
     </details>
   </div>
   </section>
