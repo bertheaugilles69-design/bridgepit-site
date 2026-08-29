@@ -22,7 +22,7 @@ the one number you enter yourself.
 
 Free tier: paper trading only, no card needed - orders are simulated.
 Going live requires BOTH a connected broker account AND an active
-subscription. Paper is free now. Live is $59/mo or $590/yr (1 account) when it is on
+subscription. Paper is free now. Seat is $59/mo or $590/yr (1 account); Desk $99 (up to 3) and Floor $149 (up to 10) when it is on
 sale; Multi is coming. Until a live subscription exists, everything stays
 on paper by design.
 

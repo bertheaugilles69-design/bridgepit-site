@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>PickMyTrade alternative that runs on your own machine - BridgePit</title>
-<meta name="description" content="BridgePit is a PickMyTrade alternative with no cloud in the middle: your TradingView alerts execute on your own computer, orders reach your broker from your own IP, and your credentials never leave your machine. Paper is free. Live $59/mo, coming soon.">
+<meta name="description" content="BridgePit is a PickMyTrade alternative with no cloud in the middle: your TradingView alerts execute on your own computer, orders reach your broker from your own IP, and your credentials never leave your machine. Paper is free. Live from $59/mo, coming soon.">
 <link rel="canonical" href="https://bridgepit.com/pickmytrade-alternative">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="BridgePit">
@@ -21,7 +21,7 @@
  {"@type":"Question","name":"Can I keep my existing PickMyTrade alert format?","acceptedAnswer":{"@type":"Answer","text":"The webhook URL can stay - /v2/add-trade-data still answers. The message cannot. Add the strategy name you typed in the app and swap in your BridgePit token. The app's Copy block writes both, plus the two clocks. Keep the old body and the alert is refused."}},
  {"@type":"Question","name":"Why does it matter where execution runs?","acceptedAnswer":{"@type":"Answer","text":"A cloud service places your orders from its datacenter IP and holds your broker access to do it. Software on your own machine places orders from your own IP with credentials that never leave your computer. Rules differ by firm and change; always check your firm's current rules."}},
  {"@type":"Question","name":"Is BridgePit fully automated?","acceptedAnswer":{"@type":"Answer","text":"Semi-automated by design: it executes your TradingView alerts and you supervise. The kill-switch, per-strategy contract caps, duplicate rejection and the end-of-day flatten are on from the start. The daily loss stop is the one number you enter yourself."}},
- {"@type":"Question","name":"What does BridgePit cost compared to PickMyTrade?","acceptedAnswer":{"@type":"Answer","text":"BridgePit paper trading is free now. Live is $59/month or $590/year for one account when it goes on sale; Multi is coming. PickMyTrade lists $50/month, $135/quarter, or $500/year with a 5-day trial (checked August 2026). Your prop firm sets its own API-access fee, paid to the firm directly - not to us."}}]}
+ {"@type":"Question","name":"What does BridgePit cost compared to PickMyTrade?","acceptedAnswer":{"@type":"Answer","text":"BridgePit paper trading is free now. Live starts at $59/month or $590/year for one account (Seat); Desk is $99 for up to 3 accounts and Floor $149 for up to 10, all when it goes on sale. PickMyTrade lists $50/month, $135/quarter, or $500/year with a 5-day trial (checked August 2026). Your prop firm sets its own API-access fee, paid to the firm directly - not to us."}}]}
 </script>
 <style>
   :root{
@@ -114,7 +114,7 @@
     <tr><th></th><th>BridgePit</th><th>PickMyTrade</th></tr>
     <tr><td>Where execution runs</td><td><b>Your own machine, your own IP</b></td><td>Their cloud, their IP</td></tr>
     <tr><td>Your broker login</td><td><b>Encrypted on your computer, never sent to us</b></td><td>Held by the service so it can trade for you</td></tr>
-    <tr><td>Price</td><td>Paper free now · Live $59/mo or $590/yr (1 account), coming soon · Multi coming</td><td>$50/mo · $135/quarter · $500/yr · unlimited accounts · 5-day trial</td></tr>
+    <tr><td>Price</td><td>Paper free now · Seat $59/mo (1 account), Desk $99 (up to 3), Floor $149 (up to 10), coming soon · yearly = 2 months free</td><td>$50/mo · $135/quarter · $500/yr · unlimited accounts · 5-day trial</td></tr>
     <tr><td>Brokers</td><td>Rithmic-based prop firms (supported firms announced at launch). BridgePit passed Rithmic's vendor conformance in July 2026</td><td>Tradovate, Rithmic and others</td></tr>
     <tr><td>Safety rails</td><td><b>Kill-switch, position caps, duplicate rejection, EOD auto-flatten</b> - on from the start, enforced on your machine; the daily loss stop is the one number you enter. Software rails, best effort - they run while the Mac is awake and online</td><td>Feature set varies; see their docs</td></tr>
     <tr><td>Needs your computer on</td><td>Yes - lid open, on the internet, during your trading hours - that's what "your own IP" means</td><td>No</td></tr>

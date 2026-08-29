@@ -2004,7 +2004,11 @@
     .anim .tlrow{opacity:1;transform:none;transition:none}
   }
 
-  .prices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+  .prices{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+  @media (max-width:1000px){.prices{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media (max-width:560px){.prices{grid-template-columns:1fr}}
+  .per{margin-top:2px;font-size:12.5px;color:var(--dim2)}
+  .amt s{font:400 20px var(--sans);color:var(--dim2);text-decoration:line-through;text-decoration-thickness:1.5px;margin-right:8px;letter-spacing:0}
   .price.soon{opacity:.72}
   .price.soon .ptag{color:var(--dim2)}
   .soontag{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line2);border-radius:999px;
@@ -2179,8 +2183,8 @@
 <section class="band" id="pricing">
   <div class="bhead">
     <div class="eyebrow">Pricing</div>
-    <h2>Paper is free. Live is $59.</h2>
-    <p class="csub">One product, one download. The plan decides whether your orders reach a real broker, and how many accounts you can drive.</p>
+    <h2>Paper is free. Live starts at $59.</h2>
+    <p class="csub">One product, one download. Every plan carries every safety guard. The plan decides how many accounts you drive.</p>
   </div>
   <div class="ptoggle" role="group" aria-label="Billing period"><div class="tg">
     <button type="button" id="bill-m" class="on" aria-pressed="true" onclick="setBilling('m')">Monthly</button>
@@ -2198,26 +2202,40 @@
       </div>
       <a class="pbtn ghost" href="#download">Download and try it</a>
     </div>
-    <div class="price hi">
-      <div class="ptag">Live</div>
-      <div class="amt" id="live-amt">$59<span> /month</span></div>
+    <div class="price">
+      <div class="ptag">Seat</div>
+      <div class="amt" id="amt-seat" data-m="$59<span> /month</span>" data-y="<s>$708</s>$590<span> /year</span>">$59<span> /month</span></div>
+      <div class="per">1 funded account</div>
       <div class="plist">
-        <div><i></i>One funded account</div>
         <div><i></i>Your orders reach your real broker</div>
         <div><i></i>Every guard running on your own numbers</div>
+        <div><i></i>Payout readiness for your account</div>
         <div><i></i><span id="live-cancel">Cancel by email. It ends at the close of the month you paid.</span></div>
-        <div><i></i>A direct line to the two people who build it</div>
       </div>
       <span class="pbtn off">Not on sale yet</span>
     </div>
-    <div class="price soon">
-      <div class="ptag">Multi <span class="soontag">Coming</span></div>
-      <div class="amt">$99<span> /month</span></div>
+    <div class="price">
+      <div class="ptag">Desk</div>
+      <div class="amt" id="amt-desk" data-m="$99<span> /month</span>" data-y="<s>$1,188</s>$990<span> /year</span>">$99<span> /month</span></div>
+      <div class="per">Up to 3 accounts · $33 each</div>
       <div class="plist">
-        <div><i></i>One alert into every account, filling together</div>
-        <div><i></i>Each account with its own size and stop distance</div>
-        <div><i></i>Each with its own loss limit, so one bad day doesn't close the rest</div>
+        <div><i></i>Everything in Seat</div>
+        <div><i></i>One alert fills every account together</div>
+        <div><i></i>Each account its own size and stop distance</div>
+        <div><i></i>Each its own loss limit, so one bad day doesn't close the rest</div>
+        <div><i></i>Payout readiness per account</div>
+      </div>
+      <span class="pbtn off">Not on sale yet</span>
+    </div>
+    <div class="price hi">
+      <div class="ptag">Floor</div>
+      <div class="amt" id="amt-floor" data-m="$149<span> /month</span>" data-y="<s>$1,788</s>$1,490<span> /year</span>">$149<span> /month</span></div>
+      <div class="per">Up to 10 accounts · $15 each</div>
+      <div class="plist">
+        <div><i></i>Everything in Desk</div>
         <div><i></i>Which account is closest to a payout, and what is holding it up</div>
+        <div><i></i>Ten accounts, one cockpit, one alert</div>
+        <div><i></i>More than 10: write to us</div>
       </div>
       <span class="pbtn off">Not on sale yet</span>
     </div>
@@ -2229,11 +2247,11 @@
 <script>
 function setBilling(mode){
   var m=document.getElementById('bill-m'), y=document.getElementById('bill-y');
-  var amt=document.getElementById('live-amt'), can=document.getElementById('live-cancel');
+  var can=document.getElementById('live-cancel');
   var yearly=(mode==='y');
   m.classList.toggle('on',!yearly); y.classList.toggle('on',yearly);
   m.setAttribute('aria-pressed',String(!yearly)); y.setAttribute('aria-pressed',String(yearly));
-  amt.innerHTML=yearly?'<s class="was">$708</s>$590<span> /year</span>':'$59<span> /month</span>';
+  document.querySelectorAll('.amt[data-m]').forEach(function(a){a.innerHTML=yearly?a.dataset.y:a.dataset.m;});
   can.textContent=yearly?'Cancel by email. It ends at the close of the year you paid.':'Cancel by email. It ends at the close of the month you paid.';
 }
 </script>
