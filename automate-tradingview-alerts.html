@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to automate TradingView alerts - cloud, VPS or your own machine | BridgePit</title>
+<meta name="description" content="TradingView fires alerts; it does not trade. Automation is about what catches the webhook: a cloud connector, a rented VPS, or software on your own machine. What each one means for your broker login, your IP and a funded account.">
+<link rel="canonical" href="https://bridgepit.com/automate-tradingview-alerts">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="BridgePit">
+<meta property="og:title" content="How to automate TradingView alerts, and where the automation should run">
+<meta property="og:description" content="The three places a TradingView webhook can land - cloud connector, VPS, your own machine - and who holds your broker login in each.">
+<meta property="og:url" content="https://bridgepit.com/automate-tradingview-alerts">
+<meta property="og:image" content="https://bridgepit.com/og.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20128%20128%27%3E%3Crect%20width%3D%27128%27%20height%3D%27128%27%20rx%3D%2728%27%20fill%3D%27%230E1218%27%2F%3E%3Cg%20stroke%3D%27%23C7CCD6%27%20stroke-width%3D%273.4%27%20stroke-linecap%3D%27round%27%20opacity%3D%27.8%27%20fill%3D%27none%27%3E%3Cline%20x1%3D%2746%27%20y1%3D%2724%27%20x2%3D%2724%27%20y2%3D%2790%27%2F%3E%3Cline%20x1%3D%2746%27%20y1%3D%2724%27%20x2%3D%2762%27%20y2%3D%2790%27%2F%3E%3Cline%20x1%3D%2782%27%20y1%3D%2724%27%20x2%3D%27104%27%20y2%3D%2790%27%2F%3E%3Cline%20x1%3D%2782%27%20y1%3D%2724%27%20x2%3D%2766%27%20y2%3D%2790%27%2F%3E%3C%2Fg%3E%3Cline%20x1%3D%2716%27%20y1%3D%2790%27%20x2%3D%27112%27%20y2%3D%2790%27%20stroke%3D%27%23C7CCD6%27%20stroke-width%3D%277%27%20stroke-linecap%3D%27round%27%2F%3E%3Cline%20x1%3D%2746%27%20y1%3D%2722%27%20x2%3D%2746%27%20y2%3D%2798%27%20stroke%3D%27%23C7CCD6%27%20stroke-width%3D%275%27%20stroke-linecap%3D%27round%27%2F%3E%3Cline%20x1%3D%2782%27%20y1%3D%2722%27%20x2%3D%2782%27%20y2%3D%2798%27%20stroke%3D%27%23C7CCD6%27%20stroke-width%3D%275%27%20stroke-linecap%3D%27round%27%2F%3E%3Crect%20x%3D%2738%27%20y%3D%2747%27%20width%3D%2716%27%20height%3D%2734%27%20rx%3D%273.5%27%20fill%3D%27%23C7CCD6%27%2F%3E%3Crect%20x%3D%2774%27%20y%3D%2747%27%20width%3D%2716%27%20height%3D%2734%27%20rx%3D%273.5%27%20fill%3D%27%23EAEDF2%27%2F%3E%3C%2Fsvg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+ {"@type":"Question","name":"Does TradingView trade automatically by itself?","acceptedAnswer":{"@type":"Answer","text":"No. TradingView fires alerts, including alerts from strategy signals, and can send each one as a webhook. It does not hold a broker connection and places no orders. Automation means adding software that receives the webhook and executes it."}},
+ {"@type":"Question","name":"Do I need a paid TradingView plan for webhook alerts?","acceptedAnswer":{"@type":"Answer","text":"Webhook alerts are a paid TradingView feature. Plans and limits change; check TradingView's current plan table for which tier includes webhook notifications and how many alerts it allows."}},
+ {"@type":"Question","name":"Where should the automation run - cloud, VPS or my own machine?","acceptedAnswer":{"@type":"Answer","text":"Cloud connectors and VPS setups keep trading when your computer is off, but your broker access lives on someone else's machine and orders leave from a datacenter IP. Software on your own machine keeps credentials local and orders on your own connection, and it stops when your machine sleeps. Which trade-off is right depends on your account, and for funded accounts on your firm's rules."}},
+ {"@type":"Question","name":"Is automated trading allowed on prop firm accounts?","acceptedAnswer":{"@type":"Answer","text":"It depends on the firm and on the kind of automation, and published summaries contradict each other. The firm's own current rules are the only source that counts. Five clauses decide it: unattended operation, third-party access to your login, where orders originate, copy trading across accounts, and consistency rules."}}]}
+</script>
+<style>
+  :root{
+    --bg:#0A0D12; --txt:#E6EAF0; --dim:#8C94A1; --dim2:#5C6470;
+    --line:rgba(255,255,255,.08); --plate:#0D1117;
+    --green:#4FB584; --red:#C4574A; --blue:#8FA9D6;
+    --serif:"Newsreader",Georgia,serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Inter",sans-serif;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--txt);font:15.5px/1.65 var(--sans);-webkit-font-smoothing:antialiased}
+  body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:radial-gradient(ellipse 90% 55% at 50% 12%,rgba(44,76,127,.09),transparent 60%)}
+  a{color:inherit;text-decoration:none}
+  :focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+  .chrome{display:flex;justify-content:space-between;align-items:baseline;padding:20px 32px;position:relative;z-index:2}
+  .chrome .wm{font:500 20px var(--serif)}
+  .chrome a.back{font:500 12px var(--sans);color:var(--dim2)}
+  .chrome a.back:hover{color:var(--txt)}
+  main{position:relative;z-index:1;max-width:720px;margin:0 auto;padding:56px 24px 96px}
+  .kicker{font:500 11px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--dim2);margin-bottom:16px}
+  h1{font:500 clamp(30px,4.8vw,44px)/1.12 var(--serif);letter-spacing:-.014em;color:#fff;margin-bottom:16px;max-width:22ch}
+  .lede{font:400 17px/1.6 var(--sans);color:var(--dim);max-width:56ch}
+  .lede b{color:var(--txt);font-weight:500}
+  h2{font:500 clamp(23px,3.2vw,30px)/1.18 var(--serif);letter-spacing:-.012em;color:#fff;margin:60px 0 12px}
+  p{color:var(--dim);margin:0 0 14px;max-width:62ch}
+  p b{color:var(--txt);font-weight:500}
+  .paths{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:22px 0 6px}
+  @media(max-width:640px){.paths{grid-template-columns:1fr}}
+  .path{border:1px solid var(--line);border-radius:12px;background:var(--plate);padding:18px 20px}
+  .path h3{font:500 12px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--dim2);margin-bottom:12px}
+  .path .hop{font:14px/1.5 var(--sans);color:var(--dim);padding:7px 0;border-top:1px solid var(--line)}
+  .path .hop:first-of-type{border-top:none}
+  .path .hop b{color:var(--txt);font-weight:500}
+  .path .hop.warn b{color:#D8A46A}
+  .path .hop.good b{color:var(--green)}
+  table{width:100%;border-collapse:collapse;margin:20px 0 6px;font-size:14px}
+  th{font:500 11px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--dim2);text-align:left;padding:0 12px 9px 0;border-bottom:1px solid var(--line)}
+  td{padding:11px 12px 11px 0;border-bottom:1px solid var(--line);color:var(--dim);vertical-align:top}
+  td:first-child{color:var(--txt);width:172px}
+  td b{color:var(--txt);font-weight:500}
+  .fine{font-size:13px;color:var(--dim2);margin-top:8px}
+  ol{margin:6px 0 14px 20px;color:var(--dim);max-width:60ch}
+  ol li{padding:5px 0}
+  ol li b{color:var(--txt);font-weight:500}
+  code{font:.9em var(--mono);background:rgba(255,255,255,.055);border-radius:5px;padding:1px 6px;color:#C9D3DF}
+  .cta{display:flex;gap:12px;flex-wrap:wrap;margin:26px 0 6px}
+  .btn{display:inline-block;border-radius:10px;padding:12px 22px;font:600 14px var(--sans)}
+  .btn.p{background:#E6EAF0;color:#0A0D12}
+  .btn.g{border:1px solid var(--line);color:var(--txt)}
+  .btn:hover{opacity:.92}
+  .faq p{margin-bottom:6px}
+  .faq h3{font:500 17px var(--sans);color:#fff;margin:22px 0 6px}
+  footer{border-top:1px solid var(--line);margin-top:40px;padding:26px 32px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:var(--dim2);font-size:13px;position:relative;z-index:1}
+  footer a:hover{color:var(--txt)}
+</style>
+</head>
+<body>
+
+<div class="chrome">
+  <a class="wm" href="./" style="display:inline-flex;align-items:center;gap:9px"><svg width='24' height='24' viewBox='0 0 128 128' fill='none' style='flex:none'><g stroke='#C7CCD6' stroke-width='2' stroke-linecap='round' opacity='.75'><line x1='46' y1='24' x2='24' y2='90'/><line x1='46' y1='24' x2='62' y2='90'/><line x1='82' y1='24' x2='104' y2='90'/><line x1='82' y1='24' x2='66' y2='90'/></g><line x1='16' y1='90' x2='112' y2='90' stroke='#C7CCD6' stroke-width='4' stroke-linecap='round'/><line x1='46' y1='22' x2='46' y2='98' stroke='#C7CCD6' stroke-width='3' stroke-linecap='round'/><line x1='82' y1='22' x2='82' y2='98' stroke='#C7CCD6' stroke-width='3' stroke-linecap='round'/><rect x='40' y='48' width='12' height='32' rx='2.5' fill='#B9BFCB'/><rect x='76' y='48' width='12' height='32' rx='2.5' fill='#EAEDF2'/></svg>BridgePit</a>
+  <a class="back" href="./">← BridgePit home</a>
+</div>
+
+<main>
+<p class="kicker">The landscape</p>
+<h1>How to automate TradingView alerts, and where the automation should run.</h1>
+<p class="lede">TradingView does the deciding: strategies fire, alerts go out as webhooks. It does not do the trading. <b>Everything called TradingView automation is really about what catches that webhook.</b> There are three honest answers, and they differ in who holds your broker login.</p>
+
+<h2>The part TradingView does</h2>
+<p>Any strategy or indicator alert can carry a webhook: one HTTPS message with the text you configure, sent the moment the alert fires. Webhook alerts are a paid TradingView feature; plans and alert limits change, so check TradingView's current plan table. That message is the entire interface. What happens next is not TradingView's business.</p>
+
+<h2>Three places the webhook can land</h2>
+<p><b>A cloud connector.</b> Services like TradersPost or PickMyTrade receive the webhook on their servers and send orders to your broker. Nothing runs on your computer, and it keeps trading with your machine off. The price is structural: your broker access lives with them, and orders leave from their datacenter.</p>
+<p><b>A VPS you rent.</b> A bot or bridge you run on a rented machine. You hold the keys, but the machine is still a datacenter machine, awake around the clock, unsupervised by definition.</p>
+<p><b>Your own machine.</b> The webhook lands on your computer, the order leaves from your own IP, credentials stay local. It trades while you can see it and stops when the machine sleeps. This is what BridgePit is: <a href="tradingview-to-rithmic" style="color:var(--blue)">TradingView to Rithmic on your own Mac</a>, semi-automated by design, with the kill switch, contract caps, duplicate rejection and end-of-day flatten on from the first run.</p>
+
+<h2>If the account is a funded account</h2>
+<p>Then the question is not what is possible but what your firm permits, and published summaries contradict each other, sometimes about the same firm in the same month. The firm's own current rules are the only source that counts. We keep a plain-language guide to <a href="prop-firm-automation-rules" style="color:var(--blue)">the five clauses that decide it</a>: unattended operation, third-party access, order origin, copy trading, consistency rules.</p>
+
+<h2>Start on paper, whatever you pick</h2>
+<p>Every path above can misfire: a malformed alert, a duplicate, a position left open at the close. Run any automation on paper first and watch a full session. BridgePit's paper mode is free, needs no card and no broker connection, and the <a href="setup" style="color:var(--blue)">setup guide</a> ends with a paper fill on your screen.</p>
+<p class="fine">TradersPost and PickMyTrade referenced as examples of cloud-hosted webhook connectors; see our factual comparisons: <a href="traderspost-alternative" style="color:var(--blue)">TradersPost</a>, <a href="pickmytrade-alternative" style="color:var(--blue)">PickMyTrade</a>.</p>
+</main>
+
+<footer>
+  <div>© 2026 BridgePit LLC · <a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a> · <a href="mailto:support@bridgepit.com">Contact</a></div>
+  <div><a href="setup">Setup guide</a> · <a href="prop-firm-automation-rules">Prop firm rules</a> · <a href="traderspost-alternative">TradersPost alternative</a> · <a href="pickmytrade-alternative">PickMyTrade alternative</a> · <a href="tradingview-to-rithmic">TradingView to Rithmic</a> · <a href="./">bridgepit.com</a></div>
+</footer>
+
+</body>
+</html>

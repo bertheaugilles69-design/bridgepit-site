@@ -23,7 +23,11 @@ Yearly = 2 months free. More than 10 accounts: contact us.
 - https://bridgepit.com/setup - 20-minute setup guide (TradingView → broker)
 - https://bridgepit.com/pickmytrade-alternative - factual comparison vs PickMyTrade
 - https://bridgepit.com/traderspost-alternative - factual comparison vs TradersPost
-  (cloud webhook vs local Mac). Live $49 coming soon.
+  (cloud webhook vs local Mac)
 - https://bridgepit.com/prop-firm-automation-rules - the five clauses that decide
   whether any firm permits automation
+- https://bridgepit.com/tradingview-to-rithmic - how a TradingView alert becomes
+  a Rithmic order on the trader's own machine
+- https://bridgepit.com/automate-tradingview-alerts - how TradingView alert
+  automation works and where it should run
 - https://bridgepit.com/terms.html, https://bridgepit.com/privacy.html
