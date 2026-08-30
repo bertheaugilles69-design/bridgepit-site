@@ -270,6 +270,7 @@
     <h2>Every failure says its name.</h2>
     <table>
       <tr><th>You see</th><th>It means</th></tr>
+      <tr><td>"BridgePit can't be opened" or "is not open anymore" right after installing</td><td>The app file traveled through a chat or messaging app (WhatsApp, Telegram, AirDrop from a chat) and macOS quarantined it - it looks broken but isn't. Delete that copy and <a href="downloads/BridgePit-mac.dmg" style="color:var(--blue)">download it fresh from this site</a>; a direct download opens normally.</td></tr>
       <tr><td>a login.tailscale.com link instead of an address</td><td>Normal on a new account - the feature is off until you switch it on. Open the link, approve it, then run the same line again.</td></tr>
       <tr><td>command not found: tailscale</td><td>Tailscale is installed but Terminal can't see it. Use the long form instead: <code>/Applications/Tailscale.app/Contents/MacOS/Tailscale funnel --bg 8787</code></td></tr>
       <tr><td>bad token</td><td>The token in your alert doesn't match <b>Settings → Your webhook</b>. Copy it from there again - or just use <b>Copy block</b> under Alert setup, which fills it in for you.</td></tr>
