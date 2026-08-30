@@ -1027,6 +1027,12 @@
 .bptwin .btn-red:hover{background:var(--red);color:#fff}
 .bptwin .btn-green{background:transparent;border:1px solid var(--green);color:var(--green)}
 .bptwin .btn-green:hover{background:var(--green);color:#0B1220}
+/* the small outline pill the real dashboard uses - the demo was still
+   showing the faint "· details" text this replaced */
+.bptwin .btn-xs{display:inline-flex;align-items:center;gap:5px;padding:3px 11px;font-size:12px;
+  font-weight:600;color:var(--dim);background:none;border:1px solid var(--line2);
+  border-radius:99px;cursor:pointer;transition:color .14s,border-color .14s;vertical-align:middle}
+.bptwin .btn-xs:hover{color:var(--txt);border-color:var(--dim2)}
 .bptwin .conn{display:flex;align-items:center;gap:16px}
 .bptwin .conn .ico{width:44px;height:44px;border-radius:10px;background:var(--panel2);border:1px solid var(--line);display:grid;place-items:center;font-weight:800;color:var(--accent2)}
 .bptwin .conn .meta{flex:1}
@@ -1421,6 +1427,9 @@
       <a data-view="dashboard" class="active" role="link"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l9-9 9 9M5 10v10h14V10"></path></svg><span>Dashboard</span></a>
       <a data-view="connections" role="link"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5a4 4 0 00-5.7 0l-3 3a4 4 0 105.7 5.7l1.5-1.5m-1.5-6a4 4 0 015.7 0l3-3a4 4 0 10-5.7-5.7L15 4.5"></path></svg><span>Connections</span></a>
       <a data-view="strategies" role="link"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 20V10M10 20V4M16 20v-6M22 20H2"></path></svg><span>Strategies</span></a>
+      <div class="label">Limits</div>
+      <a data-view="funded" role="link"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3l8 3v6c0 4.5-3 7.5-8 9-5-1.5-8-4.5-8-9V6z"></path></svg><span>Funded accounts</span></a>
+      <a data-view="own" role="link"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 10l8-6 8 6v10H4z"></path><path stroke-linecap="round" d="M10 20v-5h4v5"></path></svg><span>My brokerage</span></a>
       <div class="label">Account</div>
       <a data-view="subscription" role="link"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"></rect><path d="M2 10h20"></path></svg><span>Subscription</span></a>
       <a data-view="settings" role="link"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path stroke-linecap="round" d="M19 12a7 7 0 00-.1-1l2-1.6-2-3.4-2.4 1a7 7 0 00-1.7-1L14.5 2h-5l-.3 2.6a7 7 0 00-1.7 1l-2.4-1-2 3.4 2 1.6a7 7 0 000 2l-2 1.6 2 3.4 2.4-1a7 7 0 001.7 1l.3 2.4h5l.3-2.6a7 7 0 001.7-1l2.4 1 2-3.4-2-1.6a7 7 0 00.1-1z"></path></svg><span>Settings</span></a>
@@ -1428,7 +1437,7 @@
     <div class="side-foot">
       <div class="plan">
         <div class="t">Current plan</div>
-        <div class="p" id="bpt-planName">Free · paper</div>
+        <div class="p" id="bpt-planName">Floor</div>
         <a data-view="subscription">Manage plan</a>
       </div>
       <!-- Rithmic marks, always on screen while connected (sidebar is fixed).
@@ -1523,7 +1532,7 @@
       <div class="s">day loss budget $0 used · auto-halt −$1,000</div>
       <div class="mrow"><div>Min balance<b style="color:var(--amber)">$49,100</b></div><div>Room to floor<b style="color:var(--txt)">$3,328</b></div><div>Peak EOD<b>$52,310</b></div><div>To target<b style="color:var(--accent2)">$172</b></div></div>
       <details style="margin-top:var(--s3)" data-pay="ACC-01" ontoggle="payToggle(this)">
-    <summary style="cursor:pointer;font-size:var(--t-body);list-style:none">Payout <span style="color:var(--amber);font-weight:650">held by: Best-day rule (+1 more)</span> <span class="acctchip ev" style="white-space:nowrap" title="fewest unmet gates, then smallest dollar distance">closest to payout</span> <span class="muted" style="font-size:var(--t-micro)">· details</span></summary>
+    <summary style="cursor:pointer;font-size:var(--t-body);list-style:none">Payout <span style="color:var(--amber);font-weight:650">held by: Best-day rule (+1 more)</span> <span class="acctchip ev" style="white-space:nowrap" title="fewest unmet gates, then smallest dollar distance">closest to payout</span> <span class="btn-xs" style="margin-left:8px">Details</span></summary>
     <div style="display:flex;gap:8px;align-items:baseline;margin-top:var(--s2);font-size:var(--t-meta)"><span style="flex:none"><span style="color:var(--red)">✗</span></span><div><b style="font-size:var(--t-meta)">Balance a payout needs</b><div class="hint">balance $52,428 of $52,600 - $172 to go</div></div></div><div style="display:flex;gap:8px;align-items:baseline;margin-top:var(--s2);font-size:var(--t-meta)"><span style="flex:none"><span style="color:var(--green)">✓</span></span><div><b style="font-size:var(--t-meta)">Balance it must stay above</b><div class="hint">balance $52,428 is at or above $50,100</div></div></div><div style="display:flex;gap:8px;align-items:baseline;margin-top:var(--s2);font-size:var(--t-meta)"><span style="flex:none"><span style="color:var(--green)">✓</span></span><div><b style="font-size:var(--t-meta)">Trading days a payout needs</b><div class="hint">11 of 10 - counted from days with a closed trade or a non-flat recorded day P&amp;L</div></div></div><div style="display:flex;gap:8px;align-items:baseline;margin-top:var(--s2);font-size:var(--t-meta)"><span style="flex:none"><span style="color:var(--red)">✗</span></span><div><b style="font-size:var(--t-meta)">Best-day rule</b><div class="hint">best day $2,100 (2026-08-16) is 99% of total $2,118 - your 30% cap needs total ≥ $7,000 ($4,882 more, without a bigger best day)</div></div></div>
     <div class="muted" style="font-size:var(--t-micro);margin-top:var(--s2)">Your figures, from your firm's dashboard - <a style="color:var(--accent2);cursor:pointer">edit</a>. BridgePit only does the arithmetic; the firm's own page decides.</div>
   </details>
@@ -1559,7 +1568,7 @@
       <div class="s">day loss budget $180 used · auto-halt −$600 · its own limit</div>
       <div class="mrow"><div>Min balance<b style="color:var(--amber)">$49,100</b></div><div>Room to floor<b style="color:var(--amber)">$830</b></div><div>Peak EOD<b>$51,200</b></div></div>
       <details style="margin-top:var(--s3)" data-pay="ACC-02" ontoggle="payToggle(this)">
-    <summary style="cursor:pointer;font-size:var(--t-body);list-style:none">Payout <span style="color:var(--amber);font-weight:650">held by: Balance a payout needs (+1 more)</span> <span class="muted" style="font-size:var(--t-micro)">· details</span></summary>
+    <summary style="cursor:pointer;font-size:var(--t-body);list-style:none">Payout <span style="color:var(--amber);font-weight:650">held by: Balance a payout needs (+1 more)</span> <span class="btn-xs" style="margin-left:8px">Details</span></summary>
     <div style="display:flex;gap:8px;align-items:baseline;margin-top:var(--s2);font-size:var(--t-meta)"><span style="flex:none"><span style="color:var(--red)">✗</span></span><div><b style="font-size:var(--t-meta)">Balance a payout needs</b><div class="hint">balance $49,930 of $52,600 - $2,670 to go</div></div></div><div style="display:flex;gap:8px;align-items:baseline;margin-top:var(--s2);font-size:var(--t-meta)"><span style="flex:none"><span style="color:var(--red)">✗</span></span><div><b style="font-size:var(--t-meta)">Trading days a payout needs</b><div class="hint">6 of 10 - counted from days with a closed trade or a non-flat recorded day P&amp;L. BridgePit only sees days it recorded - check the firm's own day count before relying on this</div></div></div>
     <div class="muted" style="font-size:var(--t-micro);margin-top:var(--s2)">Your figures, from your firm's dashboard - <a style="color:var(--accent2);cursor:pointer">edit</a>. BridgePit only does the arithmetic; the firm's own page decides.</div>
   </details>
