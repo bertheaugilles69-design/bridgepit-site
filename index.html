@@ -2038,6 +2038,18 @@
   .pbtn{margin-top:24px;display:block;text-align:center;border-radius:8px;padding:14px;
     font:600 15.5px var(--sans);background:#fff;color:#000}
   .pbtn.ghost{background:transparent;border:1px solid var(--line2);color:var(--txt)}
+  /* PROP ONLY tags sit in their own right-hand column so the marks line up
+     down the card instead of trailing off the end of a sentence. The legend
+     under the grid carries the other half: an untagged line is for ANY
+     account, which a tag alone always leaves ambiguous. */
+  .plist.tagged div{display:grid;grid-template-columns:15px 1fr auto;align-items:start;gap:10px}
+  .ftag{font:600 9.5px var(--sans);letter-spacing:.09em;text-transform:uppercase;
+    color:var(--dim2);border:1px solid var(--line);border-radius:999px;padding:3px 8px;
+    white-space:nowrap;margin-top:2px}
+  .plegend{margin-top:20px;font:400 13.5px/1.6 var(--sans);color:var(--dim2);max-width:78ch;
+    display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+  .plegend .ftag{margin-top:0}
+  .plegend b{color:var(--txt);font-weight:500}
   .pnote2{margin-top:22px;font:400 13.5px/1.6 var(--sans);color:var(--dim2);max-width:820px}
   .ptoggle{display:flex;justify-content:center;margin:26px 0 6px}
   .ptoggle .tg{display:inline-flex;gap:4px;border:1px solid var(--line);border-radius:22px;padding:4px;background:rgba(255,255,255,.02)}
@@ -2215,12 +2227,13 @@
     <div class="price">
       <div class="ptag">Seat</div>
       <div class="amt" id="amt-seat" data-m="$59<span> /month</span>" data-y="<s>$708</s>$590<span> /year</span>">$59<span> /month</span></div>
-      <div class="per">1 funded account</div>
-      <div class="plist">
-        <div><i></i>Your orders reach your real broker</div>
-        <div><i></i>Every guard running on your own numbers</div>
-        <div><i></i>Payout readiness for your account</div>
-        <div><i></i><span id="live-cancel">Cancel by email. It ends at the close of the month you paid.</span></div>
+      <div class="per">1 account · a firm's or your own</div>
+      <div class="plist tagged">
+        <div><i></i><span>Your orders reach your real broker</span><span></span></div>
+        <div><i></i><span>Every guard running on your own numbers</span><span></span></div>
+        <div><i></i><span>Your own account may hold overnight. A firm's is closed for you, every evening.</span><span></span></div>
+        <div><i></i><span>Payout readiness for your account</span><span class="ftag">Prop only</span></div>
+        <div><i></i><span id="live-cancel">Cancel by email. It ends at the close of the month you paid.</span><span></span></div>
       </div>
       <span class="pbtn off">Not on sale yet</span>
     </div>
@@ -2228,12 +2241,13 @@
       <div class="ptag">Desk</div>
       <div class="amt" id="amt-desk" data-m="$99<span> /month</span>" data-y="<s>$1,188</s>$990<span> /year</span>">$99<span> /month</span></div>
       <div class="per">Up to 3 accounts · $33 each</div>
-      <div class="plist">
-        <div><i></i>Everything in Seat</div>
-        <div><i></i>One alert fills every account together</div>
-        <div><i></i>Each account its own size and stop distance</div>
-        <div><i></i>Each its own loss limit, so one bad day doesn't close the rest</div>
-        <div><i></i>Payout readiness per account</div>
+      <div class="plist tagged">
+        <div><i></i><span>Everything in Seat</span><span></span></div>
+        <div><i></i><span>One alert fills every account together</span><span></span></div>
+        <div><i></i><span>Each account its own size and stop distance</span><span></span></div>
+        <div><i></i><span>Each its own loss limit, so one bad day doesn't close the rest</span><span></span></div>
+        <div><i></i><span>A firm's accounts and your own side by side, neither able to stop the other</span><span></span></div>
+        <div><i></i><span>Payout readiness per account</span><span class="ftag">Prop only</span></div>
       </div>
       <span class="pbtn off">Not on sale yet</span>
     </div>
@@ -2241,17 +2255,18 @@
       <div class="ptag">Floor</div>
       <div class="amt" id="amt-floor" data-m="$149<span> /month</span>" data-y="<s>$1,788</s>$1,490<span> /year</span>">$149<span> /month</span></div>
       <div class="per">Up to 10 accounts · $15 each</div>
-      <div class="plist">
-        <div><i></i>Everything in Desk</div>
-        <div><i></i>The payout planner: every account ranked by distance to a payout, and what is holding each one up</div>
-        <div><i></i>Weekly P&L wrap to your phone, Friday after the close</div>
-        <div><i></i>Your fills and balances as files, for firm verification</div>
-        <div><i></i>Priority support and new brokers first</div>
-        <div><i></i>More than 10: write to us</div>
+      <div class="plist tagged">
+        <div><i></i><span>Everything in Desk</span><span></span></div>
+        <div><i></i><span>The payout planner: every account ranked by distance to a payout, and what is holding each one up</span><span class="ftag">Prop only</span></div>
+        <div><i></i><span>Weekly P&L wrap to your phone, Friday after the close</span><span></span></div>
+        <div><i></i><span>Your fills and balances as files, for your own records or your firm's</span><span></span></div>
+        <div><i></i><span>Priority support and new brokers first</span><span></span></div>
+        <div><i></i><span>More than 10: write to us</span><span></span></div>
       </div>
       <span class="pbtn off">Not on sale yet</span>
     </div>
   </div>
+  <p class="plegend"><span class="ftag">Prop only</span><span>marks the few features that need a prop firm account. <b>Everything without a tag works on any account</b>, a firm's or your own.</span></p>
   <p class="pnote2" style="margin-top:12px"><b>On several accounts at one firm:</b> running the same signal into more than one account is something firms look at closely. What makes it yours is that they are your own accounts running your own strategy, not trades copied between different people. Check your firm's own rule before you set it up - some require every account to trade the same way, and some forbid it outright.</p>
   <p class="pnote2" style="margin-top:12px">Your broker or your firm charges its own platform and data fees. That goes to them, not to us.</p>
 </section>
