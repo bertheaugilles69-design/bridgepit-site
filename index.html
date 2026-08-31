@@ -2028,6 +2028,13 @@
   .price.hi{border-color:var(--line2);background:var(--panel)}
   .ptag{font:600 11px var(--sans);letter-spacing:.13em;text-transform:uppercase;color:var(--dim2)}
   .price.hi .ptag{color:var(--green)}
+  /* The app's Floor card has carried a "Most complete" badge all along and
+     this grid only ever hinted at it with a green eyebrow. Same rung, same
+     label, both surfaces. */
+  .pbadge{display:inline-block;margin-left:9px;padding:2.5px 8px;border-radius:20px;
+    font:700 9.5px var(--sans);letter-spacing:.1em;text-transform:uppercase;
+    color:var(--green);border:1px solid rgba(74,222,128,.42);
+    background:rgba(74,222,128,.08);vertical-align:1.5px}
   .amt{margin-top:16px;font:700 42px var(--sans);letter-spacing:-.035em;color:#fff}
   .amt span{font:400 17px var(--sans);color:var(--dim2);letter-spacing:0}
   .plist{margin-top:20px;display:grid;gap:10px}
@@ -2050,8 +2057,14 @@
     border:1px solid var(--line);border-radius:5px;padding:2px 6px;
     white-space:nowrap;margin-top:3px;align-self:flex-start;flex:0 0 auto;
     display:inline-block;height:auto}
-  .plegend{margin-top:20px;font:400 13.5px/1.6 var(--sans);color:var(--dim2);max-width:78ch;
+  .plegend{margin-top:20px;font:400 13.5px/1.6 var(--sans);color:var(--dim2);
     display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+  /* The cap moved off the row and onto the sentence, so the contact note can
+     sit out at the grid's right edge instead of 78ch in from the left. */
+  .plegend .ltxt{max-width:78ch}
+  .plegend .pmore{margin-left:auto;white-space:nowrap}
+  .plegend .pmore a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(74,222,128,.35)}
+  .plegend .pmore a:hover{border-bottom-color:var(--green)}
   .plegend .ftag{margin-top:0}
   .plegend b{color:var(--txt);font-weight:500}
   .pnote2{margin-top:22px;font:400 13.5px/1.6 var(--sans);color:var(--dim2);max-width:820px}
@@ -2221,7 +2234,7 @@
       <div class="ptag">Paper</div>
       <div class="amt">Free<span> · no card</span></div>
       <div class="plist">
-        <div><i></i>Every screen, every rail, the whole cockpit</div>
+        <div><i></i>Every guard and every rail, on paper</div>
         <div><i></i>Alerts arrive and fill on paper</div>
         <div><i></i>No card and no broker login to try it</div>
         <div><i></i>For as long as you want</div>
@@ -2231,13 +2244,21 @@
     <div class="price">
       <div class="ptag">Seat</div>
       <div class="amt" id="amt-seat" data-m="$59<span> /month</span>" data-y="<s>$708</s>$590<span> /year</span>">$59<span> /month</span></div>
-      <div class="per">1 account · a firm's or your own</div>
+      <div class="per">1 account · a firm's or your own · 7-day trial</div>
+      <!-- ONE LIST, BOTH SURFACES (2026-08-31). This grid and the app's
+           Subscription screen were selling two different feature lists for
+           the same four prices - Seat's two lists shared no line at all.
+           Every bullet is now the same sentence in the same order as the
+           app's plan cards. Change one, change the other. -->
       <div class="plist tagged">
         <div><i></i><span>Your orders reach your real broker</span><span></span></div>
+        <div><i></i><span>Unlimited strategies</span><span></span></div>
+        <div><i></i><span>Rithmic brokers</span><span></span></div>
         <div><i></i><span>Every guard running on your own numbers</span><span></span></div>
         <div><i></i><span>Your own account may hold overnight. A firm's is closed for you, every evening.</span><span></span></div>
         <div><i></i><span>Payout readiness for your account</span><span class="ftag">Prop only</span></div>
-        <div><i></i><span id="live-cancel">Cancel by email. It ends at the close of the month you paid.</span><span></span></div>
+        <div><i></i><span>Email &amp; Telegram alerts</span><span></span></div>
+        <div><i></i><span id="live-trial">7 days free, then $59/mo</span><span></span></div>
       </div>
       <span class="pbtn off">Not on sale yet</span>
     </div>
@@ -2257,7 +2278,7 @@
       <span class="pbtn off">Not on sale yet</span>
     </div>
     <div class="price hi">
-      <div class="ptag">Floor</div>
+      <div class="ptag">Floor<span class="pbadge">Most complete</span></div>
       <div class="amt" id="amt-floor" data-m="$149<span> /month</span>" data-y="<s>$1,788</s>$1,490<span> /year</span>">$149<span> /month</span></div>
       <div class="per">Up to 10 accounts · $15 each</div>
       <div class="plist tagged">
@@ -2266,12 +2287,14 @@
         <div><i></i><span>Weekly P&L wrap to your phone, Friday after the close</span><span></span></div>
         <div><i></i><span>Your fills and balances as files, for your own records or your firm's</span><span></span></div>
         <div><i></i><span>Priority support and new brokers first</span><span></span></div>
-        <div><i></i><span>More than 10: write to us</span><span></span></div>
       </div>
       <span class="pbtn off">Not on sale yet</span>
     </div>
   </div>
-  <p class="plegend"><span class="ftag">Prop only</span><span>marks the few features that need a prop firm account. <b>Everything without a tag works on any account</b>, a firm's or your own.</span></p>
+  <!-- Floor's list said "More than 10: write to us" until 2026-08-31. Off the
+       card, but the path above 10 still has to exist somewhere or the grid
+       reads as a hard ceiling. -->
+  <p class="plegend"><span class="ftag">Prop only</span><span class="ltxt">marks the few features that need a prop firm account. <b>Everything without a tag works on any account</b>, a firm's or your own.</span><span class="pmore">Need more than 10 accounts? <a href="mailto:support@bridgepit.com">Write to us</a>.</span></p>
   <p class="pnote2" style="margin-top:12px"><b>On several accounts at one firm:</b> running the same signal into more than one account is something firms look at closely. What makes it yours is that they are your own accounts running your own strategy, not trades copied between different people. Check your firm's own rule before you set it up - some require every account to trade the same way, and some forbid it outright.</p>
   <p class="pnote2" style="margin-top:12px">Your broker or your firm charges its own platform and data fees. That goes to them, not to us.</p>
 </section>
@@ -2279,12 +2302,14 @@
 <script>
 function setBilling(mode){
   var m=document.getElementById('bill-m'), y=document.getElementById('bill-y');
-  var can=document.getElementById('live-cancel');
+  var tri=document.getElementById('live-trial');
   var yearly=(mode==='y');
   m.classList.toggle('on',!yearly); y.classList.toggle('on',yearly);
   m.setAttribute('aria-pressed',String(!yearly)); y.setAttribute('aria-pressed',String(yearly));
   document.querySelectorAll('.amt[data-m]').forEach(function(a){a.innerHTML=yearly?a.dataset.y:a.dataset.m;});
-  can.textContent=yearly?'Cancel by email. It ends at the close of the year you paid.':'Cancel by email. It ends at the close of the month you paid.';
+  // The trial line quotes a price, so it has to follow the switch -
+  // "7 days free, then $59/mo" under a yearly card is the wrong number.
+  if(tri)tri.textContent=yearly?'7 days free, then $590/yr':'7 days free, then $59/mo';
 }
 </script>
 
