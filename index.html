@@ -1648,6 +1648,80 @@
 #ours .cal i.on{background:#33BF85;border-color:#33BF85;box-shadow:0 0 10px rgba(51,191,133,.35)} #ours .cal i.fut{background:transparent;border-style:dashed;border-color:rgba(255,255,255,.08)}
 #ours .cal-m{display:flex;gap:7px;margin-top:10px;font:500 11px var(--mono,ui-monospace,Menlo,monospace);color:#6E6E74} #ours .cal-m span{width:18px;flex:none;overflow:visible;white-space:nowrap}
 #ours .mac-f{margin-top:22px;padding-top:16px;border-top:1px solid rgba(255,255,255,.07);font-size:12.5px;line-height:1.55;color:#6E6E74}
+
+/* ── the phone pass (09-06): the same page, laid out for a hand ── */
+@media(max-width:560px){
+  .hero-lead{padding-top:18px}
+  .hero h1{font-size:40px;line-height:1.02;letter-spacing:-.042em}
+  .hero .sub{margin-top:18px;font-size:16.5px;line-height:1.45}
+  .hero .buttons{margin-top:26px;gap:10px}
+  .hero .b{padding:14px 18px}
+  .stage{margin-top:28px!important}
+  .band{padding:40px var(--gut) 44px}
+  h2{font-size:30px;letter-spacing:-.034em}
+  .bhead{margin-bottom:20px}
+  .csub{margin-top:12px;font-size:15.5px;line-height:1.5}
+  /* the two paths: side by side again, small, the way the desk shows them */
+  .paths{display:grid;gap:10px}
+  .pathrow{padding:16px 14px 14px;border-radius:14px}
+  .plabel{margin:0 0 14px;font-size:10px;letter-spacing:.15em}
+  .plabel .lv{font-size:8.5px}
+  .chain{grid-template-columns:minmax(0,1fr) 26px minmax(0,1.55fr) 26px minmax(0,1fr);justify-items:stretch;align-items:center}
+  .wire{width:auto;height:1px;margin:0 3px;justify-self:stretch;background:linear-gradient(90deg,rgba(255,255,255,.035),rgba(255,255,255,.15))}
+  .pathrow.ours .wire{background:linear-gradient(90deg,rgba(255,255,255,.055),rgba(255,255,255,.26))}
+  .wire .wl{display:none}
+  .wire::after{right:0;left:auto;top:50%;bottom:auto;transform:translateY(-50%) rotate(45deg)}
+  .nd{padding-top:0;gap:6px}
+  .nd svg,.node.mid svg{width:18px;height:18px}
+  .nd .nt{font-size:12px;white-space:normal;line-height:1.2}
+  .node.mid{width:auto;padding:12px 8px 11px;gap:4px;border-radius:11px}
+  .node.mid .nt{font-size:13.5px;letter-spacing:-.02em}
+  .node.mid .ns{font-size:10.5px;line-height:1.3}
+  .pnote{margin-top:12px;font-size:12.5px;line-height:1.45}
+  /* the four facts: question, then the two answers side by side, ours lit */
+  .cmp4{display:grid;grid-template-columns:1fr 1fr;gap:0 8px;margin-top:8px}
+  .c4band,.c4h{display:none}
+  .c4q{grid-column:1/-1;min-height:0;padding:22px 0 8px;font:600 10.5px var(--sans);letter-spacing:.13em;text-transform:uppercase;color:var(--dim2);background:none!important;border-top:none}
+  .c4q .c4win{margin-right:8px}
+  .cmp4 .c4a{min-height:0;border-top:none;padding:10px 11px 11px;border-radius:10px;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.06);font:400 13.5px/1.42 var(--sans);color:var(--dim);flex-direction:column;align-items:flex-start;text-align:left!important;justify-content:flex-start;gap:5px}
+  .cmp4 .c4a.ours{padding:10px 11px 11px;background:rgba(74,222,128,.06);border-color:rgba(74,222,128,.22);color:var(--txt)}
+  .cmp4 .c4a::before{content:attr(data-l);display:block;min-width:0;margin:0;font:600 9.5px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--dim2)}
+  .cmp4 .c4a.ours::before{color:var(--green)}
+  .nd-end svg+svg,.nd-end svg~svg{display:none}
+  /* the rails: the time sits over the title, the line runs down the left */
+  .tl .tlrow{grid-template-columns:18px minmax(0,1fr)!important;column-gap:12px;padding:16px 0 18px}
+  .tl .tlt{grid-column:2;grid-row:1;padding:0;margin-bottom:5px;font-size:11.5px}
+  .tl .tlm{grid-column:1;grid-row:1/3}
+  .tlm::before{top:-16px;bottom:-18px}
+  .tlm i{margin-top:1px}
+  .tl .tlc{grid-column:2;grid-row:2;padding-left:0}
+  .tlw{font-size:18px;line-height:1.28}
+  .tlg{margin-top:8px;font-size:14.5px;line-height:1.55;padding-right:0}
+  .gchip{margin:0 8px 6px 0;font-size:10.5px;padding:3px 9px}
+  /* the plans: one row you swipe, the next card peeks in */
+  .ptoggle{margin:20px 0 4px}
+  .band .prices{display:flex!important;grid-template-columns:none!important;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;margin:0 calc(var(--gut) * -1);padding:6px var(--gut) 14px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .prices::-webkit-scrollbar{display:none}
+  .band .price{flex:0 0 min(300px,82vw)!important;width:min(300px,82vw);scroll-snap-align:center;padding:22px 20px 24px;align-self:stretch}
+  .amt{margin-top:12px;font-size:36px}
+  .amt span{font-size:15px}
+  .per{font-size:12.5px}
+  .plist{margin-top:16px;gap:8px}
+  .plist div{font-size:13.5px}
+  .pbtn{margin-top:18px;padding:12px;font-size:14.5px}
+  .pnote2{margin-top:16px;font-size:12.5px;line-height:1.55}
+  /* the questions */
+  .qa summary{font-size:15.5px;padding:16px 2px}
+  .qa p{font-size:14.5px;padding-right:16px}
+  /* the download and the foot */
+  .dl{padding:54px var(--gut) 36px}
+  .dl h2{font-size:32px}
+  .dl .csub{font-size:15px}
+  .facts{font-size:10.5px}
+  .foot{gap:10px 0;padding-top:22px;padding-bottom:40px}
+  .foot .fl{flex-wrap:wrap;gap:8px 16px;font-size:13px;width:100%}
+  .foot .fr{margin-left:0;width:100%;font-size:12px;line-height:1.5}
+}
 </style>
 </head>
 <body>
