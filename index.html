@@ -1536,7 +1536,15 @@
 .shot .lock span{font:400 2.5cqh var(--sans);color:#A1A1AA}
 .shot.frozen *,.shot.frozen{transition:none!important;animation:none!important}
 @media(max-width:560px){.shot{aspect-ratio:4/5!important;width:100%!important;border-radius:14px}.shot .sound{top:auto;bottom:14px;right:14px}}
-.shot.phone .wl{white-space:normal;max-width:600px}.shot.phone .wl b{font-size:56px;line-height:1.02}.shot.phone .wl span{font-size:20px;max-width:600px}
+/* the phone edition of the world: the same panes as a column */
+.shot.phone .wl{white-space:normal}.shot.phone .wl b{font-size:52px;line-height:1.04}.shot.phone .wl span{font-size:22px;max-width:none}
+.shot.phone .pt{padding:32px 36px;gap:0}
+.shot.phone .pt-lane{grid-template-columns:1fr;grid-template-rows:auto 64px auto 64px auto;justify-items:stretch}
+.shot.phone .pt-link{width:1px;height:100%;justify-self:center}
+.shot.phone .pt-node{padding:22px 24px;font-size:26px}
+.shot.phone .pt-ghost{top:calc(100% + 18px)}
+.shot.phone .eodwrap{padding:0 24px}
+.shot.phone .eodin{transform:scale(1.25);width:380px}
 @media(max-width:860px){.shot .alert{width:240px}.shot .alert pre{font-size:10.5px}.shot .bk{width:88%}.shot .bk h3{font-size:20px}}
 /* ── looks, for choosing ── */
 .shot.look-glass{background:#05060A}
@@ -2981,6 +2989,9 @@ function el(tag,cls,html){ var d=document.createElement(tag); if(cls) d.classNam
 /* ── one world, one camera: every place the product has, laid out on one table ── */
 var WW=4200, WH=2200;
 var PANES={chart:{x:200,y:300,w:1560,h:878}, path:{x:2060,y:300,w:1560,h:560}, mac:{x:2060,y:1300,w:1180,h:664}, eod:{x:200,y:1560,w:1560,h:340}, phone:{x:3660,y:1180,w:440,h:900}};
+/* the same places, laid out as a column for a phone: nothing is cropped in a wide shot, the close-ups come in tighter */
+var PANES_DESK=JSON.parse(JSON.stringify(PANES)), PANES_PHONE={chart:{x:100,y:300,w:640,h:520}, path:{x:100,y:1300,w:640,h:540}, mac:{x:100,y:2500,w:1180,h:664}, eod:{x:100,y:3700,w:500,h:280}, phone:{x:100,y:4500,w:440,h:900}};
+var WW_PHONE=1500, WH_PHONE=5700, LAID=null;
 var shot=el('div','shot'+(LOOK?' look-'+LOOK:'')); shot.id='shot'; var world=el('div','world'); world.style.width=WW+'px'; world.style.height=WH+'px';
 var L={}; Object.keys(PANES).forEach(function(n){ var d=el('div','lvl l-'+n), p=PANES[n]; d.style.left=p.x+'px'; d.style.top=p.y+'px'; d.style.width=p.w+'px'; d.style.height=p.h+'px'; world.appendChild(d); L[n]={el:d} });
 L.app=L.mac;
@@ -3000,8 +3011,10 @@ function chatYou(text,t){ return chatAdd('me',text,t) }
 function chatBot(text,t,wait){ if(!CHAT) return; if(INSTANT||!wait){ chatAdd('bot',text,t); return } var d=el('div','ph-b bot typing'); d.innerHTML='<span><i></i><i></i><i></i></span>'; CHAT.appendChild(d); later(20,function(){ d.classList.add('in') }); later(wait,function(){ d.remove(); chatAdd('bot',text,t) }) }
 var PT={mid:document.getElementById('pt-mid'),b:document.getElementById('pt-b'),dot:document.getElementById('pt-dot'),ghost:document.getElementById('pt-ghost')};
 function ptSmall(n,t){ n.querySelector('small').textContent=t }
-function ptReset(){ PT.mid.className='pt-node mid'; PT.mid.innerHTML='Someone\u2019s server<small>most firms don\u2019t allow it</small>'; PT.ghost.classList.remove('in'); PT.b.className='pt-node'; ptSmall(PT.b,'your funded account'); PT.dot.style.transition='none'; PT.dot.style.opacity='0'; PT.dot.style.left='14.8%'; PT.dot.classList.remove('stuck') }
-function ptDot(d,pct){ d.style.transition=INSTANT?'none':'left .6s cubic-bezier(.4,0,.2,1), opacity .25s'; d.style.opacity='1'; d.style.left=pct }
+function ptReset(){ PT.mid.className='pt-node mid'; PT.mid.innerHTML='Someone\u2019s server<small>most firms don\u2019t allow it</small>'; PT.ghost.classList.remove('in'); PT.b.className='pt-node'; ptSmall(PT.b,'your funded account'); PT.dot.style.transition='none'; PT.dot.style.opacity='0'; var v0=ptDoor('14.8%'); if(v0){ PT.dot.style.top=v0; PT.dot.style.left='50%' } else { PT.dot.style.left='14.8%'; PT.dot.style.top='50%' } PT.dot.classList.remove('stuck') }
+function ptDoor(pct){ if(!PHONE) return null; var lane=L.path.el.querySelector('.pt-lane'), n=lane.querySelectorAll('.pt-node'), LH=lane.clientHeight; if(!LH) return null;
+  var y={'14.8%':n[0].offsetTop+n[0].offsetHeight/2, '24.9%':n[0].offsetTop+n[0].offsetHeight-6, '35.0%':n[1].offsetTop+2, '64.8%':n[1].offsetTop+n[1].offsetHeight-2, '70.7%':n[2].offsetTop-2}[pct]; return y==null?null:(y/LH*100).toFixed(2)+'%' }
+function ptDot(d,pct){ var v=ptDoor(pct); d.style.transition=INSTANT?'none':(v?'top':'left')+' .6s cubic-bezier(.4,0,.2,1), opacity .25s'; d.style.opacity='1'; if(v){ d.style.top=v; d.style.left='50%' } else { d.style.left=pct; d.style.top='50%' } }
 function flash(e){ if(!e) return; e.classList.remove('flash'); void e.offsetWidth; e.classList.add('flash'); later(1200,function(){ e.classList.remove('flash') }) }
 var vo=document.getElementById('vo'), soundBtn=document.getElementById('sound'), subt=document.getElementById('subt');
 function sub(t){ return; if(!t){ subt.classList.remove('in'); return } if(INSTANT){ subt.textContent=t; subt.classList.add('in'); return } subt.classList.remove('in'); later(180,function(){ subt.textContent=t; subt.classList.add('in') }) }
@@ -3018,7 +3031,7 @@ mkLine('eod','Flat before the close. You set the time.');
 function lineIn(id){ var d=LINES[id]; if(d) d.classList.add('in') }
 function lineSwap(id,text,sub){ var d=LINES[id]; if(!d) return; if(INSTANT){ d.innerHTML='<b>'+text+'</b>'+(sub?'<span>'+sub+'</span>':''); lineTop(id); d.classList.add('in'); return }
   d.classList.add('out'); later(260,function(){ d.innerHTML='<b>'+text+'</b>'+(sub?'<span>'+sub+'</span>':''); lineTop(id); d.classList.remove('out'); d.classList.remove('in'); void d.offsetWidth; d.classList.add('in') }) }
-function lineTop(id){ var d=LINES[id], pn=PANES[id]; if(d&&pn){ d.style.top=(pn.y-28-d.offsetHeight)+'px'; d.style.left=(PHONE? pn.x+Math.max(0,(pn.w-d.offsetWidth)/2) : pn.x)+'px' } }
+function lineTop(id){ var d=LINES[id], pn=PANES[id]; if(!(d&&pn)) return; if(PHONE&&id==='mac'&&PAIR) pn=PANES.phone; d.style.maxWidth=PHONE?pn.w+'px':''; d.style.top=(pn.y-28-d.offsetHeight)+'px'; d.style.left=pn.x+'px' }
 /* ── the twin: the app's own words only ── */
 var clk=$('.clock'); if(clk){var c2=clk.cloneNode(true); clk.parentNode.replaceChild(c2,clk); clk=c2;}
 ['#bpt-setupRail','#bpt-preflight','#bpt-earlyCloseBanner','#bpt-machineMustRun','#bpt-perfSec','#bpt-blotSec','.gdash'].forEach(function(q){var e=$(q); if(e) e.style.display='none'});
@@ -3065,24 +3078,25 @@ function row(t,kind,strat,detail,quiet){ var tr=mkrow(t,kind,strat,detail); if(!
 function reveal(e){ e.classList.remove('hide'); e.classList.add('land') }
 /* ── the frame and the camera ── */
 var W=0,H=0;
-function size(){ W=shot.clientWidth; H=shot.clientHeight; PHONE=W<560; shot.classList.toggle('phone',PHONE); twin.style.transform='scale('+(PANES.mac.w/1200).toFixed(4)+')'; unscroll(); chartSize(); Object.keys(LINES).forEach(lineTop); camRe() }
+function size(){ W=shot.clientWidth; H=shot.clientHeight; PHONE=W<560; shot.classList.toggle('phone',PHONE); if(LAID!==PHONE) layout(PHONE); twin.style.transform='scale('+(PANES.mac.w/1200).toFixed(4)+')'; unscroll(); chartSize(); Object.keys(LINES).forEach(lineTop); camRe() }
 function unscroll(){ vp.scrollLeft=0; vp.scrollTop=0 }
 window.addEventListener('resize',function(){ size(); if(FREEZE) runTo(AT) }); setTimeout(unscroll,1500); setTimeout(unscroll,4000);
 var CAM={x:0,y:0,s:1}, REQ=null, EASE_CAM='cubic-bezier(.45,0,.15,1)', PAD=56, CM=6;
-var PHONE=false, PHONE_VW=640;   /* phone: the frame is portrait and never shows more than PHONE_VW world px across; the camera crops, centred, top-aligned */
+var PHONE=false, PAIR=false;
+function layout(ph){ var P=ph?PANES_PHONE:PANES_DESK; Object.keys(P).forEach(function(n){ PANES[n].x=P[n].x; PANES[n].y=P[n].y; PANES[n].w=P[n].w; PANES[n].h=P[n].h; var d=L[n].el; d.style.left=P[n].x+'px'; d.style.top=P[n].y+'px'; d.style.width=P[n].w+'px'; d.style.height=P[n].h+'px' });
+  world.style.width=(ph?WW_PHONE:WW)+'px'; world.style.height=(ph?WH_PHONE:WH)+'px'; LAID=ph }
 function rectOf(id){ var pn=PANES[id], l=LINES[id], x0=pn.x,y0=pn.y,x1=pn.x+pn.w,y1=pn.y+pn.h; if(l){ var lx=parseFloat(l.style.left)||pn.x, ly=parseFloat(l.style.top)||pn.y; x0=Math.min(x0,lx); y0=Math.min(y0,ly); x1=Math.max(x1,lx+l.offsetWidth) } return {x:x0,y:y0,w:x1-x0,h:y1-y0} }
 function rectAll(){ var x0=1e9,y0=1e9,x1=-1e9,y1=-1e9; Object.keys(PANES).forEach(function(id){ var r=rectOf(id); x0=Math.min(x0,r.x); y0=Math.min(y0,r.y); x1=Math.max(x1,r.x+r.w); y1=Math.max(y1,r.y+r.h) }); return {x:x0,y:y0,w:x1-x0,h:y1-y0} }
 /* wide: the whole subject (line + pane) inside the frame with PAD around it */
-function fitWide(r){ var s=Math.min(W/(r.w+2*PAD), H/(r.h+2*PAD)); if(!PHONE) return {x:r.x+r.w/2, y:r.y+r.h/2, s:s};
-  var s2=Math.max(s,W/PHONE_VW), vw=W/s2, vh=H/s2; return {x:r.x+r.w/2, y:(vh<r.h+2*PAD? r.y-PAD+vh/2 : r.y+r.h/2), s:s2} }
+function fitWide(r){ var pad=PHONE?44:PAD; var s=Math.min(W/(r.w+2*pad), H/(r.h+2*pad)); return {x:r.x+r.w/2, y:r.y+r.h/2, s:s} }
 /* close: a view VW world-px wide centred on a point inside one pane; the frame never reaches the pane's edge */
-function fitClose(id,vw,cx,cy){ var pn=PANES[id], s=W/vw, vh=H/s, mw=pn.w-2*CM, mh=pn.h-2*CM; if(vw>mw||vh>mh){ s=Math.max(W/mw,H/mh); vw=W/s; vh=H/s }
+function fitClose(id,vw,cx,cy){ if(PHONE) vw=Math.round(vw*0.55); var pn=PANES[id], s=W/vw, vh=H/s, mw=pn.w-2*CM, mh=pn.h-2*CM; if(vw>mw||vh>mh){ s=Math.max(W/mw,H/mh); vw=W/s; vh=H/s }
   var x=Math.min(Math.max(pn.x+cx, pn.x+CM+vw/2), pn.x+pn.w-CM-vw/2), y=Math.min(Math.max(pn.y+cy, pn.y+CM+vh/2), pn.y+pn.h-CM-vh/2); return {x:x,y:y,s:s} }
-function solve(q){ if(!q) return CAM; if(q.k==='wide') return fitWide(rectOf(q.id)); if(PHONE&&q.k==='all') return fitWide(rectOf('mac')); if(PHONE&&q.k==='pair') return fitWide(rectOf('phone')); if(q.k==='all') return fitWide(rectAll()); if(q.k==='pair'){ var A=rectOf(q.ids[0]), B=rectOf(q.ids[1]), x0=Math.min(A.x,B.x), y0=Math.min(A.y,B.y), x1=Math.max(A.x+A.w,B.x+B.w), y1=Math.max(A.y+A.h,B.y+B.h); return fitWide({x:x0,y:y0,w:x1-x0,h:y1-y0}) } if(q.k==='close') return fitClose(q.id,q.vw,typeof q.cx==='function'?q.cx():q.cx,typeof q.cy==='function'?q.cy():q.cy);
+function solve(q){ if(!q) return CAM; if(q.k==='wide') return fitWide(rectOf(q.id)); if(PHONE&&q.k==='all') return fitWide(rectOf('mac')); if(PHONE&&q.k==='pair'){ var rp=rectOf('phone'), lm=LINES.mac, lx=parseFloat(lm.style.left)||rp.x, ly=parseFloat(lm.style.top)||rp.y, x0=Math.min(rp.x,lx), y0=Math.min(rp.y,ly), x1=Math.max(rp.x+rp.w,lx+lm.offsetWidth); return fitWide({x:x0,y:y0,w:x1-x0,h:rp.y+rp.h-y0}) } if(q.k==='all') return fitWide(rectAll()); if(q.k==='pair'){ var A=rectOf(q.ids[0]), B=rectOf(q.ids[1]), x0=Math.min(A.x,B.x), y0=Math.min(A.y,B.y), x1=Math.max(A.x+A.w,B.x+B.w), y1=Math.max(A.y+A.h,B.y+B.h); return fitWide({x:x0,y:y0,w:x1-x0,h:y1-y0}) } if(q.k==='close') return fitClose(q.id,q.vw,typeof q.cx==='function'?q.cx():q.cx,typeof q.cy==='function'?q.cy():q.cy);
   if(q.k==='drift'){ var c=solve(q.base); return {x:c.x+(q.dx||0), y:c.y+(q.dy||0), s:c.s*(q.z||1.02)} } return CAM }
 function camApply(still){ if(still) world.style.transition='none'; world.style.transform='translate('+(W/2-CAM.x*CAM.s).toFixed(1)+'px,'+(H/2-CAM.y*CAM.s).toFixed(1)+'px) scale('+CAM.s.toFixed(4)+')'; if(still) void world.offsetWidth }
 function camRe(){ CAM=solve(REQ); camApply(true) }
-function go(q,ms,ease){ REQ=q; CAM=solve(q); if(INSTANT||!ms){ camApply(true); return } world.style.transition='transform '+ms+'ms '+(ease||EASE_CAM); camApply(false) }
+function go(q,ms,ease){ REQ=q; var pr=(q.k==='pair')||(q.k==='drift'&&PAIR); if(pr!==PAIR){ PAIR=pr; if(PHONE) lineTop('mac') } CAM=solve(q); if(INSTANT||!ms){ camApply(true); return } world.style.transition='transform '+ms+'ms '+(ease||EASE_CAM); camApply(false) }
 function wide(id,ms,ease){ go({k:'wide',id:id},ms,ease) }
 function close(id,vw,cx,cy,ms,ease){ go({k:'close',id:id,vw:vw,cx:cx,cy:cy},ms,ease) }
 function drift(ms,z,dx,dy){ go({k:'drift',base:REQ,z:z||1.02,dx:dx||0,dy:dy||0},ms,'linear') }
@@ -3268,7 +3282,7 @@ var EV=[
  [4900, function(){ PT.dot.classList.add('stuck'); PT.mid.classList.add('bad'); ptSmall(PT.mid,'not allowed'); ptSmall(PT.b,'nothing arrived') }],
  /* c3 7.4 · we've got you covered. BridgePit runs your alerts straight from your own MacBook. no server in between. */
  [7400, function(){ lineSwap('path','BridgePit runs your alerts from your own MacBook.') }],
- [8600, function(){ PT.dot.classList.remove('stuck'); PT.dot.style.transition='none'; PT.dot.style.opacity='0'; PT.dot.style.left='64.8%'; PT.mid.className='pt-node mid in ok'; PT.mid.innerHTML='Your Mac<small>BridgePit places the order</small>'; ptSmall(PT.b,'your funded account') }],
+ [8600, function(){ PT.dot.classList.remove('stuck'); PT.dot.style.transition='none'; PT.dot.style.opacity='0'; var v6=ptDoor('64.8%'); if(v6){ PT.dot.style.top=v6; PT.dot.style.left='50%' } else { PT.dot.style.left='64.8%'; PT.dot.style.top='50%' } PT.mid.className='pt-node mid in ok'; PT.mid.innerHTML='Your Mac<small>BridgePit places the order</small>'; ptSmall(PT.b,'your funded account') }],
  [14034,function(){ ptDot(PT.dot,'70.7%') }],
  [14934,function(){ ptSmall(PT.b,'filled \u00b7 09:47:12'); PT.b.classList.add('ok'); PT.dot.style.opacity='0' }],
  [15734,function(){ PT.ghost.classList.add('in') }],
