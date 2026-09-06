@@ -1879,12 +1879,13 @@
 .rd-foot .fr b{color:var(--ink2)}
 /* phone */
 
+.rd-panel [data-speed]{--dy:0px;transform:translateY(var(--dy));transition:transform .08s linear;will-change:transform}
 /* wide panels (v5): heading left, real artifact right; the product window stacks under its heading at native density */
-.rd-panel.wide{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:28px 40px;align-items:center;padding:34px 34px 34px 38px}
+.rd-panel.wide{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:28px 40px;align-items:center;padding:44px 34px 44px 38px}
 .rd-panel.wide .rd-pcap{margin:0}
 .rd-panel.wide .rd-pnote{margin:14px 0 0;font:15px/1.5 var(--sans);color:var(--dim);max-width:40ch}
 .rd-panel.dark .rd-pnote{color:#8B8F98}
-.rd-panel.wide.stack{grid-template-columns:1fr;gap:22px;padding:34px 30px 30px}
+.rd-panel.wide.stack{grid-template-columns:1fr;gap:22px;padding:34px 30px 48px}
 .rd-panel.wide.stack .rd-pcap{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:8px 40px;align-items:end}
 .rd-panel.wide.stack .rd-pcap small{grid-column:1/-1}
 .rd-panel.wide.stack .rd-pnote{margin:0 0 6px;align-self:end}

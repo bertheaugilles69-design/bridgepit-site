@@ -1879,12 +1879,13 @@
 .rd-foot .fr b{color:var(--ink2)}
 /* phone */
 
+.rd-panel [data-speed]{--dy:0px;transform:translateY(var(--dy));transition:transform .08s linear;will-change:transform}
 /* wide panels (v5): heading left, real artifact right; the product window stacks under its heading at native density */
-.rd-panel.wide{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:28px 40px;align-items:center;padding:34px 34px 34px 38px}
+.rd-panel.wide{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:28px 40px;align-items:center;padding:44px 34px 44px 38px}
 .rd-panel.wide .rd-pcap{margin:0}
 .rd-panel.wide .rd-pnote{margin:14px 0 0;font:15px/1.5 var(--sans);color:var(--dim);max-width:40ch}
 .rd-panel.dark .rd-pnote{color:#8B8F98}
-.rd-panel.wide.stack{grid-template-columns:1fr;gap:22px;padding:34px 30px 30px}
+.rd-panel.wide.stack{grid-template-columns:1fr;gap:22px;padding:34px 30px 48px}
 .rd-panel.wide.stack .rd-pcap{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:8px 40px;align-items:end}
 .rd-panel.wide.stack .rd-pcap small{grid-column:1/-1}
 .rd-panel.wide.stack .rd-pnote{margin:0 0 6px;align-self:end}
@@ -2679,14 +2680,14 @@
   }
   @media(max-width:620px){ .rails{grid-template-columns:1fr} }
 </style>
-<section class="rd-sec rd-truthsec" id="why"><div class="rd-wrap"><div class="rd-panels"><div class="rd-panel paper wide" data-speed="0.05" data-lim="24" style="--rot:-0.6deg"><div class="rd-pcap"><small>TradingView, 09:47:11 ET</small><h2>The alert arrives here.</h2><p class="rd-pnote">The webhook message your alert sends. Six fields, nothing else.</p></div><pre class="rd-code">{
+<section class="rd-sec rd-truthsec" id="why"><div class="rd-wrap"><div class="rd-panels"><div class="rd-panel paper wide" data-speed="0.07" data-lim="70" style="--rot:-0.6deg"><div class="rd-pcap"><small>TradingView, 09:47:11 ET</small><h2>The alert arrives here.</h2><p class="rd-pnote">The webhook message your alert sends. Six fields, nothing else.</p></div><pre class="rd-code" data-speed="-0.05" data-lim="26">{
   &quot;strategy_name&quot;: &quot;breakout-1m&quot;,
   &quot;symbol&quot;: &quot;MNQ1!&quot;,
   &quot;bar_time&quot;: &quot;2026-09-03T09:47&quot;,
   &quot;data&quot;: &quot;buy&quot;,
   &quot;quantity&quot;: 2,
   &quot;price&quot;: 23412.25
-}</pre></div><div class="rd-panel dark wide stack" data-speed="0.05" data-lim="24" style="--rot:0.5deg"><div class="rd-pcap"><small>Your Mac, the app's own Recent activity</small><h2>The order leaves from here.</h2><p class="rd-pnote">Order, fill, stop placed, stop read back from the broker. The same four lines you see in the app.</p></div><div class="rd-shotwrap"><img class="rd-shot" src="rd-log@2x.png" width="1152" height="230" alt="BridgePit Recent activity: ORDER, FILLED, STOP PLACED, STOP RESTING"></div></div><div class="rd-panel green wide" data-speed="0.05" data-lim="24" style="--rot:-0.4deg"><div class="rd-pcap"><small>Your broker, Rithmic</small><h2>The stop rests at the broker.</h2><p class="rd-pnote">Whether this Mac is awake or not.</p></div><div class="rd-book"><div class="rd-book-h">Working orders</div><div class="rd-book-r"><span>MNQU6</span><span>SELL 2</span><span>stop 23,362.25</span><span class="ok">working</span></div></div></div></div></div></section>
+}</pre></div><div class="rd-panel dark wide stack" data-speed="0.07" data-lim="70" style="--rot:0.5deg"><div class="rd-pcap"><small>Your Mac, the app's own Recent activity</small><h2>The order leaves from here.</h2><p class="rd-pnote">Order, fill, stop placed, stop read back from the broker. The same four lines you see in the app.</p></div><div class="rd-shotwrap" data-speed="-0.04" data-lim="22"><img class="rd-shot" src="rd-log@2x.png" width="1152" height="230" alt="BridgePit Recent activity: ORDER, FILLED, STOP PLACED, STOP RESTING"></div></div><div class="rd-panel green wide" data-speed="0.07" data-lim="70" style="--rot:-0.4deg"><div class="rd-pcap"><small>Your broker, Rithmic</small><h2>The stop rests at the broker.</h2><p class="rd-pnote">Whether this Mac is awake or not.</p></div><div class="rd-book" data-speed="-0.05" data-lim="26"><div class="rd-book-h">Working orders</div><div class="rd-book-r"><span>MNQU6</span><span>SELL 2</span><span>stop 23,362.25</span><span class="ok">working</span></div></div></div></div></div></section>
 <section class="rd-sec rd-safety" id="safety"><div class="rd-wrap">
   <p class="rd-eyebrow">Safety</p>
   <h2>Six things that hold, whether the alert comes or not.</h2>
