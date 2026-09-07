@@ -74,17 +74,17 @@
   footer a:hover{color:var(--txt)}
 
 </style>
-<link rel="stylesheet" href="/assets/retained-site.css?v=469dfebd02">
-<link rel="stylesheet" href="/showcase.css?v=469dfebd02">
-<link rel="stylesheet" href="/opening.css?v=469dfebd02">
-<link rel="stylesheet" href="/site-theme.css?v=469dfebd02">
-<link rel="stylesheet" href="/content-pages.css?v=469dfebd02">
-<link rel="stylesheet" href="/light-site.css?v=469dfebd02">
+<link rel="stylesheet" href="/assets/retained-site.css?v=8941e85a03">
+<link rel="stylesheet" href="/showcase.css?v=8941e85a03">
+<link rel="stylesheet" href="/opening.css?v=8941e85a03">
+<link rel="stylesheet" href="/site-theme.css?v=8941e85a03">
+<link rel="stylesheet" href="/content-pages.css?v=8941e85a03">
+<link rel="stylesheet" href="/light-site.css?v=8941e85a03">
 <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Does TradingView trade automatically by itself?", "acceptedAnswer": {"@type": "Answer", "text": "No. TradingView fires alerts, including alerts from strategy signals, and can send each one as a webhook. It does not hold a broker connection and places no orders. Automation means adding software that receives the webhook and executes it."}}, {"@type": "Question", "name": "Do I need a paid TradingView plan for webhook alerts?", "acceptedAnswer": {"@type": "Answer", "text": "Webhook alerts are a paid TradingView feature. Plans and limits change; check TradingView's current plan table for which tier includes webhook notifications and how many alerts it allows."}}, {"@type": "Question", "name": "Where should the automation run - cloud, VPS or my own machine?", "acceptedAnswer": {"@type": "Answer", "text": "Cloud connectors and VPS setups keep trading when your computer is off, but your broker access lives on someone else's machine and orders leave from a datacenter IP. Software on your own machine keeps credentials local and orders on your own connection, and it stops when your machine sleeps. Which trade-off is right depends on your account, and for funded accounts on your firm's rules."}}, {"@type": "Question", "name": "Is automated trading allowed on prop firm accounts?", "acceptedAnswer": {"@type": "Answer", "text": "It depends on the firm and on the kind of automation, and published summaries contradict each other. The firm's own current rules are the only source that counts. Five clauses decide it: unattended operation, third-party access to your login, where orders originate, copy trading across accounts, and consistency rules."}}]}]</script><script src="/site.js?v=dca13bfeed" defer></script>
 </head>
 <body class="rd concept content-page page-article">
 <a class="skip-link" href="#main-content">Skip to content</a>
-<nav class="site-nav" aria-label="Main navigation"><div class="wrap nav-inner"><a class="brand" href="/"><img src="/assets/bridgepit.svg" width="26" height="26" alt="">BridgePit</a><div class="nav-links"><a href="/how-it-works.html">See how it works</a><a href="/#safety">Safety</a><a href="/#pricing">Pricing</a><a href="/setup.html">Setup</a><a href="/questions.html">Questions</a></div><details class="mobile-menu"><summary>Menu</summary><div class="mobile-links"><a href="/how-it-works.html">See how it works</a><a href="/#safety">Safety</a><a href="/#pricing">Pricing</a><a href="/setup.html">Setup</a><a href="/questions.html">Questions</a></div></details><a class="button compact" href="/#download">Try on paper <span aria-hidden="true">↗</span></a></div></nav><main id="main-content">
+<nav class="site-nav" aria-label="Main navigation"><div class="wrap nav-inner"><a class="brand" href="/"><img src="/assets/bridgepit.svg" width="26" height="26" alt="">BridgePit</a><div class="nav-links"><a href="/how-it-works.html">See how it works</a><a href="/#safety">Safety</a><a href="/#pricing">Pricing</a><a href="/setup.html">Setup guide</a><a href="/questions.html">Questions</a></div><details class="mobile-menu"><summary>Menu</summary><div class="mobile-links"><a href="/how-it-works.html">See how it works</a><a href="/#safety">Safety</a><a href="/#pricing">Pricing</a><a href="/setup.html">Setup guide</a><a href="/questions.html">Questions</a></div></details><a class="button compact" href="/#download">Try on paper <span aria-hidden="true">↗</span></a></div></nav><main id="main-content">
 <p class="kicker">The landscape</p>
 <h1>How to automate TradingView alerts, and where the automation should run.</h1>
 <p class="lede">TradingView does the deciding: strategies fire, alerts go out as webhooks. It does not do the trading. <b>Everything called TradingView automation is really about what catches that webhook.</b> There are three honest answers, and they differ in who holds your broker login.</p>

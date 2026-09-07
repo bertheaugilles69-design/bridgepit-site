@@ -74,17 +74,17 @@
   footer a:hover{color:var(--txt)}
 
 </style>
-<link rel="stylesheet" href="/assets/retained-site.css?v=469dfebd02">
-<link rel="stylesheet" href="/showcase.css?v=469dfebd02">
-<link rel="stylesheet" href="/opening.css?v=469dfebd02">
-<link rel="stylesheet" href="/site-theme.css?v=469dfebd02">
-<link rel="stylesheet" href="/content-pages.css?v=469dfebd02">
-<link rel="stylesheet" href="/light-site.css?v=469dfebd02">
+<link rel="stylesheet" href="/assets/retained-site.css?v=8941e85a03">
+<link rel="stylesheet" href="/showcase.css?v=8941e85a03">
+<link rel="stylesheet" href="/opening.css?v=8941e85a03">
+<link rel="stylesheet" href="/site-theme.css?v=8941e85a03">
+<link rel="stylesheet" href="/content-pages.css?v=8941e85a03">
+<link rel="stylesheet" href="/light-site.css?v=8941e85a03">
 <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Can I keep my existing PickMyTrade alert format?", "acceptedAnswer": {"@type": "Answer", "text": "The webhook URL can stay - /v2/add-trade-data still answers. The message cannot. Add the strategy name you typed in the app and swap in your BridgePit token. The app's Copy block writes both, plus the two clocks. Keep the old body and the alert is refused."}}, {"@type": "Question", "name": "Why does it matter where execution runs?", "acceptedAnswer": {"@type": "Answer", "text": "A cloud service places your orders from its datacenter IP and holds your broker access to do it. Software on your own machine places orders from your own IP with credentials that never leave your computer. Rules differ by firm and change; always check your firm's current rules."}}, {"@type": "Question", "name": "Is BridgePit fully automated?", "acceptedAnswer": {"@type": "Answer", "text": "Semi-automated by design: it executes your TradingView alerts and you supervise. The kill-switch, per-strategy contract caps, duplicate rejection and the end-of-day flatten are on from the start. The daily loss stop is the one number you enter yourself."}}, {"@type": "Question", "name": "What does BridgePit cost compared to PickMyTrade?", "acceptedAnswer": {"@type": "Answer", "text": "BridgePit paper trading is free now. Live starts at $59/month or $590/year for one account (Seat); Desk is $99 for up to 3 accounts and Floor $149 for up to 10, all when it goes on sale. PickMyTrade lists $50/month, $135/quarter, or $500/year with a 5-day trial (checked August 2026). Your prop firm sets its own API-access fee, paid to the firm directly - not to us."}}]}]</script><script src="/site.js?v=dca13bfeed" defer></script>
 </head>
 <body class="rd concept content-page page-article">
 <a class="skip-link" href="#main-content">Skip to content</a>
-<nav class="site-nav" aria-label="Main navigation"><div class="wrap nav-inner"><a class="brand" href="/"><img src="/assets/bridgepit.svg" width="26" height="26" alt="">BridgePit</a><div class="nav-links"><a href="/how-it-works.html">See how it works</a><a href="/#safety">Safety</a><a href="/#pricing">Pricing</a><a href="/setup.html">Setup</a><a href="/questions.html">Questions</a></div><details class="mobile-menu"><summary>Menu</summary><div class="mobile-links"><a href="/how-it-works.html">See how it works</a><a href="/#safety">Safety</a><a href="/#pricing">Pricing</a><a href="/setup.html">Setup</a><a href="/questions.html">Questions</a></div></details><a class="button compact" href="/#download">Try on paper <span aria-hidden="true">↗</span></a></div></nav><main id="main-content">
+<nav class="site-nav" aria-label="Main navigation"><div class="wrap nav-inner"><a class="brand" href="/"><img src="/assets/bridgepit.svg" width="26" height="26" alt="">BridgePit</a><div class="nav-links"><a href="/how-it-works.html">See how it works</a><a href="/#safety">Safety</a><a href="/#pricing">Pricing</a><a href="/setup.html">Setup guide</a><a href="/questions.html">Questions</a></div><details class="mobile-menu"><summary>Menu</summary><div class="mobile-links"><a href="/how-it-works.html">See how it works</a><a href="/#safety">Safety</a><a href="/#pricing">Pricing</a><a href="/setup.html">Setup guide</a><a href="/questions.html">Questions</a></div></details><a class="button compact" href="/#download">Try on paper <span aria-hidden="true">↗</span></a></div></nav><main id="main-content">
   <div class="kicker">Comparison · facts checked August 29, 2026</div>
   <h1>A PickMyTrade alternative that isn't another cloud.</h1>
   <p class="lede">PickMyTrade forwards your TradingView alerts to your broker through its servers. BridgePit does the same job with <b>no servers in the middle</b>: a desktop app on your own machine executes the alert, the order leaves from your own IP, and your broker login never leaves your computer. Same alerts - different architecture.</p>
