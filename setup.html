@@ -1,21 +1,22 @@
 <!doctype html>
 <html lang="en">
 <head>
+<title>BridgePit setup - TradingView to your broker, step by step</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>BridgePit setup - TradingView to your broker, step by step</title>
 <meta name="description" content="Set up BridgePit in about twenty minutes: install, give TradingView a way to reach your machine, connect your broker, wire the alert, and watch it fill on paper first.">
-<link rel="canonical" href="https://bridgepit.com/setup">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="BridgePit">
 <meta property="og:title" content="BridgePit setup - TradingView to your broker, step by step">
 <meta property="og:description" content="Five steps, done once. Test the whole chain on paper before a dollar is at risk.">
 <meta property="og:image" content="https://bridgepit.com/og.png">
-<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20128%20128%27%3E%3Crect%20width%3D%27128%27%20height%3D%27128%27%20rx%3D%2728%27%20fill%3D%27%230E1218%27%2F%3E%3Cg%20stroke%3D%27%23C7CCD6%27%20stroke-width%3D%273.4%27%20stroke-linecap%3D%27round%27%20opacity%3D%27.8%27%20fill%3D%27none%27%3E%3Cline%20x1%3D%2746%27%20y1%3D%2724%27%20x2%3D%2724%27%20y2%3D%2790%27%2F%3E%3Cline%20x1%3D%2746%27%20y1%3D%2724%27%20x2%3D%2762%27%20y2%3D%2790%27%2F%3E%3Cline%20x1%3D%2782%27%20y1%3D%2724%27%20x2%3D%27104%27%20y2%3D%2790%27%2F%3E%3Cline%20x1%3D%2782%27%20y1%3D%2724%27%20x2%3D%2766%27%20y2%3D%2790%27%2F%3E%3C%2Fg%3E%3Cline%20x1%3D%2716%27%20y1%3D%2790%27%20x2%3D%27112%27%20y2%3D%2790%27%20stroke%3D%27%23C7CCD6%27%20stroke-width%3D%277%27%20stroke-linecap%3D%27round%27%2F%3E%3Cline%20x1%3D%2746%27%20y1%3D%2722%27%20x2%3D%2746%27%20y2%3D%2798%27%20stroke%3D%27%23C7CCD6%27%20stroke-width%3D%275%27%20stroke-linecap%3D%27round%27%2F%3E%3Cline%20x1%3D%2782%27%20y1%3D%2722%27%20x2%3D%2782%27%20y2%3D%2798%27%20stroke%3D%27%23C7CCD6%27%20stroke-width%3D%275%27%20stroke-linecap%3D%27round%27%2F%3E%3Crect%20x%3D%2738%27%20y%3D%2747%27%20width%3D%2716%27%20height%3D%2734%27%20rx%3D%273.5%27%20fill%3D%27%23C7CCD6%27%2F%3E%3Crect%20x%3D%2774%27%20y%3D%2747%27%20width%3D%2716%27%20height%3D%2734%27%20rx%3D%273.5%27%20fill%3D%27%23EAEDF2%27%2F%3E%3C%2Fsvg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+<link rel="canonical" href="https://bridgepit.com/setup">
+<meta name="theme-color" content="#111b23">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
 <style>
+
   :root{
     --bg:#0A0D12; --txt:#E6EAF0; --dim:#8C94A1; --dim2:#5C6470;
     --line:rgba(255,255,255,.08); --plate:#0D1117;
@@ -128,16 +129,18 @@
 
   @media (max-width:900px){ .steps::before,.step::before{display:none} .step{padding-top:44px} }
   @media (max-width:560px){ .need dl{grid-template-columns:1fr} .need dt{border-bottom:none;padding-bottom:0} .need dd{padding-top:2px} .fix td:first-child{width:auto} }
+
 </style>
+<link rel="stylesheet" href="/assets/retained-site.css?v=4fa32fdd71">
+<link rel="stylesheet" href="/showcase.css?v=4fa32fdd71">
+<link rel="stylesheet" href="/opening.css?v=4fa32fdd71">
+<link rel="stylesheet" href="/site-theme.css?v=4fa32fdd71">
+<link rel="stylesheet" href="/content-pages.css?v=4fa32fdd71">
+
 </head>
-<body>
-
-<div class="chrome">
-  <a class="wm" href="./" style="display:inline-flex;align-items:center;gap:9px"><svg width='24' height='24' viewBox='0 0 128 128' fill='none' style='flex:none'><g stroke='#C7CCD6' stroke-width='2' stroke-linecap='round' opacity='.75'><line x1='46' y1='24' x2='24' y2='90'/><line x1='46' y1='24' x2='62' y2='90'/><line x1='82' y1='24' x2='104' y2='90'/><line x1='82' y1='24' x2='66' y2='90'/></g><line x1='16' y1='90' x2='112' y2='90' stroke='#C7CCD6' stroke-width='4' stroke-linecap='round'/><line x1='46' y1='22' x2='46' y2='98' stroke='#C7CCD6' stroke-width='3' stroke-linecap='round'/><line x1='82' y1='22' x2='82' y2='98' stroke='#C7CCD6' stroke-width='3' stroke-linecap='round'/><rect x='40' y='48' width='12' height='32' rx='2.5' fill='#B9BFCB'/><rect x='76' y='48' width='12' height='32' rx='2.5' fill='#EAEDF2'/></svg>BridgePit</a>
-  <a class="back" href="./">← Back to BridgePit</a>
-</div>
-
-<main>
+<body class="rd concept content-page page-setup">
+<a class="skip-link" href="#main-content">Skip to content</a>
+<nav class="site-nav" aria-label="Main navigation"><div class="wrap nav-inner"><a class="brand" href="/"><img src="/assets/bridgepit.svg" width="26" height="26" alt="">BridgePit</a><div class="nav-links"><a href="/#the-app">Inside the app</a><a href="/#safety">Safety</a><a href="/#pricing">Pricing</a><a href="/setup.html" aria-current="page">Setup</a><a href="/questions.html">Questions</a></div><a class="button compact" href="/#download">Try on paper <span aria-hidden="true">↗</span></a></div></nav><main id="main-content">
   <div class="kicker">Setup guide · about 20 minutes</div>
   <h1>Wire it once. Test it on paper. Then trade.</h1>
   <p class="lede">Five steps, done one time on the machine you trade from. Nothing here risks money: the free tier trades <b>paper only</b>, so you'll see the whole chain fill before a single real order can exist.</p>
@@ -300,13 +303,10 @@
   <section class="habit">
     <p>One habit, from us: BridgePit executes, <b>you supervise</b>. Keep the machine on, lid open, and on the internet during your hours. Glance at the dashboard the way you'd glance at a position. Quit only when you're flat. Your alerts, your broker, your IP - and you, still the trader.</p>
   </section>
-</main>
-
-<footer>
-  <div>© 2026 BridgePit LLC · <a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a> · <a href="mailto:support@bridgepit.com">Contact</a></div>
-  <div><a href="./">bridgepit.com</a></div>
-</footer>
-<script>
+</main><footer class="rd-foot"><div class="rd-wrap"><div class="fl">
+<a href="/setup.html">Setup guide</a><a href="/questions.html">Questions</a>
+<a href="/terms.html">Terms</a><a href="/privacy.html">Privacy</a><a href="mailto:support@bridgepit.com">support@bridgepit.com</a>
+</div><div class="fr"><b>From traders, for traders.</b> © 2026 BridgePit LLC. BridgePit runs on your machine. We never see your credentials, your positions or your orders.</div></div></footer><script>
 (function(){
   var btn=document.getElementById('copyAlert');
   var src=document.getElementById('alert-copy-payload');
@@ -330,5 +330,4 @@
   });
 })();
 </script>
-</body>
-</html>
+</body></html>

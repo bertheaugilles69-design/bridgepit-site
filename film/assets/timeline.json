@@ -1,0 +1,77 @@
+{
+  "duration": 49.391,
+  "segments": [
+    {
+      "id": "execution",
+      "start": 0.35,
+      "end": 4.31,
+      "text": "BridgePit runs your TradingView alerts straight from your own MacBook.",
+      "source_paragraph": 3,
+      "source_in": 1.0,
+      "source_out": 4.96
+    },
+    {
+      "id": "stop",
+      "start": 4.96,
+      "end": 13.36,
+      "text": "Your alert comes in, and your order goes out to your broker, with a safety stop already resting there, at the distance you set.",
+      "source_paragraph": 4,
+      "source_in": 0,
+      "source_out": 8.4
+    },
+    {
+      "id": "accounts",
+      "start": 13.81,
+      "end": 19.452,
+      "text": "One alert can go to every account you have, and each one keeps its own size and its own limit.",
+      "source_paragraph": 5,
+      "source_in": 0,
+      "source_out": 5.641995
+    },
+    {
+      "id": "duplicate",
+      "start": 19.952,
+      "end": 23.673,
+      "text": "If the same alert comes in twice, it gets refused before it can hurt you.",
+      "source_paragraph": 7,
+      "source_in": 0,
+      "source_out": 3.720998
+    },
+    {
+      "id": "phone",
+      "start": 24.083,
+      "end": 29.769,
+      "text": "When you're out at dinner, you just ask your phone. Your P and L, your positions, and whether BridgePit is up.",
+      "source_paragraph": 9,
+      "source_in": 0,
+      "source_out": 5.685986
+    },
+    {
+      "id": "halt",
+      "start": 30.119,
+      "end": 33.469,
+      "text": "And if something feels off, one word from your phone.",
+      "source_paragraph": 10,
+      "source_in": 0,
+      "source_out": 3.35
+    },
+    {
+      "id": "close",
+      "start": 33.742,
+      "end": 40.804,
+      "text": "If your firm doesn't allow overnight positions, that's fine. The end-of-day flatten has you covered, and you set the time yourself.",
+      "source_paragraph": 6,
+      "source_in": 0,
+      "source_out": 7.061973
+    },
+    {
+      "id": "end",
+      "start": 41.169,
+      "end": 47.391,
+      "text": "That's BridgePit. Your laptop, your alerts, your control. And you can try a whole session on paper, for free.",
+      "source_paragraph": 12,
+      "source_in": 0,
+      "source_out": 6.221973
+    }
+  ]
+}

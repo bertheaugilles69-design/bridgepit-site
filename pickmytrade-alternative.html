@@ -1,29 +1,23 @@
 <!doctype html>
 <html lang="en">
 <head>
+<title>PickMyTrade alternative that runs on your own machine - BridgePit</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>PickMyTrade alternative that runs on your own machine - BridgePit</title>
 <meta name="description" content="BridgePit is a PickMyTrade alternative with no cloud in the middle: your TradingView alerts execute on your own computer, orders reach your broker from your own IP, and your credentials never leave your machine. Paper is free. Live from $59/mo, coming soon.">
-<link rel="canonical" href="https://bridgepit.com/pickmytrade-alternative">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="BridgePit">
 <meta property="og:title" content="A PickMyTrade alternative that isn't another cloud">
 <meta property="og:description" content="Same TradingView alerts, no cloud middleman: execution from your own machine and IP. Honest comparison, including where PickMyTrade is the better pick.">
 <meta property="og:url" content="https://bridgepit.com/pickmytrade-alternative">
 <meta property="og:image" content="https://bridgepit.com/og.png">
-<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20128%20128%27%3E%3Crect%20width%3D%27128%27%20height%3D%27128%27%20rx%3D%2728%27%20fill%3D%27%230E1218%27%2F%3E%3Cg%20stroke%3D%27%23C7CCD6%27%20stroke-width%3D%273.4%27%20stroke-linecap%3D%27round%27%20opacity%3D%27.8%27%20fill%3D%27none%27%3E%3Cline%20x1%3D%2746%27%20y1%3D%2724%27%20x2%3D%2724%27%20y2%3D%2790%27%2F%3E%3Cline%20x1%3D%2746%27%20y1%3D%2724%27%20x2%3D%2762%27%20y2%3D%2790%27%2F%3E%3Cline%20x1%3D%2782%27%20y1%3D%2724%27%20x2%3D%27104%27%20y2%3D%2790%27%2F%3E%3Cline%20x1%3D%2782%27%20y1%3D%2724%27%20x2%3D%2766%27%20y2%3D%2790%27%2F%3E%3C%2Fg%3E%3Cline%20x1%3D%2716%27%20y1%3D%2790%27%20x2%3D%27112%27%20y2%3D%2790%27%20stroke%3D%27%23C7CCD6%27%20stroke-width%3D%277%27%20stroke-linecap%3D%27round%27%2F%3E%3Cline%20x1%3D%2746%27%20y1%3D%2722%27%20x2%3D%2746%27%20y2%3D%2798%27%20stroke%3D%27%23C7CCD6%27%20stroke-width%3D%275%27%20stroke-linecap%3D%27round%27%2F%3E%3Cline%20x1%3D%2782%27%20y1%3D%2722%27%20x2%3D%2782%27%20y2%3D%2798%27%20stroke%3D%27%23C7CCD6%27%20stroke-width%3D%275%27%20stroke-linecap%3D%27round%27%2F%3E%3Crect%20x%3D%2738%27%20y%3D%2747%27%20width%3D%2716%27%20height%3D%2734%27%20rx%3D%273.5%27%20fill%3D%27%23C7CCD6%27%2F%3E%3Crect%20x%3D%2774%27%20y%3D%2747%27%20width%3D%2716%27%20height%3D%2734%27%20rx%3D%273.5%27%20fill%3D%27%23EAEDF2%27%2F%3E%3C%2Fsvg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
- {"@type":"Question","name":"Can I keep my existing PickMyTrade alert format?","acceptedAnswer":{"@type":"Answer","text":"The webhook URL can stay - /v2/add-trade-data still answers. The message cannot. Add the strategy name you typed in the app and swap in your BridgePit token. The app's Copy block writes both, plus the two clocks. Keep the old body and the alert is refused."}},
- {"@type":"Question","name":"Why does it matter where execution runs?","acceptedAnswer":{"@type":"Answer","text":"A cloud service places your orders from its datacenter IP and holds your broker access to do it. Software on your own machine places orders from your own IP with credentials that never leave your computer. Rules differ by firm and change; always check your firm's current rules."}},
- {"@type":"Question","name":"Is BridgePit fully automated?","acceptedAnswer":{"@type":"Answer","text":"Semi-automated by design: it executes your TradingView alerts and you supervise. The kill-switch, per-strategy contract caps, duplicate rejection and the end-of-day flatten are on from the start. The daily loss stop is the one number you enter yourself."}},
- {"@type":"Question","name":"What does BridgePit cost compared to PickMyTrade?","acceptedAnswer":{"@type":"Answer","text":"BridgePit paper trading is free now. Live starts at $59/month or $590/year for one account (Seat); Desk is $99 for up to 3 accounts and Floor $149 for up to 10, all when it goes on sale. PickMyTrade lists $50/month, $135/quarter, or $500/year with a 5-day trial (checked August 2026). Your prop firm sets its own API-access fee, paid to the firm directly - not to us."}}]}
-</script>
+<link rel="canonical" href="https://bridgepit.com/pickmytrade-alternative">
+<meta name="theme-color" content="#111b23">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
 <style>
+
   :root{
     --bg:#0A0D12; --txt:#E6EAF0; --dim:#8C94A1; --dim2:#5C6470;
     --line:rgba(255,255,255,.08); --plate:#0D1117;
@@ -78,16 +72,18 @@
   .faq h3{font:500 17px var(--sans);color:#fff;margin:22px 0 6px}
   footer{border-top:1px solid var(--line);margin-top:40px;padding:26px 32px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:var(--dim2);font-size:13px;position:relative;z-index:1}
   footer a:hover{color:var(--txt)}
+
 </style>
+<link rel="stylesheet" href="/assets/retained-site.css?v=4fa32fdd71">
+<link rel="stylesheet" href="/showcase.css?v=4fa32fdd71">
+<link rel="stylesheet" href="/opening.css?v=4fa32fdd71">
+<link rel="stylesheet" href="/site-theme.css?v=4fa32fdd71">
+<link rel="stylesheet" href="/content-pages.css?v=4fa32fdd71">
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Can I keep my existing PickMyTrade alert format?", "acceptedAnswer": {"@type": "Answer", "text": "The webhook URL can stay - /v2/add-trade-data still answers. The message cannot. Add the strategy name you typed in the app and swap in your BridgePit token. The app's Copy block writes both, plus the two clocks. Keep the old body and the alert is refused."}}, {"@type": "Question", "name": "Why does it matter where execution runs?", "acceptedAnswer": {"@type": "Answer", "text": "A cloud service places your orders from its datacenter IP and holds your broker access to do it. Software on your own machine places orders from your own IP with credentials that never leave your computer. Rules differ by firm and change; always check your firm's current rules."}}, {"@type": "Question", "name": "Is BridgePit fully automated?", "acceptedAnswer": {"@type": "Answer", "text": "Semi-automated by design: it executes your TradingView alerts and you supervise. The kill-switch, per-strategy contract caps, duplicate rejection and the end-of-day flatten are on from the start. The daily loss stop is the one number you enter yourself."}}, {"@type": "Question", "name": "What does BridgePit cost compared to PickMyTrade?", "acceptedAnswer": {"@type": "Answer", "text": "BridgePit paper trading is free now. Live starts at $59/month or $590/year for one account (Seat); Desk is $99 for up to 3 accounts and Floor $149 for up to 10, all when it goes on sale. PickMyTrade lists $50/month, $135/quarter, or $500/year with a 5-day trial (checked August 2026). Your prop firm sets its own API-access fee, paid to the firm directly - not to us."}}]}]</script>
 </head>
-<body>
-
-<div class="chrome">
-  <a class="wm" href="./" style="display:inline-flex;align-items:center;gap:9px"><svg width='24' height='24' viewBox='0 0 128 128' fill='none' style='flex:none'><g stroke='#C7CCD6' stroke-width='2' stroke-linecap='round' opacity='.75'><line x1='46' y1='24' x2='24' y2='90'/><line x1='46' y1='24' x2='62' y2='90'/><line x1='82' y1='24' x2='104' y2='90'/><line x1='82' y1='24' x2='66' y2='90'/></g><line x1='16' y1='90' x2='112' y2='90' stroke='#C7CCD6' stroke-width='4' stroke-linecap='round'/><line x1='46' y1='22' x2='46' y2='98' stroke='#C7CCD6' stroke-width='3' stroke-linecap='round'/><line x1='82' y1='22' x2='82' y2='98' stroke='#C7CCD6' stroke-width='3' stroke-linecap='round'/><rect x='40' y='48' width='12' height='32' rx='2.5' fill='#B9BFCB'/><rect x='76' y='48' width='12' height='32' rx='2.5' fill='#EAEDF2'/></svg>BridgePit</a>
-  <a class="back" href="./">← BridgePit home</a>
-</div>
-
-<main>
+<body class="rd concept content-page page-article">
+<a class="skip-link" href="#main-content">Skip to content</a>
+<nav class="site-nav" aria-label="Main navigation"><div class="wrap nav-inner"><a class="brand" href="/"><img src="/assets/bridgepit.svg" width="26" height="26" alt="">BridgePit</a><div class="nav-links"><a href="/#the-app">Inside the app</a><a href="/#safety">Safety</a><a href="/#pricing">Pricing</a><a href="/setup.html">Setup</a><a href="/questions.html">Questions</a></div><a class="button compact" href="/#download">Try on paper <span aria-hidden="true">↗</span></a></div></nav><main id="main-content">
   <div class="kicker">Comparison · facts checked August 29, 2026</div>
   <h1>A PickMyTrade alternative that isn't another cloud.</h1>
   <p class="lede">PickMyTrade forwards your TradingView alerts to your broker through its servers. BridgePit does the same job with <b>no servers in the middle</b>: a desktop app on your own machine executes the alert, the order leaves from your own IP, and your broker login never leaves your computer. Same alerts - different architecture.</p>
@@ -127,7 +123,7 @@
 
   <h2>The URL can stay. The message cannot.</h2>
   <ol>
-    <li><b>Install BridgePit</b> and follow the <a href="setup" style="color:var(--blue)">20-minute setup</a> - it ends with a paper fill on your screen.</li>
+    <li><b>Install BridgePit</b> and follow the <a href="/setup.html" style="color:var(--blue)">20-minute setup</a> - it ends with a paper fill on your screen.</li>
     <li><b>Point each TradingView alert at your Mac.</b> The webhook URL can end in <code>/webhook</code> or <code>/v2/add-trade-data</code> - both answer. That is the only part that is a URL edit.</li>
     <li><b>Replace the message.</b> Do not keep the PickMyTrade body. In the app, <b>Settings → Alert setup → Copy block</b>. That writes the strategy name, your token, and the two clocks. Paste that into TradingView. Keep the old body and the alert is refused.</li>
     <li><b>Watch a day of paper fills</b>, then cancel the old subscription when you trust what you see.</li>
@@ -135,7 +131,7 @@
 
   <div class="cta">
     <a class="btn p" href="downloads/BridgePit-mac.dmg">Download for macOS · Apple Silicon</a>
-    <a class="btn g" href="setup">Full setup guide</a>
+    <a class="btn g" href="/setup.html">Full setup guide</a>
   </div>
 
   <h2 class="faq">Questions traders ask.</h2>
@@ -149,12 +145,8 @@
     <h3>What if my internet drops mid-position?</h3>
     <p>No new orders leave this Mac while it is down: TradingView cannot reach it, and it cannot reach the broker. A stop you set is already resting at the broker and still protects the open position. When the connection returns, BridgePit reconnects and the end-of-day flatten keeps asking the broker until it confirms the account is flat - and if it cannot by the cutoff, it raises the alarm rather than pretending. It is software on your machine: it runs while the Mac is awake, online and the app is open.</p>
   </div>
-</main>
-
-<footer>
-  <div>© 2026 BridgePit LLC · <a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a> · <a href="mailto:support@bridgepit.com">Contact</a></div>
-  <div><a href="setup">Setup guide</a> · <a href="prop-firm-automation-rules">Prop firm rules</a> · <a href="traderspost-alternative">TradersPost alternative</a> · <a href="tradingview-to-rithmic">TradingView to Rithmic</a> · <a href="automate-tradingview-alerts">Automate TradingView alerts</a> · <a href="./">bridgepit.com</a></div>
-</footer>
-
-</body>
-</html>
+<aside class="related-links" aria-label="Related reading"><a href="/prop-firm-automation-rules.html">Prop firm rules</a><a href="/traderspost-alternative.html">TradersPost alternative</a><a href="/tradingview-to-rithmic.html">TradingView to Rithmic</a><a href="/automate-tradingview-alerts.html">Automate TradingView alerts</a></aside></main><footer class="rd-foot"><div class="rd-wrap"><div class="fl">
+<a href="/setup.html">Setup guide</a><a href="/questions.html">Questions</a>
+<a href="/terms.html">Terms</a><a href="/privacy.html">Privacy</a><a href="mailto:support@bridgepit.com">support@bridgepit.com</a>
+</div><div class="fr"><b>From traders, for traders.</b> © 2026 BridgePit LLC. BridgePit runs on your machine. We never see your credentials, your positions or your orders.</div></div></footer>
+</body></html>

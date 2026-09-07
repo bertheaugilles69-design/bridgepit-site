@@ -1,0 +1,5 @@
+/* Containment only. The application's layout, type and component styles are unchanged. */
+html{scroll-behavior:auto;scrollbar-width:none}::-webkit-scrollbar{display:none}
+body{overflow-x:hidden}.app{pointer-events:none}
+body[data-still="true"] *,body[data-still="true"] *::before,body[data-still="true"] *::after{animation:none!important;transition:none!important}
+.view.active{animation:none!important}

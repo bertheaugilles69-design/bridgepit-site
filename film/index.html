@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>BridgePit — Film</title>
+<link rel="icon" href="assets/bridgepit.svg" type="image/svg+xml">
+<link rel="stylesheet" href="film.css">
+<link rel="stylesheet" href="finish.css">
+<style>
+html,body{padding:0!important;margin:0;background:#0b1220;color:#d3dbe5;overflow:hidden}
+.preview-head,.preview-note{display:none!important}
+main{width:100%!important;max-width:none!important;margin:0!important;padding:0!important;height:100dvh;display:flex;flex-direction:column;align-items:center}
+.cinema{border-radius:0!important;min-height:0!important;max-height:none!important;flex:none;width:min(100%,calc((100dvh - 112px)*1.6));aspect-ratio:16/10;box-shadow:none}
+.transport{width:100%;max-width:960px;padding:12px 16px;margin:0;color:#d3dbe5;flex:none}
+.transport button{color:#d3dbe5;background:#172436;border-color:#334050}
+.transport #play{background:#d8e1e4;color:#102030}.transport .timecode{color:#a8b7c6}
+.chapters{width:100%;max-width:960px;padding:0 16px 12px;gap:6px;justify-content:center;margin:0;flex:none}
+.chapters button{background:#152131;color:#a4b2c2;border-color:#334050}.chapters button.active{background:#263b48;color:#e7eeeb}.chapters button span{color:inherit}
+@media(max-width:560px){.cinema{width:min(100%,calc((100dvh - 180px)*.666667));aspect-ratio:2/3}.chapters{padding-inline:8px}.transport{padding-inline:12px;grid-template-columns:88px 26px minmax(0,1fr) 28px}.transport #scrub{grid-column:1/3;min-width:0}.transport .timecode{grid-column:3/5;justify-self:end;min-width:0}.transport #sound{padding-inline:5px}.transport #play{min-width:0}}
+@media(max-width:359px){.cinema{width:min(100%,calc((100dvh - 180px)*.6));aspect-ratio:3/5}}
+</style></head>
+<body>
+<header class="preview-head"><a class="wordmark" href="./">BridgePit<span class="sep">/</span><span class="edition">Film 04</span></a><span class="private">Local preview</span><a class="original" href="versions/film-02/?at=0" target="_blank" rel="noopener">Previous cut ↗</a></header>
+<main>
+<div class="cinema" id="cinema" tabindex="0" role="region" aria-label="BridgePit product film">
+  <div class="film-canvas" id="film-canvas">
+  <div class="film-top"><span class="brand"><svg viewBox="0 0 128 128" aria-hidden="true"><g stroke="currentColor" stroke-width="3" fill="none"><path d="M46 22L24 90M46 22L64 90M82 22L104 90M82 22L64 90" opacity=".55"/><path d="M16 90H112M46 22V98M82 22V98" stroke-width="5"/></g><rect x="40" y="46" width="12" height="32" rx="2" fill="currentColor"/><rect x="76" y="36" width="12" height="32" rx="2" fill="currentColor"/></svg>BridgePit</span><span id="chapter-label">01 / Execution</span></div>
+  <div class="film-scenes">
+    <section class="scene active" id="execution" aria-label="An alert becomes an order">
+      <div class="scene-heading"><p class="eyebrow">From TradingView. Through your Mac.</p><h1>Your alert.<br><span class="accent">Executed here.</span></h1></div>
+      <div class="execution-stage">
+        <div class="chart-surface" id="chart-surface"><div class="surface-head"><b>MNQU6</b><span>1 min · TradingView alert</span><time>09:47 ET</time></div>
+          <svg class="chart" viewBox="0 0 540 240" role="img" aria-label="Illustrative price chart crossing an alert level"><defs><linearGradient id="chart-fill" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#42ce9b" stop-opacity=".15"/><stop offset="1" stop-color="#42ce9b" stop-opacity="0"/></linearGradient></defs><g class="chart-grid"><path d="M0 48H540M0 104H540M0 160H540M0 216H540"/></g><path class="area" d="M0 160L20 155L32 170L46 166L61 132L76 142L87 118L100 123L115 85L126 98L146 80L167 95L182 129L205 119L217 147L239 138L254 153L271 142L286 171L303 161L323 183L341 159L355 167L370 132L388 141L402 121L420 133L438 113L453 119L470 88L482 96L497 71L514 78L535 28V240H0Z"/>
+          <path class="price-line" pathLength="1" d="M0 160L20 155L32 170L46 166L61 132L76 142L87 118L100 123L115 85L126 98L146 80L167 95L182 129L205 119L217 147L239 138L254 153L271 142L286 171L303 161L323 183L341 159L355 167L370 132L388 141L402 121L420 133L438 113L453 119L470 88L482 96L497 71L514 78L535 28"/>
+          <path class="alert-level" d="M0 81H540"/><text x="12" y="72">Alert level</text><circle class="chart-pulse" cx="535" cy="28" r="5"/>
+          </svg><div class="signal-ticket" data-cue="1.15"><span class="signal-dot"></span><b>BUY 2 MNQU6</b><span>Alert fired</span><time>09:47:11</time></div>
+        </div>
+        <div class="transfer" aria-hidden="true"><span></span><i></i></div>
+        <div class="execution-receipt"><div class="surface-head"><b>Your Mac</b><span>BridgePit</span><span class="status live"><i></i>Live</span></div><div class="execution-events" id="execution-events"></div><div class="receipt-foot" data-cue="2.8"><span class="check">✓</span>Confirmed by your broker.</div></div>
+      </div>
+    </section>
+    <section class="scene" id="stop" aria-label="Safety stop confirmed at the broker">
+      <div class="scene-heading"><p class="eyebrow">Your safety stop, when you set one.</p><h1>Placed is good.<br><span class="accent">Confirmed is better.</span></h1></div>
+      <div class="stop-stage"><div class="stop-states"><div class="stop-state" data-cue=".8"><span class="step-dot">1</span><div><b>Order filled</b><span>09:47:12</span></div></div><div class="state-line"></div><div class="stop-state" data-cue="2.6"><span class="step-dot">2</span><div><b>Stop placed</b><span>09:47:13</span></div></div><div class="state-line"></div><div class="stop-state verified" data-cue="5.4"><span class="step-dot">✓</span><div><b>Stop resting</b><span>09:47:33</span></div></div></div>
+        <div class="activity-surface"><div class="surface-head"><b>Recent activity</b><span>Funded 50K</span><span id="stop-status">Waiting for confirmation</span></div><div id="stop-events"></div></div>
+        <div class="stop-assurance" data-cue="5.8"><span class="check">✓</span><span>Held at the broker.<br><strong>Even when your Mac is asleep.</strong></span><div class="stop-price"><small>Safety stop</small><b>23,362.25</b></div></div>
+      </div>
+    </section>
+    <section class="scene" id="accounts" aria-label="One alert, separate account sizes and limits">
+      <div class="scene-heading"><p class="eyebrow">The same signal. Your settings.</p><h1>One alert.<br><span class="accent">Separate rules.</span></h1></div>
+      <div class="accounts-stage"><div class="routing-source"><span class="signal-dot"></span><b>breakout-1m</b><span>BUY · MNQU6</span></div><svg class="routing-lines" viewBox="0 0 900 56" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M450 0V20Q450 30 440 30H235Q225 30 225 40V56M450 20Q450 30 460 30H665Q675 30 675 40V56"/></svg>
+      <div class="account-grid"><article class="acct exec" data-cue=".7"><div class="head"><div><b class="nm">Funded 50K</b><small class="aid">50K-01</small></div><span class="badge">Execution</span></div><div class="position-hero"><span id="size-a" data-cue="1.7" data-motion="fade">2</span><small>MNQU6 contracts</small></div><div class="account-rules"><span>Daily loss limit<b>−$600</b></span><span>Safety stop<b>50 points</b></span></div><div class="account-fill" data-cue="1.7"><span class="check">✓</span>BUY 2 · broker confirmed</div></article>
+      <article class="acct route" data-cue=".8"><div class="head"><div><b class="nm">Eval 100K</b><small class="aid">100K-02</small></div><span class="badge route">Routed</span></div><div class="position-hero"><span id="size-b" data-cue="1.9" data-motion="fade">3</span><small>MNQU6 contracts</small></div><div class="account-rules"><span>Daily loss limit<b>−$1,000</b></span><span>Safety stop<b>75 points</b></span></div><div class="account-fill" data-cue="1.9"><span class="check">✓</span>BUY 3 · broker confirmed</div></article></div>
+      <p class="scene-note" data-cue="3.4">Its own size. Its own stop. Its own loss limit.</p></div>
+    </section>
+    <section class="scene" id="duplicate" aria-label="A repeated alert is refused">
+      <div class="scene-heading"><p class="eyebrow">Four seconds after the first alert.</p><h1>Twice received.<br><span class="accent">Once executed.</span></h1></div>
+      <div class="duplicate-stage"><div class="duplicate-stack"><div class="duplicate-ticket original-ticket"><div><small>09:47:11 · breakout-1m</small><b>BUY 2 MNQU6</b></div><span class="accepted">Filled <i>✓</i></span></div><div class="duplicate-ticket second-ticket" data-cue=".55"><div><small>09:47:15 · same signal</small><b>BUY 2 MNQU6</b></div><span class="refused" data-cue="1.1">Refused <i>×</i></span></div></div>
+      <div class="position-proof" data-cue="1.4" data-motion="fade"><span>Your position</span><div><strong>2</strong><span>contracts<br><b>No extra order.</b></span></div></div></div>
+      <div class="duplicate-log" data-cue="1.2"><span class="reject-label">REJECT</span><span>burst duplicate within 10s</span><span>Recorded in Recent activity</span></div>
+    </section>
+    <section class="scene" id="phone" aria-label="Telegram status and confirmed halt">
+      <div class="phone-layout"><div class="phone-copy"><p class="eyebrow">Away from the desk.</p><h1 id="phone-heading"><span class="phone-title phone-title-status">Your accounts.<br><span class="accent">A message away.</span></span><span class="phone-title phone-title-halt" aria-hidden="true">One confirmation.<br><span class="accent">New entries stop.</span></span></h1><div class="desk-status"><div class="surface-head"><b>BridgePit</b><span id="phone-desk-clock">09:50 ET</span></div><div class="status-large" id="phone-desk-state"><i></i><strong>Live</strong></div><p id="phone-desk-detail">Funded 50K · 2 contracts<br>Eval 100K · 3 contracts</p><div class="status-foot" id="phone-desk-foot">Your Mac stays awake and connected.</div></div><p class="phone-consequence" id="phone-consequence">Check the connection.<br>Keep control from your phone.</p></div>
+      <div class="telegram"><div class="telegram-head"><span class="back">‹</span><span class="avatar">B</span><div><b>BridgePit</b><small>bot · Telegram</small></div></div><div class="chat-viewport"><div id="chat-messages"></div></div><div class="chat-compose"><span>Message</span><span>⌁</span></div></div></div>
+    </section>
+    <section class="scene" id="close" aria-label="Scheduled close and broker-confirmed flat accounts">
+      <div class="scene-heading"><p class="eyebrow">End of day. On your terms.</p><h1>Your closing time.<br><span class="accent">Set by you.</span></h1></div>
+      <div class="close-composition">
+        <div class="schedule-face" data-cue=".3" data-motion="fade">
+          <div class="schedule-time" aria-label="16:05 New York time"><span>16</span><span class="time-colon">:</span><span>05</span></div>
+          <div class="schedule-meta"><span class="schedule-label">Scheduled close</span><span class="schedule-zone">New York time</span></div>
+          <span class="schedule-state" id="schedule-state"><i></i><span>Scheduled</span></span>
+        </div>
+        <div class="session-track" data-cue=".7" data-motion="fade" aria-label="Session approaching the scheduled closing time">
+          <div class="session-rule"><span class="session-progress"></span><i class="session-marker"></i><span class="session-needle"></span></div>
+          <div class="session-hours"><span>15:55</span><span>16:00</span><span>16:05</span></div>
+        </div>
+        <div class="settlement" data-cue="1.25" data-motion="fade">
+          <div class="settlement-account" id="settlement-a"><span class="settlement-name">Funded 50K</span><span class="settlement-value"><span class="before">2 open contracts</span><span class="after"><i class="flat-check">✓</i> Flat</span></span></div>
+          <div class="settlement-account" id="settlement-b"><span class="settlement-name">Eval 100K</span><span class="settlement-value"><span class="before">3 open contracts</span><span class="after"><i class="flat-check">✓</i> Flat</span></span></div>
+        </div>
+        <div class="close-confirmation" data-cue="5.5" data-motion="fade"><span class="confirmation-line"></span><span>Both accounts flat.<small>Confirmed by your broker.</small></span></div>
+      </div>
+      <p class="close-caveat" data-cue="5.65" data-motion="fade">If a close cannot be confirmed, BridgePit raises the alarm.</p>
+    </section>
+    <section class="scene end-scene" id="end" aria-label="BridgePit, free on paper">
+      <div class="end-inner"><div class="end-emblem" data-cue=".0" data-motion="fade"><svg class="end-mark" viewBox="0 0 128 128" aria-hidden="true"><g stroke="currentColor" stroke-width="3" fill="none"><path d="M46 22L24 90M46 22L64 90M82 22L104 90M82 22L64 90" opacity=".5"/><path d="M16 90H112M46 22V98M82 22V98" stroke-width="5"/></g><rect x="40" y="46" width="12" height="32" rx="2" fill="currentColor"/><rect x="76" y="36" width="12" height="32" rx="2" fill="currentColor"/></svg></div>
+      <h1 class="end-wordmark" aria-label="BridgePit" data-cue=".18" data-motion="fade"><span>Bridge</span><span>Pit</span></h1>
+      <div class="end-words"><span data-cue="1.0" data-motion="fade">Your laptop.</span><span data-cue="1.7" data-motion="fade">Your alerts.</span><span data-cue="2.4" data-motion="fade">Your control.</span></div>
+      <p class="end-invite" data-cue="4.0" data-motion="fade">A whole session on paper. <span>Free.</span></p></div>
+    </section>
+  </div>
+  <div class="subtitle" id="subtitle" hidden></div>
+  <div class="film-baseline"><span id="scene-location">Your Mac → your broker</span><span>Illustrative session</span></div>
+  </div>
+</div>
+<div class="transport" aria-label="Film controls"><button id="play" aria-label="Play film">▶ <span>Play film</span></button><button id="replay" aria-label="Replay film">↺</button><input id="scrub" type="range" min="0" max="100" step="0.01" value="0" aria-label="Film position"><span class="timecode" id="timecode">0:00 / 0:50</span><button id="sound" aria-label="Turn sound on">Sound off</button><button id="captions" aria-label="Show captions" aria-pressed="false">CC</button><button id="fullscreen" aria-label="Full screen">⛶</button></div>
+<nav class="chapters" aria-label="Film chapters"></nav>
+<p class="preview-note">Film 04 · Tighter phone, closing and signature transitions.</p>
+</main>
+<audio id="voice" src="assets/film.mp3?cut=04-tight-close" preload="auto"></audio>
+<script src="timeline.js"></script><script src="product.js"></script><script src="film.js"></script>
+</body></html>
