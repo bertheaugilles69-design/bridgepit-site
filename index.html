@@ -20,14 +20,14 @@
 <link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/retained-site.css?v=5f39b1fbbb">
-<link rel="stylesheet" href="/showcase.css?v=5f39b1fbbb">
-<link rel="stylesheet" href="/opening.css?v=5f39b1fbbb">
-<link rel="stylesheet" href="/site-theme.css?v=5f39b1fbbb">
-<link rel="stylesheet" href="/content-pages.css?v=5f39b1fbbb">
-<link rel="stylesheet" href="/light-site.css?v=5f39b1fbbb">
-<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "BridgePit", "operatingSystem": "macOS (Apple Silicon)", "applicationCategory": "FinanceApplication", "url": "https://bridgepit.com/", "description": "BridgePit executes TradingView strategy alerts on the trader's own futures broker account, locally from the trader's own computer and IP address. Semi-automated by design: it executes, the trader supervises. Kill switch, position caps, duplicate rejection and end-of-day flatten are on from the start.", "offers": [{"@type": "Offer", "name": "Paper", "price": "0", "priceCurrency": "USD", "availability": "https://schema.org/InStock"}, {"@type": "Offer", "name": "Seat", "price": "59", "priceCurrency": "USD", "availability": "https://schema.org/PreOrder"}, {"@type": "Offer", "name": "Desk", "price": "99", "priceCurrency": "USD", "availability": "https://schema.org/PreOrder"}, {"@type": "Offer", "name": "Floor", "price": "149", "priceCurrency": "USD", "availability": "https://schema.org/PreOrder"}]}, {"@context": "https://schema.org", "@type": "Organization", "name": "BridgePit LLC", "url": "https://bridgepit.com/", "logo": "https://bridgepit.com/og.png", "email": "support@bridgepit.com"}]</script><script src="/site.js?v=cda71bcee6" defer></script>
-<script src="/film-player.js?v=cda71bcee6" defer></script><script src="/home.js?v=cda71bcee6" defer></script>
+<link rel="stylesheet" href="/assets/retained-site.css?v=469dfebd02">
+<link rel="stylesheet" href="/showcase.css?v=469dfebd02">
+<link rel="stylesheet" href="/opening.css?v=469dfebd02">
+<link rel="stylesheet" href="/site-theme.css?v=469dfebd02">
+<link rel="stylesheet" href="/content-pages.css?v=469dfebd02">
+<link rel="stylesheet" href="/light-site.css?v=469dfebd02">
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "BridgePit", "operatingSystem": "macOS (Apple Silicon)", "applicationCategory": "FinanceApplication", "url": "https://bridgepit.com/", "description": "BridgePit executes TradingView strategy alerts on the trader's own futures broker account, locally from the trader's own computer and IP address. Semi-automated by design: it executes, the trader supervises. Kill switch, position caps, duplicate rejection and end-of-day flatten are on from the start.", "offers": [{"@type": "Offer", "name": "Paper", "price": "0", "priceCurrency": "USD", "availability": "https://schema.org/InStock"}, {"@type": "Offer", "name": "Seat", "price": "59", "priceCurrency": "USD", "availability": "https://schema.org/PreOrder"}, {"@type": "Offer", "name": "Desk", "price": "99", "priceCurrency": "USD", "availability": "https://schema.org/PreOrder"}, {"@type": "Offer", "name": "Floor", "price": "149", "priceCurrency": "USD", "availability": "https://schema.org/PreOrder"}]}, {"@context": "https://schema.org", "@type": "Organization", "name": "BridgePit LLC", "url": "https://bridgepit.com/", "logo": "https://bridgepit.com/og.png", "email": "support@bridgepit.com"}]</script><script src="/site.js?v=dca13bfeed" defer></script>
+<script src="/film-player.js?v=dca13bfeed" defer></script><script src="/home.js?v=dca13bfeed" defer></script>
 </head>
 <body class="rd concept home-page">
 <a class="skip-link" href="#main-content">Skip to content</a>
@@ -45,21 +45,27 @@
   </div>
   <div class="reel-caption"><span>A closer look at a day with BridgePit.</span><span>Free on paper. No card.</span></div>
 </section>
-<section class="journey wrap" aria-labelledby="journey-title">
+<section class="journey wrap" id="journey" aria-labelledby="journey-title">
   <header class="journey-heading"><p class="eyebrow">The journey of an alert</p><h2 id="journey-title">From your strategy.<br>Through your machine.</h2><p>One signal. A clear path from TradingView to your broker.</p></header>
   <div class="journey-panels">
-    <article class="journey-panel signal-panel" data-drift="22">
+    <div class="journey-step" data-direction="-1">
+    <article class="journey-panel signal-panel">
       <div class="journey-copy"><span class="journey-number">01 / TradingView</span><h3>The alert arrives.</h3><p>Your strategy sends the signal. BridgePit receives it on your Mac.</p></div>
-      <div class="signal-artifact" data-drift="-12"><div class="artifact-cap"><span class="signal-led" aria-hidden="true"></span>breakout-1m <time>09:47:11 ET</time></div><div class="signal-order"><b>BUY</b><span>2 <small>MNQU6</small></span><span class="artifact-arrow" aria-hidden="true">↗</span></div><div class="artifact-foot">TradingView alert <span>Received</span></div></div>
+      <div class="signal-artifact"><div class="artifact-cap"><span class="signal-led" aria-hidden="true"></span>breakout-1m <time>09:47:11 ET</time></div><div class="signal-order"><b>BUY</b><span>2 <small>MNQU6</small></span><span class="artifact-arrow" aria-hidden="true">↗</span></div><div class="artifact-foot">TradingView alert <span>Received</span></div></div>
     </article>
-    <article class="journey-panel execution-panel" data-drift="-16">
+    </div>
+    <div class="journey-step" data-direction="1">
+    <article class="journey-panel execution-panel">
       <div class="journey-copy"><span class="journey-number">02 / Your Mac</span><h3>The order leaves.</h3><p>Follow the order, fill and safety stop in the application’s own recent activity.</p></div>
-      <figure class="activity-artifact" data-drift="10"><img src="/rd-log@2x.png" width="1152" height="230" loading="lazy" alt="BridgePit Recent activity showing an order, its fill, a placed safety stop and the broker’s confirmation."><figcaption>Actual application · Example activity<span class="artifact-swipe">Swipe to read ↔</span></figcaption></figure>
+      <figure class="activity-artifact"><img src="/rd-log@2x.png" width="1152" height="230" loading="lazy" alt="BridgePit Recent activity showing an order, its fill, a placed safety stop and the broker’s confirmation."><figcaption>Actual application · Example activity<span class="artifact-swipe">Swipe to read ↔</span></figcaption></figure>
     </article>
-    <article class="journey-panel broker-panel" data-drift="18">
+    </div>
+    <div class="journey-step" data-direction="-1">
+    <article class="journey-panel broker-panel">
       <div class="journey-copy"><span class="journey-number">03 / Your broker</span><h3>Your stop rests there.</h3><p>When you set a safety stop, BridgePit places it with the broker and checks that it is working.</p></div>
-      <div class="broker-artifact" data-drift="-10"><div class="artifact-cap">Safety stop <span class="broker-confirmed">✓ Confirmed</span></div><div class="broker-stop"><span>23,362.25</span><small>SELL 2 · MNQU6</small></div><div class="artifact-foot">Held at the broker <span>Working</span></div></div>
+      <div class="broker-artifact"><div class="artifact-cap">Safety stop <span class="broker-confirmed">✓ Confirmed</span></div><div class="broker-stop"><span>23,362.25</span><small>SELL 2 · MNQU6</small></div><div class="artifact-foot">Held at the broker <span>Working</span></div></div>
     </article>
+    </div>
   </div>
   <div class="journey-more"><p>See the actual dashboard, each order and the limits you choose.</p><a class="text-link" href="/how-it-works.html">Inside the application <span aria-hidden="true">↗</span></a></div>
 </section>

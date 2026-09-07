@@ -1,4 +1,4 @@
-/* Silent excerpts from the approved film, plus restrained scroll motion. */
+/* Silent excerpts from the approved film, plus the scroll-driven alert journey. */
 (() => {
   'use strict';
   const frame=document.getElementById('film-teaser'),reel=document.getElementById('home-reel');
@@ -28,17 +28,66 @@
   document.addEventListener('visibilitychange',sync);
   document.addEventListener('bridgepit:film-open',()=>{filmOpen=true;sync();});
   document.addEventListener('bridgepit:film-close',()=>{filmOpen=false;sync();});
-  reduced.addEventListener('change',()=>{if(reduced.matches){wants=false;sync();frame.style.opacity='1';}drift();});
-  const items=[...document.querySelectorAll('[data-drift]')];let scheduled=false;
-  function drift(){
-    scheduled=false;
-    const disabled=reduced.matches||innerWidth<=700,mid=innerHeight/2;
-    items.forEach(el=>{
-      const rect=el.getBoundingClientRect(),previous=parseFloat(el.style.getPropertyValue('--shift'))||0;
-      const offset=Math.max(-1,Math.min(1,(mid-(rect.top-previous+rect.height/2))/innerHeight));
-      el.style.setProperty('--shift',(disabled?0:offset*Number(el.dataset.drift)).toFixed(2)+'px');
+  reduced.addEventListener('change',()=>{
+    if(reduced.matches){wants=false;sync();frame.style.opacity='1';}
+    resetJourneyMotion();scheduleJourney();
+  });
+
+  // Untransformed wrappers are stable scroll anchors. Measuring a moving panel
+  // (or its children) would feed its own animation back into the next frame.
+  const steps=[...document.querySelectorAll('.journey-step')].map(el=>({el,direction:Number(el.dataset.direction),position:null}));
+  const motionProperties=['--journey-x','--journey-y','--journey-tilt','--journey-scale','--artifact-x','--artifact-y','--artifact-tilt'];
+  let journeyFrame=0,lastJourneyTime=0;
+  function renderJourney(now){
+    journeyFrame=0;
+    if(reduced.matches||document.hidden)return;
+    const height=innerHeight,mobile=innerWidth<=700;
+    const elapsed=lastJourneyTime?Math.min(now-lastJourneyTime,64):16;
+    const ease=1-Math.exp(-elapsed/90);
+    lastJourneyTime=now;
+    // Read all layout before writing any transforms.
+    const bounds=steps.map(step=>step.el.getBoundingClientRect());
+    let settling=false;
+    steps.forEach((step,index)=>{
+      const rect=bounds[index],near=rect.bottom>-160&&rect.top<height+160;
+      const target=Math.max(-1,Math.min(1,(height/2-rect.top-rect.height/2)/(height/2+rect.height/2)));
+      if(step.position===null||!near)step.position=target;
+      else if(Math.abs(target-step.position)<.001)step.position=target;
+      else{step.position+=(target-step.position)*ease;settling=true;}
+      const p=step.position,d=step.direction;
+      const values=[
+        (mobile?0:d*p*30).toFixed(2)+'px',
+        (-p*(mobile?22:38)).toFixed(2)+'px',
+        (mobile?0:d*p*1.15).toFixed(3)+'deg',
+        (1-Math.abs(p)*(mobile?.015:.03)).toFixed(4),
+        (mobile?0:-d*p*14).toFixed(2)+'px',
+        (p*(mobile?12:30)).toFixed(2)+'px',
+        (mobile?0:-d*p*.7).toFixed(3)+'deg'
+      ];
+      motionProperties.forEach((property,i)=>step.el.style.setProperty(property,values[i]));
+      step.el.classList.toggle('is-near',near);
+    });
+    if(settling)journeyFrame=requestAnimationFrame(renderJourney);
+    else lastJourneyTime=0;
+  }
+  function scheduleJourney(){
+    if(!journeyFrame&&!reduced.matches&&!document.hidden)journeyFrame=requestAnimationFrame(renderJourney);
+  }
+  function resetJourneyMotion(){
+    cancelAnimationFrame(journeyFrame);journeyFrame=0;lastJourneyTime=0;
+    steps.forEach(step=>{
+      step.position=null;step.el.classList.remove('is-near');
+      motionProperties.forEach(property=>step.el.style.removeProperty(property));
     });
   }
-  function schedule(){if(!scheduled){scheduled=true;requestAnimationFrame(drift);}}
-  addEventListener('scroll',schedule,{passive:true});addEventListener('resize',schedule);drift();
+  addEventListener('scroll',scheduleJourney,{passive:true});
+  addEventListener('resize',scheduleJourney);
+  addEventListener('pageshow',()=>{resetJourneyMotion();scheduleJourney();});
+  document.addEventListener('visibilitychange',()=>{
+    if(document.hidden){cancelAnimationFrame(journeyFrame);journeyFrame=0;lastJourneyTime=0;}
+    else scheduleJourney();
+  });
+  new ResizeObserver(scheduleJourney).observe(document.querySelector('.journey-panels'));
+  document.fonts.ready.then(scheduleJourney);
+  scheduleJourney();
 })();
