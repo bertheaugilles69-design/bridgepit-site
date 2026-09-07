@@ -8,8 +8,8 @@
   const query=new URLSearchParams(location.search);
   let scene='dashboard', time=0, playing=false, ready=false, expanded=false, hasPlayed=false;
   let wantsPlayback=!reduced.matches&&!query.has('at')&&!query.has('scene'), onScreen=false;
-  let lastTick=0, sentAt=0, captionKey='', filmOpener=null, resumeAfterFilm=false;
-  let cameraKey='',userPanned=false;
+  let lastTick=0, sentAt=0, captionKey='', resumeAfterFilm=false;
+  let cameraKey='',userPanned=false,scrollBeforeExpand=0;
   window.__conceptQA={errors:[],state:null};
   window.addEventListener('error',e=>window.__conceptQA.errors.push(e.message));
   const names={dashboard:'Dashboard',execution:'Follow an alert',limits:'Account limits'};
@@ -34,7 +34,8 @@
       const introduction=intro.offsetHeight+parseFloat(getComputedStyle(intro).marginBottom);
       const padding=parseFloat(layout.paddingTop)+parseFloat(layout.paddingBottom);
       const controls=$('.demo-transport').offsetHeight+$('.pan-hint').offsetHeight+2;
-      const available=Math.max(1,screenHeight()-nav.offsetHeight-surrounding-controls-padding-(mobile?0:introduction));
+      const alongside=layout.display==='grid';
+      const available=Math.max(1,screenHeight()-nav.offsetHeight-surrounding-controls-padding-(mobile||alongside?0:introduction));
       scale=mobile?.9:Math.min((stage.clientWidth-2)/1280,available/780);
       h=mobile?Math.min(540,available):780*scale;
       if(!mobile)panel.style.width=(1280*scale+2)+'px';
@@ -121,6 +122,7 @@
   });
   const expand=$('#expand-demo');
   function setExpanded(on){
+    if(on)scrollBeforeExpand=window.scrollY;
     stage.style.height=on?panel.offsetHeight+'px':'';
     expanded=on;panel.classList.toggle('expanded',on);document.body.style.overflow=on?'hidden':'';
     $('.opening').classList.toggle('has-expanded',on);
@@ -128,11 +130,15 @@
     expand.setAttribute('aria-label',on?'Close enlarged application showcase':'Enlarge the application showcase');
     panel.setAttribute('role',on?'dialog':'tabpanel');if(on)panel.setAttribute('aria-modal','true');else panel.removeAttribute('aria-modal');
     userPanned=false;cameraKey='';
-    requestAnimationFrame(()=>{paint(true);syncPlayback();});
+    // Refit before restoring focus so Safari never scrolls to a temporary,
+    // full-height iframe while the enlarged view is collapsing.
+    paint(true);syncPlayback();
+    if(!on)window.scrollTo({top:scrollBeforeExpand,behavior:'instant'});
+    requestAnimationFrame(()=>{paint(true);if(!on)window.scrollTo({top:scrollBeforeExpand,behavior:'instant'});});
   }
   expand.addEventListener('click',()=>setExpanded(!expanded));
   window.addEventListener('keydown',e=>{
-    if(e.key==='Escape'&&expanded){setExpanded(false);expand.focus();}
+    if(e.key==='Escape'&&expanded){setExpanded(false);expand.focus({preventScroll:true});}
     if(e.key==='Tab'&&expanded){const list=[...panel.querySelectorAll('button,input,[tabindex="0"]')];const i=list.indexOf(document.activeElement);if(e.shiftKey&&i<=0){e.preventDefault();list.at(-1).focus();}else if(!e.shiftKey&&(i<0||i===list.length-1)){e.preventDefault();list[0].focus();}}
   });
   viewport.addEventListener('pointerdown',()=>{if(panel.classList.contains('can-pan')){userPanned=true;pause();}});
@@ -140,7 +146,7 @@
     if(e.origin!==location.origin||e.source!==frame.contentWindow)return;
     if(e.data?.type==='bridgepit:ready'){
       ready=true;$('#screen-loading').hidden=true;paint(true);syncPlayback();
-      frame.contentDocument.addEventListener('keydown',e=>{if(e.key==='Escape'&&expanded){e.preventDefault();setExpanded(false);expand.focus();}});
+      frame.contentDocument.addEventListener('keydown',e=>{if(e.key==='Escape'&&expanded){e.preventDefault();setExpanded(false);expand.focus({preventScroll:true});}});
     }
     if(e.data?.type==='bridgepit:state')window.__conceptQA.state=e.data;
     if(e.data?.type==='bridgepit:error'){window.__conceptQA.errors.push(e.data.error);$('#screen-loading').hidden=false;$('#screen-loading').textContent='The example could not load. Please refresh the page.';}
@@ -156,22 +162,9 @@
     requestAnimationFrame(tick);
   }
   requestAnimationFrame(tick);
-  // Load the paused film ahead of the Watch gesture. Safari needs the sound
-  // request within that gesture, not an asynchronous iframe load callback.
-  const film=document.createElement('iframe');film.src='film/index.html?at=0';film.title='BridgePit overview film';film.allow='autoplay; fullscreen';
-  film.addEventListener('load',()=>film.contentDocument.addEventListener('keydown',e=>{
-    if(e.key==='Escape'&&dialog.open&&!film.contentDocument.fullscreenElement){e.preventDefault();dialog.close();}
-  }));
-  $('#film-container').append(film);
-  function openFilm(e){
-    resumeAfterFilm=wantsPlayback;pause();filmOpener=e.currentTarget;dialog.showModal();document.body.style.overflow='hidden';
-    film.contentWindow.filmPreview?.seek(0);
-    const button=film.contentDocument?.getElementById('play');if(button)button.click();
-  }
-  $$('[data-film]').forEach(b=>b.addEventListener('click',openFilm));
-  $('#film-close').addEventListener('click',()=>dialog.close());
-  dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close();}});
-  dialog.addEventListener('close',()=>{film.contentWindow.filmPreview?.pause();document.body.style.overflow='';wantsPlayback=resumeAfterFilm;syncPlayback();filmOpener?.focus();});
+  document.addEventListener('bridgepit:film-open',()=>{resumeAfterFilm=wantsPlayback;pause();});
+  document.addEventListener('bridgepit:film-close',()=>{wantsPlayback=resumeAfterFilm;syncPlayback();});
+  $$('[data-demo-link]').forEach(link=>link.addEventListener('click',e=>{e.preventDefault();select(link.dataset.demoLink);revealPlayer();}));
   window.conceptPreview={
     seek:(next,t)=>{select(next,false);time=Math.max(0,Math.min(duration,Number(t)||0));hasPlayed=true;paint(true);},
     getState:()=>({scene,time,playing,ready,expanded,...window.__conceptQA}),

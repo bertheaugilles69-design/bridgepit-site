@@ -1,0 +1,13 @@
+/* Only the silent preview's surrounding presentation changes. Film scenes are retained. */
+.transport,.chapters,.preview-head,.preview-note{display:none!important}
+html,body,main{height:100%!important;overflow:hidden!important;background:#0b1220!important}
+main{justify-content:center!important}
+.cinema{width:100%!important;height:100%!important;aspect-ratio:auto!important;flex:none!important;min-height:0!important}
+@media(min-width:701px){
+  .film-top{top:6%;font-size:11px}.film-top .brand{font-size:14px}.film-baseline{display:none}
+  .film-scenes{inset:18% 6% 18%}.scene:not(#phone){display:grid;grid-template-columns:.8fr 1.2fr;gap:5%;align-items:center}.scene-heading{margin:0}.scene-heading h1,#accounts h1,.phone-copy h1{font-size:clamp(30px,3.5cqw,49px);line-height:1.08}.scene-heading .eyebrow,.phone-copy .eyebrow{font-size:13px;line-height:1.6;max-width:28ch;margin-bottom:14px}
+  .execution-stage,.accounts-stage{container-type:inline-size}.execution-stage .surface-head{font-size:11px;gap:6px}.execution-stage .surface-head span,.execution-stage .surface-head time{font-size:9px}.execution-stage .signal-ticket time{display:none}.execution-stage .signal-ticket{font-size:11px}.execution-stage .product-event{grid-template-columns:58px 1fr;gap:10px;font-size:12px}.execution-stage .event-tag{font-size:10px}.execution-stage .evt-sub{font-size:10px}.execution-stage .receipt-foot{font-size:11px;gap:5px}.execution-stage .receipt-foot .check{width:18px;height:18px;font-size:12px}
+  .accounts-stage .scene-note{display:none}.accounts-stage .account-grid{gap:16px}.accounts-stage .nm{font-size:14px}.accounts-stage .account-rules{gap:10px}.accounts-stage .account-rules span{font-size:11px}.accounts-stage .account-rules b{font-size:14px}.accounts-stage .position-hero>span{font-size:44px}.accounts-stage .position-hero small{font-size:12px}.accounts-stage .account-fill{font-size:10px}.accounts-stage .badge{font-size:9px}.accounts-stage .routing-source{font-size:12px}.accounts-stage .routing-lines{height:28px}
+  .phone-layout{grid-template-columns:1fr .7fr;gap:10%;height:100%;align-items:center;padding-inline:5%}.phone-copy .desk-status,.phone-copy .phone-consequence{display:none}.telegram{height:100%;max-height:100%;min-height:0;border-radius:12px}.telegram-head{padding:10px 14px}.telegram-head b{font-size:13px}.chat-viewport{padding:12px}.chat-bubble{font-size:12px;padding:8px 10px}.chat-compose{padding:6px 10px;margin-bottom:8px}
+}
+@media(max-width:560px){.cinema{width:100%!important;height:100%!important;aspect-ratio:auto!important}.film-baseline{display:none}}

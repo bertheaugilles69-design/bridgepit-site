@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>See how BridgePit works — Dashboard, alerts and account limits</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Explore the actual BridgePit application: watch the dashboard, follow an alert through recent activity and inspect account limits. Short demonstrations with example data.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="BridgePit">
+<meta property="og:title" content="See how BridgePit works">
+<meta property="og:description" content="Explore the actual BridgePit application: watch the dashboard, follow an alert through recent activity and inspect account limits. Short demonstrations with example data.">
+<meta property="og:url" content="https://bridgepit.com/how-it-works.html">
+<meta property="og:image" content="https://bridgepit.com/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Your laptop. Your alerts. Your control.">
+<meta name="twitter:description" content="They route signals. This is a cockpit. Local execution for futures traders - nothing of ours between your Mac and your broker.">
+<meta name="twitter:image" content="https://bridgepit.com/og.png">
+<link rel="canonical" href="https://bridgepit.com/how-it-works.html">
+<meta name="theme-color" content="#f7f5ef">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/retained-site.css?v=5f39b1fbbb">
+<link rel="stylesheet" href="/showcase.css?v=5f39b1fbbb">
+<link rel="stylesheet" href="/opening.css?v=5f39b1fbbb">
+<link rel="stylesheet" href="/site-theme.css?v=5f39b1fbbb">
+<link rel="stylesheet" href="/content-pages.css?v=5f39b1fbbb">
+<link rel="stylesheet" href="/light-site.css?v=5f39b1fbbb">
+<script src="/site.js?v=cda71bcee6" defer></script>
+<script src="/app/example-data.js?v=cda71bcee6" defer></script><script src="/showcase.js?v=cda71bcee6" defer></script><script src="/film-player.js?v=cda71bcee6" defer></script></head>
+<body class="rd concept walkthrough-page">
+<a class="skip-link" href="#main-content">Skip to content</a>
+<nav class="site-nav" aria-label="Main navigation"><div class="wrap nav-inner"><a class="brand" href="/"><img src="/assets/bridgepit.svg" width="26" height="26" alt="">BridgePit</a><div class="nav-links"><a href="/how-it-works.html" aria-current="page">See how it works</a><a href="/#safety">Safety</a><a href="/#pricing">Pricing</a><a href="/setup.html">Setup</a><a href="/questions.html">Questions</a></div><details class="mobile-menu"><summary>Menu</summary><div class="mobile-links"><a href="/how-it-works.html" aria-current="page">See how it works</a><a href="/#safety">Safety</a><a href="/#pricing">Pricing</a><a href="/setup.html">Setup</a><a href="/questions.html">Questions</a></div></details><a class="button compact" href="/#download">Try on paper <span aria-hidden="true">↗</span></a></div></nav>
+<main id="main-content">
+<section class="opening" id="the-app" aria-labelledby="showcase-title"><div class="opening-layout wrap">
+<header class="opening-copy">
+  <p class="eyebrow">Inside the application</p>
+  <h1 id="showcase-title">See BridgePit at work.</h1><p class="walkthrough-intro">The actual application, with example accounts. Explore the dashboard, follow an alert and inspect your limits.</p>
+</header>
+<div class="showcase" aria-label="Inside BridgePit">
+  <div class="showcase-heading">
+    <div class="scene-tabs" role="tablist" aria-label="Explore the BridgePit application" aria-orientation="horizontal">
+      <button role="tab" id="tab-dashboard" aria-controls="product-panel" aria-selected="true" data-scene="dashboard">Dashboard</button>
+      <button role="tab" id="tab-execution" aria-controls="product-panel" aria-selected="false" tabindex="-1" data-scene="execution">Follow an alert</button>
+      <button role="tab" id="tab-limits" aria-controls="product-panel" aria-selected="false" tabindex="-1" data-scene="limits">Account limits</button>
+    </div>
+    <span class="walkthrough-label">Actual app · Example data</span>
+  </div>
+  <div id="product-stage" class="product-stage"><div id="product-panel" class="product-panel" role="tabpanel" aria-labelledby="tab-dashboard">
+    <div class="pan-hint">Example data · Swipe across to explore <span aria-hidden="true">↔</span></div>
+    <div class="screen-viewport" id="screen-viewport" tabindex="0" aria-label="Application preview; on a small screen, scroll horizontally to explore"><div id="screen-rig"><iframe id="product-frame" src="app/index.html" title="Actual BridgePit application interface with illustrative account data" tabindex="-1" scrolling="no"></iframe></div><div class="screen-loading" id="screen-loading">Opening BridgePit’s dashboard…</div></div>
+    <div class="demo-transport"><button id="demo-play" class="demo-play" aria-label="Play example session"><span id="demo-play-icon" aria-hidden="true">▶</span><span id="demo-play-label">Play</span></button><button id="demo-replay" aria-label="Replay this demonstration">↺</button><label class="sr-only" for="demo-scrub">Demonstration position</label><input id="demo-scrub" type="range" min="0" max="8" step="0.1" value="0"><span id="demo-time">0:00 / 0:08</span><span class="transport-note">Example data</span><button id="expand-demo" aria-label="Enlarge the application showcase"><span class="expand-label">Enlarge</span> <span aria-hidden="true">⤢</span></button></div>
+  </div></div>
+  <div class="scene-caption" aria-live="polite"><span class="caption-step" id="caption-step">01 / Dashboard</span><div><h3 id="caption-title">Two accounts. Each with its own numbers.</h3><p id="caption-text">See today’s P&amp;L, open positions and room to the floor together. Play the session to watch the figures update.</p></div><span class="caption-duration" id="caption-duration">8-second loop</span></div>
+</div></div></section>
+<section class="walkthrough-notes wrap" aria-label="What to look for in the demonstrations">
+  <article><span class="journey-number">01 / Dashboard</span><h2>The whole account.<br>At a glance.</h2><p>Today’s P&amp;L, open positions and room to the floor, together. Watch both accounts update while each keeps its own size and loss limit.</p><a class="text-link" data-demo-link="dashboard" href="#the-app">Explore the dashboard <span aria-hidden="true">↗</span></a></article>
+  <article><span class="journey-number">02 / Follow an alert</span><h2>See what happened.<br>In the order it happened.</h2><p>Read the actual activity log: order sent, fill recorded, stop placed and stop confirmed. A repeated alert is refused and recorded here, too.</p><a class="text-link" data-demo-link="execution" href="#the-app">Follow the order <span aria-hidden="true">↗</span></a></article>
+  <article><span class="journey-number">03 / Account limits</span><h2>Your numbers.<br>Your closing time.</h2><p>Inspect the daily stop, the drawdown buffer and the scheduled close. Funded accounts and your own brokerage have separate rules.</p><a class="text-link" data-demo-link="limits" href="#the-app">Inspect the limits <span aria-hidden="true">↗</span></a></article>
+</section>
+<section class="walkthrough-next wrap" aria-labelledby="paper-title"><div><p class="eyebrow">Make it your session</p><h2 id="paper-title">Try it on paper.</h2><p>Get familiar with the application before connecting a live account.</p></div><div class="walkthrough-actions"><a class="button" href="/#download">Download for macOS <span aria-hidden="true">↗</span></a><a class="text-link" href="/setup.html">Walk through setup <span aria-hidden="true">↗</span></a><button class="film-trigger" data-film>▷ Watch the 49-second film</button></div></section>
+</main>
+<footer class="rd-foot"><div class="rd-wrap"><div class="fl">
+<a href="/setup.html">Setup guide</a><a href="/questions.html">Questions</a>
+<a href="/how-it-works.html">See how it works</a>
+<a href="/terms.html">Terms</a><a href="/privacy.html">Privacy</a><a href="mailto:support@bridgepit.com">support@bridgepit.com</a>
+</div><div class="fr"><b>From traders, for traders.</b> © 2026 BridgePit LLC. BridgePit runs on your machine. We never see your credentials, your positions or your orders.</div></div></footer>
+<dialog id="film-dialog" aria-labelledby="film-title"><div class="dialog-head"><div><span class="eyebrow">The overview</span><h2 id="film-title" tabindex="-1" autofocus>BridgePit, in 49 seconds.</h2></div><button id="film-close" class="close-dialog" aria-label="Close film"><span class="close-label">Close</span><span aria-hidden="true">×</span></button></div><div class="film-container" id="film-container"></div></dialog>
+</body></html>

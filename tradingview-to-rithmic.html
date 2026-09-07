@@ -12,7 +12,7 @@
 <meta property="og:url" content="https://bridgepit.com/tradingview-to-rithmic">
 <meta property="og:image" content="https://bridgepit.com/og.png">
 <link rel="canonical" href="https://bridgepit.com/tradingview-to-rithmic">
-<meta name="theme-color" content="#111b23">
+<meta name="theme-color" content="#f7f5ef">
 <link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
@@ -74,16 +74,17 @@
   footer a:hover{color:var(--txt)}
 
 </style>
-<link rel="stylesheet" href="/assets/retained-site.css?v=4fa32fdd71">
-<link rel="stylesheet" href="/showcase.css?v=4fa32fdd71">
-<link rel="stylesheet" href="/opening.css?v=4fa32fdd71">
-<link rel="stylesheet" href="/site-theme.css?v=4fa32fdd71">
-<link rel="stylesheet" href="/content-pages.css?v=4fa32fdd71">
-<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Can TradingView connect directly to Rithmic?", "acceptedAnswer": {"@type": "Answer", "text": "No. TradingView sends alert webhooks; it holds no broker connection. Something has to receive the alert, hold your Rithmic login and place the order. BridgePit is that something, running on your own computer instead of someone else's cloud."}}, {"@type": "Question", "name": "Do I need a VPS to run TradingView alerts into Rithmic?", "acceptedAnswer": {"@type": "Answer", "text": "No. BridgePit runs on your own Mac and places orders from your own IP address. Some prop firms treat datacenter and VPS IPs differently from a home connection; rules differ by firm and change, so check your firm's current rules."}}, {"@type": "Question", "name": "Which accounts can BridgePit trade?", "acceptedAnswer": {"@type": "Answer", "text": "Accounts reachable over Rithmic, the connection rail most major futures prop firms offer. BridgePit passed Rithmic vendor conformance on July 13, 2026. Each firm decides API access and sets its own API fee, paid to the firm directly. Supported firms are announced at launch."}}, {"@type": "Question", "name": "What does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "Paper trading is free and needs no card and no broker connection. Live starts at $59 per month for one account when it goes on sale. Your firm's Rithmic API fee is separate and goes to the firm, not to us."}}]}]</script>
+<link rel="stylesheet" href="/assets/retained-site.css?v=5f39b1fbbb">
+<link rel="stylesheet" href="/showcase.css?v=5f39b1fbbb">
+<link rel="stylesheet" href="/opening.css?v=5f39b1fbbb">
+<link rel="stylesheet" href="/site-theme.css?v=5f39b1fbbb">
+<link rel="stylesheet" href="/content-pages.css?v=5f39b1fbbb">
+<link rel="stylesheet" href="/light-site.css?v=5f39b1fbbb">
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Can TradingView connect directly to Rithmic?", "acceptedAnswer": {"@type": "Answer", "text": "No. TradingView sends alert webhooks; it holds no broker connection. Something has to receive the alert, hold your Rithmic login and place the order. BridgePit is that something, running on your own computer instead of someone else's cloud."}}, {"@type": "Question", "name": "Do I need a VPS to run TradingView alerts into Rithmic?", "acceptedAnswer": {"@type": "Answer", "text": "No. BridgePit runs on your own Mac and places orders from your own IP address. Some prop firms treat datacenter and VPS IPs differently from a home connection; rules differ by firm and change, so check your firm's current rules."}}, {"@type": "Question", "name": "Which accounts can BridgePit trade?", "acceptedAnswer": {"@type": "Answer", "text": "Accounts reachable over Rithmic, the connection rail most major futures prop firms offer. BridgePit passed Rithmic vendor conformance on July 13, 2026. Each firm decides API access and sets its own API fee, paid to the firm directly. Supported firms are announced at launch."}}, {"@type": "Question", "name": "What does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "Paper trading is free and needs no card and no broker connection. Live starts at $59 per month for one account when it goes on sale. Your firm's Rithmic API fee is separate and goes to the firm, not to us."}}]}]</script><script src="/site.js?v=cda71bcee6" defer></script>
 </head>
 <body class="rd concept content-page page-article">
 <a class="skip-link" href="#main-content">Skip to content</a>
-<nav class="site-nav" aria-label="Main navigation"><div class="wrap nav-inner"><a class="brand" href="/"><img src="/assets/bridgepit.svg" width="26" height="26" alt="">BridgePit</a><div class="nav-links"><a href="/#the-app">Inside the app</a><a href="/#safety">Safety</a><a href="/#pricing">Pricing</a><a href="/setup.html">Setup</a><a href="/questions.html">Questions</a></div><a class="button compact" href="/#download">Try on paper <span aria-hidden="true">↗</span></a></div></nav><main id="main-content">
+<nav class="site-nav" aria-label="Main navigation"><div class="wrap nav-inner"><a class="brand" href="/"><img src="/assets/bridgepit.svg" width="26" height="26" alt="">BridgePit</a><div class="nav-links"><a href="/how-it-works.html">See how it works</a><a href="/#safety">Safety</a><a href="/#pricing">Pricing</a><a href="/setup.html">Setup</a><a href="/questions.html">Questions</a></div><details class="mobile-menu"><summary>Menu</summary><div class="mobile-links"><a href="/how-it-works.html">See how it works</a><a href="/#safety">Safety</a><a href="/#pricing">Pricing</a><a href="/setup.html">Setup</a><a href="/questions.html">Questions</a></div></details><a class="button compact" href="/#download">Try on paper <span aria-hidden="true">↗</span></a></div></nav><main id="main-content">
 <p class="kicker">The pipe</p>
 <h1>TradingView to Rithmic, without a cloud in the middle.</h1>
 <p class="lede">TradingView cannot talk to Rithmic on its own. It fires alerts; it holds no broker connection. <b>Something</b> has to catch the alert, hold your login and place the order. The only real question is where that something runs: in someone's datacenter, or on your own machine.</p>
@@ -104,6 +105,7 @@
 <p class="fine">Prop firm rules on automation differ by firm and change. Before going live on a funded account, read <a href="/prop-firm-automation-rules.html" style="color:var(--blue)">the five clauses that decide</a> and check your firm's current wording.</p>
 <aside class="related-links" aria-label="Related reading"><a href="/prop-firm-automation-rules.html">Prop firm rules</a><a href="/traderspost-alternative.html">TradersPost alternative</a><a href="/pickmytrade-alternative.html">PickMyTrade alternative</a><a href="/automate-tradingview-alerts.html">Automate TradingView alerts</a></aside></main><footer class="rd-foot"><div class="rd-wrap"><div class="fl">
 <a href="/setup.html">Setup guide</a><a href="/questions.html">Questions</a>
+<a href="/how-it-works.html">See how it works</a>
 <a href="/terms.html">Terms</a><a href="/privacy.html">Privacy</a><a href="mailto:support@bridgepit.com">support@bridgepit.com</a>
 </div><div class="fr"><b>From traders, for traders.</b> © 2026 BridgePit LLC. BridgePit runs on your machine. We never see your credentials, your positions or your orders.</div></div></footer>
 </body></html>
