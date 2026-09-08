@@ -3,13 +3,13 @@ Setup guide · Start on paper
 # Your first alert.
 A paper fill on your Mac.
 
-Four stages, one clear finish. Keep Connections empty: this first setup needs no broker, BridgePit licence or card.
+Check delivery now. Then verify your strategy on paper. Keep Connections empty: this first setup needs no broker, BridgePit licence or card.
 
-[01 Open BridgePit](#install)[02 Choose a strategy](#strategy)[03 Connect TradingView](#address)[04 See a paper fill](#verify)
+[01 Open BridgePit](#install) · [02 Choose a strategy](#strategy) · [03 Test the connection](#address) · [04 See a paper fill](#verify)
 
 Have ready: an Apple Silicon Mac, your TradingView strategy, and a TradingView plan with webhook alerts. Enable [TradingView two-factor authentication](https://www.tradingview.com/support/solutions/43000572460-how-to-configure-2fa/) first. Keep this Mac awake and online throughout the test.
 
-    01
+01
 
 On your Mac
 
@@ -21,7 +21,7 @@ On your Mac
 
 Ready when You can see the dashboard in Paper mode, with no broker connections.
 
-Installation or password help
+### Installation or password help
 
 If macOS refuses to open the app, use a fresh download from BridgePit and keep the exact error for support. There can be several causes; a chat download is not the only one.
 
@@ -29,7 +29,7 @@ Forgot your password? Use Forgot it? on the password screen and follow the local
 
 Port 8787 already in use? Quit an older BridgePit through its own Settings if one is running. Otherwise contact support with the error; do not close an unidentified program or change ports by guesswork.
 
-    02
+02
 
 In BridgePit → Strategies
 
@@ -43,63 +43,73 @@ For this first test, use a TradingView strategy whose entry from flat sends one 
 
 Ready when Your enabled strategy and intended instrument appear in Strategies.
 
-My instrument is missing
+### My instrument is missing
 
 In Strategies → Instruments → + Add instrument, search for it and select the matching result. Check TradingView symbol, Contract root and Exchange, then press Save and select it in your strategy.
 
 Use the contract root without a month or year, such as MNQ. BridgePit resolves the current contract. If the instrument is not in the search results, confirm its mapping and broker support before adding it manually.
 
-Optional: check the paper engine immediately
+### Optional: check the paper engine immediately
 
 Open Settings → Alert setup, select your strategy and use Send a test signal. Review any pause or safety message it shows.
 
 This is a local check. It does not prove that TradingView or your public address works. Continue below for that.
 
-    03
+03
 
 Tailscale → BridgePit → TradingView
 
-## Give TradingView the address and message.
+## Check the connection now.
 
 Tailscale Funnel lets TradingView reach BridgePit on this Mac. You keep your broker connection on your own machine.
 
 - [Install Tailscale for Mac](https://tailscale.com/download/mac), sign in, and complete its VPN and system-extension approvals. Choose a plan appropriate to your use; its Personal plan is for non-commercial use.
 
-- In BridgePit 1.4.20 or later, open Settings → Your public address. Choose Check again, then Set up public address. If asked, choose Approve with Tailscale, complete its approval page, return to BridgePit and check again. Keep other Tailscale serving settings unchanged during setup.
+- In BridgePit, open Settings → Your public address. Choose Check again, then Set up public address. If asked, choose Approve with Tailscale, complete its approval page, return to BridgePit and check again. Keep other Tailscale serving settings unchanged during setup.
 
-- Wait for Your public address is ready: BridgePit has saved the address and checked the public path. If it is still checking, keep both apps running and try again. Use the manual help below for an older app or an existing tunnel conflict.
+- Wait for Your public address is ready: BridgePit has saved the address and checked the public path. Use the manual help below for an older app or an existing tunnel conflict.
 
-- Under Settings → Alert setup, select your strategy and press Copy block. In TradingView, create an alert on your chart's strategy and choose Order fills only. Paste the block into Message.
+- In BridgePit 1.4.22 or later, continue to Test TradingView delivery → Prepare connection test. Follow the three short instructions there: make a separate one-time price alert in TradingView, copy the test message and webhook URL, and create it. This can trigger on the next price update, without waiting for your strategy to trade.
 
-- Under the alert's Notifications, enable Webhook URL. Paste the finished URL from BridgePit → Settings → Your webhook → Copy. Check the alert's expiration, then create it.
+- Return to BridgePit and look for Test message received. You can then delete that one-time price alert. The test places no order and expires after ten minutes.
 
-Ready when The path check passes and your TradingView strategy alert is active, with the copied message and public webhook URL.
+Connection checked The test message arrived from the alert you created. Your strategy's paper execution is checked next.
 
-Manual setup, older app or Tailscale permissions
+### Older app or no confirmation?
+
+The one-time connection test needs BridgePit 1.4.22 or later. If you updated the app, quit the old copy through its Settings, launch the replacement from Applications and reload its dashboard. Keep your existing setup.
+
+Check the separate price alert's event and Webhook status in TradingView's alert log. If it never fired, check an actively updating price, Greater than 0, Only once, and alert expiration. If delivery failed, check the copied URL and public path. If the test expired, prepare a new test and use its new message. Neither this receipt nor a path check guarantees future delivery.
+
+### Manual setup, older app or Tailscale permissions
 
 For BridgePit 1.4.19, or if assisted setup is unavailable, open the manual setup area under Your public address (the commands are shown directly in older versions). Review any existing Tailscale Serve/Funnel configuration first; a Funnel command can replace a route or make other routes on that port public. Copy the command shown by BridgePit into Terminal and run it. It normally reads tailscale funnel --bg 8787. Follow any Tailscale approval link, then run it again. Paste the returned HTTPS address into Your public address and press Save; BridgePit adds /webhook. Use Check the path before continuing.
 
 If Terminal cannot find tailscale, try the bundled command below, using the port shown in BridgePit:
 
+```
 /Applications/Tailscale.app/Contents/MacOS/Tailscale funnel --bg 8787
+```
 
 Funnel needs MagicDNS, HTTPS and Funnel permission in your Tailscale network. Follow its approval prompts; a managed network may require its administrator. For version-specific macOS prompts, use [Tailscale's system-extension instructions](https://tailscale.com/docs/concepts/macos-sysext).
 
 tailscale funnel status reports the saved serving configuration. BridgePit's Check the path also tests reachability; a connected Tailscale app alone does not prove it.
 
-Alert message reference
+### Alert message reference
 
 Copy block in the app is the normal route. It fills your strategy name and token. This example is for reference only; its name and token are placeholders.
 
+```
 {
-  "strategy_name": "YourStrategyName",
-  "data": "{{strategy.order.action}}",
-  "quantity": "{{strategy.order.contracts}}",
-  "price": "{{close}}",
-  "bar_time": "{{time}}",
-  "fired_at": "{{timenow}}",
-  "token": "YOUR-TOKEN"
+"strategy_name": "YourStrategyName",
+"data": "{{strategy.order.action}}",
+"quantity": "{{strategy.order.contracts}}",
+"price": "{{close}}",
+"bar_time": "{{time}}",
+"fired_at": "{{timenow}}",
+"token": "YOUR-TOKEN"
 }
+```
 
 Two clocks, two jobs: bar_time identifies the bar for duplicate checks; fired_at checks entry freshness. Preserve both placeholders. Keep your token private. Never add broker credentials to the alert.
 
@@ -107,7 +117,7 @@ The app's strategy name need not be the TradingView script title: the copied mes
 
 Moving from PickMyTrade requires your new BridgePit URL and message. The compatible BridgePit path /v2/add-trade-data does not transfer a PickMyTrade hostname or make its old message compatible.
 
-    04
+04
 
 TradingView → BridgePit dashboard
 
@@ -115,19 +125,21 @@ TradingView → BridgePit dashboard
 
 - Keep Connections empty and check the dashboard is in Paper mode. If you deliberately paused entries, allow them again. Review any safety warning before resuming.
 
-- Wait for the strategy's next real-time order-fill alert. Backtest trades do not send these alerts. Check that event and its Webhook status in TradingView's alert log.
+- In Settings → Alert setup, select your strategy and press Copy block. In TradingView, create an alert on your chart's strategy with Order fills only. Paste that block into Message; it is different from the one-time connection-test message.
 
-- Find the corresponding FILL marked (paper) under BridgePit's Recent activity. Match the strategy, action and time to the TradingView event.
+- Under Notifications, enable Webhook URL and paste the URL from BridgePit → Settings → Your webhook → Copy. Check the expiration, then create the alert.
 
-Paper setup complete A real TradingView event has reached your Mac and produced the matching simulated fill.
+- When the strategy next fills an order in real time, match that event and its Webhook status in TradingView's alert log to the FILL marked (paper) under BridgePit's Recent activity. Check the strategy, action, size and time. Backtest trades do not send these alerts.
 
-You can continue on paper for free. Before broker execution, observe the strategy's entries, exits and sizing on paper. If you change its TradingView inputs, script, symbol or timeframe, recreate the alert so its saved copy uses those changes.
+Paper setup complete A real strategy event has produced the matching simulated fill. The connection test alone does not complete this step.
 
-Waiting for an alert, or nothing arrived?
+You can continue on paper for free. Observe your strategy's entries, exits and sizing before broker execution. You have already checked message delivery; this stage checks your actual strategy. If you change its TradingView inputs, script, symbol or timeframe, recreate its alert so the saved copy uses those changes.
 
-A quiet strategy or closed market can leave you waiting; this guide cannot promise a fixed completion time. For a separate public-path test, BridgePit has Settings → Your public address → Send a test alert the long way round. It starts from this Mac, not TradingView, and is not proof of your TradingView configuration.
+### The connection test passed, but no strategy fill?
 
-If TradingView has no event, check the strategy, market hours and alert expiration there. If it has an event but delivery failed, check the webhook URL and path. If BridgePit has a rejection, use that reason below. An HTTP delivery success alone does not prove a paper fill.
+A quiet strategy or closed market can leave you waiting for its first order. Do not change a working strategy's logic just to force a trade. If TradingView has no strategy event, check the strategy, market hours and alert expiration. If it has an event but delivery failed, check its webhook URL. If BridgePit shows a rejection, use that reason below. An HTTP delivery success alone does not prove a paper fill.
+
+The local Send a test signal and public-path Send a test alert the long way round both start on this Mac. They are separate diagnostic tools and cannot verify your TradingView strategy alert configuration.
 
 When your paper setup is working
 
@@ -135,7 +147,7 @@ When your paper setup is working
 
 Connecting a broker is a separate stage. Even in Paper mode, enabled account protection or closing actions can affect connected accounts. Review the account's rules before connecting.
 
-Set up broker execution
+### Set up broker execution
 
 - Confirm eligibility. For the current Rithmic route, confirm with your broker or firm that your account permits BridgePit's R | Protocol API connection and automation, and confirm access fees. Do not assume an ordinary demo login is eligible.
 
@@ -153,7 +165,7 @@ End of day is separate for each account type. Funded accounts default to enabled
 
 BridgePit must be awake and connected to act on its limits. Verify positions and protective orders directly with your broker; software limits do not guarantee a maximum loss.
 
-Connect Telegram or email notifications
+### Connect Telegram or email notifications
 
 Open Settings → Where we reach you. Enable at least one channel and press its section's Save after filling the fields.
 
@@ -167,7 +179,7 @@ Reference
 
 ## Help when you need it.
 
-Contracts per signal and Emergency stop
+### Contracts per signal and Emergency stop
 
 Contracts per signal currently both multiplies the alert quantity and caps the resulting absolute position. From flat, an alert for one contract with a setting of three produces three. An alert for two with a setting of one is rejected: it would exceed the cap. Raising the setting does not fix a larger entry from flat, because it raises the multiplier too.
 
@@ -175,7 +187,7 @@ This is why the first test uses a one-contract entry. Check full entry, exit and
 
 Emergency stop is optional, in points; blank means no configured emergency stop. For broker execution, verify that a protective order is actually resting at the broker. Where native stops are unavailable, the app uses local enforcement and reports it. Local protection stops when the Mac or connection stops. Even a broker-held stop-market order can fill beyond its trigger price.
 
-Alert errors
+### Alert errors
 
 bad token / unknown strategy
 
@@ -209,7 +221,7 @@ broker connection or execution refused
 
 Read the current error and readiness details. For an app-permission refusal, firm authorisation or a previous open session can be involved. A green connection card records connection status; it is not an independent live heartbeat.
 
-Restarting, connection loss and Telegram
+### Restarting, connection loss and Telegram
 
 Keep BridgePit and Tailscale running during trading hours. Enable Tailscale's launch-at-login option if appropriate. BridgePit does not start itself after a reboot. Open it yourself, or add BridgePit under macOS System Settings → General → Login Items. Check the public path before relying on alerts. Funnel started with --bg persists and resumes when Tailscale runs again; do not treat a saved URL as evidence of availability.
 
