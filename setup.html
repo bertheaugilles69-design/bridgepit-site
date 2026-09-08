@@ -144,16 +144,17 @@
 <nav class="site-nav" aria-label="Main navigation"><div class="wrap nav-inner"><a class="brand" href="/"><img src="/assets/bridgepit.svg" width="26" height="26" alt="">BridgePit</a><div class="nav-links"><a href="/how-it-works.html">See how it works</a><a href="/#safety">Safety</a><a href="/#pricing">Pricing</a><a href="/setup.html" aria-current="page">Setup guide</a><a href="/questions.html">Questions</a></div><details class="mobile-menu"><summary>Menu</summary><div class="mobile-links"><a href="/how-it-works.html">See how it works</a><a href="/#safety">Safety</a><a href="/#pricing">Pricing</a><a href="/setup.html" aria-current="page">Setup guide</a><a href="/questions.html">Questions</a></div></details><a class="button compact" href="/#download">Try on paper <span aria-hidden="true">↗</span></a></div></nav><main id="main-content">
   <div class="kicker">Setup guide · about 20 minutes</div>
   <h1>Wire it once. Test it on paper. Then trade.</h1>
-  <p class="lede">Five steps, done one time on the machine you trade from. Nothing here risks money: the free tier trades <b>paper only</b>, so you'll see the whole chain fill before a single real order can exist.</p>
+  <p class="lede">Start with one TradingView alert and a simulated fill on your Mac. Paper testing is free and needs no broker account, licence key or card.</p>
   <p class="aside" style="margin-top:14px">Prefer to be walked through by your own AI? <a href="bridgepit-setup-guide.md" download style="color:var(--blue)">Download this guide as plain text</a> and paste it into any assistant - it contains everything on this page, with extra detail.</p>
-  <p class="chainline">The chain you're building: <b>TradingView&nbsp;→&nbsp;your machine&nbsp;→&nbsp;your broker.</b></p>
+  <p class="chainline">Your first test: <b>TradingView&nbsp;→&nbsp;your Mac&nbsp;→&nbsp;a paper fill.</b></p>
+  <p class="caution" id="paper-route"><b>Start on paper.</b> Follow steps one and two, skip the broker connection in step three, then continue with <a href="#step-four">your strategy in step four</a> and your first alert in step five. Keep Connections empty throughout this first test.</p>
 
   <section class="need">
     <h2>You'll need</h2>
     <dl>
       <dt>Your computer</dt><dd>The Mac app is ready today (M1 or newer); a Windows version is planned. Use the machine you normally trade from.</dd>
       <dt>TradingView</dt><dd>Any plan with webhook alerts - Essential and up.</dd>
-      <dt>A Rithmic futures account</dt><dd>A funded prop account or your own broker, as long as it is on Rithmic, with API access enabled. They charge their own API-access fee, paid to them directly.</dd>
+      <dt>A Rithmic futures account</dt><dd><b>Only for broker execution later; skip this for paper testing.</b> A funded prop account or your own broker, as long as it is on Rithmic, with API access enabled. They charge their own API-access fee, paid to them directly.</dd>
       <dt>Tailscale</dt><dd>A free app, used once in step two - <a href="https://tailscale.com/download">tailscale.com/download</a>.</dd>
       <dt>Your license key</dt><dd>Only for going live later. Paper trading needs no key and no card.</dd>
     </dl>
@@ -165,7 +166,7 @@
       <div class="stepno">Step one</div>
       <h2>Install BridgePit.</h2>
       <p><a href="downloads/BridgePit-mac.dmg" style="color:var(--blue)">Download the Mac app</a>, open the file, drag <b>BridgePit</b> into Applications, and launch it. Your browser opens at <code>127.0.0.1:8787</code> - an address that means <b>this computer</b>. Your settings, credentials, and controls live there and answer to no one else.</p>
-      <p>The first screen asks you to <b>set a password for the dashboard</b>, at least 8 characters. Pick one you will keep: there is no account behind it and no recovery e-mail, so if you lose it the only way back in is deleting the app's <code>auth.json</code> by hand.</p>
+      <p>The first screen asks you to <b>set a password for the dashboard</b>, at least 8 characters. Keep it safe. If you forget it, choose <b>Forgot it?</b> on the password screen and follow the local recovery instructions. Recovery does not use email.</p>
     </section>
 
     <section class="step">
@@ -192,7 +193,8 @@
 
     <section class="step">
       <div class="stepno">Step three</div>
-      <h2>Connect your broker.</h2>
+      <h2>Connect your broker when you are ready.</h2>
+      <p class="caution"><b>Testing on paper? Skip this step.</b> Leave Connections empty and <a href="#step-four">continue to step four</a>. You can return here after your first paper fill, when you have an eligible broker account.</p>
       <p><b>Connections → + Add connection.</b> Enter the Rithmic login your broker or prop firm gave you - Rithmic is the broker BridgePit connects to today - then <b>Save &amp; Connect</b>. The status pill turns green.</p>
       <p><b>Your orders stay on paper until you click "Set as execution" on the connection card.</b> That click is deliberate and it is the one that makes fills real. A connection can sit green and connected for days without ever placing a live order.</p>
       <figure class="plate"><img src="setup-connection-rithmic.png" alt="A saved Rithmic connection card with Connect, Auto-connect, Set as execution and Delete" width="2240" height="632"></figure>
@@ -204,7 +206,7 @@
     </section>
 
     <section class="step">
-      <div class="stepno">Step four</div>
+      <div class="stepno" id="step-four">Step four</div>
       <h2>Name your strategy. Wire the alert.</h2>
       <p>On <b>Strategies</b>, add your strategy. The name is the handshake - your alert must send exactly the same one.</p>
       <p class="caution"><b>"Contracts per signal" is your size, and it multiplies.</b> BridgePit takes the contract count in the alert and multiplies it by this number - a 1-lot signal at 3 sends 3 contracts. It also refuses any order that would take the net position above it. <b>Leave it at 1</b> unless you deliberately want to scale, and if your TradingView strategy already trades more than one contract, leave it at 1 or the two multiply and the order is refused. Do not set it to your firm's maximum as a safety ceiling - that is the opposite of what it does.</p>
@@ -251,12 +253,13 @@
     <section class="step last">
       <div class="stepno">Step five</div>
       <h2>Fire one alert. Watch it fill on paper.</h2>
-      <p>Trigger your alert once - or use BridgePit's own <b>Send a test signal</b> button under <b>Settings → Alert setup</b>, which needs no TradingView at all. Then look at the dashboard:</p>
+      <p>Check that the dashboard shows <b>Paper</b> and Connections is empty. If you deliberately paused entries, allow paper entries again on the dashboard. Review any safety warning before resuming. Then trigger your TradingView strategy alert once and look at <b>Recent activity</b>:</p>
       <figure class="plate"><img src="setup-fills.png" alt="Recent activity: a buy order and fill, then the sell order and fill, every row marked paper" width="4400" height="1000"></figure>
-      <p class="figcap"><b>Recent activity.</b> One test signal, four rows: the buy order, its fill, the sell order, its fill. Every fill says <b>(paper)</b>, which is what you want to see first.</p>
-      <p>A <b>FILL</b> row wearing your strategy's name means the whole chain works: TradingView reached your machine, your machine simulated the order. No order from your alerts can reach a real account until you press <b>Set as execution</b> on a connection - until then every fill is paper, by design.</p>
+      <p class="figcap"><b>Recent activity.</b> This example shows the built-in test signal: a buy and a sell, with every fill marked <b>(paper)</b>. Your TradingView alert produces the action your strategy sends.</p>
+      <p>A <b>FILL</b> row marked <b>(paper)</b> with your strategy's name, following that TradingView alert, confirms that TradingView reached your Mac and BridgePit simulated the order. With Connections empty, no broker order is sent.
+      </p><p class="aside"><b>Optional local check:</b> <b>Settings → Alert setup → Send a test signal</b> tests BridgePit's paper engine without TradingView. It does not verify your TradingView alert or public webhook connection.</p>
       <p class="caution"><b>One thing does reach a connected account regardless: the end-of-day flatten.</b> From 15:55 ET it cancels working orders and closes positions on any broker session BridgePit is connected to - subscription or not, execution or not - because an unpaid bill must never leave a position open overnight. If you are also trading that account by hand, disconnect it here or switch the end-of-day flatten off before you paper-test.</p>
-      <p>When you're ready, paste the license key from your purchase email under <b>Subscription</b>:</p>
+      <p><b>Your first paper test is complete.</b> You can keep using paper mode for free. When you are ready for broker execution, return to step three and complete the requirements below. Paste your licence key under <b>Subscription</b>:</p>
       <figure class="plate"><img src="setup-license.png" alt="The license key field on the Subscription page with its Activate button" width="4400" height="672"></figure>
       <p class="figcap"><b>Choose your plan.</b> The key activates on this machine - no account to create.</p>
       <p class="caution"><b>BridgePit will not let you go live until you have proved it can reach you.</b> Clicking <b>Set as execution</b> is refused, with the reason, until both of these are done:<br>
@@ -304,7 +307,8 @@
   <section class="habit">
     <p>One habit, from us: BridgePit executes, <b>you supervise</b>. Keep the machine on, lid open, and on the internet during your hours. Glance at the dashboard the way you'd glance at a position. Quit only when you're flat. Your alerts, your broker, your IP - and you, still the trader.</p>
   </section>
-</main><footer class="rd-foot"><div class="rd-wrap"><div class="fl">
+</main>
+<footer class="rd-foot"><div class="rd-wrap"><div class="fl">
 <a href="/setup.html">Setup guide</a><a href="/questions.html">Questions</a>
 <a href="/how-it-works.html">See how it works</a>
 <a href="/terms.html">Terms</a><a href="/privacy.html">Privacy</a><a href="mailto:support@bridgepit.com">support@bridgepit.com</a>

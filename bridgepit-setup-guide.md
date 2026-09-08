@@ -26,6 +26,13 @@ subscription. Paper is free now. Seat is $59/mo or $590/yr (1 account); Desk $99
 sale; Multi is coming. Until a live subscription exists, everything stays
 on paper by design.
 
+## Start on paper
+
+Your first test is TradingView → your Mac → a paper fill. No broker account,
+licence key or card is needed. Follow steps 1 and 2, skip the broker
+connection in step 3, then continue with steps 4 and 5. Keep Connections
+empty throughout this first test.
+
 ## What you need before starting
 
 1. Your computer - the Mac app is ready today (M1 or newer); a Windows version is planned. It runs on
@@ -33,7 +40,8 @@ on paper by design.
    open, and connected to the internet during your trading hours (that is
    what "executes from your own IP" means). No internet, nothing trades.
 2. TradingView on a plan with webhook alerts (Essential and up).
-3. A Rithmic futures account - a funded prop account or your own broker,
+3. Only for broker execution later; skip this for paper testing:
+   A Rithmic futures account - a funded prop account or your own broker,
    as long as it is on Rithmic, with API access enabled. They charge their
    own API-access fee, paid to them directly. Your Rithmic account also
    needs a paid subscription with them: demo and trial Rithmic logins
@@ -42,7 +50,7 @@ on paper by design.
 4. Tailscale, a free app used once in step 2 - tailscale.com/download.
 5. Your BridgePit license key if you have subscribed (arrives by email
    after checkout). Not needed for paper trading.
-6. A Telegram account, or an e-mail app password. BridgePit will not let a
+6. Only for going live later: a Telegram account, or an e-mail app password. BridgePit will not let a
    connection go live until you have proved it can reach you - see "Before
    your first live session" below.
 
@@ -55,9 +63,8 @@ means "this computer": the dashboard, your settings, and your credentials
 answer only on your machine.
 
 The first screen asks you to set a password for the dashboard, at least 8
-characters. Pick one you will keep: there is no account behind it and no
-recovery e-mail. If you lose it, the only way back in is deleting the app's
-auth.json by hand.
+characters. If you forget it, choose "Forgot it?" on the password screen
+and follow the local recovery instructions. Recovery does not use email.
 
 If BridgePit says it cannot start because another program is using port
 8787: close that program - if it is an older copy of BridgePit, quit it
@@ -126,7 +133,11 @@ itself as connected while the public address serves nothing - connected and
 serving are two different things, so trust this command, not the app's
 status.
 
-## Step 3 - Connect your broker
+## Step 3 - Connect your broker when you are ready
+
+Testing on paper? Skip this step. Leave Connections empty and continue to
+step 4. Return here after your first paper fill, when you have an eligible
+broker account.
 
 In the dashboard: Connections → + Add connection. Enter the Rithmic login
 your broker or prop firm gave you - Rithmic is the broker BridgePit
@@ -228,11 +239,18 @@ clocks. Keep the old body and the alert is refused.
 
 ## Step 5 - Test on paper, then go live
 
-Trigger your alert once - or use BridgePit's own "Send a test signal"
-button under Settings → Alert setup, which needs no TradingView at all.
-Watch the dashboard's Recent activity: a FILL row with your strategy's name
-means the whole chain works - TradingView reached your machine, your
-machine simulated the order.
+Check that the dashboard shows Paper and Connections is empty. If you
+deliberately paused entries, allow paper entries again on the dashboard.
+Review any safety warning before resuming. Trigger your TradingView
+strategy alert once. A FILL row marked (paper) with your strategy's name in
+Recent activity, following that alert, confirms TradingView reached your
+Mac and BridgePit simulated the order. With Connections empty, no broker
+order is sent.
+
+Optional local check: Settings → Alert setup → Send a test signal tests the
+paper engine without TradingView. It does not verify your TradingView alert
+or public webhook connection. You can keep using paper mode for free; the
+broker, licence and live-safety requirements below are for going live later.
 
 No order from your alerts can reach a real account until you press "Set as
 execution" on a connection. Until then every fill is paper, by design.
