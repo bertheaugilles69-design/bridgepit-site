@@ -3,9 +3,9 @@ Setup guide · Start on paper
 # Your first alert.
 A paper fill on your Mac.
 
-Check delivery now. Then verify your strategy on paper. Keep Connections empty: this first setup needs no broker, BridgePit licence or card.
+Four stages, one clear finish. Keep Connections empty: this first setup needs no broker, BridgePit licence or card.
 
-[01 Open BridgePit](#install) · [02 Choose a strategy](#strategy) · [03 Test the connection](#address) · [04 See a paper fill](#verify)
+[01 Open BridgePit](#install) · [02 Choose a strategy](#strategy) · [03 Set up the address](#address) · [04 See a paper fill](#verify)
 
 Have ready: an Apple Silicon Mac, your TradingView strategy, and a TradingView plan with webhook alerts. Enable [TradingView two-factor authentication](https://www.tradingview.com/support/solutions/43000572460-how-to-configure-2fa/) first. Keep this Mac awake and online throughout the test.
 
@@ -59,7 +59,7 @@ This is a local check. It does not prove that TradingView or your public address
 
 Tailscale → BridgePit → TradingView
 
-## Check the connection now.
+## Let TradingView reach your Mac.
 
 Tailscale Funnel lets TradingView reach BridgePit on this Mac. You keep your broker connection on your own machine.
 
@@ -69,17 +69,7 @@ Tailscale Funnel lets TradingView reach BridgePit on this Mac. You keep your bro
 
 - Wait for Your public address is ready: BridgePit has saved the address and checked the public path. Use the manual help below for an older app or an existing tunnel conflict.
 
-- In BridgePit 1.4.22 or later, continue to Test TradingView delivery → Prepare connection test. Follow the three short instructions there: make a separate one-time price alert in TradingView, copy the test message and webhook URL, and create it. This can trigger on the next price update, without waiting for your strategy to trade.
-
-- Return to BridgePit and look for Test message received. You can then delete that one-time price alert. The test places no order and expires after ten minutes.
-
-Connection checked The test message arrived from the alert you created. Your strategy's paper execution is checked next.
-
-### Older app or no confirmation?
-
-The one-time connection test needs BridgePit 1.4.22 or later. If you updated the app, quit the old copy through its Settings, launch the replacement from Applications and reload its dashboard. Keep your existing setup.
-
-Check the separate price alert's event and Webhook status in TradingView's alert log. If it never fired, check an actively updating price, Greater than 0, Only once, and alert expiration. If delivery failed, check the copied URL and public path. If the test expired, prepare a new test and use its new message. Neither this receipt nor a path check guarantees future delivery.
+Address ready BridgePit has saved your public address and checked the path. Create your strategy's alert next.
 
 ### Manual setup, older app or Tailscale permissions
 
@@ -97,7 +87,7 @@ tailscale funnel status reports the saved serving configuration. BridgePit's Che
 
 ### Alert message reference
 
-Copy block in the app is the normal route. It fills your strategy name and token. This example is for reference only; its name and token are placeholders.
+Use the message prepared by Alert setup in the app. Copy block fills your strategy name and token; the supplied SMA strategy includes the same message automatically. This example is for reference only; its name and token are placeholders.
 
 ```
 {
@@ -125,21 +115,35 @@ TradingView → BridgePit dashboard
 
 - Keep Connections empty and check the dashboard is in Paper mode. If you deliberately paused entries, allow them again. Review any safety warning before resuming.
 
-- In Settings → Alert setup, select your strategy and press Copy block. In TradingView, create an alert on your chart's strategy with Order fills only. Paste that block into Message; it is different from the one-time connection-test message.
+- In Settings → Alert setup, select the strategy saved in BridgePit and choose your setup below. Use your intended chart's symbol and timeframe. Pause an old alert before replacing it to avoid duplicate trades.
 
-- Under Notifications, enable Webhook URL and paste the URL from BridgePit → Settings → Your webhook → Copy. Check the expiration, then create the alert.
+### Supplied 14/28 SMA strategy: automatic confirmation
 
-- When the strategy next fills an order in real time, match that event and its Webhook status in TradingView's alert log to the FILL marked (paper) under BridgePit's Recent activity. Check the strategy, action, size and time. Backtest trades do not send these alerts.
+In BridgePit 1.4.23, choose Supplied 14/28 SMA strategy · automatic confirmation and Copy strategy. Save it as a new private Pine script in TradingView and add it to your chart. Keep the code private: it includes your alert token. Preserve your strategy's Properties and start on paper. This complete strategy is only for the supplied 14/28 SMA crossover, not an add-on for other code.
 
-Paper setup complete A real strategy event has produced the matching simulated fill. The connection test alone does not complete this step.
+Create one strategy alert with Order fills and alert() function calls. Keep the prefilled Message. Under Notifications, enable Webhook URL and paste the address using Copy webhook URL in BridgePit. Check expiration and notification schedule, then create it.
 
-You can continue on paper for free. Observe your strategy's entries, exits and sizing before broker execution. You have already checked message delivery; this stage checks your actual strategy. If you change its TradingView inputs, script, symbol or timeframe, recreate its alert so the saved copy uses those changes.
+Keep BridgePit and Tailscale running. On a realtime market update, this alert sends a harmless confirmation automatically. Look for Setup confirmation received and its time under Alert setup. No temporary message or separate test alert is needed. A closed market can delay the update. This receipt proves message delivery for that setup; it does not verify order fills or future availability.
 
-### The connection test passed, but no strategy fill?
+### My existing strategy: use its order-fill alert
 
-A quiet strategy or closed market can leave you waiting for its first order. Do not change a working strategy's logic just to force a trade. If TradingView has no strategy event, check the strategy, market hours and alert expiration. If it has an event but delivery failed, check its webhook URL. If BridgePit shows a rejection, use that reason below. An HTTP delivery success alone does not prove a paper fill.
+Choose My existing strategy · copy its alert message and Copy block. In TradingView, create an alert on your chart's strategy with Order fills only and paste that block into Message. Under Notifications, enable Webhook URL and paste the URL from BridgePit → Settings → Your webhook → Copy. Check expiration and notification schedule, then create it.
 
-The local Send a test signal and public-path Send a test alert the long way round both start on this Mac. They are separate diagnostic tools and cannot verify your TradingView strategy alert configuration.
+Existing or protected strategies do not gain automatic confirmation from a webhook URL alone. They need compatible code from their creator, or their next real order-fill event. Do not replace your strategy with the SMA example just to test its connection.
+
+When your strategy next fills an order in real time, match that event and its Webhook status in TradingView's alert log to the FILL marked (paper) under BridgePit's Recent activity. Check the strategy, action, size and time. Backtest trades do not send these alerts.
+
+Paper setup complete A real strategy event has produced the matching simulated fill. A setup confirmation alone does not complete this step.
+
+You can continue on paper for free. Observe your strategy's entries, exits and sizing before broker execution. If you change its TradingView inputs, script, symbol or timeframe, recreate its alert so the saved copy uses those changes.
+
+### No confirmation or strategy fill?
+
+Start with TradingView's alert log. No event: check the strategy, market hours, expiration and notification schedule. For automatic confirmation, include alert() function calls and keep On realtime bar tick in the supplied strategy's Properties. Its order decisions remain at candle close. A saved alert keeps its own copy of the script and settings; editing the chart does not update that copy.
+
+Failed webhook: check its public address. No receipt in BridgePit: read the setup status. A changed address or alert token requires updated code and a replacement alert. Pine sends the startup confirmation once per running script instance; it does not automatically resend after failed delivery. A quiet strategy may still need time for a real trade. Do not change its logic to force one. If BridgePit rejects a trade, use its precise reason below.
+
+For a separate delivery diagnostic, open Settings → Optional diagnostic: send a separate price alert → Prepare connection test. This tests a different message and is optional. The local Send a test signal and public-path Send a test alert the long way round both start on this Mac. Neither establishes that your TradingView strategy alert is configured correctly.
 
 When your paper setup is working
 
