@@ -125,7 +125,7 @@ Create one strategy alert with Order fills and alert() function calls. Keep the 
 
 Keep BridgePit and Tailscale running. On a realtime market update, this alert sends a harmless confirmation automatically. Look for Setup confirmation received and its time under Alert setup. No temporary message or separate test alert is needed. A closed market can delay the update. This receipt proves message delivery for that setup; it does not verify order fills or future availability.
 
-First paper trade rejected? TradingView may already hold a historical position when the alert starts. This SMA strategy reverses directly, so its first event can be two contracts while BridgePit is flat. That can correctly trigger the position cap. Confirmation does not align the starting positions. Review that setup before order testing; do not increase sizing just to bypass a rejection.
+Your first trade: a new BridgePit strategy stays flat until a real order alert arrives. With the supplied strategy, use 1 contract in TradingView and set your account size in BridgePit. Its alert includes the before-and-after positions, so a strategy that has never filled in BridgePit opens the intended position at its saved size. It does not close a historical trade it never held. If you already traded or closed the strategy manually, check that both positions match before continuing. Confirmation itself places no trade.
 
 ### My existing strategy: use its order-fill alert
 
