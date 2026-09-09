@@ -125,6 +125,8 @@ Create one strategy alert with Order fills and alert() function calls. Keep the 
 
 Keep BridgePit and Tailscale running. On a realtime market update, this alert sends a harmless confirmation automatically. Look for Setup confirmation received and its time under Alert setup. No temporary message or separate test alert is needed. A closed market can delay the update. This receipt proves message delivery for that setup; it does not verify order fills or future availability.
 
+First paper trade rejected? TradingView may already hold a historical position when the alert starts. This SMA strategy reverses directly, so its first event can be two contracts while BridgePit is flat. That can correctly trigger the position cap. Confirmation does not align the starting positions. Review that setup before order testing; do not increase sizing just to bypass a rejection.
+
 ### My existing strategy: use its order-fill alert
 
 Choose My existing strategy · copy its alert message and Copy block. In TradingView, create an alert on your chart's strategy with Order fills only and paste that block into Message. Under Notifications, enable Webhook URL and paste the URL from BridgePit → Settings → Your webhook → Copy. Check expiration and notification schedule, then create it.
