@@ -119,7 +119,7 @@ TradingView → BridgePit dashboard
 
 ### Supplied 14/28 SMA strategy: automatic confirmation
 
-In BridgePit 1.4.23, choose Supplied 14/28 SMA strategy · automatic confirmation and Copy strategy. Save it as a new private Pine script in TradingView and add it to your chart. Keep the code private: it includes your alert token. Preserve your strategy's Properties and start on paper. This complete strategy is only for the supplied 14/28 SMA crossover, not an add-on for other code.
+In BridgePit 1.4.23, choose Supplied 14/28 SMA strategy · automatic confirmation and Copy strategy. Save it as a new private Pine script in TradingView and add it to your chart. Keep the code private: it includes your alert token. Keep your chart settings, use 1 contract in TradingView, and set your account size in BridgePit. Start on paper. This complete strategy is only for the supplied 14/28 SMA crossover, not an add-on for other code.
 
 Create one strategy alert with Order fills and alert() function calls. Keep the prefilled Message. Under Notifications, enable Webhook URL and paste the address using Copy webhook URL in BridgePit. Check expiration and notification schedule, then create it.
 
@@ -187,7 +187,9 @@ Reference
 
 ### Contracts per signal and Emergency stop
 
-Contracts per signal currently both multiplies the alert quantity and caps the resulting absolute position. From flat, an alert for one contract with a setting of three produces three. An alert for two with a setting of one is rejected: it would exceed the cap. Raising the setting does not fix a larger entry from flat, because it raises the multiplier too.
+With a standard alert message, Contracts per signal both multiplies the alert quantity and caps the resulting absolute position. From flat, an alert for one contract with a setting of three produces three. An alert for two with a setting of one is rejected: it would exceed the cap. Raising the setting does not fix a larger entry from flat, because it raises the multiplier too.
+
+The supplied 14/28 SMA setup includes explicit position information. For a strategy that has never filled in BridgePit, its first reversal opens only the intended position at the saved size. Later reversals still close the current position and open the opposite one. This exception does not apply to standard alert messages or to an existing position book.
 
 This is why the first test uses a one-contract entry. Check full entry, exit and reversal sequences on paper; do not change a working strategy's trading logic just to clear an error. Larger entries, pyramiding and partial exits require a compatibility review.
 
