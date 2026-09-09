@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>BridgePit setup - TradingView to your broker, step by step</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Start on paper: install BridgePit, choose a strategy, connect TradingView and verify a fill. Broker setup and troubleshooting included.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="BridgePit">
+<meta property="og:title" content="BridgePit setup - TradingView to your broker, step by step">
+<meta property="og:description" content="Start on paper: install BridgePit, choose a strategy, connect TradingView and verify a fill. Broker setup and troubleshooting included.">
+<meta property="og:image" content="https://bridgepit.com/og.png">
+<link rel="canonical" href="https://bridgepit.com/setup">
+<meta name="theme-color" content="#f7f5ef">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+
+  :root{
+    --bg:#0A0D12; --txt:#E6EAF0; --dim:#8C94A1; --dim2:#5C6470;
+    --line:rgba(255,255,255,.08); --plate:#0D1117;
+    --green:#4FB584; --red:#C4574A; --blue:#8FA9D6;
+    --serif:"Newsreader",Georgia,serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Inter",sans-serif;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--txt);font:15.5px/1.65 var(--sans);-webkit-font-smoothing:antialiased}
+  body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:radial-gradient(ellipse 90% 55% at 50% 12%,rgba(44,76,127,.09),transparent 60%)}
+  a{color:inherit;text-decoration:none}
+  :focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+  ::selection{background:rgba(143,169,214,.25)}
+
+  .chrome{display:flex;justify-content:space-between;align-items:baseline;padding:20px 32px;position:relative;z-index:2}
+  .chrome .wm{font:500 20px var(--serif)}
+  .chrome a.back{font:500 12px var(--sans);color:var(--dim2)}
+  .chrome a.back:hover{color:var(--txt)}
+
+  main{position:relative;z-index:1;max-width:680px;margin:0 auto;padding:64px 24px 96px}
+
+  .kicker{font:500 11px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--dim2);margin-bottom:16px}
+  h1{font:500 clamp(32px,5vw,46px)/1.1 var(--serif);letter-spacing:-.014em;color:#fff;margin-bottom:18px;max-width:18ch}
+  .lede{font:400 17px/1.6 var(--sans);color:var(--dim);max-width:54ch}
+  .lede b{color:var(--txt);font-weight:500}
+  .chainline{margin:26px 0 0;font:italic 400 15px var(--serif);color:var(--dim2)}
+  .chainline b{color:var(--dim);font-weight:400}
+
+  .need{margin:64px 0 8px;border-top:1px solid var(--line)}
+  .need h2{font:500 11px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--dim2);padding:14px 0 4px}
+  .need dl{display:grid;grid-template-columns:170px 1fr}
+  .need dt{font-weight:500;color:var(--txt);padding:11px 12px 11px 0;border-bottom:1px solid var(--line)}
+  .need dd{color:var(--dim);padding:11px 0;border-bottom:1px solid var(--line)}
+  .need dd a{color:var(--blue)}
+  .need dd em{font-style:normal;color:var(--txt)}
+
+  /* the rail - sequence spine */
+  .steps{position:relative;margin-top:24px}
+  .steps::before{content:"";position:absolute;left:-44px;top:34px;bottom:20px;width:1px;background:var(--line)}
+  .step{position:relative;padding:56px 0 8px}
+  .step::before{content:"";position:absolute;left:-48px;top:66px;width:9px;height:9px;border-radius:50%;
+    background:var(--bg);border:1.5px solid var(--dim2)}
+  .step.last::before{border-color:var(--green)}
+  .stepno{font:500 11px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--dim2);margin-bottom:8px}
+  .step h2{font:500 clamp(24px,3.4vw,31px)/1.16 var(--serif);letter-spacing:-.012em;color:#fff;margin-bottom:12px;max-width:24ch}
+  .step p{color:var(--dim);margin:0 0 14px;max-width:60ch}
+  .step p b,.step li b{color:var(--txt);font-weight:500}
+  .step .aside{font-size:13.5px;color:var(--dim2);max-width:58ch}
+  .step .caution{color:var(--dim);max-width:58ch}
+  .step .caution b{color:#D8A46A}
+  code{font:.9em var(--mono);background:rgba(255,255,255,.055);border-radius:5px;padding:1px 6px;color:#C9D3DF;white-space:nowrap}
+
+  .plate{margin:20px 0 6px;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--plate)}
+  .plate img{display:block;width:100%;height:auto}
+  .figcap{font:italic 400 13.5px var(--serif);color:var(--dim2);margin:8px 0 4px}
+  .figcap b{font-style:normal;font-weight:400;color:var(--dim)}
+
+  pre{background:var(--plate);border:1px solid var(--line);border-radius:10px;padding:15px 18px;overflow-x:auto;
+    font:12.5px/1.75 var(--mono);color:#C9D3DF;margin:18px 0 6px}
+  pre code{background:none;padding:0;white-space:pre}
+  pre .cm{color:var(--dim2)}
+  pre .hl{color:#A8C7E8}
+
+  .copywrap{margin:18px 0 6px}
+  .fieldnote{font-size:13.5px;color:var(--dim2);margin:0 0 8px;max-width:58ch}
+  .fieldnote b{color:var(--txt);font-weight:500}
+  .copyfield{position:relative;background:var(--plate);border:1px solid var(--line);border-radius:10px}
+  .copyfield pre{margin:0;border:none;background:transparent;padding:44px 18px 15px}
+  .copybtn{position:absolute;top:10px;right:10px;z-index:1;font:500 12px var(--sans);
+    color:var(--txt);background:rgba(255,255,255,.08);border:1px solid var(--line);
+    border-radius:7px;padding:5px 11px;cursor:pointer}
+  .copybtn:hover{background:rgba(255,255,255,.12)}
+  .copynote{position:absolute;top:12px;right:72px;z-index:1;font:500 12px var(--sans);
+    color:var(--green);opacity:0;pointer-events:none;transition:opacity .15s}
+  .copynote.on{opacity:1}
+
+  .moves{list-style:none;margin:18px 0 6px;counter-reset:mv}
+  .moves li{position:relative;padding:12px 0 12px 44px;border-top:1px solid var(--line);color:var(--dim);counter-increment:mv;max-width:60ch}
+  .moves li::before{content:counter(mv);position:absolute;left:0;top:11px;width:26px;height:26px;border-radius:50%;
+    border:1px solid var(--line);color:var(--txt);font:500 13px/26px var(--sans);text-align:center}
+  .moves li b{color:var(--txt);font-weight:500}
+
+  .term{margin:18px 0 6px;border:1px solid var(--line);border-radius:10px;background:var(--plate);overflow:hidden}
+  .term .bar{display:flex;gap:6px;padding:10px 14px;border-bottom:1px solid var(--line)}
+  .term .bar i{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.12)}
+  .term pre{margin:0;border:none;border-radius:0}
+  .term .you{color:#E6EAF0}
+  .term .out{color:var(--dim2)}
+  .term .url{color:#A8C7E8}
+
+  .fix{margin-top:72px;border-top:1px solid var(--line);padding-top:18px}
+  .fix h2{font:500 clamp(24px,3.4vw,31px)/1.16 var(--serif);color:#fff;margin:6px 0 18px}
+  .fix table{width:100%;border-collapse:collapse;font-size:14px}
+  .fix th{font:500 11px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--dim2);text-align:left;padding:0 12px 8px 0;border-bottom:1px solid var(--line)}
+  .fix td{padding:11px 12px 11px 0;border-bottom:1px solid var(--line);color:var(--dim);vertical-align:top}
+  .fix td:first-child{color:var(--txt);width:200px;font-family:var(--mono);font-size:13px}
+  .fix p{color:var(--dim);margin-top:16px}
+  .fix a{color:var(--blue)}
+
+  .habit{margin-top:72px}
+  .habit p{font:400 19px/1.55 var(--serif);color:var(--dim);max-width:52ch}
+  .habit p b{color:var(--txt);font-weight:500}
+
+  footer{border-top:1px solid var(--line);margin-top:32px;padding:26px 32px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
+    color:var(--dim2);font-size:13px;position:relative;z-index:1}
+  footer a:hover{color:var(--txt)}
+
+  @media (max-width:900px){ .steps::before,.step::before{display:none} .step{padding-top:44px} }
+  @media (max-width:560px){ .need dl{grid-template-columns:1fr} .need dt{border-bottom:none;padding-bottom:0} .need dd{padding-top:2px} .fix td:first-child{width:auto} }
+
+
+.setup-review{max-width:960px;padding:68px 30px 90px}
+.setup-review .eyebrow{font:600 11px/1.5 var(--sans);letter-spacing:.13em;text-transform:uppercase;color:#93a6bd;margin-bottom:10px}
+.setup-review h1{font-size:clamp(34px,5vw,54px);max-width:22ch;line-height:1.1;margin-bottom:22px}
+.setup-review h2{font:500 clamp(25px,3vw,34px)/1.18 var(--serif);letter-spacing:-.02em;margin:0 0 19px;color:var(--txt)}
+.setup-review .intro{font-size:18px;line-height:1.65;max-width:60ch;color:#abb5c3}
+.setup-review b{color:var(--txt);font-weight:650}
+.setup-review a:not(.route a){color:#b6c9e7;text-decoration:underline;text-underline-offset:3px}
+.setup-review .route{display:grid;grid-template-columns:repeat(4,1fr);margin:30px 0 23px;border:1px solid #293444;border-radius:12px;background:linear-gradient(125deg,#17212f,#101821);overflow:hidden}
+.setup-review .route a{padding:19px 16px;font:500 12px var(--mono);color:#8196b1;border-right:1px solid #2a3542}
+.setup-review .route a:last-child{border-right:0}
+.setup-review .route a:hover{background:#202d3d}
+.setup-review .route span{display:block;margin-top:8px;font:600 13px/1.4 var(--sans);color:#d4dce7}
+.setup-review .requirements{max-width:80ch;font-size:14px;color:#a2adbb;line-height:1.7}
+.setup-review .guide-step{display:grid;grid-template-columns:45px 1fr;gap:22px;padding:42px 0;border-bottom:1px solid #27303b;scroll-margin-top:95px}
+.setup-review .step-index{height:35px;width:35px;display:grid;place-items:center;border:1px solid #3d4e63;border-radius:50%;font:500 12px var(--mono);color:#b0c1d8;margin-top:2px;background:#14202e}
+.setup-review .step-content{min-width:0}
+.setup-review p,.setup-review li,.setup-review dd{color:#aab4c2;font-size:15px;line-height:1.75}
+.setup-review p{margin-bottom:15px}
+.setup-review ol{padding-left:21px;margin:0 0 18px}
+.setup-review li{padding-left:6px;margin-bottom:12px}
+.setup-review .checkpoint{margin:21px 0;padding:13px 17px;border-left:2px solid #4d8e75;background:linear-gradient(95deg,#15262077,transparent);color:#c1d1c7;font-size:14px}
+.setup-review .checkpoint span{display:block;font:650 10px/1.5 var(--sans);letter-spacing:.10em;text-transform:uppercase;color:#79b799;margin-bottom:4px}
+.setup-review details{border-top:1px solid #28323f;padding:0;scroll-margin-top:95px}
+.setup-review summary{padding:17px 0;cursor:pointer;list-style:none;color:#c4cedb;font-size:14px;font-weight:550;display:flex;justify-content:space-between;gap:14px;align-items:center}
+.setup-review summary::-webkit-details-marker{display:none}
+.setup-review summary:after{content:'+';font:400 19px var(--sans);color:#8d9eb5}
+.setup-review details[open]>summary:after{content:'−'}
+.setup-review details p,.setup-review details li,.setup-review details dd{font-size:14px}
+.setup-review details>*:not(summary){margin-bottom:15px}
+.setup-review pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#0a1018;border:1px solid #293443;border-radius:9px;padding:16px;font:12px/1.7 var(--mono);color:#bacbdf}
+.setup-review code{white-space:normal;overflow-wrap:anywhere}
+.setup-review pre code{background:transparent;padding:0;font:inherit}
+.setup-review .later{margin:45px 0 36px;padding:28px;border:1px solid #2d3948;background:linear-gradient(135deg,#151f2d,#101720);border-radius:13px;scroll-margin-top:95px}
+.setup-review .reference h2{font-size:28px}
+.setup-review .errors dt{font-size:14px;font-weight:650;color:#c5cfdb;margin:16px 0 4px}
+.setup-review .support{padding-top:24px;border-top:1px solid #28323f}
+.setup-review .download-note{font-size:13px}
+.audit-review-banner{position:relative;padding:10px 24px;text-align:center;color:#8c9bb0;background:#0f1620;border-bottom:1px solid #273242;font:12px/1.5 var(--sans)}
+@media(max-width:600px){.setup-review{padding:36px 20px 60px}.setup-review .route{grid-template-columns:1fr 1fr}.setup-review .route a:nth-child(2){border-right:0}.setup-review .route a:nth-child(-n+2){border-bottom:1px solid #2a3542}.setup-review .guide-step{grid-template-columns:1fr;gap:13px;padding:32px 0}.setup-review .step-index{width:29px;height:29px}.setup-review .later{padding:22px 18px}.setup-review .intro{font-size:16px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+.setup-review .eyebrow{color:#5a7468}
+.setup-review .intro,.setup-review .requirements,.setup-review p,.setup-review li,.setup-review dd{color:#52615f}
+.setup-review a:not(.route a){color:#2a6553}
+.setup-review .route{border-color:#ccd4cc;background:linear-gradient(120deg,#e9eee6,#f2f3ec)}
+.setup-review .route a{color:#577063;border-color:#ccd4cc;text-decoration:none}
+.setup-review .route a:hover{background:#dfe7de}
+.setup-review .route span{color:#263a32}
+.setup-review .guide-step{border-color:#d5d9d1}
+.setup-review .step-index{border-color:#aebeb0;background:#ebefe7;color:#405d4d}
+.setup-review .checkpoint{border-color:#52816b;background:linear-gradient(95deg,#e4ebe1,transparent);color:#3f584a}
+.setup-review .checkpoint span{color:#37654e}
+.setup-review details,.setup-review .support{border-color:#d4d9d0}
+.setup-review summary,.setup-review .errors dt{color:#344d41}
+.setup-review summary:after{color:#557360}
+.setup-review pre{background:#eef0e8;border-color:#ccd3c7;color:#385948}
+.setup-review .later{border-color:#cdd6c8;background:linear-gradient(135deg,#e9eee4,#f1f2ea)}
+.audit-review-banner{color:#b7c3cd}
+@media(max-width:600px){.setup-review .route a:nth-child(-n+2){border-color:#ccd4cc}}
+
+</style>
+<link rel="stylesheet" href="/assets/retained-site.css?v=8941e85a03">
+<link rel="stylesheet" href="/showcase.css?v=8941e85a03">
+<link rel="stylesheet" href="/opening.css?v=8941e85a03">
+<link rel="stylesheet" href="/site-theme.css?v=8941e85a03">
+<link rel="stylesheet" href="/content-pages.css?v=8941e85a03">
+<link rel="stylesheet" href="/light-site.css?v=8941e85a03">
+<script src="/site.js?v=dca13bfeed" defer></script>
+<meta name="robots" content="noindex,nofollow"></head>
+<body class="rd concept content-page page-setup">
+<a class="skip-link" href="#main-content">Skip to content</a>
+<nav class="site-nav" aria-label="Main navigation"><div class="wrap nav-inner"><a class="brand" href="/"><img src="/assets/bridgepit.svg" width="26" height="26" alt="">BridgePit</a><div class="nav-links"><a href="/how-it-works.html">See how it works</a><a href="/#safety">Safety</a><a href="/#pricing">Pricing</a><a href="/review/automatic-setup-1.4.23/setup.html" aria-current="page">Setup guide</a><a href="/questions.html">Questions</a></div><details class="mobile-menu"><summary>Menu</summary><div class="mobile-links"><a href="/how-it-works.html">See how it works</a><a href="/#safety">Safety</a><a href="/#pricing">Pricing</a><a href="/review/automatic-setup-1.4.23/setup.html" aria-current="page">Setup guide</a><a href="/questions.html">Questions</a></div></details><a class="button compact" href="/downloads/BridgePit-mac-1.4.23.dmg">Try on paper <span aria-hidden="true">↗</span></a></div></nav><main id="main-content" class="setup-review">
+  <header class="guide-hero">
+    <p class="eyebrow">Setup guide · Test update 1.4.23 · Start on paper</p>
+    <h1>Your first alert.<br>A paper fill on your Mac.</h1>
+    <p class="intro">Four stages, one clear finish. Keep <b>Connections empty</b>: this first setup needs no broker, BridgePit licence or card.</p>
+    <nav class="route" aria-label="Setup stages"><a href="#install">01 <span>Open BridgePit</span></a><a href="#strategy">02 <span>Choose a strategy</span></a><a href="#address">03 <span>Set up the address</span></a><a href="#verify">04 <span>See a paper fill</span></a></nav>
+    <p class="requirements">Have ready: an Apple Silicon Mac, your TradingView strategy, and a TradingView plan with webhook alerts. Enable <a href="https://www.tradingview.com/support/solutions/43000572460-how-to-configure-2fa/">TradingView two-factor authentication</a> first. Keep this Mac awake and online throughout the test.</p>
+  </header>
+
+  <section class="guide-step" id="install">
+    <div class="step-index">01</div><div class="step-content">
+    <p class="eyebrow">On your Mac</p><h2>Open BridgePit.</h2>
+    <ol><li><a href="/downloads/BridgePit-mac-1.4.23.dmg">Download the Mac app</a>. Open the DMG, drag BridgePit into Applications, then launch it.</li><li>Create your dashboard password: at least eight characters. The dashboard opens in your browser at <code>127.0.0.1:8787</code>.</li></ol>
+    <p class="checkpoint"><span>Ready when</span> You can see the dashboard in Paper mode, with no broker connections.</p>
+    <details><summary>Installation or password help</summary><p>If macOS refuses to open the app, use a fresh download from BridgePit and keep the exact error for support. There can be several causes; a chat download is not the only one.</p><p>Forgot your password? Use <b>Forgot it?</b> on the password screen and follow the local recovery instructions. There is no recovery email.</p><p>Port 8787 already in use? Quit an older BridgePit through its own Settings if one is running. Otherwise contact support with the error; do not close an unidentified program or change ports by guesswork.</p></details>
+    </div>
+  </section>
+
+  <section class="guide-step" id="strategy">
+    <div class="step-index">02</div><div class="step-content">
+    <p class="eyebrow">In BridgePit → Strategies</p><h2>Choose what the alert runs.</h2>
+    <ol><li>If <b>My_First_Strategy</b> is already listed, edit it; otherwise use <b>+ Add strategy</b>. This is an alert destination, not a supplied trading strategy.</li><li>Select the instrument you intend to test. Leave <b>Contracts per signal</b> at <b>1</b> for an initial one-contract signal. Keep the strategy <b>Switched on</b> and save.</li></ol>
+    <p>For this first test, use a TradingView strategy whose entry from flat sends one contract. Strategies with larger entries, partial exits or pyramiding need a sizing review first. <a href="#sizing">See how sizing works</a>.</p>
+    <p class="checkpoint"><span>Ready when</span> Your enabled strategy and intended instrument appear in Strategies.</p>
+    <details><summary>My instrument is missing</summary><p>In <b>Strategies → Instruments → + Add instrument</b>, search for it and select the matching result. Check <b>TradingView symbol</b>, <b>Contract root</b> and <b>Exchange</b>, then press <b>Save</b> and select it in your strategy.</p><p>Use the contract root without a month or year, such as MNQ. BridgePit resolves the current contract. If the instrument is not in the search results, confirm its mapping and broker support before adding it manually.</p></details>
+    <details><summary>Optional: check the paper engine immediately</summary><p>Open <b>Settings → Alert setup</b>, select your strategy and use <b>Send a test signal</b>. Review any pause or safety message it shows.</p><p>This is a local check. It does not prove that TradingView or your public address works. Continue below for that.</p></details>
+    </div>
+  </section>
+
+  <section class="guide-step" id="address">
+    <div class="step-index">03</div><div class="step-content">
+    <p class="eyebrow">Tailscale → BridgePit → TradingView</p><h2>Let TradingView reach your Mac.</h2>
+    <p>Tailscale Funnel lets TradingView reach BridgePit on this Mac. You keep your broker connection on your own machine.</p>
+    <ol><li><a href="https://tailscale.com/download/mac">Install Tailscale for Mac</a>, sign in, and complete its VPN and system-extension approvals. Choose a plan appropriate to your use; its Personal plan is for non-commercial use.</li><li>In BridgePit, open <b>Settings → Your public address</b>. Choose <b>Check again</b>, then <b>Set up public address</b>. If asked, choose <b>Approve with Tailscale</b>, complete its approval page, return to BridgePit and check again. Keep other Tailscale serving settings unchanged during setup.</li><li>Wait for <b>Your public address is ready</b>: BridgePit has saved the address and checked the public path. Use the manual help below for an older app or an existing tunnel conflict.</li></ol>
+    <p class="checkpoint"><span>Address ready</span> BridgePit has saved your public address and checked the path. Create your strategy's alert next.</p>
+    <details><summary>Manual setup, older app or Tailscale permissions</summary><p>For BridgePit 1.4.19, or if assisted setup is unavailable, open the manual setup area under <b>Your public address</b> (the commands are shown directly in older versions). Review any existing Tailscale Serve/Funnel configuration first; a Funnel command can replace a route or make other routes on that port public. Copy the command shown by BridgePit into Terminal and run it. It normally reads <code>tailscale funnel --bg 8787</code>. Follow any Tailscale approval link, then run it again. Paste the returned HTTPS address into <b>Your public address</b> and press <b>Save</b>; BridgePit adds <code>/webhook</code>. Use <b>Check the path</b> before continuing.</p><p>If Terminal cannot find <code>tailscale</code>, try the bundled command below, using the port shown in BridgePit:</p><pre>/Applications/Tailscale.app/Contents/MacOS/Tailscale funnel --bg 8787</pre><p>Funnel needs MagicDNS, HTTPS and Funnel permission in your Tailscale network. Follow its approval prompts; a managed network may require its administrator. For version-specific macOS prompts, use <a href="https://tailscale.com/docs/concepts/macos-sysext">Tailscale's system-extension instructions</a>.</p><p><code>tailscale funnel status</code> reports the saved serving configuration. BridgePit's <b>Check the path</b> also tests reachability; a connected Tailscale app alone does not prove it.</p></details>
+    <details><summary>Alert message reference</summary><p><b>Use the message prepared by Alert setup in the app.</b> Copy block fills your strategy name and token; the supplied SMA strategy includes the same message automatically. This example is for reference only; its name and token are placeholders.</p><pre id="alertBlock"><code>{
+  "strategy_name": "YourStrategyName",
+  "data": "{{strategy.order.action}}",
+  "quantity": "{{strategy.order.contracts}}",
+  "price": "{{close}}",
+  "bar_time": "{{time}}",
+  "fired_at": "{{timenow}}",
+  "token": "YOUR-TOKEN"
+}</code></pre><p>Two clocks, two jobs: <code>bar_time</code> identifies the bar for duplicate checks; <code>fired_at</code> checks entry freshness. Preserve both placeholders. Keep your token private. Never add broker credentials to the alert.</p><p>The app's strategy name need not be the TradingView script title: the copied message must match the name saved in BridgePit. The instrument and account are selected in BridgePit, not taken from the chart. BridgePit submits market orders.</p><p>Moving from PickMyTrade requires your new BridgePit URL and message. The compatible BridgePit path <code>/v2/add-trade-data</code> does not transfer a PickMyTrade hostname or make its old message compatible.</p></details>
+    </div>
+  </section>
+
+  <section class="guide-step" id="verify">
+    <div class="step-index">04</div><div class="step-content">
+    <p class="eyebrow">TradingView → BridgePit dashboard</p><h2>See the alert arrive and fill.</h2>
+    <ol><li>Keep <b>Connections empty</b> and check the dashboard is in Paper mode. If you deliberately paused entries, allow them again. Review any safety warning before resuming.</li><li>In <b>Settings → Alert setup</b>, select the strategy saved in BridgePit and choose your setup below. Use your intended chart's symbol and timeframe. Pause an old alert before replacing it to avoid duplicate trades.</li></ol>
+    <details><summary>Supplied 14/28 SMA strategy: automatic confirmation</summary><p>In BridgePit 1.4.23, choose <b>Supplied 14/28 SMA strategy · automatic confirmation</b> and <b>Copy strategy</b>. Save it as a new private Pine script in TradingView and add it to your chart. Keep the code private: it includes your alert token. Keep your chart settings, use <b>1 contract in TradingView</b>, and set your account size in BridgePit. Start on paper. This complete strategy is only for the supplied 14/28 SMA crossover, not an add-on for other code.</p><p>Create one strategy alert with <b>Order fills and alert() function calls</b>. Keep the prefilled <b>Message</b>. Under <b>Notifications</b>, enable <b>Webhook URL</b> and paste the address using <b>Copy webhook URL</b> in BridgePit. Check expiration and notification schedule, then create it.</p><p>Keep BridgePit and Tailscale running. On a realtime market update, this alert sends a harmless confirmation automatically. Look for <b>Setup confirmation received</b> and its time under Alert setup. No temporary message or separate test alert is needed. A closed market can delay the update. This receipt proves message delivery for that setup; it does not verify order fills or future availability.</p><p><b>Your first trade.</b> a new BridgePit strategy stays flat until a real order alert arrives. With the supplied strategy, use 1 contract in TradingView and set your account size in BridgePit. Its alert includes the before-and-after positions, so a strategy that has never filled in BridgePit opens the intended position at its saved size. It does not close a historical trade it never held. If you already traded or closed the strategy manually, check that both positions match before continuing. Confirmation itself places no trade.</p></details>
+    <details><summary>My existing strategy: use its order-fill alert</summary><p>Choose <b>My existing strategy · copy its alert message</b> and <b>Copy block</b>. In TradingView, create an alert on your chart's strategy with <b>Order fills only</b> and paste that block into <b>Message</b>. Under <b>Notifications</b>, enable <b>Webhook URL</b> and paste the URL from <b>BridgePit → Settings → Your webhook → Copy</b>. Check expiration and notification schedule, then create it.</p><p>Existing or protected strategies do not gain automatic confirmation from a webhook URL alone. They need compatible code from their creator, or their next real order-fill event. Do not replace your strategy with the SMA example just to test its connection.</p></details>
+    <p>When your strategy next fills an order in real time, match that event and its <b>Webhook status</b> in TradingView's alert log to the <b>FILL</b> marked <b>(paper)</b> under BridgePit's <b>Recent activity</b>. Check the strategy, action, size and time. Backtest trades do not send these alerts.</p>
+    <p class="checkpoint"><span>Paper setup complete</span> A real strategy event has produced the matching simulated fill. A setup confirmation alone does not complete this step.</p>
+    <p>You can continue on paper for free. Observe your strategy's entries, exits and sizing before broker execution. If you change its TradingView inputs, script, symbol or timeframe, recreate its alert so the saved copy uses those changes.</p>
+    <details><summary>No confirmation or strategy fill?</summary><p>Start with TradingView's alert log. No event: check the strategy, market hours, expiration and notification schedule. For automatic confirmation, include <b>alert() function calls</b> and keep <b>On realtime bar tick</b> in the supplied strategy's Properties. Its order decisions remain at candle close. A saved alert keeps its own copy of the script and settings; editing the chart does not update that copy.</p><p>Failed webhook: check its public address. No receipt in BridgePit: read the setup status. A changed address or alert token requires updated code and a replacement alert. Pine sends the startup confirmation once per running script instance; it does not automatically resend after failed delivery. A quiet strategy may still need time for a real trade. Do not change its logic to force one. If BridgePit rejects a trade, use its precise reason below.</p><p>For a separate delivery diagnostic, open <b>Settings → Optional diagnostic: send a separate price alert → Prepare connection test</b>. This tests a different message and is optional. The local <b>Send a test signal</b> and public-path <b>Send a test alert the long way round</b> both start on this Mac. Neither establishes that your TradingView strategy alert is configured correctly.</p></details>
+    </div>
+  </section>
+
+  <section class="later" id="broker-later">
+    <p class="eyebrow">When your paper setup is working</p><h2>Broker execution comes next.</h2>
+    <p>Connecting a broker is a separate stage. Even in Paper mode, enabled account protection or closing actions can affect connected accounts. Review the account's rules before connecting.</p>
+    <details><summary>Set up broker execution</summary>
+    <ol><li><b>Confirm eligibility.</b> For the current Rithmic route, confirm with your broker or firm that your account permits BridgePit's R | Protocol API connection and automation, and confirm access fees. Do not assume an ordinary demo login is eligible.</li><li><b>Configure the account's rules.</b> Use <b>Funded accounts</b> for firm accounts or <b>My brokerage</b> for your own. Set the Daily stop you intend to use, review End of day, then press <b>Save my limits</b>. Blank loss limits provide no protection.</li><li><b>Connect deliberately.</b> In <b>Connections → + Add connection</b>, select the correct account type and Rithmic system, enter your credentials, then <b>Save &amp; Connect</b>. Confirm the returned account. Check firm figures and any per-account overrides on its dashboard card. In Strategies, check the account, instrument and size assigned to each strategy.</li><li><b>Prove notifications.</b> Configure Telegram or email under <b>Settings → Where we reach you</b>. In <b>Alert delivery</b>, use <b>Send test message</b> and confirm <b>I received it</b> only after it arrives. Read and acknowledge <b>What BridgePit depends on</b>.</li><li><b>Activate and arm.</b> If you have a licence key, use <b>Subscription → Activate</b>. Broker entries require valid paid access, the eligible connection, the safety acknowledgements and <b>Set as execution</b>. Read any refusal; the connection colour alone is not execution approval.</li></ol>
+    <p><b>Drawdown stop means a buffer above the account's floor.</b> It is not a loss measured down from the highest balance. On a funded account's dashboard card, open <b>Limits &amp; firm figures</b>. Enter the firm's current minimum balance in <b>Balance the firm closes it at</b> and save. Confirm the displayed floor matches the firm's dashboard; keep a manually entered floor current when the firm changes it. The stop needs a usable floor. For example, a floor of $48,000 and buffer of $500 gives a $48,500 stop threshold. These are illustrative figures, not a recommended setting.</p>
+    <p><b>End of day is separate for each account type.</b> Funded accounts default to enabled at 15:55 New York time; My brokerage defaults to off. Enabled closes can act on connected accounts without entry execution being armed or paid access being active. Half-days can move the close earlier. Check the displayed schedule and account exceptions.</p>
+    <p>BridgePit must be awake and connected to act on its limits. Verify positions and protective orders directly with your broker; software limits do not guarantee a maximum loss.</p>
+    </details>
+    <details><summary>Connect Telegram or email notifications</summary><p>Open <b>Settings → Where we reach you</b>. Enable at least one channel and press its section's <b>Save</b> after filling the fields.</p><p><b>Telegram:</b> follow the instructions beside <b>Bot token</b> and <b>Chat ID</b> to create your bot and find the destination. Send your own bot a message once so it can reply to you. Keep its token private.</p><p><b>Email:</b> enter <b>Send alerts to</b>, <b>Sending account</b>, the provider's <b>App password</b> and <b>Mail server</b> details. Use the provider's supported SMTP settings; do not assume your normal mailbox password works. If the provider does not allow this connection method, choose another supported sender or Telegram.</p><p>Then use <b>Settings → Alert delivery → Send test message</b>. Check the intended inbox or Telegram chat and press <b>I received it</b> only after seeing the message. If delivery fails, fix the displayed error before arming broker execution.</p></details>
+  </section>
+
+  <section class="reference" id="help">
+    <p class="eyebrow">Reference</p><h2>Help when you need it.</h2>
+    <details id="sizing"><summary>Contracts per signal and Emergency stop</summary><p>With a standard alert message, <b>Contracts per signal</b> both multiplies the alert quantity and caps the resulting absolute position. From flat, an alert for one contract with a setting of three produces three. An alert for two with a setting of one is rejected: it would exceed the cap. Raising the setting does not fix a larger entry from flat, because it raises the multiplier too.</p><p>The supplied 14/28 SMA setup includes explicit position information. For a strategy that has never filled in BridgePit, its first reversal opens only the intended position at the saved size. Later reversals still close the current position and open the opposite one. This exception does not apply to standard alert messages or to an existing position book.</p><p>This is why the first test uses a one-contract entry. Check full entry, exit and reversal sequences on paper; do not change a working strategy's trading logic just to clear an error. Larger entries, pyramiding and partial exits require a compatibility review.</p><p><b>Emergency stop</b> is optional, in points; blank means no configured emergency stop. For broker execution, verify that a protective order is actually resting at the broker. Where native stops are unavailable, the app uses local enforcement and reports it. Local protection stops when the Mac or connection stops. Even a broker-held stop-market order can fill beyond its trigger price.</p></details>
+    <details><summary>Alert errors</summary><dl class="errors"><dt>bad token / unknown strategy</dt><dd>In BridgePit, select the intended strategy under Alert setup and copy a fresh block into the alert's Message.</dd><dt>qty &lt;= 0 / unfilled placeholders</dt><dd>Use a strategy order-fill alert, with the copied message. A price or indicator alert does not supply the strategy placeholders.</dd><dt>position cap</dt><dd>Check the sizing explanation above, the alert quantity and the current paper position.</dd><dt>duplicate / late entry</dt><dd>Read the precise rejection. Keep bar_time as {{time}} and fired_at as {{timenow}}. Do not remove the clocks to get around a rejection.</dd><dt>this alert carries no bar_time / two clocks are swapped</dt><dd>Use a fresh Copy block from the app. Keep bar_time as {{time}} and fired_at as {{timenow}}.</dd><dt>/halt does nothing</dt><dd>Check the app is running, Telegram is connected and you replied YES to its confirmation within 60 seconds. Check broker positions directly if an urgent action is unconfirmed.</dd><dt>nothing in Recent activity</dt><dd>Start with TradingView's alert log: did it trigger, and what was the Webhook status? Then check the public address in BridgePit.</dd><dt>broker connection or execution refused</dt><dd>Read the current error and readiness details. For an app-permission refusal, firm authorisation or a previous open session can be involved. A green connection card records connection status; it is not an independent live heartbeat.</dd></dl></details>
+    <details><summary>Restarting, connection loss and Telegram</summary><p>Keep BridgePit and Tailscale running during trading hours. Enable Tailscale's launch-at-login option if appropriate. BridgePit does not start itself after a reboot. Open it yourself, or add BridgePit under macOS System Settings → General → Login Items. Check the public path before relying on alerts. Funnel started with <code>--bg</code> persists and resumes when Tailscale runs again; do not treat a saved URL as evidence of availability.</p><p>TradingView retries certain server failures, but does not guarantee delivery. BridgePit monitors the saved public address in the background, with the dashboard open or closed. Its own warnings also depend on this Mac and a working notification route. Broker-held orders may still execute when this Mac is offline.</p><p>Telegram <code>/halt</code> blocks new entries; <code>/flatten</code> requests closing open positions; <code>/resume</code> allows entries again. Confirm those actions with YES within 60 seconds. <code>/path</code> checks the public route. Silence can mean a stopped app, network problem or notification problem; it does not identify the cause. Email can warn you but cannot perform these commands.</p></details>
+    <p class="support">Still stuck? <a href="mailto:support@bridgepit.com">support@bridgepit.com</a>. Include the step, exact error and matching activity row. Omit tokens, passwords and licence keys.</p>
+    <p class="download-note"><a href="bridgepit-setup-guide.md" download>Download this guide as text</a></p>
+  </section>
+</main>
+<footer class="rd-foot"><div class="rd-wrap"><div class="fl">
+<a href="/review/automatic-setup-1.4.23/setup.html">Setup guide</a><a href="/questions.html">Questions</a>
+<a href="/how-it-works.html">See how it works</a>
+<a href="/terms.html">Terms</a><a href="/privacy.html">Privacy</a><a href="mailto:support@bridgepit.com">support@bridgepit.com</a>
+</div><div class="fr"><b>From traders, for traders.</b> © 2026 BridgePit LLC. BridgePit runs on your machine. We never see your credentials, your positions or your orders.</div></div></footer><script>
+function revealGuideAnchor(){const el=document.getElementById(location.hash.slice(1));if(el&&el.tagName==='DETAILS')el.open=true;}
+addEventListener('hashchange',revealGuideAnchor);revealGuideAnchor();
+
+</script>
+</body></html>
