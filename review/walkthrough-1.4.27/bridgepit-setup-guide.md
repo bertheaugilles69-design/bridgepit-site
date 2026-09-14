@@ -67,27 +67,49 @@ Tailscale Funnel provides the public address TradingView needs to deliver alerts
 
 A separate account: Tailscale is a separate service, not a BridgePit account or a subscription bundled with BridgePit. Funnel is available on all Tailscale plans; the free Personal plan is for non-commercial use. Check [Tailscale's current plans](https://tailscale.com/pricing) for your intended use before signing up. Do not assume trading use qualifies for Personal.
 
-### A. Install and allow Tailscale
+### A. Install Tailscale and allow it to run
 
 1. [Install Tailscale for Mac](https://tailscale.com/download/mac). Choose the Standalone download, open its installer and complete installation. If this Mac already has Tailscale, open the existing app instead; do not install a second variant.
-2. Open Finder → Applications → Tailscale. Follow its setup prompts to allow the Tailscale Network Extension and its VPN configuration. These approvals allow Tailscale to run; they do not sign you in.
-3. For a macOS password prompt, use the login password for this Mac's user account, not your BridgePit dashboard or Tailscale password. In a virtual Mac, that means the virtual Mac's password, which can differ from the physical Mac's.
+2. Tailscale's own setup window normally opens by itself as soon as installation finishes, starting with a welcome screen. If it does not appear, open Finder → Applications → Tailscale. Continue from the welcome screen. The dots along the bottom of the window mark your progress through the three screens below.
+3. Whenever macOS asks for a password on these screens, use the login password for this Mac's user account, not your BridgePit dashboard or Tailscale password. In a virtual Mac, that means the virtual Mac's password, which can differ from the physical Mac's.
 
-### Where do I allow the network extension?
+Tailscale screen: Required permissions (REQUIRED)
 
-On macOS 15 or later, open System Settings → General → Login Items & Extensions → Network Extensions ⓘ. Enable Tailscale Network Extension, authorize it, then choose Done. Allow the Tailscale VPN configuration if prompted. On macOS 14 or earlier, look in Privacy & Security for the Tailscale approval. See [Tailscale's illustrated approval instructions](https://tailscale.com/docs/concepts/macos-sysext) for your macOS version. Do not disable macOS security or unrelated extensions.
+Grant both rows. These approvals allow Tailscale to run; they do not sign you in. Next stays grey until both rows show Granted.
+
+4. System extension. Click Grant permissions. macOS opens System Settings at its extensions list; if it does not, open System Settings → General → Login Items & Extensions yourself. On macOS 15 or later, choose Network Extensions ⓘ, turn on Tailscale Network Extension, approve with Touch ID or this Mac's password, then choose Done. On macOS 14 or earlier, open Privacy & Security instead, find the message that system software from Tailscale.app was blocked from loading, and choose Allow. Return to the Tailscale window: the row changes from System Extension Approval Required to Granted.
+5. VPN Configuration. When macOS asks whether Tailscale may add VPN configurations, choose Allow. This row may already show Granted, because that prompt can appear before the extension approval.
+
+Ready when: both rows show Granted with a green tick and Next is available. Click Next.
+
+The extension still says Approval Required? Return to System Settings and check that the Tailscale Network Extension switch is on and was approved with this Mac's password. If macOS shows that Tailscale was blocked, choose Allow. Then go back to the Tailscale window; it updates by itself. Do not disable macOS security or unrelated extensions. See [Tailscale's illustrated approval instructions](https://tailscale.com/docs/concepts/macos-sysext) for your macOS version.
+
+Tailscale screen: Quality of life settings (OPTIONAL)
+
+Neither switch is required, and either choice is fine for this paper test. You can change both later in Tailscale's settings.
+
+6. Start at login, off by default. On means Tailscale starts by itself whenever this Mac restarts, so your public address comes back without you opening Tailscale. Worth turning on before you rely on alerts. BridgePit does not start itself after a restart; see Restarting under Help below.
+7. Receive connectivity alerts, on by default. Lets Tailscale show macOS notifications about its own connection. Leave it as you prefer, then click Next.
+
+Ready when: the window shows Join a tailnet. Installation and permissions are complete; nothing is signed in yet. Continue with B.
 
 ### B. Sign in and connect this Mac
 
-1. Click the Tailscale dots icon in the Mac's top-right menu bar, then Log in…. If its window says Join a tailnet, it is still waiting for sign-in. A tailnet is your Tailscale network.
-2. Complete sign-in in the browser page opened by the app. Create a Tailscale account if needed, or use the account for your intended network. Complete the device connection/authorization page for this Mac; signing into the website alone does not connect the app. A managed network may also need its administrator to approve this device.
-3. Return to the Tailscale menu. Confirm Connected and the intended account/network before returning to BridgePit.
+Tailscale screen: Join a tailnet (REQUIRED)
+
+This screen is the account sign-in, separate from installing and from the permissions you just granted. Status: Not connected and an empty Tailnet are normal here. A tailnet is your Tailscale network; this Mac joins it only after you sign in and authorize it.
+
+8. Click Sign in to your network. With no Tailscale account yet, use Sign up under the button instead. Your browser opens Tailscale's sign-in page; use the account for your intended network, with the plan note above in mind.
+9. In the browser, complete the sign-in, then the device connection/authorization page for this Mac. Signing into the website alone does not connect the app. A managed network may also need its administrator to approve this device.
+10. Return to Tailscale. Confirm Connected and the intended account/network, shown when you click the Tailscale dots icon in the Mac's top-right menu bar. Finish any remaining setup screen, then return to BridgePit.
+
+Closed the setup window, or nothing happens when you click Sign in to your network? Click the Tailscale dots icon in the Mac's top-right menu bar, then Log in…. It opens the same browser sign-in.
 
 Tailscale ready: The Tailscale menu shows Connected to your intended network. An installer success screen, “You're all set”, Join a tailnet, Not connected or Needs Authentication does not establish this checkpoint.
 
 ### Sign in does nothing, or BridgePit cannot check Tailscale?
 
-No browser opens: try Log in… from the Tailscale menu-bar icon, rather than the welcome window. If nothing opens there either, confirm the approvals in part A. During a new setup with no trading or other active work on this Mac, save your work and restart this Mac once. Reopen BridgePit and Tailscale from Applications, then retry the menu-bar login. In a virtual Mac, restart only the virtual Mac. A restart is a recovery step, not proof that setup succeeded.
+No browser opens: try Log in… from the Tailscale menu-bar icon, rather than the setup window. If nothing opens there either, confirm both rows on Required permissions show Granted. During a new setup with no trading or other active work on this Mac, save your work and restart this Mac once. Reopen BridgePit and Tailscale from Applications, then retry the menu-bar login. In a virtual Mac, restart only the virtual Mac. A restart is a recovery step, not proof that setup succeeded.
 
 The browser opens but does not load: try a normal website in the same browser on the same Mac. If that also fails, resolve that Mac's internet connection first. Do not change an existing VPN or DNS configuration by guesswork.
 
@@ -293,7 +315,7 @@ Read the current error and readiness details. For an app-permission refusal, fir
 
 ### Restarting, connection loss and Telegram
 
-Keep BridgePit and Tailscale running during trading hours. Enable Tailscale's launch-at-login option if appropriate. BridgePit does not start itself after a reboot. Open it yourself, or add BridgePit under macOS System Settings → General → Login Items. Check the public path before relying on alerts. Funnel started with --bg persists and resumes when Tailscale runs again; do not treat a saved URL as evidence of availability.
+Keep BridgePit and Tailscale running during trading hours. Turn on Tailscale's Start at login switch if appropriate; it is the optional setting from its setup screens. BridgePit does not start itself after a reboot. Open it yourself, or add BridgePit under macOS System Settings → General → Login Items. Check the public path before relying on alerts. Funnel started with --bg persists and resumes when Tailscale runs again; do not treat a saved URL as evidence of availability.
 
 TradingView retries certain server failures, but does not guarantee delivery. BridgePit monitors the saved public address in the background, with the dashboard open or closed. Its own warnings also depend on this Mac and a working notification route. Broker-held orders may still execute when this Mac is offline.
 
