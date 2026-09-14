@@ -171,7 +171,7 @@ The test pauses only heartbeat sending for at most five minutes. It resumes
 on confirmation, cancellation or timeout; restarting BridgePit also resumes it.
 If no warning arrives, check the check's schedule, notification destination and
 spam folder, then retry. Retest whenever you change the monitor's recipient.
-Use your own new check, never Luc's monitor or another installation's check.
+Create a separate check for this installation.
 
 This proves your receipt of a monitoring warning, not broker execution or
 TradingView delivery. The monitor cannot close trades or recreate missed
